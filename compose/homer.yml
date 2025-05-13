@@ -1,0 +1,20 @@
+services:
+  # Homer - Application Dashboard
+  homer:
+    image: b4bz/homer:latest
+    container_name: homer
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    profiles: ["apps", "all"]
+    networks:
+      - default
+      - socket_proxy
+    ports:
+      - "$homer_PORT:8080"
+    volumes:
+      # - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
+      - $DOCKERDIR/appdata/homer/config:/www/assets
+    environment:
+      - DOCKER_HOST
+    # DOCKER-LABELS-PLACEHOLDER

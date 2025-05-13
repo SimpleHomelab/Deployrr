@@ -80,6 +80,7 @@
 - **Dashy**: A self-hosted dashboard for managing your server.
 - **Heimdall**: An application dashboard for organizing your web applications.
 - **Homarr**: A sleek, modern dashboard for managing your home server.
+- **Homer**: A dead simple static HOMepage for your servER to keep your services on hand, from a simple yaml configuration file. 
 - **Organizr**: A web-based tool that makes organizing your server applications simple.
 
 ## Reading
