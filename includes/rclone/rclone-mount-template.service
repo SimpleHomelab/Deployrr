@@ -10,6 +10,7 @@ ExecStart=/usr/bin/rclone mount REMOTE-NAME-PLACEHOLDER: REMOTE-MOUNTPOINT-PLACE
 --config DOCKER-FOLDER-PLACEHOLDER/appdata/rclone/rclone.conf \
 --log-file=DOCKER-FOLDER-PLACEHOLDER/logs/HOSTNAME-PLACEHOLDER/rclone-REMOTE-NAME-PLACEHOLDER.log \
 --log-level NOTICE \
+--log-file-max-size 5M \
 --allow-other \
 --no-modtime \
 --umask 002 \
@@ -23,6 +24,7 @@ ExecStart=/usr/bin/rclone mount REMOTE-NAME-PLACEHOLDER: REMOTE-MOUNTPOINT-PLACE
 --vfs-cache-max-size REMOTE-CACHESIZE-PLACEHOLDERG \
 --vfs-read-chunk-size-limit 10G \
 --vfs-refresh \
+--vfs-links \
 #--rc \
 #--rc-web-gui \
 #--rc-addr :5572 \
@@ -33,7 +35,7 @@ ExecStart=/usr/bin/rclone mount REMOTE-NAME-PLACEHOLDER: REMOTE-MOUNTPOINT-PLACE
 --use-mmap
 ExecStop=/bin/fusermount -uz REMOTE-MOUNTPOINT-PLACEHOLDER
 #ExecStartPost=/usr/bin/rclone rc vfs/refresh recursive=true --rc-addr :5572 _async=true
-Restart=on-abort
+Restart=on-failure
 User=USERNAME-PLACEHOLDER
 Group=USERNAME-PLACEHOLDER
 KillMode=mixed
@@ -41,3 +43,4 @@ RestartSec=5
 
 [Install]
 WantedBy=default.target
+
