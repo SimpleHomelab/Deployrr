@@ -1,0 +1,195 @@
+name: "🐛 Bug Report"
+description: Report a bug or unexpected behavior in Deployrr
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thanks for reporting a bug!
+        Please fill out the sections below so we can reproduce and fix the issue.
+        The more detail you provide, the faster we can help.
+
+  # ── Environment ──────────────────────────────────────────────
+
+  - type: input
+    id: deployrr_version
+    attributes:
+      label: Deployrr Version
+      description: "Which version of Deployrr are you running? Check with: `head -1 deployrr_v*.sh` or the dashboard."
+      placeholder: "e.g. v6.0.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      description: What OS is your server running?
+      options:
+        - Ubuntu 24.04
+        - Ubuntu 22.04
+        - Ubuntu 20.04
+        - Debian 12 (Bookworm)
+        - Debian 11 (Bullseye)
+        - Linux Mint
+        - Raspberry Pi OS
+        - Proxmox Host
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: input
+    id: os_other
+    attributes:
+      label: Other OS (if applicable)
+      description: "If you selected 'Other' above, specify your OS and version."
+      placeholder: "e.g. Fedora 40, Arch Linux"
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Server Environment
+      description: How is your server running?
+      options:
+        - Bare Metal
+        - Proxmox LXC (Unprivileged)
+        - Proxmox LXC (Privileged)
+        - Proxmox VM
+        - VMware / ESXi VM
+        - VirtualBox VM
+        - Hyper-V VM
+        - WSL2
+        - Cloud VPS (AWS, GCP, etc.)
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: architecture
+    attributes:
+      label: CPU Architecture
+      description: "What architecture? Check with: `uname -m`"
+      options:
+        - x86_64 (amd64)
+        - aarch64 (arm64)
+        - armv7l (arm32)
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: docker_version
+    attributes:
+      label: Docker Version
+      description: "Check with: `docker --version`"
+      placeholder: "e.g. Docker 27.5.1"
+
+  # ── Bug Scope ────────────────────────────────────────────────
+
+  - type: dropdown
+    id: bug_area
+    attributes:
+      label: Bug Area
+      description: Where does the bug occur?
+      options:
+        - App Installation
+        - App Uninstallation
+        - App Runtime (after install)
+        - Deployrr Setup / Initial Config
+        - Traefik / Reverse Proxy / SSL
+        - Authentication (Authelia / Authentik / OAuth)
+        - Docker Compose Generation
+        - DNS / Domain Configuration
+        - Dashboard
+        - GPU Passthrough
+        - Deployrr Script (general)
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: affected_app
+    attributes:
+      label: Affected App (if applicable)
+      description: "Which app is affected? Include the app name and Docker image version if known."
+      placeholder: "e.g. Plex (linuxserver/plex:1.40.5)"
+
+  - type: dropdown
+    id: gpu
+    attributes:
+      label: GPU Passthrough
+      description: Are you using GPU passthrough?
+      options:
+        - Not applicable
+        - "NVIDIA (nvidia-container-toolkit)"
+        - "AMD (ROCm)"
+        - "Intel (iGPU / QuickSync)"
+        - "Not sure"
+
+  # ── Bug Details ──────────────────────────────────────────────
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of the bug.
+      placeholder: "Describe what happened..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Step-by-step instructions to reproduce the issue.
+      value: |
+        1. 
+        2. 
+        3. 
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs
+      description: |
+        Paste any relevant log output here (terminal output, Docker logs, etc.).
+        This will be automatically formatted as code.
+      render: shell
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other context, screenshots, or information that might help.
+
+  # ── Checklist ────────────────────────────────────────────────
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      options:
+        - label: I have searched existing issues and this hasn't been reported yet.
+          required: true
+        - label: I am running the latest version of Deployrr.
+          required: false
+        - label: I have checked the [documentation](https://www.simplehomelab.com/deployrr/) for a solution.
+          required: false

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Support & Questions
+    url: https://www.simplehomelab.com/discord/
+    about: For general support, setup help, and questions — join our Discord community!
+  - name: 📖 Documentation
+    url: https://www.simplehomelab.com/deployrr/
+    about: Check the official documentation before opening an issue.
