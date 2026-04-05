@@ -1,0 +1,68 @@
+name: "📦 App Request"
+description: Request a new Docker app to be added to Deployrr
+labels: ["app request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## App Request
+        Want a new app added to Deployrr? Fill out the details below.
+
+  - type: input
+    id: app_name
+    attributes:
+      label: App Name
+      description: Name of the application.
+      placeholder: "e.g. Immich"
+    validations:
+      required: true
+
+  - type: input
+    id: app_website
+    attributes:
+      label: App Website / GitHub
+      description: Link to the app's official website or GitHub repo.
+      placeholder: "https://github.com/..."
+    validations:
+      required: true
+
+  - type: input
+    id: docker_image
+    attributes:
+      label: Docker Image
+      description: Docker Hub or GHCR image link (if available).
+      placeholder: "e.g. ghcr.io/immich-app/immich-server"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: App Description
+      description: Brief description of what the app does and why it would be a good fit for Deployrr.
+      placeholder: "This app does..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: What category best fits this app?
+      options:
+        - Media (Streaming / Management)
+        - Downloading (Torrents / Usenet)
+        - Productivity / Office
+        - Home Automation
+        - Monitoring / Dashboards
+        - Networking / DNS
+        - Security / Auth
+        - Database
+        - Development
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other details — special requirements, dependencies, compose examples, etc.
