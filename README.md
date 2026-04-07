@@ -51,7 +51,7 @@ deployrr
 
 If your version 5 stopped working, it is probably because you are on a version older than v5.11.2, which is the latest and the last version of Deployrr v5. 
 
-In order to have continued access to version 5 of Deployrr, please manually download v5.11.2 ([v5 branch](https://github.com/SimpleHomelab/Deployrr/tree/v5)) using the following command:
+In order to have continued access to version 5 of Deployrr, please manually download v5.11.2 ([v5 branch](https://github.com/SimpleHomelab/Deployrr/tree/v5)) using the following commands:
 
 ```
 wget https://github.com/SimpleHomelab/Deployrr/raw/refs/heads/v5/deployrr_v5.11.2.app
