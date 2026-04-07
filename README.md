@@ -26,11 +26,19 @@ Deployrr revolutionizes homelab setup by automating the deployment and configura
   - Comprehensive monitoring and logging
   - Remote share mounting (SMB, NFS, Rclone)
 
-## Quick Start
+## v5 Quick Start
 
-```bash
-bash -c "$(curl -fsSL https://www.deployrr.app/install.sh)"
+If your version 5 stopped working, it is probably because you are on a version older than v5.11.2, which is the latest and the last version of Deployrr v5. 
+
+In order to have continued access to version 5 of Deployrr, please manually download v5.11.2 ([v5 branch](https://github.com/SimpleHomelab/Deployrr/tree/v5)) using the following command:
+
 ```
+wget https://github.com/SimpleHomelab/Deployrr/raw/refs/heads/v5/deployrr_v5.11.2.app
+chmod +x deployrr_v5.11.2.app
+./deployrr_v5.11.2.app
+```
+
+Use the `deployrr_v5.11.2-arm.app` if you are on ARM architecture. 
 
 ## Impact & Growth
 ![Deployrr Stats](images/v5/2025_11_13_deployrr_stats.png)
