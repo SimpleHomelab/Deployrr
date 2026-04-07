@@ -29,13 +29,32 @@ Deployrr revolutionizes homelab setup by automating the deployment and configura
 
 ## Prerequisites
 
-Install Node.js and npm:
+First, install Node.js and npm.
+
+**Ubuntu/Debian:**
 ```bash
 curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
-## Quick Start v6
+**Fedora:**
+```bash
+curl -fsSL https://rpm.nodesource.com/setup_lts.x | sudo -E bash -
+sudo dnf install -y nodejs
+```
+
+**RHEL/Rocky Linux:**
+```bash
+curl -fsSL https://rpm.nodesource.com/setup_lts.x | sudo -E bash -
+sudo yum install -y nodejs
+```
+
+**Arch Linux:**
+```bash
+sudo pacman -S nodejs npm
+```
+
+### Install Deployrr v6
 
 Install Deployrr (same command to update Deployrr):
 ```bash
