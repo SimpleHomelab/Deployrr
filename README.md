@@ -54,7 +54,7 @@ sudo yum install -y nodejs
 sudo pacman -S nodejs npm
 ```
 
-### Install Deployrr v6
+## Install Deployrr v6
 
 Install Deployrr (same command to update Deployrr):
 ```bash
