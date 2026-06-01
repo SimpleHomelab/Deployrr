@@ -56,14 +56,30 @@ sudo pacman -S nodejs npm
 
 ## Install Deployrr v6
 
-Install Deployrr (same command to update Deployrr):
+You can install Deployrr using one of the following methods:
+
+### Method 1: NPM / NPX (Recommended)
+Requires Node.js and npm installed on your system:
 ```bash
 sudo npx @simplehomelab/deployrr@latest
 ```
 
-That is it. You can run Deployrr from anywhere using the command:
+### Method 2: Standalone Bash Installer (curl)
+No Node.js/npm dependency required:
+```bash
+sudo bash -c "$(curl -fsSL https://files.deployrr.app/install.sh)"
+```
+
+---
+
+Once installed, you can launch Deployrr from anywhere using:
 ```bash
 deployrr
+```
+
+To update Deployrr to the latest version, simply run:
+```bash
+deployrr update
 ```
 
 ## Version 5 Support
