@@ -44,7 +44,7 @@ services:
       # Middlewares
       - "traefik.http.routers.authentik-rtr.middlewares=chain-no-auth@file"
       # Individual Application forwardAuth regex (catch any subdomain using individual application forwardAuth)
-      - "traefik.http.routers.authentik-output-rtr.rule=HostRegexp(`{subdomain:[a-z0-9-]+}.${DOMAINNAME_1}`) && PathPrefix(`/outpost.goauthentik.io/`)"
+      - "traefik.http.routers.authentik-output-rtr.rule=HostRegexp(`^[a-z0-9-]+\\.${DOMAINNAME_1}$`) && PathPrefix(`/outpost.goauthentik.io/`)"
       # HTTP Services
       - "traefik.http.routers.authentik-rtr.service=authentik-svc"
       - "traefik.http.services.authentik-svc.loadbalancer.server.port=9000"
