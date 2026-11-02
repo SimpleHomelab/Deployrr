@@ -1,4 +1,103 @@
-# Changelog
+<h1>Changelog</h1><p>Upgrade steps and details per release: see <a href="releases/">releases/</a>.</p>
+
+## 6.0.40
+
+### Patch Changes
+
+- 6819d91: Bump Deployrr Dashboard (Homepage) default version from v1.9.0 to v2.7.0.
+- 7be3126: Check Pins is now a report only and no longer changes your `.env`. Before, it offered to update every pin that differed from the recommended one, including downgrades (for example Traefik 3.7.17 to 3.6). It now lists, one app per line, the pins where Deployrr recommends a newer version, the pins that are newer than recommended (kept), and tags it can't compare (such as `latest` or `16-alpine`) for you to check manually. A leading "v" no longer counts as a difference (v1.9.0 and 1.9.0 match). To update an app, change its pin in Settings > Version Pins (Pro), run Update Stack, and check the app's logs. Compose and config changes still need a reinstall.
+- 170e98a: Refresh the default Deployrr Dashboard look: hairline cards, refined stat blocks, monospace numbers, status dots, equal-height cards, app group icons, quick launch search, a date/time widget, and CPU temperature and uptime in the resources widget. Fix two bookmark descriptions that did not show. Add a `DEPLOYRRDASHBOARD_AUTH_ENABLED` variable (default `false`) as groundwork for Homepage's built-in login.
+- 9b061a5: Bump Traefik default version from 3.6 to 3.7.17 (fixes CVE-2026-88011 and CVE-2026-88004). Existing installs keep their current pin until they change it in Settings > Version Pins (Pro) or delete and reinstall Traefik. A reinstall is also needed for the new Traefik security settings.
+- 9b061a5: Traefik: set `aliasHeadersStrategy=delete` on all entrypoints to block header alias spoofing (for example `X_Auth_User` read as `X-Auth-User` by backends) and silence the Traefik 3.7 startup warning. Applies to new installs and Traefik reinstalls.
+- 9b061a5: Traefik: reject encoded null characters and backslashes in request paths on the websecure entrypoints. Other encoded characters stay allowed, so Nextcloud/WebDAV, Gitea and Grafana should be unaffected. Applies to new installs and Traefik reinstalls.
+
+## 6.0.39
+
+### Patch Changes
+
+- FIX: PIN reset and PIN request calls no longer fail on Cloudflare security challenges.
+
+## 6.0.38
+
+### Patch Changes
+
+- 8a95076: variables with hyphens fixed to underscores
+- fa9a1cf: Add deployrr update CLI command and update standalone installer to write version metadata and tracking info.
+- NEW: Added the `deployrr update` command-line option, allowing users to update Deployrr directly from the terminal.
+- ENHANCEMENT: Updated the standalone `curl` installer to fetch package semantic version and write it to `/opt/deployrr/version.txt`.
+- ENHANCEMENT: Added `INSTALL_METHOD` tracking to both `curl` and `npx` installers, enabling the updater to execute the correct update command automatically.
+
+## 6.0.37
+
+### Patch Changes
+
+- 235c65d: ENHANCEMENT: Switched application launch update checks to query the official NPM registry for semantic version upgrades. Users will now be prompted directly with the exact command (`sudo npx @simplehomelab/deployrr@latest`) to update to the latest patch version, significantly improving the upgrade path from older curl-based binary downloads.
+
+## 6.0.36
+
+### Patch Changes
+
+- ENHANCEMENT: Switched application launch update checks to query the official NPM registry for semantic version upgrades. Users will now be prompted directly with the exact command (`sudo npx @simplehomelab/deployrr@latest`) to update to the latest patch version, significantly improving the upgrade path from older curl-based binary downloads.
+- 7deff8b: fixes GPU Detection TUI issue
+- 87c57e7: Fix Service-status
+- 79775ac: FIX: Fixed Cloudflare Tunnel (and qBittorrent VPN) installation failing with "OCI runtime create failed: not a directory" because the pre-install hook never executed. The jq `//` operator in `f_deploy_app` checked `.preInstall` first (the dialog config object), which shadowed `.hooks.preInstall` (the actual script path). Swapped precedence so `.hooks.preInstall` is resolved first. Also hardened the pre-install hook to detect and remove stale `hosts/` directories left by previous failed Docker runs.
+  FIX: Fixed "Permission denied" when writing settings in unprivileged LXC environments. The `set_setting` and `_write_variable` functions now `chown root:root` the temp file before `tee` appends, then restore the original ownership and permissions before replacement.
+- 2b35b1d: FIX: Fixed secrets with `addToCompose: false` not being written to `.env`, causing Docker Compose warnings like `The "OPENWEBUI_SECRET_KEY" variable is not set`. Root cause was jq's `//` operator treating `false` as falsy (`false // true` → `true`), silently ignoring `addToCompose: false` in manifests. Affected ~30 secrets across ~10 apps including Open-WebUI, Vaultwarden, Sshwifty, DDNS-Updater, Supabase, and Langfuse.
+- 5957755: FIX: Fixed Homarr failing to start with `Invalid environment variables: SECRET_ENCRYPTION_KEY is required`. Homarr v1.x requires a 64-character hex encryption key that was not being generated or passed to the container. Added auto-generation via `openssl_rand_hex_32` in the manifest and mapped it to the `SECRET_ENCRYPTION_KEY` environment variable in the compose file.
+- 07860a4: fix app custom port
+
+## 6.0.35
+
+### Patch Changes
+
+- FIX: Fixed Homarr failing to start with `Invalid environment variables: SECRET_ENCRYPTION_KEY is required`. Homarr v1.x requires a 64-character hex encryption key that was not being generated or passed to the container. Added auto-generation via `openssl_rand_hex_32` in the manifest and mapped it to the `SECRET_ENCRYPTION_KEY` environment variable in the compose file.
+- FIX: Fixed custom port selection crashing with `export: '=9000': not a valid identifier` when users changed the port from the suggested default during app installation. Root cause was a variable-shadowing bug where `f_check_port_available()`'s `while read` loop overwrote the caller's `var_name` variable. Also hardened all dynamic `export` statements to use correct quoting syntax.
+- c12f533: Fix traefik exposure if dashboard not running/installed
+
+## 6.0.35
+
+### Patch Changes
+
+- FIX: Fixed "Usage: grep" error in the Services Status menu by correctly escaping patterns that start with a hyphen and adding `--` to `grep` calls. Also enforced `sudo` across several `grep` utility calls acting on the main Docker Compose file to ensure reliable permission handling in all environments.
+- FIX: Removed early return in `f_register_dashboard_from_manifest` that skipped Traefik rule creation and subdomain prompts when the Deployrr Dashboard was not running. Traefik-related infrastructure configuration is now decoupled from dashboard runtime status, allowing apps to be fully configured for reverse proxy regardless of the dashboard's state. Dashboard registration itself is now handled silently and gracefully if the service is down.
+
+## 6.0.34
+
+### Patch Changes
+
+- d69ebf3: FIX: Fixed package availability detection failing on non-English locales (e.g., German, French). `apt-cache policy`, `dnf list`, and `pacman -Si` output localized field names that broke grep-based parsing. Added `LC_ALL=C` to force English output across all supported distros. Also added an early "already installed" check so packages pre-installed from non-repo sources (e.g., VM images) are correctly detected.
+
+## 6.0.33
+
+### Patch Changes
+
+- ENHANCEMENT: System time synchronization verification (10s threshold) backport to prevent deployment faults for time-sensitive services like Let's Encrypt and Authelia.
+
+## 6.0.32
+
+### Patch Changes
+
+- FIX: Forced login shells (e.g. `lxc exec -- su - user`) to explicitly source `~/.bashrc` by fetching and appending an automated `~/.bash_profile` inclusion block, fully restoring aliases for all access contexts.
+
+## 6.0.31
+
+### Patch Changes
+
+- FIX: Fixed bash aliases disappearing for unprivileged users. Explicitly cached and restored POSIX ownership matching in `f_safe_sed` prior to `rm`/`mv` maneuvers to prevent dropping credentials across filesystems. Enforced `0644` creation readability for `udms_bash_aliases` payload.
+
+## 6.0.28
+
+### Patch Changes
+
+- FIX: Fixed `f_safe_sed` aborting OAuth secret generation and failing to modify files in protected directories (e.g. `docker/secrets/`). Evaluates `sudo test -f` instead of local `[[ -f ]]` to correctly assert file existence on root-restricted LXC binds.
+- FIX: Patched `_write_variable` and `f_set_constant` routines that were inadvertently creating empty environment definitions when root file existence tests failed for the unprivileged user.
+
+## 6.0.27
+
+### Patch Changes
+
+- FIX: Fixed silent Traefik version pin failures on Alpine/BusyBox unprivileged LXCs by migrating all \`grep -oP\` (PCRE) statements to POSIX-compliant \`grep -E\` + \`awk\` extraction chains.
+- FIX: Resolved silent \`.env\` appends blocking Deployrr variables inside unprivileged containers. Rewrote \`\_write_variable\` and \`f_set_constant\` to leverage the ZFS/LXC safe \`sudo cp\` staging strategy instead of \`sudo tee\`.
 
 ## 6.0.26
 
@@ -85,6 +184,12 @@ All notable changes to Deployrr will be documented in this file.
 
 ## [v6.0.21]
 
+<h5>v5.11.2 - March 30, 2026</h5>
+<ul>
+  <li>NEW: Changed Deployrr v5 support file source to v5 branch.</li>
+</ul>
+
+<h5>v5.11.1 - November 14, 2025</h5>
 <ul>
   <li>FIX: Suppressed benign 'preserving permissions' error outputs generated by <code>sed</code> inside unprivileged LXC environments during environment variable updates.</li>
 </ul>
@@ -92,8 +197,6 @@ All notable changes to Deployrr will be documented in this file.
 ## [v6.0.20]
 
 - FIX: Recover the NPM `latest` deployment tag after concurrent CI pipeline runs (triggered by blanket `git push --tags`) caused legacy version `v6.0.12` to inadvertently overwrite the pointer. Included the PIE ASLR compilation fix for `shc`.
-
-## [v6.0.19]
 
 ## [v6.0.18] - April 1, 2026
 
@@ -178,7 +281,9 @@ Total Supported Apps: 150+
 - Updated version pins: TinyAuth v5, Authelia 4.39.15, Deployrr Dashboard 1.9.0, Authentik 2025.12.1.
 - Upgraded TinyAuth from v4 to v5 — all env vars now use TINYAUTH*<SECTION>*<KEY> format. Existing users are auto-migrated seamlessly (data preserved).
 - Security improvement - script now enforces non-root execution.
+- v5 main menu now includes "Upgrade to v6" option that creates a handoff file for seamless v6 migration.
 - DP_VERSION tracking in deployrr_constants — auto-stamps current version on every boot for future upgrade detection.
+- Migration detection log shows which method triggered (DP_VERSION or handoff file).
 - Domain checks now support UFW Port Address Translation (PAT) configurations with intelligent port detection.
 - App manifests support runOnUpdate field for triggering pre-install hooks during app updates.
 - OS-aware package lists in installation dialogs for Arch, Fedora/RHEL, and Debian/Ubuntu.
