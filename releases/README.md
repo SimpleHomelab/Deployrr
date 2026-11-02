@@ -1,0 +1,11 @@
+# Deployrr release notes
+
+Newest first. Each release has its own page with the steps existing users need to take.
+
+| Version | Date | Summary |
+|---|---|---|
+| [v6.0.40](v6.0.40.md) | 2026-11-02 | Traefik 3.7.17 security update, new Deployrr Dashboard look, Check Pins becomes a report that never downgrades. |
+
+Releases before v6.0.40 have no page here.
+
+Full list of changes across all versions: see [CHANGELOG.md](../CHANGELOG.md).

@@ -22,3 +22,5 @@ dpm*
 !apps/
 !apps/**
 
+!releases/
+!releases/**
