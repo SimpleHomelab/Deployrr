@@ -58,7 +58,7 @@
     ],
     "secrets": [
       {
-        "name": "OPENWEBUI_SECRET_KEY",
+        "name": "openwebui_secret_key",
         "description": "Secret key for session encryption",
         "type": "random",
         "length": 32,
