@@ -1,5 +1,11 @@
 <h1>Changelog</h1><p>Upgrade steps and details per release: see <a href="releases/">releases/</a>.</p>
 
+## 6.0.41
+
+### Patch Changes
+
+- ccb6883: Fix: Deployrr failed with 'Illegal instruction' on CPUs without AVX2 (many Celeron, Pentium, Atom and older systems).
+
 ## 6.0.40
 
 ### Patch Changes
