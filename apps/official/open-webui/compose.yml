@@ -13,7 +13,7 @@ services:
       - "$OPENWEBUI_PORT:8080"
     environment:
       - OLLAMA_BASE_URL=http://$SERVER_LAN_IP:$OLLAMA_PORT
-      - WEBUI_SECRET_KEY=$OPENWEBUI_SECRET_KEY
+      - WEBUI_SECRET_KEY=/run/secrets/openwebui_secret_key
       # - CORS_ALLOW_ORIGIN=
       - USER_AGENT=Open-WebUI
     volumes:
