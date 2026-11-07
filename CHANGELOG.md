@@ -1,5 +1,12 @@
 <h1>Changelog</h1><p>Upgrade steps and details per release: see <a href="releases/">releases/</a>.</p>
 
+## 6.0.42
+
+### Patch Changes
+
+- 877f728: GPU hardware acceleration now works on release builds. On v6.0.x, picking a GPU for Plex, Jellyfin, Emby, Ollama or any other GPU app printed "GPU acceleration configured" but added no GPU devices, because the GPU compose snippets were never shipped. They now come with the apps cache. If a GPU snippet is missing or can't be added, Deployrr shows an error naming the file and installs the app on CPU, without a success message. NVIDIA on Jellyfin, Plex and Emby still installs on CPU with an error (known gap, fix to follow).
+- eaeb064: WUD: switch to the maintained getwud/wud image, with an admin login (Refs SimpleHomelab/Deployrr#80)
+
 ## 6.0.41
 
 ### Patch Changes
