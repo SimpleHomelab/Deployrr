@@ -15,8 +15,8 @@ body:
     id: deployrr_version
     attributes:
       label: Deployrr Version
-      description: "Which version of Deployrr are you running? Check with: `head -1 deployrr_v*.sh` or the dashboard."
-      placeholder: "e.g. v6.0.0"
+      description: "Which version of Deployrr are you running? Check with: `cat /opt/deployrr/version.txt` or the dashboard."
+      placeholder: "e.g. 6.0.41"
     validations:
       required: true
 
@@ -26,6 +26,7 @@ body:
       label: Operating System
       description: What OS is your server running?
       options:
+        - Ubuntu 26.04
         - Ubuntu 24.04
         - Ubuntu 22.04
         - Ubuntu 20.04
