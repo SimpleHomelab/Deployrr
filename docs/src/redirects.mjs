@@ -7,6 +7,7 @@ export const redirects = {
 	'/deployrr/references': '/getting-started/videos-and-guides/',
 	// Printed by shipped Deployrr versions. Must keep working.
 	'/deployrr/forgot-pin': '/using-deployrr/forgot-pin/',
+	'/deployrr/change-hostname': '/using-deployrr/change-hostname/',
 };
 
 // Redirects that do not belong to a single page's old_paths.
