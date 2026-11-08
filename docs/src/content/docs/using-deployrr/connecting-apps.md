@@ -121,7 +121,7 @@ To connect another app to it, use `gluetun` as the host name and `8080` as the p
 After you install qBittorrent VPN, Deployrr shows a message that says to use `gluetun` and your qBittorrent VPN port (8082 by default). That port only works from your browser. From another container, use port `8080`.
 :::
 
-When you install qBittorrent VPN, Deployrr turns on a port mapping in the Gluetun file and restarts Gluetun. After that, the qBittorrent web page is at `http://YOUR_SERVER_IP:QBITTORRENTVPN_PORT`. Replace `YOUR_SERVER_IP` with your server's local IP address and `QBITTORRENTVPN_PORT` with the port you picked at install.
+When you install qBittorrent VPN, Deployrr turns on a port mapping in the Gluetun file and restarts Gluetun. After that, the qBittorrent web page is at `http://YOUR_SERVER_IP:QBITTORRENTVPN_PORT`. Replace `YOUR_SERVER_IP` with your server's local IP address and `QBITTORRENTVPN_PORT` with the port you picked at install. If that page doesn't open or says `Unauthorized`, see [qBittorrent web UI says Unauthorized or won't open](/apps/qbittorrent-webui-troubleshooting/).
 
 ## Use the server IP and host port instead
 
