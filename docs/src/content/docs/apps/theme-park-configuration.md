@@ -135,7 +135,7 @@ qBittorrent blocks styles from other sites unless you allow them.
 2. Reload the page with Ctrl+F5 to skip the browser cache.
 3. The page shows the theme you chose.
 
-If the page looks unchanged or Traefik fails to start, read the Traefik log. Run `traefiklogs` from [Bash aliases](/using-deployrr/bash-aliases/). Press Ctrl+C to stop.
+If the page looks unchanged or Traefik fails to start, [read the Traefik log](/reverse-proxy/check-traefik-logs/). Run `traefiklogs` from [Bash aliases](/using-deployrr/bash-aliases/). Press Ctrl+C to stop.
 
 :::caution
 The plugin is downloaded when Traefik starts. If Traefik can't reach the internet, it can't load the plugin. A typo in `traefik.yml` can stop Traefik, and all your apps behind it. Back up the file before you edit it.

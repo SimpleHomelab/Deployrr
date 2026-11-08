@@ -106,7 +106,7 @@ These aliases work on the Compose file Deployrr keeps in your Docker folder for 
 | `dcrec` | Recreates all containers, even if nothing changed. |
 | `dcpull` | Pulls the latest images for all apps. |
 | `dclogs` | Shows the last 50 log lines of all apps and keeps following. |
-| `traefiklogs` | Follows the Traefik log file. |
+| `traefiklogs` | Follows the Traefik log file. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/). |
 
 You can add an app name to most of the `dc` aliases to act on one app, for example `dclogs traefik` or `dcrestart traefik`.
 

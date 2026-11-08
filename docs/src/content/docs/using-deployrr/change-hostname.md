@@ -111,7 +111,7 @@ If you set up the option to start media apps after boot, there is also a `script
 
 ## If something still looks wrong
 
-- If an app does not load, check the Traefik logs for errors.
+- If an app does not load, [check the Traefik logs](/reverse-proxy/check-traefik-logs/) for errors.
 - For other problems, ask in the [Deployrr Discord](https://www.simplehomelab.com/discord/).
 
 ## Related

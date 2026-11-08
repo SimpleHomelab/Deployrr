@@ -244,7 +244,7 @@ Router and service names must be unique across all the files in the rules folder
 
 3. Open the new web address. Add a library, a download client and an indexer in the new copy. It does not share settings with the first one. To link it to your other apps, use `sonarr-4k:8989`. See [Connect your apps to each other](/using-deployrr/connecting-apps/).
 
-If Compose prints an error when you start the service, check the indentation in `custom.yml`. If the web address does not load, read the Traefik logs.
+If Compose prints an error when you start the service, check the indentation in `custom.yml`. If the web address does not load, [read the Traefik logs](/reverse-proxy/check-traefik-logs/).
 
 ## Related
 

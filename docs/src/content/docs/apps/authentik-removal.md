@@ -135,7 +135,7 @@ The Authentik rule files in `appdata/traefik3/rules/HOSTNAME/` (`chain-authentik
    The list should be empty.
 
 2. Open one of the apps you switched. It should ask for the new login, or load straight away if you chose **No Authentication**.
-3. If an app shows an error, check that its chain matches a login method you have set up.
+3. If an app shows an error, check that its chain matches a login method you have set up. [Read the Traefik logs](/reverse-proxy/check-traefik-logs/) to see which middleware Traefik can't find.
 
 ## Related
 

@@ -13,7 +13,9 @@ export const redirects = {
 	'/operating-system/bash-aliases-explained': '/using-deployrr/bash-aliases/',
 	'/docker/custom.yml-usage': '/using-deployrr/custom-yml/',
 	'/docker/second-instances-of-apps': '/using-deployrr/second-app-instances/',
-	'/networking/connecting-applications-together': '/using-deployrr/connecting-apps/',};
+	'/networking/connecting-applications-together': '/using-deployrr/connecting-apps/',
+	'/traefik/check-traefik-logs': '/reverse-proxy/check-traefik-logs/',
+};
 
 // Redirects that do not belong to a single page's old_paths.
 export const extraRedirects = {

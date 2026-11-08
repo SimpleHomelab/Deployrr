@@ -115,7 +115,7 @@ Do not enable SSL in Home Assistant when you use it behind Traefik. Traefik ends
 2. You should see the Home Assistant login page, not `400: Bad Request`.
 3. Log in. The dashboard should load.
 
-If you still get the error, look at the Home Assistant log again. The address in the new `A request from a reverse proxy was received from` line may differ from the one you trusted. Add that address to `trusted_proxies` and restart Home Assistant. If the page does not load at all, read the Traefik logs.
+If you still get the error, look at the Home Assistant log again. The address in the new `A request from a reverse proxy was received from` line may differ from the one you trusted. Add that address to `trusted_proxies` and restart Home Assistant. If the page does not load at all, [read the Traefik logs](/reverse-proxy/check-traefik-logs/).
 
 ## Related
 
