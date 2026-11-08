@@ -15,6 +15,7 @@ related:
   - using-deployrr/second-app-instances
   - apps/home-assistant-behind-traefik
   - using-deployrr/change-hostname
+  - reverse-proxy/restrict-access-using-ip-allowlist
 further_reading: []
 last_reviewed: 2026-11-08
 status: current
@@ -158,3 +159,4 @@ If the dashboard loads on your home network but not from outside, check your DNS
 - [Run a second copy of an app](/using-deployrr/second-app-instances/): run a second copy of an app at its own address.
 - [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/): another example of an app's Traefik file.
 - [Change the hostname](/using-deployrr/change-hostname/): what happens to the rules folder if your hostname changes.
+- [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/): keep the dashboard to your home network.

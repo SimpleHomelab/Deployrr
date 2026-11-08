@@ -171,3 +171,4 @@ The **Auth Bypass Key - Set** box tells you to use a `-bypass` template with **T
 - [Bash aliases](/using-deployrr/bash-aliases/): what `dcrec` and the other shortcuts do.
 - [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/): Traefikify for apps on other machines.
 - [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/): another app set up with a rules file.
+- [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/): limit an app to your LAN or VPN instead of skipping the login.
