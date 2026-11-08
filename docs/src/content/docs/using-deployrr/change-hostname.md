@@ -68,6 +68,8 @@ In these steps, `OLD` is the old hostname and `NEW` is the new one. All paths ar
    cd /home/USERNAME/docker
    ```
 
+   If you set up the [bash aliases](/using-deployrr/bash-aliases/), `cdd` does the same.
+
 3. Stop all running containers:
 
    ```bash
