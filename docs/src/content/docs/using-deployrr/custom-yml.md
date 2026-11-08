@@ -22,6 +22,8 @@ sidebar:
 
 Use `custom.yml` to run containers that are not in the Deployrr apps library, or to run your own version of an app. You write the Compose code. Deployrr starts it together with your other apps.
 
+To run a second copy of an app you already installed, see [Run a second copy of an app](/using-deployrr/second-app-instances/).
+
 ## Before you start
 
 - Deployrr is installed and you created your Docker folder in **Prerequisites**. See the [Quick start](/getting-started/quick-start/).
