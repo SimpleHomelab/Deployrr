@@ -83,7 +83,7 @@ This change applies to every app that uses the secure headers file, not only Jel
 
 ## If the TV app still can't log in
 
-The TV app may get past the connection and then stop at a login step from Authelia, Authentik, TinyAuth, Google OAuth or Basic HTTP Auth. TV apps can't show those login pages. Jellyfin has its own login, so you can switch Jellyfin to No Authentication in Traefik.
+The TV app may get past the connection and then stop at a login step from Authelia, Authentik, TinyAuth, Google OAuth or Basic HTTP Auth. TV apps can't show those login pages. Jellyfin has its own login, so you can switch Jellyfin to No Authentication in Traefik. For apps that can send a custom header, [Auth Bypass](/reverse-proxy/setup-auth-bypass-using-file-provider/) is another way to skip the login page.
 
 First check which chain Jellyfin uses. If Traefik was running when you installed Jellyfin, Deployrr asked you to **Pick an Authentication Method** and created `app-jellyfin.yml` in `appdata/traefik3/rules/HOSTNAME/`. Open that file and look for a chain name such as `chain-authelia`. If you skipped the question, Jellyfin uses `chain-no-auth` already.
 

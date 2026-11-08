@@ -17,6 +17,7 @@ export const redirects = {
 	'/traefik/check-traefik-logs': '/reverse-proxy/check-traefik-logs/',
 	'/traefik/point-root-domain-to-a-dashboard': '/reverse-proxy/point-root-domain-to-a-dashboard/',
 	'/traefik/multi-server-same-domain': '/reverse-proxy/multi-server-same-domain/',
+	'/traefik/setup-auth-bypass-using-file-provider': '/reverse-proxy/setup-auth-bypass-using-file-provider/',
 };
 
 // Redirects that do not belong to a single page's old_paths.
