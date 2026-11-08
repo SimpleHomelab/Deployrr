@@ -123,7 +123,10 @@ for (const [slug, page] of pages) {
 		if (oldPathOwners.has(oldPath)) fail(file, `old path ${oldPath} is also claimed by ${oldPathOwners.get(oldPath)}`);
 		oldPathOwners.set(oldPath, file);
 		const target = redirects[oldPath];
-		if (!target) fail(file, `old path ${oldPath} has no entry in src/redirects.mjs`);
+		if (linkToSlug(oldPath, '') === slug) {
+			// The page lives at its old address, so it needs no redirect (and a redirect would clash).
+			if (target) fail(file, `old path ${oldPath} is this page's own address; remove it from src/redirects.mjs`);
+		} else if (!target) fail(file, `old path ${oldPath} has no entry in src/redirects.mjs`);
 		else if (linkToSlug(target, '') !== slug) fail(file, `redirect for ${oldPath} goes to ${target}, not /${slug}/`);
 	}
 }

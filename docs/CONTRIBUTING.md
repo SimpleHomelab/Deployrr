@@ -65,7 +65,7 @@ The build fails if a required field is missing or wrong.
 | `further_reading` | No | Outside links, as `{ title, url }`. |
 | `last_reviewed` | Yes | The date you last checked the page against Deployrr, like `2026-01-31`. |
 | `status` | Yes | `current`, `needs-review` or `archived`. |
-| `old_paths` | No | Old addresses for this page. Each one also needs an entry in `src/redirects.mjs`. |
+| `old_paths` | No | Old addresses for this page. Each one also needs an entry in `src/redirects.mjs`, unless it is the same as the page's new address. |
 | `sources` | No | Where the content came from, as `{ type: issue, ref: ... }` or `{ type: discord, ref: ... }`. |
 
 ## Tags

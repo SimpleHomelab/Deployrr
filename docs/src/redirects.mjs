@@ -1,6 +1,8 @@
 // Old docs.deployrr.app (WikiDocs) paths and where they live now.
 // Every old path listed in a page's `old_paths` frontmatter must have an entry here, and the reverse.
 // `npm run check` enforces this. Never remove an entry: old links in shipped Deployrr versions depend on them.
+// Exception: if an old path is the same as the page's new address (like /apps/authentik-removal),
+// the page itself answers it, so it must not have a redirect.
 export const redirects = {
 	'/deployrr/quick-start-guide': '/getting-started/quick-start/',
 	'/deployrr/updating-deployrr': '/getting-started/updating-deployrr/',
@@ -11,8 +13,7 @@ export const redirects = {
 	'/operating-system/bash-aliases-explained': '/using-deployrr/bash-aliases/',
 	'/docker/custom.yml-usage': '/using-deployrr/custom-yml/',
 	'/docker/second-instances-of-apps': '/using-deployrr/second-app-instances/',
-	'/networking/connecting-applications-together': '/using-deployrr/connecting-apps/',
-};
+	'/networking/connecting-applications-together': '/using-deployrr/connecting-apps/',};
 
 // Redirects that do not belong to a single page's old_paths.
 export const extraRedirects = {
