@@ -24,7 +24,7 @@ concurrency:
 jobs:
   build:
     name: Check and build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: docs
@@ -65,7 +65,7 @@ jobs:
     name: Deploy to GitHub Pages
     needs: build
     if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       pages: write
       id-token: write

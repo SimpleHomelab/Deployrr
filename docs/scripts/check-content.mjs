@@ -5,7 +5,8 @@
 //
 // --no-orphans  Skip the checks that only make sense once the whole site exists:
 //               pages with fewer than 2 inbound links, tags in tags.yml that no page uses,
-//               and extra redirects that point at pages not written yet.
+//               extra redirects that point at pages not written yet, and `related` entries
+//               for pages not written yet (these become warnings).
 
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, posix } from 'node:path';
@@ -19,6 +20,7 @@ const strict = !process.argv.includes('--no-orphans');
 const MIN_INBOUND = 2;
 
 const errors = [];
+const warnings = [];
 const fail = (file, message) => errors.push(`${file}: ${message}`);
 
 function walk(dir) {
@@ -84,7 +86,10 @@ for (const [slug, page] of pages) {
 	// Related pages exist and aren't this page.
 	for (const target of data.related ?? []) {
 		if (target === slug) fail(file, `"related" lists the page itself`);
-		else if (!pages.has(target)) fail(file, `"related" points at a page that does not exist: ${target}`);
+		else if (!pages.has(target)) {
+			if (strict) fail(file, `"related" points at a page that does not exist: ${target}`);
+			else warnings.push(`${file}: "related" points at a page that does not exist yet: ${target}`);
+		}
 		else inbound.get(target).add(slug);
 	}
 
@@ -143,6 +148,7 @@ if (strict) {
 	}
 }
 
+for (const warning of warnings) console.warn(`  warning: ${warning}`);
 if (errors.length > 0) {
 	console.error(`Content check failed with ${errors.length} problem(s):\n`);
 	for (const error of errors) console.error(`  - ${error}`);

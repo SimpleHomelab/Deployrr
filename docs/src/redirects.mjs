@@ -1,7 +1,9 @@
 // Old docs.deployrr.app (WikiDocs) paths and where they live now.
 // Every old path listed in a page's `old_paths` frontmatter must have an entry here, and the reverse.
 // `npm run check` enforces this. Never remove an entry: old links in shipped Deployrr versions depend on them.
-export const redirects = {};
+export const redirects = {
+	'/deployrr/quick-start-guide': '/getting-started/quick-start/',
+};
 
 // Redirects that do not belong to a single page's old_paths.
 export const extraRedirects = {
