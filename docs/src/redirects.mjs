@@ -19,6 +19,7 @@ export const redirects = {
 	'/traefik/multi-server-same-domain': '/reverse-proxy/multi-server-same-domain/',
 	'/traefik/setup-auth-bypass-using-file-provider': '/reverse-proxy/setup-auth-bypass-using-file-provider/',
 	'/traefik/restrict-access-using-ip-allowlist': '/reverse-proxy/restrict-access-using-ip-allowlist/',
+	'/networking/ufw-firewall-vps-dedi': '/networking/ufw-firewall-vps/',
 };
 
 // Redirects that do not belong to a single page's old_paths.

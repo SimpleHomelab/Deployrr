@@ -20,6 +20,7 @@ related:
   - apps/pi-hole-port-53-conflict
   - getting-started/quick-start
   - reverse-proxy/restrict-access-using-ip-allowlist
+  - networking/ufw-firewall-vps
 last_reviewed: 2026-11-08
 status: needs-review
 old_paths: ["/networking/opnsense-conflict"]
@@ -125,3 +126,4 @@ If you find the OPNsense setting that caused it, please tell us on Discord so th
 - [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): where `traefik.log` is and how to search it.
 - [Pi-hole port 53 conflict](/apps/pi-hole-port-53-conflict/): another DNS problem on port 53.
 - [Quick start](/getting-started/quick-start/): the setup steps that come before Traefik staging.
+- [Apps on a VPS cannot reach the internet](/networking/ufw-firewall-vps/): firewall problems on a cloud server.

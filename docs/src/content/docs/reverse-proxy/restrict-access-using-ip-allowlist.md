@@ -36,7 +36,7 @@ This is the simplest way. An app set to **Internal** answers only on your local 
 
 1. In Deployrr, go to **Proxy** > **Traefik** > **Traefik Mode**.
 2. Look at the **Traefik Mode** line. It shows the current mode. If it says **Simple**, select **Traefik Mode** once to switch to **Advanced**. If it already says **Advanced**, don't select it, or it switches back to Simple. In Simple mode every app is exposed both internally and externally, and you can't change that per app.
-3. On your router, forward port 80 to port 81 on your server. Forward port 443 to port 444. These are the only ports the internet side needs.
+3. On your router, forward port 80 to port 81 on your server. Forward port 443 to port 444. These are the only ports the internet side needs. A VPS usually has no router to do this; see [Apps on a VPS cannot reach the internet](/networking/ufw-firewall-vps/) before you try Advanced mode there.
 4. Make sure devices at home reach the server directly. Either your router supports hairpinning, or you use local DNS rewrites (in your router, Pi-hole or AdGuard Home) that point your app names at the server's local IP address. Without one of these, home traffic may count as external, and Internal apps don't open by name.
 5. Go to **Proxy** > **Traefik** > **Manage Exposure**.
 6. Select the app and choose **Change**.
