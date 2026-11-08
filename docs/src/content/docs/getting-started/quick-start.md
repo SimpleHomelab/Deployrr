@@ -141,6 +141,6 @@ See [Update Deployrr](/getting-started/updating-deployrr/) for the details and w
 
 ## Next steps
 
-- Watch the [Deployrr v6 intro video](https://youtu.be/Nuo83uzTWco) (13 minutes) for a tour of the menus.
+- Watch the [Deployrr v6 intro video](https://youtu.be/Nuo83uzTWco) (13 minutes) for a tour of the menus. More in [Videos and guides](/getting-started/videos-and-guides/).
 - Ask questions and share your setup in the [Discord community](https://www.simplehomelab.com/discord/).
 - Report a problem on the [Deployrr GitHub page](https://github.com/SimpleHomelab/Deployrr).

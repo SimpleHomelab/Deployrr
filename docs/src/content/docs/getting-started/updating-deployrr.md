@@ -103,3 +103,4 @@ sudo bash -c "$(curl -fsSL https://files.deployrr.app/install.sh)"
 ## Related
 
 - [Quick start](/getting-started/quick-start/): install Deployrr and complete Prerequisites.
+- [Videos and guides](/getting-started/videos-and-guides/): videos that show the v6 menus.
