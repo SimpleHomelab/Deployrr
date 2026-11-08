@@ -21,6 +21,7 @@ export const redirects = {
 	'/traefik/restrict-access-using-ip-allowlist': '/reverse-proxy/restrict-access-using-ip-allowlist/',
 	'/networking/ufw-firewall-vps-dedi': '/networking/ufw-firewall-vps/',
 	'/docker/docker-compose-malformed': '/docker/compose-malformed/',
+	'/docker/docker-rate-limit': '/docker/rate-limit/',
 };
 
 // Redirects that do not belong to a single page's old_paths.

@@ -104,7 +104,7 @@ These aliases work on the Compose file Deployrr keeps in your Docker folder for 
 | `dcstart` | Starts apps that already exist. |
 | `dcrestart` | Restarts all apps. |
 | `dcrec` | Recreates all containers, even if nothing changed. |
-| `dcpull` | Pulls the latest images for all apps. |
+| `dcpull` | Pulls the latest images for all apps, one at a time. If pulls fail, see [Docker image pulls fail](/docker/rate-limit/). |
 | `dclogs` | Shows the last 50 log lines of all apps and keeps following. |
 | `traefiklogs` | Follows the Traefik log file. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/). |
 
