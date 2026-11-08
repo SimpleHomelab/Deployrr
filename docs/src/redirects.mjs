@@ -9,6 +9,7 @@ export const redirects = {
 	'/deployrr/forgot-pin': '/using-deployrr/forgot-pin/',
 	'/deployrr/change-hostname': '/using-deployrr/change-hostname/',
 	'/operating-system/bash-aliases-explained': '/using-deployrr/bash-aliases/',
+	'/docker/custom.yml-usage': '/using-deployrr/custom-yml/',
 };
 
 // Redirects that do not belong to a single page's old_paths.
