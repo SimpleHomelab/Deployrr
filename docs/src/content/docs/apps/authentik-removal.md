@@ -48,7 +48,7 @@ There are two ways. **Manage Auth** does it for you. It needs a Pro license, **S
 
 1. From the main menu, select **Security**.
 2. Select **Manage Auth**.
-3. Read the **Requirements to Manage Authentication** warning, then select **Yes** to continue.
+3. Read the **Requirements to Manage Authentication** warning, then select **Yes** to continue. **Yes** is the button on the right. If you press Enter straight away, you select **No** and go back.
 4. In the list, look for apps shown with **Authentik**. App names are in capitals, with their current login method next to them.
 5. Select one of those apps.
 6. At `Select new authentication method`, pick the new method. Don't pick **Authentik**. It is listed while it is still running.
