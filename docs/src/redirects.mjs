@@ -2,7 +2,7 @@
 // Every old path listed in a page's `old_paths` frontmatter must have an entry here, and the reverse.
 // `npm run check` enforces this. Never remove an entry: old links in shipped Deployrr versions depend on them.
 // Exception: if an old path is the same as the page's new address (like /apps/authentik-removal),
-// the page itself answers it, so it must not have a redirect.
+// the page itself answers it, so it must not have a redirect. This covers every page under /apps/.
 export const redirects = {
 	'/deployrr/quick-start-guide': '/getting-started/quick-start/',
 	'/deployrr/updating-deployrr': '/getting-started/updating-deployrr/',
