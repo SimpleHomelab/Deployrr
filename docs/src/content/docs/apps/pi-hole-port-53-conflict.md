@@ -131,4 +131,5 @@ Pi-hole also uses port 67/udp for DHCP. If a DHCP server runs on the same machin
 
 - [Bash aliases](/using-deployrr/bash-aliases/): the `ports` and `showlistening` shortcuts show which program holds a port.
 - [Quick start](/getting-started/quick-start/): the Prerequisites steps, including Packages.
+- [No internet on the server or in containers after setup](/docker/no-internet-in-containers/): when DNS breaks after the Debian Packages step.
 - [Traefik staging fails on OPNsense](/networking/opnsense-conflict/): when your router's DNS filtering stops Traefik from getting a certificate.
