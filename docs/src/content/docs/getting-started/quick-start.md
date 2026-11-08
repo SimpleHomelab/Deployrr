@@ -117,7 +117,7 @@ When Deployrr opens, you see the main menu. The first item is **Prerequisites**.
 4. Select **Proceed** to confirm.
 5. The first time, Deployrr asks you to create a 6-digit PIN. Write it down somewhere safe.
 
-The next time you verify, Deployrr asks for the same PIN. If you lose it, you can reset it from the **Help** menu.
+The next time you verify, Deployrr asks for the same PIN. If you lose it, see [I forgot my Deployrr PIN](/using-deployrr/forgot-pin/).
 
 The **Verify** line in the menu shows your current license, for example `Verify - Your Deployrr License: Free`.
 

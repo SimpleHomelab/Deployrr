@@ -5,6 +5,8 @@ export const redirects = {
 	'/deployrr/quick-start-guide': '/getting-started/quick-start/',
 	'/deployrr/updating-deployrr': '/getting-started/updating-deployrr/',
 	'/deployrr/references': '/getting-started/videos-and-guides/',
+	// Printed by shipped Deployrr versions. Must keep working.
+	'/deployrr/forgot-pin': '/using-deployrr/forgot-pin/',
 };
 
 // Redirects that do not belong to a single page's old_paths.
