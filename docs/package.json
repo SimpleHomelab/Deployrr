@@ -10,7 +10,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check && node scripts/check-content.mjs --no-orphans && astro build",
+    "check": "astro check && node scripts/check-content.mjs --no-orphans && astro build && node scripts/check-dev.mjs",
     "astro": "astro"
   },
   "dependencies": {

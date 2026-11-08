@@ -83,6 +83,22 @@ for (const [slug, page] of pages) {
 		if (line.includes('\u2014')) fail(`${file}:${i + 1}`, 'contains an em dash; use a comma, colon or full stop');
 	});
 
+	// Article fields. The schema keeps these optional so non-article pages (homepage,
+	// tag pages) can render; every file in the content collection is an article.
+	for (const field of ['description', 'type', 'tags', 'applies_to', 'related', 'last_reviewed', 'status']) {
+		const value = data[field];
+		if (value === undefined || value === null || value === '' || (Array.isArray(value) && value.length === 0)) {
+			fail(file, `missing required field "${field}"`);
+		}
+	}
+	if (typeof data.description === 'string') {
+		const length = data.description.trim().length;
+		if (length < 50 || length > 160) fail(file, `field "description" is ${length} characters; use 50 to 160`);
+	} else if (data.description !== undefined) fail(file, 'field "description" must be text');
+	if (data.type === 'troubleshooting' && !(Array.isArray(data.symptoms) && data.symptoms.length > 0)) {
+		fail(file, 'missing required field "symptoms" (needed when type is troubleshooting)');
+	}
+
 	// Related pages exist and aren't this page.
 	for (const target of data.related ?? []) {
 		if (target === slug) fail(file, `"related" lists the page itself`);

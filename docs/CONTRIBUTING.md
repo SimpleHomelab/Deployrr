@@ -50,7 +50,7 @@ Open the address it prints (usually `http://localhost:4321`).
 
 ## Frontmatter
 
-The build fails if a required field is missing or wrong.
+`npm run check` fails if a required field is missing or wrong.
 
 | Field | Required | What to put |
 |---|---|---|
@@ -81,6 +81,7 @@ Tags come from a fixed list in `tags.yml`. Each tag has a label and a one-line d
 - Checks that every tag is in `tags.yml`, and every tag in `tags.yml` is used.
 - Checks that every image has alt text, and that there are no em dashes.
 - Builds the site and fails on broken internal links.
+- Starts the dev server and checks that the homepage, the troubleshooting page, the tag pages and an article load without errors.
 
 ## Writing style
 
