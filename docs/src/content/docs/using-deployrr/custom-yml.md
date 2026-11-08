@@ -141,6 +141,8 @@ dcrec SERVICE_NAME
 
 If Compose prints an error about the file, check the indentation in `custom.yml`. Compose is strict about spaces.
 
+To let your service talk to other apps, see [Connect your apps to each other](/using-deployrr/connecting-apps/).
+
 ## What Deployrr changes and what it leaves alone
 
 - When you install an app, Deployrr adds a line for it to `docker-compose-HOSTNAME.yml`, just above the `SERVICE-PLACEHOLDER-DO-NOT-DELETE` line. It does not edit `compose/HOSTNAME/custom.yml`.
