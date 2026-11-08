@@ -137,6 +137,8 @@ To update to the latest version, run:
 deployrr update
 ```
 
+See [Update Deployrr](/getting-started/updating-deployrr/) for the details and what to do if it fails.
+
 ## Next steps
 
 - Watch the [Deployrr v6 intro video](https://youtu.be/Nuo83uzTWco) (13 minutes) for a tour of the menus.

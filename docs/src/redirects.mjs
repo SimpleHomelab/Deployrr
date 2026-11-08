@@ -3,6 +3,7 @@
 // `npm run check` enforces this. Never remove an entry: old links in shipped Deployrr versions depend on them.
 export const redirects = {
 	'/deployrr/quick-start-guide': '/getting-started/quick-start/',
+	'/deployrr/updating-deployrr': '/getting-started/updating-deployrr/',
 };
 
 // Redirects that do not belong to a single page's old_paths.
