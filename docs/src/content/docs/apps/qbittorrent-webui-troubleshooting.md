@@ -21,6 +21,7 @@ related:
   - using-deployrr/bash-aliases
   - reverse-proxy/check-traefik-logs
   - docker/no-internet-in-containers
+  - apps/theme-park-configuration
 further_reading:
   - title: "qBittorrent, Gluetun VPN, and DeUnhealth: The Perfect Trio (video playlist)"
     url: https://youtube.com/playlist?list=PL1Hno7tIbSWWZXw1jEsYWPRK-gHqITZds
@@ -197,3 +198,4 @@ sudo docker logs qbittorrent
 
 - [Connect your apps to each other](/using-deployrr/connecting-apps/): the host and port Sonarr and Radarr need, including `gluetun:8080`.
 - [Bash aliases](/using-deployrr/bash-aliases/): shortcuts for logs and container lists.
+- [Theme your apps with Theme Park](/apps/theme-park-configuration/): give the qBittorrent web UI a new look.
