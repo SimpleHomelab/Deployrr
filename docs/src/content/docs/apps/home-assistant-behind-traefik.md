@@ -62,7 +62,7 @@ Traefik forwards your request to Home Assistant. Home Assistant sees a request f
 
 ### Part 1: Add Home Assistant to Traefik
 
-If you already did this part, go to part 2.
+If you already did this part, go to part 2. The same steps work for any app on another machine. See [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/).
 
 1. In Deployrr, go to **Proxy** > **Traefik** > **Traefikify**.
 2. Read the **Traefikify** box and confirm that you want to proceed.

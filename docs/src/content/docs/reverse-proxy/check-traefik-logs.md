@@ -67,7 +67,7 @@ They are in the `logs/HOSTNAME/traefik/` folder inside your Docker folder. `HOST
 Deployrr sets Traefik to write its messages to the two files above. Read the files, not `docker logs traefik`.
 :::
 
-When you run **Proxy** > **Production** (Setup Traefik Production), Deployrr renames the old log to `traefik_staging.log` and starts a new `traefik.log`. Nothing else trims or rotates these files, so they can grow large over time.
+When you run **Proxy** > **Traefik** > **Production** (Setup Traefik Production), Deployrr renames the old log to `traefik_staging.log` and starts a new `traefik.log`. Nothing else trims or rotates these files, so they can grow large over time.
 
 ### Follow the Traefik log live
 
@@ -120,7 +120,7 @@ grep -i acme logs/$HOSTNAME/traefik/traefik.log | tail -n 20
 Each app's Traefik file is `app-APPNAME.yml` in the `appdata/traefik3/rules/HOSTNAME/` folder inside your Docker folder. A few apps, such as Traefik itself, OAuth and Authelia, use labels in their file in `compose/HOSTNAME/` instead.
 
 :::caution[Browser says the certificate is not trusted]
-Until you run **Proxy** > **Production** (Setup Traefik Production), Traefik gets test certificates from the Let's Encrypt staging server. Browsers don't trust them. That is expected. Run the production setup when your test works.
+Until you run **Proxy** > **Traefik** > **Production** (Setup Traefik Production), Traefik gets test certificates from the Let's Encrypt staging server. Browsers don't trust them. That is expected. Run the production setup when your test works.
 :::
 
 For a `502`, check that the app is running:
@@ -171,7 +171,7 @@ Recreating Traefik drops web connections for a few seconds.
 
 ### Read the logs in Dozzle
 
-If you prefer a web page to the terminal, you can read both files in Dozzle. These apps need all **Prerequisites** steps done and **Proxy** > **Production** (Setup Traefik Production) done. If something is missing, Deployrr shows a **Requirements Not Met** box that lists it.
+If you prefer a web page to the terminal, you can read both files in Dozzle. These apps need all **Prerequisites** steps done and **Proxy** > **Traefik** > **Production** (Setup Traefik Production) done. If something is missing, Deployrr shows a **Requirements Not Met** box that lists it.
 
 Install each app from **Apps** > **Browse Apps**: select the app, then choose **Install**.
 

@@ -16,6 +16,7 @@ export const redirects = {
 	'/networking/connecting-applications-together': '/using-deployrr/connecting-apps/',
 	'/traefik/check-traefik-logs': '/reverse-proxy/check-traefik-logs/',
 	'/traefik/point-root-domain-to-a-dashboard': '/reverse-proxy/point-root-domain-to-a-dashboard/',
+	'/traefik/multi-server-same-domain': '/reverse-proxy/multi-server-same-domain/',
 };
 
 // Redirects that do not belong to a single page's old_paths.
