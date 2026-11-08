@@ -15,6 +15,7 @@ export const redirects = {
 	'/docker/second-instances-of-apps': '/using-deployrr/second-app-instances/',
 	'/networking/connecting-applications-together': '/using-deployrr/connecting-apps/',
 	'/traefik/check-traefik-logs': '/reverse-proxy/check-traefik-logs/',
+	'/traefik/point-root-domain-to-a-dashboard': '/reverse-proxy/point-root-domain-to-a-dashboard/',
 };
 
 // Redirects that do not belong to a single page's old_paths.

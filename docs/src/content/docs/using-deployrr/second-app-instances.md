@@ -220,7 +220,7 @@ Deployrr creates `app-sonarr-4k.yml` and shows `File provider created for sonarr
 
 5. Save the file.
 
-Now open `https://sonarr4k.YOUR_DOMAIN`. Replace `YOUR_DOMAIN` with your own domain. Your DNS must already send `sonarr4k` to your server. A wildcard record does this.
+Now open `https://sonarr4k.YOUR_DOMAIN`. Replace `YOUR_DOMAIN` with your own domain. Your DNS must already send `sonarr4k` to your server. A wildcard record does this. To change the address in the `rule:` line in other ways, for example to use your root domain, see [Open a dashboard at your root domain](/reverse-proxy/point-root-domain-to-a-dashboard/).
 
 :::caution
 Router and service names must be unique across all the files in the rules folder. If two files use the same name, Traefik uses only one of them, and one app stops working.

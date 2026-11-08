@@ -141,7 +141,7 @@ If the page looks unchanged or Traefik fails to start, [read the Traefik log](/r
 The plugin is downloaded when Traefik starts. If Traefik can't reach the internet, it can't load the plugin. A typo in `traefik.yml` can stop Traefik, and all your apps behind it. Back up the file before you edit it.
 :::
 
-If you later change the app's login method or add the app to Traefik again, Deployrr may rewrite its `app-APPNAME.yml` file. Check that the theme line is still in the `middlewares:` list afterwards.
+If you run **Traefikify** again for the app and choose to overwrite its file, or remove the app from Traefik and add it back, Deployrr writes a new `app-APPNAME.yml` without your theme line. Add the line again afterwards. If you change the app's login method, check that the theme line is still in the `middlewares:` list.
 
 ## Related
 

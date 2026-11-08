@@ -114,7 +114,7 @@ grep -i acme logs/$HOSTNAME/traefik/traefik.log | tail -n 20
 | `traefik.log` | Lines with `acme` or `certificate` and the word `error` | Traefik could not get or renew a Let's Encrypt certificate. Check your domain and Cloudflare details. |
 | `traefik.log` | A message that a middleware does not exist or cannot be found | A router uses a middleware name that Traefik does not know. Check the spelling in the app's Traefik file. |
 | `traefik.log` | Messages about a router or service for one app | The app's Traefik file has a mistake. See the note below the table. |
-| `access.log` | A `404` for your app's address | Traefik found no router for that address. The address in the app's Traefik file does not match what you typed. |
+| `access.log` | A `404` for your app's address | Traefik found no router for that address. The address in the app's Traefik file does not match what you typed. See [Open a dashboard at your root domain](/reverse-proxy/point-root-domain-to-a-dashboard/) for how the `rule:` line sets the address. |
 | `access.log` | A `502` for your app's address | Traefik found the router but could not reach the app. The app may be stopped, still starting, or on the wrong port. |
 
 Each app's Traefik file is `app-APPNAME.yml` in the `appdata/traefik3/rules/HOSTNAME/` folder inside your Docker folder. A few apps, such as Traefik itself, OAuth and Authelia, use labels in their file in `compose/HOSTNAME/` instead.
