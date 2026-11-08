@@ -193,6 +193,7 @@ When an install finishes, Deployrr shows `Traefik Error Logs should now be avail
 - **The folder or files are missing.** Check that you used your own hostname and Docker folder. If you changed the hostname, see [Change the hostname](/using-deployrr/change-hostname/).
 - **`traefiklogs` says `command not found`.** Turn on the aliases, then open a new terminal. See [Bash aliases](/using-deployrr/bash-aliases/).
 - **The log is too big to read.** Lower the log level, or search with `grep` as shown above.
+- **The log shows `unable to obtain ACME certificate`.** See [Traefik staging fails on OPNsense](/networking/opnsense-conflict/). The steps there help with any firewall that filters DNS.
 
 ## Related
 
