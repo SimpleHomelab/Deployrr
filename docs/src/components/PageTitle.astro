@@ -1,0 +1,54 @@
+---
+import Default from '@astrojs/starlight/components/PageTitle.astro';
+import { Aside } from '@astrojs/starlight/components';
+
+const data = Astro.locals.starlightRoute.entry.data as Record<string, any>;
+const typeLabels: Record<string, string> = {
+	'how-to': 'How-to',
+	troubleshooting: 'Troubleshooting',
+	guide: 'Guide',
+	reference: 'Reference',
+	archive: 'Archive',
+};
+const statusLabels: Record<string, string> = {
+	current: 'Current',
+	'needs-review': 'Needs review',
+	archived: 'Archived',
+};
+const isArticle = typeof data.type === 'string' && typeof data.status === 'string';
+const tagsData = (Astro.locals as any).starlightTags;
+const tags: { id: string; label: string; url: string }[] = (data.tags ?? []).map((id: string) => {
+	const tag = tagsData?.tags?.get(id);
+	return { id, label: tag?.label ?? id, url: tag?.url ?? `/tags/${id}/` };
+});
+---
+
+<Default />
+{
+	isArticle && (
+		<>
+			<div class="page-badges">
+				<span class="badge">{typeLabels[data.type] ?? data.type}</span>
+				<span class="badge">Deployrr {data.applies_to}</span>
+				<span class={`badge status-${data.status}`}>{statusLabels[data.status] ?? data.status}</span>
+				{tags.map((tag) => (
+					<a class="badge tag" href={tag.url}>
+						{tag.label}
+					</a>
+				))}
+			</div>
+			{data.status === 'needs-review' && (
+				<Aside type="caution" title="Needs review">
+					Parts of this page may not match the current version of Deployrr yet. If something looks
+					different on your system, ask on <a href="https://www.simplehomelab.com/discord/">Discord</a>.
+				</Aside>
+			)}
+			{data.status === 'archived' && (
+				<Aside type="note" title="Archived">
+					This page is kept for reference. It covers older versions of Deployrr and is no longer
+					updated.
+				</Aside>
+			)}
+		</>
+	)
+}

@@ -1,0 +1,82 @@
+# The closed list of tags for docs pages.
+# A page can only use tags from this list. Every tag here must be used by at least one page.
+# Each tag needs a label and a one-line description.
+tags:
+  install:
+    label: Install
+    description: Installing Deployrr and what your system needs.
+  updates:
+    label: Updates
+    description: Keeping Deployrr and your apps up to date.
+  pin:
+    label: PIN
+    description: Your Deployrr PIN and how to reset it.
+  hostname:
+    label: Hostname
+    description: Changing the name of the machine Deployrr runs on.
+  shell:
+    label: Shell
+    description: Command line shortcuts and terminal use.
+  compose:
+    label: Docker Compose
+    description: Compose files, custom.yml and editing app settings.
+  app-instances:
+    label: App instances
+    description: Running more than one copy of an app.
+  app-networking:
+    label: App networking
+    description: Getting apps to talk to each other.
+  docker:
+    label: Docker
+    description: Docker engine problems and container behaviour.
+  traefik:
+    label: Traefik
+    description: The Traefik reverse proxy, routing and certificates.
+  remote-access:
+    label: Remote access
+    description: Reaching your apps from outside your home network.
+  auth:
+    label: Authentication
+    description: Login protection for apps, bypass rules and auth providers.
+  domain:
+    label: Domain and DNS
+    description: Domain names, DNS records and Cloudflare.
+  ports:
+    label: Ports
+    description: Port conflicts and port forwarding.
+  firewall:
+    label: Firewall
+    description: Host firewalls and blocking or allowing traffic.
+  vps:
+    label: VPS
+    description: Running Deployrr on a rented server.
+  storage:
+    label: Storage
+    description: Disks, mounts and remote storage.
+  debian:
+    label: Debian
+    description: Problems specific to Debian hosts.
+  logs:
+    label: Logs
+    description: Finding and reading logs to see what went wrong.
+  support:
+    label: Support
+    description: Getting help from the Deployrr team and community.
+  migration:
+    label: Migration
+    description: Moving from older Deployrr versions.
+  media:
+    label: Media
+    description: Media servers, players and downloaders.
+  home-automation:
+    label: Home automation
+    description: Home Assistant and related apps.
+  ad-blocking:
+    label: Ad blocking
+    description: Network-wide ad blockers such as Pi-hole.
+  theming:
+    label: Theming
+    description: Changing how app web interfaces look.
+  learning:
+    label: Learning
+    description: Videos and guides to learn more about your setup.

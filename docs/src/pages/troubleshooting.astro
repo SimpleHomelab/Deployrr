@@ -1,0 +1,53 @@
+---
+// Built from the docs collection: every page with `type: troubleshooting`, grouped by section.
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import SearchButton from '../components/SearchButton.astro';
+import { sections } from '../sections.mjs';
+import { docHref, getDocs, sectionOf } from '../lib/docs';
+
+const pages = (await getDocs()).filter((entry) => entry.data.type === 'troubleshooting');
+const groups = sections
+	.map((section) => ({ ...section, pages: pages.filter((entry) => sectionOf(entry) === section.dir) }))
+	.filter((group) => group.pages.length > 0);
+const headings = groups.map((group) => ({ depth: 2, slug: group.dir, text: group.label }));
+---
+
+<StarlightPage
+	frontmatter={{
+		title: 'Troubleshooting',
+		description: 'Find the error message or symptom you see and go straight to the fix.',
+		tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 2 },
+	}}
+	headings={headings}
+>
+	<p>
+		Look for the message or behaviour you see below. Each entry links to a page with the cause and
+		the steps to fix it.
+	</p>
+	<SearchButton label="Search for your error message" />
+	{groups.length === 0 && <p>No troubleshooting pages yet.</p>}
+	{
+		groups.map((group) => (
+			<>
+				<h2 id={group.dir}>{group.label}</h2>
+				<ul class="ts-list">
+					{group.pages.map((entry) => (
+						<li>
+							<a href={docHref(entry)}>
+								<strong>{entry.data.title}</strong>
+							</a>
+							<div class="symptoms">
+								{(entry.data.symptoms ?? []).map((symptom, i) => (
+									<>
+										{i > 0 && ' · '}
+										<code>{symptom}</code>
+									</>
+								))}
+							</div>
+						</li>
+					))}
+				</ul>
+			</>
+		))
+	}
+</StarlightPage>

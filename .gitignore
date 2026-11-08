@@ -24,3 +24,8 @@ dpm*
 
 !releases/
 !releases/**
+!docs/
+!docs/**
+docs/node_modules/
+docs/dist/
+docs/.astro/

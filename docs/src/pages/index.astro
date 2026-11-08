@@ -1,0 +1,61 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { getEntry } from 'astro:content';
+import logoLight from '../assets/deployrr-logo.png';
+import logoDark from '../assets/deployrr-logo-dark.png';
+import SearchButton from '../components/SearchButton.astro';
+import { docHref, firstInSection } from '../lib/docs';
+
+// Cards point at real pages only. A card is hidden until its page exists.
+async function hrefFor(id: string, fallbackSection?: string) {
+	const entry = id ? await getEntry('docs', id) : undefined;
+	if (entry) return docHref(entry);
+	if (fallbackSection) {
+		const first = await firstInSection(fallbackSection);
+		if (first) return docHref(first);
+	}
+	return undefined;
+}
+
+const cards = [
+	{
+		title: 'Get started',
+		description: 'Check what your system needs, install Deployrr and set up your first apps.',
+		href: await hrefFor('getting-started/quick-start', 'getting-started'),
+	},
+	{
+		title: 'Fix a problem',
+		description: 'Find your error message or symptom and follow the fix.',
+		href: '/troubleshooting/',
+	},
+	{
+		title: 'Apps',
+		description: 'Tips and fixes for specific apps you install with Deployrr.',
+		href: await hrefFor('', 'apps'),
+	},
+	{
+		title: 'Get support',
+		description: 'Ask the community on Discord or get one-to-one help.',
+		href: await hrefFor('support/discord', 'support'),
+	},
+].filter((card): card is { title: string; description: string; href: string } => Boolean(card.href));
+---
+
+<StarlightPage
+	frontmatter={{
+		title: 'Deployrr Docs',
+		description: 'Fix problems and get more out of Deployrr, the tool that sets up Docker apps on your homelab.',
+		template: 'splash',
+		hero: {
+			title: 'Deployrr Docs',
+			tagline: 'Fix problems and get more out of your homelab.',
+			image: { light: logoLight, dark: logoDark, alt: 'Deployrr logo' },
+		},
+	}}
+>
+	<SearchButton />
+	<CardGrid>
+		{cards.map((card) => <LinkCard title={card.title} description={card.description} href={card.href} />)}
+	</CardGrid>
+</StarlightPage>

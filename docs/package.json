@@ -1,0 +1,27 @@
+{
+  "name": "deployrr-docs",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check && node scripts/check-content.mjs --no-orphans && astro build",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "0.9.12",
+    "@astrojs/starlight": "0.42.10",
+    "astro": "7.4.7",
+    "sharp": "0.35.5",
+    "starlight-links-validator": "0.27.0",
+    "starlight-llms-txt": "0.12.0",
+    "starlight-tags": "2.0.0",
+    "typescript": "6.0.3",
+    "yaml": "2.9.1"
+  }
+}
