@@ -193,7 +193,7 @@ The alias file also defines `csbrestart`, but in the current version it fails wi
 
 | Alias | What it does |
 | --- | --- |
-| `ports` | Shows all ports in use and the programs behind them. Needs the `net-tools` package. |
+| `ports` | Shows all ports in use and the programs behind them. Needs the `net-tools` package. Handy for port clashes like [Pi-hole and port 53](/apps/pi-hole-port-53-conflict/). |
 | `showlistening` | Shows programs that listen on a port. |
 | `ping` | Pings with 5 packets, then stops. |
 | `myip` | Shows your public IP address. |
