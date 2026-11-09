@@ -7,11 +7,11 @@ tags:
   - logs
 applies_to: v6.0+
 related:
+  - support/ssh-access
   - using-deployrr/forgot-pin
   - getting-started/quick-start
   - reverse-proxy/check-traefik-logs
   - docker/waiting-for-container
-  - getting-started/videos-and-guides
 further_reading: []
 last_reviewed: 2026-11-09
 status: current
@@ -81,6 +81,8 @@ Never post passwords, tokens, API keys or your Deployrr PIN. This applies to mes
 4. Attach the sanitized log file.
 5. Reply to any questions from other members. Say what you tried and what changed.
 
+If support needs to look at your system, Pro users can start a remote session. See [Get remote help with Remote Assist](/support/ssh-access/).
+
 ### Find the same information inside Deployrr
 
 Deployrr has a **Support** entry in the **Help** menu. It is described as "How and where to get support". It shows a **Getting Support** box. The box tells you to check the documentation first and then ask on Discord. It names the `#deployrr` channel for paid supporters. It also asks you to share a sanitized log and to connect your Discord account on your SimpleHomelab.com profile.
@@ -93,8 +95,8 @@ Deployrr has a **Support** entry in the **Help** menu. It is described as "How a
 
 ## Related
 
+- [Get remote help with Remote Assist](/support/ssh-access/): let support look at your system (Pro).
 - [I forgot my Deployrr PIN](/using-deployrr/forgot-pin/): view, email or reset your PIN without asking on Discord.
 - [Quick start](/getting-started/quick-start/): the first-run steps in order.
 - [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): find more log detail for routing and certificate problems.
 - [Deployrr times out waiting for a container to start](/docker/waiting-for-container/): read container logs when an app does not start.
-- [Videos and guides](/getting-started/videos-and-guides/): learn more about your setup.

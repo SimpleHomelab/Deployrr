@@ -27,6 +27,7 @@ export const redirects = {
 	'/operating-system/failed-to-create-shim-task-debian': '/host/shim-task-debian/',
 	'/operating-system/rclone-mount-point-not-empty-error': '/host/rclone-mount-not-empty/',
 	'/deployrr/get-support-on-discord': '/support/discord/',
+	'/deployrr/get-support-via-ssh': '/support/ssh-access/',
 };
 
 // Redirects that do not belong to a single page's old_paths.
