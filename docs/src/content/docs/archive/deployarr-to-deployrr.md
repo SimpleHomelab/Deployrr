@@ -23,7 +23,7 @@ Deployarr was renamed Deployrr in v5.7.1. This page is for people who are still 
 If you already run Deployrr (v5.7.1 or later, or v6), you do not need this page.
 
 - On v6, see [Update Deployrr](/getting-started/updating-deployrr/).
-- On v5, a normal update does not take you to v6. v6 needs a fresh install. You can keep your app data, but you must reinstall your apps. See [Quick start](/getting-started/quick-start/).
+- On v5, a normal update does not take you to v6. v6 needs a fresh install. You can keep your app data, but you must reinstall your apps. See [Move from Deployrr v5 to v6](/getting-started/move-from-v5/).
 :::
 
 The steps below are kept as the old docs gave them. The old docs said to go through v5.7.1 before you update to any later version.

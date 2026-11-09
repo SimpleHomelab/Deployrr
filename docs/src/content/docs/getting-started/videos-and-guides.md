@@ -57,7 +57,7 @@ The playlists and the UDMS series may include older videos and posts. Menus and 
 
 ## Older material (Deployrr v5)
 
-These were made for Deployrr v5. The screens and menus are different in v6, so use them for background only. If you must stay on v5, the [Deployrr README](https://github.com/SimpleHomelab/Deployrr) explains how to get v5.11.2.
+These were made for Deployrr v5. The screens and menus are different in v6, so use them for background only. If you must stay on v5, the [Deployrr README](https://github.com/SimpleHomelab/Deployrr) explains how to get v5.11.2. To move to v6, see [Move from Deployrr v5 to v6](/getting-started/move-from-v5/).
 
 - [Deployrr v5 intro (20 min)](https://www.simplehomelab.com/go/deployarr-v5-intro/)
 - [Deployrr v5 detailed tutorial (2.5 hours)](https://www.simplehomelab.com/go/deployarr-v5-detailed-guide/)

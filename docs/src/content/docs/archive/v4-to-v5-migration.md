@@ -26,7 +26,7 @@ This page is for people who are still on Deployrr v4.6.1 or older. It is kept fo
 If you are on Deployrr v5 or v6, do not follow this page.
 
 - On v6, see [Update Deployrr](/getting-started/updating-deployrr/).
-- On v5, a normal update does not take you to v6. v6 needs a fresh install. You can keep your app data, but you must reinstall your apps. See [Quick start](/getting-started/quick-start/).
+- On v5, a normal update does not take you to v6. v6 needs a fresh install. You can keep your app data, but you must reinstall your apps. See [Move from Deployrr v5 to v6](/getting-started/move-from-v5/).
 :::
 
 Deployrr v5.0 changed a lot of the code. Because of that, v4 setups do not carry over on their own. The steps below move a v4.6.1 install (or older) to v5.0.
