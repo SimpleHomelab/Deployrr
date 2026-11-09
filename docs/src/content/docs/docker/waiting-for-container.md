@@ -1,5 +1,7 @@
 ---
 title: Deployrr times out waiting for a container to start
+sidebar:
+  label: Timed out waiting for a container
 description: Fix Deployrr timing out while it waits for an app or Traefik to start. Check logs, ports and dependencies, then replace an old snap or distro Docker.
 type: troubleshooting
 tags:

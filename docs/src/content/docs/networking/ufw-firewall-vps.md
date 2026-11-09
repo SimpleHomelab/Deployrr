@@ -1,5 +1,7 @@
 ---
 title: "Apps on a VPS cannot reach the internet or show self-signed certificate errors"
+sidebar:
+  label: VPS apps can't reach the internet
 description: Fix apps on a VPS or dedicated server that cannot reach the internet or show self-signed certificate errors, by resetting UFW and using Simple mode.
 type: troubleshooting
 tags:

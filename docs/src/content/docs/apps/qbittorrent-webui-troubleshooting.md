@@ -1,5 +1,7 @@
 ---
 title: qBittorrent web UI says Unauthorized or won't open
+sidebar:
+  label: qBittorrent web UI won't open
 description: Fix the qBittorrent web UI when it shows Unauthorized, rejects admin/adminadmin or won't load, for qBittorrent and qBittorrent VPN.
 type: troubleshooting
 tags:

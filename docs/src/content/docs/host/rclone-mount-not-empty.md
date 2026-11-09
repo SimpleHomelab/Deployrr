@@ -1,5 +1,7 @@
 ---
 title: Rclone mount fails with "is not empty, use --allow-non-empty to mount anyway"
+sidebar:
+  label: Rclone mount folder is not empty
 description: Fix the Rclone "failed to mount FUSE fs" error when the mount folder is not empty. Check it, move the stray files aside and mount your share again.
 type: troubleshooting
 tags:

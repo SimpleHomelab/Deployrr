@@ -32,7 +32,7 @@ const cards = [
 	{
 		title: 'Apps',
 		description: 'Tips and fixes for specific apps you install with Deployrr.',
-		href: await hrefFor('', 'apps'),
+		href: (await firstInSection('apps')) ? '/apps/' : undefined,
 	},
 	{
 		title: 'Get support',

@@ -1,5 +1,7 @@
 ---
 title: "Traefik staging fails with unable to obtain ACME certificate on OPNsense"
+sidebar:
+  label: Certificate fails behind OPNsense
 description: Traefik staging stops with "Unable to obtain ACME certificate" behind OPNsense or another advanced firewall. Find the real error and check DNS filtering.
 type: troubleshooting
 tags:

@@ -40,7 +40,7 @@ for (const file of files) {
 	}
 }
 
-const paths = ['/', '/troubleshooting/', '/tags/', ...(tag ? [`/tags/${tag}/`] : []), `/${articleSlug}/`];
+const paths = ['/', '/troubleshooting/', '/apps/', '/tags/', ...(tag ? [`/tags/${tag}/`] : []), `/${articleSlug}/`];
 
 function freePort() {
 	return new Promise((resolve, reject) => {

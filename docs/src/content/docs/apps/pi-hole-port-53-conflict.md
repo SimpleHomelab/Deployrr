@@ -1,5 +1,7 @@
 ---
 title: Pi-hole will not start because port 53 is already in use
+sidebar:
+  label: "Pi-hole: port 53 already in use"
 description: Fix the "address already in use" error on port 53 when you install Pi-hole, by turning off the systemd-resolved stub listener on the host.
 type: troubleshooting
 tags:

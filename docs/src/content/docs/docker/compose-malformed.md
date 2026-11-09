@@ -1,5 +1,7 @@
 ---
 title: "Docker environment setup fails with: docker-compose file is malformed"
+sidebar:
+  label: Compose file is malformed
 description: Deployrr stops with "is malformed (missing placeholders)" on your main compose file. Put the missing lines back, or rebuild it after a backup.
 type: troubleshooting
 tags:

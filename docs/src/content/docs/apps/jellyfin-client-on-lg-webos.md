@@ -1,5 +1,7 @@
 ---
 title: Jellyfin app on LG webOS TV or Xbox shows error -27
+sidebar:
+  label: Jellyfin error -27 on LG TV or Xbox
 description: Fix the -27 connection error in the Jellyfin app on LG webOS TVs and Xbox when Jellyfin runs behind Traefik, by changing one security header.
 type: troubleshooting
 tags:

@@ -1,5 +1,7 @@
 ---
 title: "Docker image pulls fail with: toomanyrequests or TLS handshake timeout"
+sidebar:
+  label: Image pulls fail (rate limit)
 description: Fix Docker Hub pull errors and TLS handshake timeouts when installing or updating apps by signing in to Docker Hub and pulling fewer images at once.
 type: troubleshooting
 tags:

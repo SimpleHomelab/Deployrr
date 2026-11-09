@@ -1,5 +1,7 @@
 ---
 title: No internet on the server or in containers after setup
+sidebar:
+  label: No internet after setup
 description: Fix lost internet or DNS on a Debian server after Prerequisites, and containers that cannot reach the internet, by resetting DNS and restarting Docker.
 type: troubleshooting
 tags:
