@@ -28,10 +28,6 @@ If you already run Deployrr (v5.7.1 or later, or v6), you do not need this page.
 
 The steps below are kept as the old docs gave them. The old docs said to go through v5.7.1 before you update to any later version.
 
-:::note
-The download links come from the old docs and may no longer work. If they fail, ask on [Discord](/support/discord/), or start fresh with v6 using the [Quick start](/getting-started/quick-start/).
-:::
-
 ## Migrate from Deployarr to Deployrr
 
 1. Go to your home folder. Replace `USER` with your Linux username. This is a value you fill in.
@@ -43,7 +39,7 @@ The download links come from the old docs and may no longer work. If they fail, 
 2. Download Deployarr v5.7.
 
    ```bash
-   wget http://www.deployrr.app/archives/deployarr_v5.7.app
+   wget https://www.deployrr.app/archives/deployarr_v5.7.app
    ```
 
 3. Make the file executable.
@@ -63,7 +59,7 @@ The download links come from the old docs and may no longer work. If they fail, 
 6. Download Deployrr v5.7.1.
 
    ```bash
-   wget http://www.deployrr.app/archives/deployrr_v5.7.1.app
+   wget https://www.deployrr.app/archives/deployrr_v5.7.1.app
    ```
 
 7. Make the file executable.

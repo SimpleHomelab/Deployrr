@@ -1,8 +1,8 @@
 ---
-title: "Apps on a VPS cannot reach the internet or show self-signed certificate errors"
+title: "Fix the UFW firewall on a VPS: apps can't reach the internet or show certificate errors"
 sidebar:
-  label: VPS apps can't reach the internet
-description: Fix apps on a VPS or dedicated server that cannot reach the internet or show self-signed certificate errors, by resetting UFW and using Simple mode.
+  label: UFW firewall on a VPS
+description: Fix apps on a VPS or dedicated server that cannot reach the internet or show self-signed certificate errors, by cleaning up UFW and using Simple mode.
 type: troubleshooting
 tags:
   - firewall
@@ -23,13 +23,13 @@ related:
   - reverse-proxy/restrict-access-using-ip-allowlist
   - networking/opnsense-conflict
   - getting-started/quick-start
-last_reviewed: 2026-11-08
-status: needs-review
+last_reviewed: 2026-11-09
+status: current
 old_paths: ["/networking/ufw-firewall-vps-dedi"]
 sources: []
 ---
 
-You run Deployrr on a rented VPS or a dedicated server. Your apps cannot reach the internet, or you see certificate errors you cannot explain. This page helps you check your firewall setup and get back to a working state. It is based on a guide from the community.
+You run Deployrr on a rented VPS or a dedicated server. Your apps cannot reach the internet, or you see certificate errors you cannot explain. This page helps you clean up the firewall on the server and get back to a working state.
 
 ## Symptoms
 
@@ -62,12 +62,12 @@ Searches for these errors usually point to missing root certificates in the cont
 
 ## Cause
 
-The usual cause is the firewall on the server itself. Rules you added to UFW or iptables by hand can interfere with how Docker traffic moves. So can edits to `/etc/ufw/before.rules` or `/etc/ufw/after.rules`. The community member who wrote the original guide fixed it by removing those changes and using a small set of plain rules.
+The usual cause is the firewall on the server itself. Rules you added to UFW or iptables by hand can interfere with how Docker traffic moves. So can edits to `/etc/ufw/before.rules` or `/etc/ufw/after.rules`. The fix is to remove those changes and use a small set of plain rules.
 
 On a home network, Deployrr's Advanced mode expects your router to forward port 80 to 81 and port 443 to 444. A cloud server has no router to do that. People then try to fake the forwarding with firewall rules on the server, and those rules are easy to break. Simple mode avoids this. See step 3.
 
 :::note
-The cause above is the community author's finding. It matches the symptoms, but you can also see these errors for other reasons, such as blocked DNS. Test after each step so you know what helped.
+You can also see these errors for other reasons, such as blocked DNS. Test after each step so you know what helped.
 :::
 
 ## Fix
@@ -84,7 +84,7 @@ Steps 1, 2 and 5 are general Linux and UFW advice. They are not part of Deployrr
 
 2. Remove any rules or edits you added by hand. This includes any lines you added to `/etc/ufw/before.rules` or `/etc/ufw/after.rules`, and any custom iptables rules. Put each file back to its default state.
 
-   Do not use `PREROUTING ... REDIRECT` rules to forward port 80 to 81 or port 443 to 444. The community author had these working for a while. They stopped after package upgrades and reboots. Lines like these are the ones to remove:
+   Do not use `PREROUTING ... REDIRECT` rules to forward port 80 to 81 or port 443 to 444. They can work for a while, then stop after package upgrades and reboots. Lines like these are the ones to remove:
 
    ```txt
    -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 81
@@ -141,7 +141,7 @@ Steps 1, 2 and 5 are general Linux and UFW advice. They are not part of Deployrr
 
    Change `22` in the SSH rule if you moved SSH to another port. If you get this wrong, you lock yourself out of the server.
 
-   The community guide also used these rules for Docker traffic that passes through the server, and a rule for Tailscale:
+   Add these rules too. The first two allow web traffic that UFW routes through the server to Docker. The last one allows Tailscale, if you use it:
 
    ```bash
    sudo ufw route allow proto tcp from any to any port 80
@@ -149,7 +149,7 @@ Steps 1, 2 and 5 are general Linux and UFW advice. They are not part of Deployrr
    sudo ufw allow in on tailscale0
    ```
 
-   The community guide was written for Deployrr v5. These three rules are not tested on v6, so add them only if you still have the problem or you use Tailscale. Then turn UFW on and restart the server:
+   Then turn UFW on and restart the server:
 
    ```bash
    sudo ufw enable

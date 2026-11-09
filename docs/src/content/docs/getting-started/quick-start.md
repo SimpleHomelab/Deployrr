@@ -29,7 +29,8 @@ Check these before you install.
 
 - Ubuntu and Debian based systems. These are the main platforms.
 - Arch, CentOS, RHEL, Rocky Linux and similar systems (Fedora, AlmaLinux) work, but they are not officially supported.
-- An x86_64 or ARM64 processor.
+- An x86_64 or ARM64 processor. A Raspberry Pi works when it runs a supported OS.
+- NAS systems such as Synology or QNAP are not supported. If your NAS can run a virtual machine, install a supported OS in a VM and run Deployrr there.
 - Any of these system types: an LXC container (unprivileged or privileged), a virtual machine on any hypervisor (Proxmox, ESXi, VirtualBox, Windows WSL and others), bare metal, or a VPS. In a Proxmox LXC container, a Docker update can stop containers from starting. See [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
 
 ### Prerequisites

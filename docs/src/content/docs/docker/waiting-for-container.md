@@ -27,8 +27,8 @@ related:
   - apps/pi-hole-port-53-conflict
   - docker/rate-limit
   - getting-started/quick-start
-last_reviewed: 2026-11-08
-status: needs-review
+last_reviewed: 2026-11-09
+status: current
 old_paths: ["/docker/waiting-for-container-to-start"]
 sources:
   - { type: discord, ref: "https://discord.com/channels/974306760171073556/1346950985121009776" }
@@ -51,7 +51,7 @@ After a while (about two minutes for Traefik) it stops with an error. For Traefi
 Timed out. Could not verify if Traefik is running.
 ```
 
-Some core apps, such as Authelia, OAuth and CrowdSec, stop after about a minute with this message:
+Some core apps stop with this message. Authelia, Google OAuth and TinyAuth give up after about a minute. Authentik and CrowdSec give up after about two minutes. Authentik also says "First startup can take several minutes - please be patient...".
 
 ```txt
 Timed out waiting for APP container to start
@@ -59,9 +59,9 @@ Timed out waiting for APP container to start
 
 Here `APP` is the name of the app you were installing.
 
-After the Traefik error, Deployrr tells you to check the documentation at docs.deployrr.app and says you can generate a troubleshooting log from the Settings menu. After the "Timed out waiting for APP" error, it only mentions the troubleshooting log.
+After the Traefik error, Deployrr tells you to check the documentation at docs.deployrr.app and says you can generate a troubleshooting log from the Settings menu. After the "Timed out waiting for APP" error, it mentions the troubleshooting log. For CrowdSec it also points to the documentation.
 
-Most other apps do not show a timeout. Deployrr waits about a minute and then moves on, even if the app never started. If an app is missing after an install, use the checks in the Fix section below.
+Most other apps do not show a timeout. Deployrr shows "Waiting for APP to initialize...", waits about a minute, then says "APP is running" even if the app never started. If an app is missing after an install, use the checks in the Fix section below.
 
 Apps that need a helper container, such as a database, can stop with one of these instead. `APP` is the helper's name. Deployrr then shows `Dependency container startup failed`.
 
@@ -72,7 +72,7 @@ Failed to start required dependency: APP
 Failed to pull image for required dependency: APP
 ```
 
-Deployrr waits up to five minutes for a helper to become healthy. It stops sooner if Docker reports the helper as unhealthy. A message that starts with "Optional dependency" is only a warning. The install carries on.
+For a helper that reports its health, Deployrr waits up to five minutes for it to become healthy, and stops sooner if Docker reports it as unhealthy. For a helper that does not report health, it waits about 30 seconds. A message that starts with "Optional dependency" is only a warning. The install carries on.
 
 You may also see this error when you run Docker commands yourself. It comes from Docker, not Deployrr:
 
@@ -87,9 +87,9 @@ The container did not reach the running state in time. There are a few common re
 - The container starts and then crashes. The log shows why.
 - A port the app needs is already in use by something else on your server.
 - A helper container the app depends on is not running or is not healthy.
-- Docker is an old version, installed before you used Deployrr, from snap or from your operating system's own repositories. These versions are often too old. Older Docker Compose (`docker-compose` with a hyphen) cannot run Deployrr's app commands and shows `unknown flag: --profile`.
+- Docker was installed before you used Deployrr, for example from snap or from your operating system's own repositories, and it is too old. Deployrr's app commands use Docker Compose profiles. An old Docker Compose (such as the old `docker-compose` with a hyphen) does not know them and fails with `unknown flag: --profile`. This is general Docker behaviour, not a Deployrr message.
 
-Deployrr does not replace a Docker it finds, and it does not check the Docker version or where Docker came from. If Docker is already there, **Prerequisites** > **System Checks** reports `Docker already installed` and asks "Would you like to check and update your system? (Y/n)". That updates your operating system packages only. So an old Docker stays in place until you remove it.
+Deployrr does not replace a Docker it finds, and it does not check the Docker version or where Docker came from. If Docker is already there, **Prerequisites** > **System Checks** reports `Docker already installed` and asks "Would you like to check and update your system? (Y/n):". That runs a normal system package update. It does not replace a snap or distro Docker. So an old Docker stays in place until you remove it. When Docker is missing, System Checks installs it from Docker's official source.
 
 ## Fix
 
@@ -128,7 +128,7 @@ These are general Docker commands.
 
    If another program uses the port, stop that program or change the port. For port 53 and Pi-hole, see [Pi-hole will not start because port 53 is already in use](/apps/pi-hole-port-53-conflict/).
 
-6. If the problem is not clear, run **Tools** > **Diagnostics** ("Run System Health Checks") for a general check of your server. Then generate a log to share when you ask for help. In Deployrr, open **Settings** > **Logs**. The menu describes it as "Generate Sanitized Deployrr Log". See [Get help on Discord](/support/discord/) for what else to include.
+6. If the problem is not clear, run **Tools** > **Diagnostics** ("Run System Health Checks") for a general check of your server. It needs a Basic, Plus or Pro license. Then generate a log to share when you ask for help. In Deployrr, open **Settings** > **Logs**. The menu describes it as "Generate Sanitized Deployrr Log". See [Get help on Discord](/support/discord/) for what else to include.
 
 If the log shows image pull errors, see [Docker image pulls fail](/docker/rate-limit/).
 
@@ -205,7 +205,7 @@ Removing Docker data deletes all containers, images, volumes and app data on thi
    ```
 
 5. Start Deployrr again.
-6. Open **Prerequisites** > **System Checks**. The menu describes it as "System and Docker Checks". If Deployrr says "It appears that System Checks were already completed.", press `Y` to redo them.
+6. Open **Prerequisites** > **System Checks**. The menu describes it as "System and Docker Checks". If Deployrr says "It appears that System Checks were already completed. If you want to redo it, press Y/y to resume or any other key to go back:", press `Y`.
 7. Watch the output. Deployrr shows `Docker not installed. Installing now...` and installs Docker. At the end it shows `Docker is installed and running`.
 
    If it shows `Docker installed but not running` or `Docker installation failed`, run `sudo systemctl status docker` and read the message.
@@ -215,7 +215,7 @@ Removing Docker data deletes all containers, images, volumes and app data on thi
 You don't need **Settings** > **Reset** for this. Each Prerequisites step lets you redo it. Use Reset only as a last resort.
 
 :::caution
-**Settings** > **Reset** stops all your containers and removes unused Docker images, networks and volumes. Then it deletes Deployrr's own configuration and cache and exits. You must start Deployrr again. The Reset screen says containers keep running and app data is not deleted. Don't rely on that. Back up first.
+**Settings** > **Reset** takes your stack down, which stops and removes your containers. Then it removes all unused Docker data, which now includes the images and volumes your apps used. Then it deletes Deployrr's own configuration and cache and exits. You must start Deployrr again. The Reset screen says containers keep running and app data is not deleted. Don't rely on that. Back up first.
 :::
 
 :::note
