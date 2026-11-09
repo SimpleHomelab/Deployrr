@@ -7,6 +7,7 @@ tags:
   - compose
 applies_to: v6.0+
 related:
+  - using-deployrr/move-to-new-server
   - docker/compose-malformed
   - using-deployrr/custom-yml
   - using-deployrr/change-hostname
@@ -61,7 +62,7 @@ Under **BACKUPS** you get these options:
 | **Restore** | Restores a backup. |
 | **Delete** | Deletes backups. |
 
-Under **MIGRATION** you get **MP Create** and **MP Restore**. They create and restore a migration package, which is for moving to a new server.
+Under **MIGRATION** you get **MP Create** and **MP Restore**. They create and restore a migration package, which is for moving to a new server. See [Move Deployrr to a new server](/using-deployrr/move-to-new-server/).
 
 ## Back up the Docker folder
 
@@ -138,6 +139,7 @@ A backup on the same disk does not help if that disk fails. Copy the backups you
 
 ## Related
 
+- [Move Deployrr to a new server](/using-deployrr/move-to-new-server/): use a migration package to move everything to another machine.
 - [Docker environment setup fails: docker-compose file is malformed](/docker/compose-malformed/): rebuild your setup, and back up first.
 - [Add your own containers with custom.yml](/using-deployrr/custom-yml/): your `custom.yml` is part of the Docker folder, so it is in every backup.
 - [Change the hostname](/using-deployrr/change-hostname/): another change worth backing up before you start.

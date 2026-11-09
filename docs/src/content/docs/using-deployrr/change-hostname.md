@@ -22,7 +22,7 @@ sidebar:
   order: 2
 ---
 
-Use this page after you rename the server that runs Deployrr. Deployrr keeps using the old hostname in your Docker folder until you update it.
+Use this page after you rename the server that runs Deployrr, or after you [move Deployrr to a new server](/using-deployrr/move-to-new-server/) with a different hostname. Deployrr keeps using the old hostname in your Docker folder until you update it.
 
 Once Prerequisites are done, the **System Health** line in the main menu shows this when the names don't match:
 
