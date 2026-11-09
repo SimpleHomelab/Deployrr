@@ -26,6 +26,7 @@ export const redirects = {
 	'/docker/waiting-for-container-to-start': '/docker/waiting-for-container/',
 	'/operating-system/failed-to-create-shim-task-debian': '/host/shim-task-debian/',
 	'/operating-system/rclone-mount-point-not-empty-error': '/host/rclone-mount-not-empty/',
+	'/deployrr/get-support-on-discord': '/support/discord/',
 };
 
 // Redirects that do not belong to a single page's old_paths.
