@@ -169,7 +169,7 @@ Do this if you saw `unknown flag: --profile`, or if you installed Docker yoursel
 Removing Docker data deletes all containers, images, volumes and app data on this server. Back up first. Do the steps in this section only if the earlier checks point to an old Docker and you have nothing to lose, or you have a backup.
 :::
 
-1. Back up your Docker folder. If you have Deployrr Pro, open **Tools** > **Backups** and choose **Backup**. It stops all running containers while it works, and asks at the end whether to restart the Docker stack. Otherwise, copy the folder. Replace `YOUR_DOCKER_FOLDER` with the path of your Docker folder. This is a value you fill in. To see the path, open **Prerequisites** > **Docker Folder** in Deployrr. The recommended path is `/home/USERNAME/docker`.
+1. Back up your Docker folder. If you have Deployrr Pro, open **Tools** > **Backups** and choose **Backup** (see [Back up and restore your Docker folder](/using-deployrr/backups/)). It stops all running containers while it works, and asks at the end whether to restart the Docker stack. Otherwise, copy the folder. Replace `YOUR_DOCKER_FOLDER` with the path of your Docker folder. This is a value you fill in. To see the path, open **Prerequisites** > **Docker Folder** in Deployrr. The recommended path is `/home/USERNAME/docker`.
 
    ```bash
    sudo cp -a YOUR_DOCKER_FOLDER YOUR_DOCKER_FOLDER-backup

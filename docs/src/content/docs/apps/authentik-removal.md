@@ -98,7 +98,7 @@ Do this for every app that uses `chain-authentik`. Don't change Authentik's own 
 4. Choose how to delete:
    - **Safe** keeps the app's data: the `appdata/authentik` and `appdata/authentik-postgresql` folders and the secret files.
    - **Full** removes everything, including the app's data.
-5. When Deployrr asks about a live backup, press `Y` to make one. Press any other key to skip it. A cold backup from **Tools** > **Backups** is the safer choice.
+5. When Deployrr asks about a live backup, press `Y` to make one. Press any other key to skip it. A cold backup from **Tools** > **Backups** is the safer choice (see [Back up and restore your Docker folder](/using-deployrr/backups/)).
 6. At `Enter the number of the service to delete:`, type the number next to `authentik`.
 7. In the **Multicontainer App Deletion** window, select **Delete authentik + all dependencies**.
 8. Press `Y` to confirm.

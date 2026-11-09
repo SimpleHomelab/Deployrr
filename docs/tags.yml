@@ -56,3 +56,6 @@ tags:
   media:
     label: Media
     description: Media servers, players and downloaders.
+  backups:
+    label: Backups
+    description: Backing up and restoring your Docker folder and moving to a new server.

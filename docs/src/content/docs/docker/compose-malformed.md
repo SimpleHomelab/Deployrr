@@ -114,7 +114,7 @@ When the error comes after a **Socket Proxy** or **Deployrr Dashboard** install,
 
 Use this if the file is badly damaged or you have no apps yet. A rebuild always replaces the main compose file and `custom.yml` with fresh starter files.
 
-1. Back up first. With a Pro license, use **Tools** > **Backups** > **Backup**. It stops all running containers while it works. With any other license, copy your Docker folder somewhere safe by hand. Either way, keep your `custom.yml` and the app files in `compose/HOSTNAME/`.
+1. Back up first. With a Pro license, use **Tools** > **Backups** > **Backup** (see [Back up and restore your Docker folder](/using-deployrr/backups/)). It stops all running containers while it works. With any other license, copy your Docker folder somewhere safe by hand. Either way, keep your `custom.yml` and the app files in `compose/HOSTNAME/`.
 2. Go to **Prerequisites** > **Environment**.
 3. If Deployrr says the Docker Environment is already set up, read the warning. Choose **Yes** to continue.
 4. If Deployrr asks what to do with your existing Docker folder, you see three options:
