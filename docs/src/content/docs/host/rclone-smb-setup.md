@@ -10,6 +10,7 @@ tags:
 applies_to: v6.0+
 related:
   - host/rclone-mount-not-empty
+  - host/smb-nfs-mounts
   - host/shim-task-debian
   - docker/waiting-for-container
   - using-deployrr/bash-aliases
@@ -70,7 +71,7 @@ Fill in all four fields. If one is empty, Deployrr shows "Incomplete information
 Type your NAS password only in this form. The field does not hide what you type, so check that nobody can see your screen.
 :::
 
-The form does not ask for a share name. (The separate **SMB Mount** option does.) You pick the folder you need in part 4.
+The form does not ask for a share name. (The separate **SMB Mount** option does. See [Mount an SMB or NFS share without Rclone](/host/smb-nfs-mounts/).) You pick the folder you need in part 4.
 
 If the connection test fails, you see one of these messages:
 
@@ -232,6 +233,7 @@ The `.log` file says "Media containers started" with a date. The `.err` file say
 ## Related
 
 - [Rclone mount folder is not empty](/host/rclone-mount-not-empty/): fix "Mount verification failed" caused by files in the mount folder.
+- [Mount an SMB or NFS share without Rclone](/host/smb-nfs-mounts/): the SMB Mount and NFS Mount options.
 - [Docker fails with "failed to create shim task"](/host/shim-task-debian/): Docker problems in a Proxmox LXC container.
 - [Deployrr times out waiting for a container to start](/docker/waiting-for-container/): what to do when an app will not start.
 - [Bash aliases](/using-deployrr/bash-aliases/): what `dcup`, `dcrec` and `dps` do.
