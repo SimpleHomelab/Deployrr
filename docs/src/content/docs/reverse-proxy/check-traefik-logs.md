@@ -194,6 +194,7 @@ When an install finishes, Deployrr shows `Traefik Error Logs should now be avail
 - **`traefiklogs` says `command not found`.** Turn on the aliases, then open a new terminal. See [Bash aliases](/using-deployrr/bash-aliases/).
 - **The log is too big to read.** Lower the log level, or search with `grep` as shown above.
 - **The log shows `unable to obtain ACME certificate`.** See [Traefik staging fails on OPNsense](/networking/opnsense-conflict/). The steps there help with any firewall that filters DNS.
+- **Traefik never starts and Deployrr says `Timed out. Could not verify if Traefik is running.`** The log file may not exist yet. See [Deployrr times out waiting for a container to start](/docker/waiting-for-container/).
 
 ## Related
 

@@ -23,6 +23,7 @@ export const redirects = {
 	'/docker/docker-compose-malformed': '/docker/compose-malformed/',
 	'/docker/docker-rate-limit': '/docker/rate-limit/',
 	'/docker/internet-connectivity-problem': '/docker/no-internet-in-containers/',
+	'/docker/waiting-for-container-to-start': '/docker/waiting-for-container/',
 };
 
 // Redirects that do not belong to a single page's old_paths.

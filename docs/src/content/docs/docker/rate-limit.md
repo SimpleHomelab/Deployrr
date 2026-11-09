@@ -18,6 +18,7 @@ related:
   - using-deployrr/bash-aliases
   - docker/compose-malformed
   - networking/ufw-firewall-vps
+  - docker/waiting-for-container
 further_reading:
   - title: Docker Hub usage and limits
     url: https://docs.docker.com/docker-hub/usage/
@@ -107,4 +108,5 @@ If you still see `toomanyrequests` after you sign in, you have used up your limi
 
 - [Bash aliases](/using-deployrr/bash-aliases/): what `dcpull` and the other `dc` shortcuts do.
 - [Docker environment setup fails: compose file is malformed](/docker/compose-malformed/): another Docker error you can hit during setup.
+- [Deployrr times out waiting for a container to start](/docker/waiting-for-container/): when the image pulled but the app never starts.
 - [Apps on a VPS cannot reach the internet](/networking/ufw-firewall-vps/): when TLS errors come from the server's firewall, not Docker Hub.
