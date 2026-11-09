@@ -17,6 +17,7 @@ related:
   - docker/no-internet-in-containers
   - getting-started/quick-start
   - getting-started/videos-and-guides
+  - host/rclone-mount-not-empty
 further_reading:
   - title: Docker Engine release notes
     url: https://docs.docker.com/engine/release-notes/
@@ -161,3 +162,4 @@ For fix 2, remove the `lxc.apparmor.profile = unconfined` line from `/etc/pve/lx
 - [No internet on the server or in containers after setup](/docker/no-internet-in-containers/): another host-level Docker problem.
 - [Quick start](/getting-started/quick-start/): the Prerequisites steps in order.
 - [Videos and guides](/getting-started/videos-and-guides/): includes a Proxmox tutorials playlist.
+- [Rclone mount fails because the folder is not empty](/host/rclone-mount-not-empty/): the other host-level problem in this section.

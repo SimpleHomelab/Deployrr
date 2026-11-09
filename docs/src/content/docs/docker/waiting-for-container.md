@@ -112,7 +112,7 @@ These are general Docker commands.
    sudo docker logs --tail 100 CONTAINER
    ```
 
-   The last lines usually say what is wrong. Typical causes are a wrong setting, a missing file or a permission error. If Docker says `failed to create shim task` and you run in a Proxmox LXC container, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
+   The last lines usually say what is wrong. Typical causes are a wrong setting, a missing file or a permission error. If Docker says `failed to create shim task` and you run in a Proxmox LXC container, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/). If the app uses an Rclone mount for your NAS and the files are missing, see [Rclone mount fails because the folder is not empty](/host/rclone-mount-not-empty/).
 
    Deployrr also adds short commands for this. `dlogs CONTAINER` follows one container's log. `dclogs` follows the logs of all your apps. See [Bash aliases](/using-deployrr/bash-aliases/). For Traefik, see [Read the Traefik logs](/reverse-proxy/check-traefik-logs/).
 
