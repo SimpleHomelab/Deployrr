@@ -110,7 +110,7 @@ The shipped `chain-no-auth` file has rate limiting and secure headers. Make a co
 If the app uses a login chain such as Authelia, you can add `- middlewares-ipallowlist` to a chain of your own instead. Don't edit the chain files Deployrr ships. Make a copy with a new name.
 
 :::caution
-**Security** > **Manage Auth** replaces the chain name in `app-NAME.yml`. If you run it on this app, it swaps `chain-no-auth-internal-only` for the standard chain you pick. Set the chain by hand again afterward. Start your chain's name with an existing chain name, as in this example, or Manage Auth won't list the app at all.
+**Security** > **Manage Auth** replaces the chain name in `app-NAME.yml`. If you run it on this app, it swaps `chain-no-auth-internal-only` for the standard chain you pick. Set the chain by hand again afterward. Start your chain's name with an existing chain name, as in this example, or Manage Auth won't list the app at all. For the standard chains and how Manage Auth works, see [Remove Authentik](/apps/authentik-removal/).
 :::
 
 ### Use the chain in the app

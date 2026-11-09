@@ -103,6 +103,8 @@ Your main server runs Traefik for `example.com`. A second server at `192.168.1.2
 
 Replace `example.com` and `192.168.1.20` with your own domain and IP address.
 
+If the Jellyfin app on an LG TV or Xbox then shows error -27, see [Jellyfin app on LG webOS TV or Xbox shows error -27](/apps/jellyfin-client-on-lg-webos/).
+
 ## Check it worked
 
 1. Open `https://SUBDOMAIN.YOUR_DOMAIN` in a browser. Replace the placeholders with your subdomain and domain.

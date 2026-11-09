@@ -46,7 +46,7 @@ Your license stays unverified until you enter the right PIN.
 
 Your PIN is a 6-digit number. You created it the first time you ran **Prerequisites** > **Verify**. Deployrr asks for the same PIN each time you verify again.
 
-You can look the PIN up, have it emailed to you, or reset it. All three are in the **Help** menu, which you open from the main menu.
+You can look the PIN up, have it emailed to you, or reset it. All three are in the **Help** menu, which you open from the main menu. With a Pro license, the same menu also has [Remote Assist](/support/ssh-access/) for a live support session.
 
 ## Fix
 
