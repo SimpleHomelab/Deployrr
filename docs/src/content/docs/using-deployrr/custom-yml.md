@@ -174,7 +174,7 @@ include:
 ```
 
 :::caution
-Deployrr lists these extra files as apps in **Tools** > **Stack Manager**. Don't use **Disable**, **Enable** or **Delete** on them there. **Delete** removes the line and deletes the file. `custom.yml` itself is not listed.
+Deployrr lists these extra files as apps in **Tools** > **Stack Manager** (see [Stack Manager](/using-deployrr/stack-manager/) for what each option does). Don't use **Disable**, **Enable** or **Delete** on them there. **Delete** removes the line and deletes the file. `custom.yml` itself is not listed.
 :::
 
 ## Related

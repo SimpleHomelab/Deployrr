@@ -90,7 +90,7 @@ This change affects DNS on the server itself. While you work through the steps, 
    sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
    ```
 
-6. In Deployrr, go to **Tools** > **Stack Manager** > **Delete**.
+6. In Deployrr, go to **Tools** > **Stack Manager** > **Delete**. [Stack Manager](/using-deployrr/stack-manager/#delete) explains each Delete choice.
 7. Pick **Full**.
 8. Answer the live backup question. Press `Y` to make one, or any other key to skip.
 9. At `Enter the number of the service to delete:`, type the number next to `pihole`.

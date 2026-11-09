@@ -19,7 +19,7 @@ old_paths: []
 sources: []
 ---
 
-Use **Tools** > **Stack Manager** to update one app or all of them. You can also check which apps have a newer recommended version, and keep an app on one version with a version pin.
+Use **Tools** > **Stack Manager** to update one app or all of them. You can also check which apps have a newer recommended version, and keep an app on one version with a version pin. For the other Stack Manager options, such as Start, Stop, Recreate, Disable and Delete, see [Stack Manager](/using-deployrr/stack-manager/).
 
 :::note
 This page is about your apps. To update Deployrr itself, see [Update Deployrr](/getting-started/updating-deployrr/).

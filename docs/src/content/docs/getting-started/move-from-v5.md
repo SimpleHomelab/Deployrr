@@ -231,7 +231,7 @@ Database apps are different. See [Database apps](#database-apps) before you do t
 
    With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dcrec APP`.
 
-   In the Deployrr menu: **Tools** > **Stack Manager** > **Recreate** ("Force recreate an app").
+   In the Deployrr menu: **Tools** > **Stack Manager** > **Recreate** ("Force recreate an app"). See [Stack Manager](/using-deployrr/stack-manager/) for every option.
 
 7. Follow the app's logs until it starts without errors:
 
