@@ -1,0 +1,81 @@
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+import { getEntry } from 'astro:content';
+
+const data = Astro.locals.starlightRoute.entry.data as Record<string, any>;
+const relatedSlugs: string[] = Array.isArray(data.related) ? data.related : [];
+const related = (
+	await Promise.all(
+		relatedSlugs.map(async (slug) => {
+			const entry = await getEntry('docs', slug);
+			return entry ? { href: `/${slug}/`, title: entry.data.title, description: entry.data.description } : null;
+		})
+	)
+).filter((item) => item !== null);
+const furtherReading: { title: string; url: string }[] = Array.isArray(data.further_reading)
+	? data.further_reading
+	: [];
+---
+
+{
+	(related.length > 0 || furtherReading.length > 0) && (
+		<aside class="related-block" aria-labelledby="related-heading">
+			{related.length > 0 && (
+				<>
+					<h2 id="related-heading">Related articles</h2>
+					<ul class="related-list">
+						{related.map((item) => (
+							<li>
+								<a href={item.href}>{item.title}</a>
+								{item.description && <p>{item.description}</p>}
+							</li>
+						))}
+					</ul>
+				</>
+			)}
+			{furtherReading.length > 0 && (
+				<>
+					<h2 id={related.length > 0 ? undefined : 'related-heading'}>Further reading</h2>
+					<ul class="related-list">
+						{furtherReading.map((item) => (
+							<li>
+								<a href={item.url}>{item.title}</a>
+							</li>
+						))}
+					</ul>
+				</>
+			)}
+		</aside>
+	)
+}
+<Default />
+
+<style>
+	.related-block {
+		margin-top: 3rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--sl-color-hairline);
+	}
+	.related-block h2 {
+		font-size: var(--sl-text-h4);
+		color: var(--sl-color-white);
+		margin-bottom: 0.75rem;
+	}
+	.related-block h2 + .related-list + h2 {
+		margin-top: 1.5rem;
+	}
+	.related-list {
+		list-style: none;
+		padding: 0;
+		display: grid;
+		gap: 0.75rem;
+	}
+	.related-list a {
+		font-weight: 600;
+	}
+	.related-list p {
+		margin: 0.15rem 0 0;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+	}
+</style>

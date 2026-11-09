@@ -1,0 +1,38 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+import SearchButton from '../components/SearchButton.astro';
+import { sections } from '../sections.mjs';
+import { docHref, firstInSection } from '../lib/docs';
+
+const links = (
+	await Promise.all(
+		sections
+			.filter((section) => section.dir !== 'archive')
+			.map(async (section) => {
+				const first = await firstInSection(section.dir);
+				return first ? { title: section.label, href: docHref(first) } : null;
+			})
+	)
+).filter((link) => link !== null);
+---
+
+<StarlightPage
+	frontmatter={{
+		title: 'Page not found',
+		description: 'This page does not exist. Search the docs or pick a section.',
+		template: 'splash',
+		pagefind: false,
+	}}
+>
+	<p>
+		This page does not exist or has moved. Search the docs, or start from one of the sections
+		below.
+	</p>
+	<SearchButton />
+	<CardGrid>
+		<LinkCard title="Home" href="/" />
+		<LinkCard title="Troubleshooting" href="/troubleshooting/" />
+		{links.map((link) => <LinkCard title={link.title} href={link.href} />)}
+	</CardGrid>
+</StarlightPage>

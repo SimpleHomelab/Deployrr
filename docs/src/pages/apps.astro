@@ -1,0 +1,32 @@
+---
+// Built from the docs collection: every page in the apps/ section, with its description.
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { docHref, getDocs, sectionOf } from '../lib/docs';
+
+const pages = (await getDocs()).filter((entry) => sectionOf(entry) === 'apps');
+---
+
+<StarlightPage
+	frontmatter={{
+		title: 'Apps',
+		description: 'Setup tips and fixes for specific apps you install with Deployrr.',
+	}}
+>
+	<p>
+		Setup tips and fixes for specific apps. For problems that are not about one app, see
+		<a href="/troubleshooting/">Troubleshooting</a>.
+	</p>
+	{pages.length === 0 && <p>No app pages yet.</p>}
+	<ul class="ts-list">
+		{
+			pages.map((entry) => (
+				<li>
+					<a href={docHref(entry)}>
+						<strong>{entry.data.title}</strong>
+					</a>
+					<div>{entry.data.description}</div>
+				</li>
+			))
+		}
+	</ul>
+</StarlightPage>

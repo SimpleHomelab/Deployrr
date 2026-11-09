@@ -1,0 +1,92 @@
+/* Deployrr colours, taken from the logo: orange #faa61a and navy #1d284c. */
+
+/* Dark mode */
+:root {
+	--sl-color-accent-low: #3a2706;
+	--sl-color-accent: #faa61a;
+	--sl-color-accent-high: #fdd9a0;
+	--sl-color-white: #ffffff;
+	--sl-color-gray-1: #e9ebf3;
+	--sl-color-gray-2: #c4c9db;
+	--sl-color-gray-3: #8b93b0;
+	--sl-color-gray-4: #545d7d;
+	--sl-color-gray-5: #353d5a;
+	--sl-color-gray-6: #232a44;
+	--sl-color-black: #151a2e;
+}
+
+/* Light mode */
+:root[data-theme='light'] {
+	--sl-color-accent-low: #fde7c2;
+	--sl-color-accent: #a35f00;
+	--sl-color-accent-high: #5a3400;
+	--sl-color-white: #1d284c;
+	--sl-color-gray-1: #232a44;
+	--sl-color-gray-2: #353d5a;
+	--sl-color-gray-3: #545d7d;
+	--sl-color-gray-4: #8b93b0;
+	--sl-color-gray-5: #c4c9db;
+	--sl-color-gray-6: #eef0f6;
+	--sl-color-gray-7: #f7f8fb;
+	--sl-color-black: #ffffff;
+}
+
+.site-title img {
+	height: 2rem;
+	width: auto;
+}
+
+/* Page badges under the title */
+.page-badges {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-top: 0.75rem;
+}
+
+.page-badges .badge {
+	font-size: var(--sl-text-xs);
+	padding: 0.15rem 0.6rem;
+	border-radius: 999px;
+	border: 1px solid var(--sl-color-gray-5);
+	color: var(--sl-color-gray-2);
+	background: var(--sl-color-gray-6);
+	text-decoration: none;
+}
+
+.page-badges .badge.status-needs-review {
+	border-color: var(--sl-color-orange);
+	color: var(--sl-color-orange-high);
+	background: var(--sl-color-orange-low);
+}
+
+.page-badges .badge.status-archived {
+	border-color: var(--sl-color-gray-4);
+	color: var(--sl-color-gray-3);
+}
+
+.page-badges .badge.tag {
+	border-color: var(--sl-color-accent);
+	color: var(--sl-color-accent-high);
+	background: var(--sl-color-accent-low);
+}
+
+/* Troubleshooting index */
+.ts-list {
+	list-style: none;
+	padding: 0;
+}
+
+.ts-list li {
+	margin-bottom: 1rem;
+}
+
+.ts-list .symptoms {
+	margin-top: 0.25rem;
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-3);
+}
+
+.ts-list .symptoms code {
+	font-size: var(--sl-text-xs);
+}
