@@ -76,7 +76,7 @@ Do this on the main server, once for each app on another server.
    - `Host IP Address of the App.`: the IP address of the other server, not the main server
    - `WebUI protocol (http/https) of the App:`: `http` for most apps. Type exactly `http` or `https`.
    - `WebUI port number of the App:`: the port you wrote down
-4. At **Pick an Authentication Method**, pick the method you want. Authelia, Authentik, Google OAuth and TinyAuth only show up if they are running on the main server. Basic HTTP Auth and No Authentication are always there. **Skip** means no authentication.
+4. At **Pick an Authentication Method**, pick the method you want. Authelia, Authentik, Google OAuth and TinyAuth only show up if they are running on the main server. Basic HTTP Auth and No Authentication are always there. **Skip** means no authentication. [Choose a login method](/reverse-proxy/choose-login-method/) helps you pick.
 5. At **Pick an Exposure Method**, pick how you reach the app. In Simple Traefik mode, the only choice is **Both** (internal and external). Advanced mode, under **Proxy** > **Traefik** > **Traefik Mode**, adds **Internal** and **External**. Advanced mode also needs your router to forward ports 80 and 443 to ports 81 and 444 on the main server.
 6. If the Deployrr Dashboard is running, Deployrr asks if you want to add the app to it. Say yes to see the app in the Dashboard's **Remote Apps** section.
 

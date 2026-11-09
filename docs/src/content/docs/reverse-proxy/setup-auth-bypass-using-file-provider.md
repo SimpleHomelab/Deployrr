@@ -35,7 +35,7 @@ Anyone who has the key can open the app without logging in. Use a long, random k
 - Traefik Production is done and Traefik is running. See the [Quick start](/getting-started/quick-start/) if it is not.
 - You have a Plus or Pro license, all **Prerequisites** steps are done, and the **Socket Proxy** app is running. If something is missing, Deployrr shows a **Requirements Not Met** box that lists it.
 - The app has a file named `app-NAME.yml` in `appdata/traefik3/rules/HOSTNAME/` inside your Docker folder. `NAME` is the app name and `HOSTNAME` is your server's hostname. Deployrr creates this file when you use **Traefikify**.
-- The app has a login method set (for example Authelia or Basic HTTP Auth). If it has none, there is nothing to bypass.
+- The app has a login method set (for example Authelia or Basic HTTP Auth). If it has none, there is nothing to bypass. See [Choose a login method](/reverse-proxy/choose-login-method/).
 
 ## Steps
 
