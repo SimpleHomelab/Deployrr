@@ -28,6 +28,7 @@ export const redirects = {
 	'/operating-system/rclone-mount-point-not-empty-error': '/host/rclone-mount-not-empty/',
 	'/deployrr/get-support-on-discord': '/support/discord/',
 	'/deployrr/get-support-via-ssh': '/support/ssh-access/',
+	'/deployrr/v4-to-v5-migration': '/archive/v4-to-v5-migration/',
 };
 
 // Redirects that do not belong to a single page's old_paths.

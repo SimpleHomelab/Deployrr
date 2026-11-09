@@ -31,7 +31,7 @@ You can update Deployrr with one command, or say yes when Deployrr offers an upd
 :::caution
 A new version can include changes that need you to reinstall an app or edit your setup. Read the [changelog](https://github.com/SimpleHomelab/Deployrr/blob/main/CHANGELOG.md) before you update.
 
-Deployrr v5 cannot be updated to v6 with these steps. v6 needs a fresh install.
+Deployrr v5 cannot be updated to v6 with these steps. v6 needs a fresh install. If you are still on v4, see the archived [v4 to v5 migration](/archive/v4-to-v5-migration/) steps.
 :::
 
 ## Update with the command
