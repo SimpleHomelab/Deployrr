@@ -57,7 +57,7 @@ Docker Compose failed to pull image for APP
 
 Here `APP` is the name of the app you were installing. For apps that install extra containers, the message is "Failed to pull image for required dependency" followed by the name.
 
-During **Update Stack** or **Update App**, Deployrr keeps going when a pull fails and still reports success at the end. Read the lines Docker prints during the pull step for `Error`.
+During **Update Stack** or **Update App** (see [Update your apps](/using-deployrr/update-apps/)), Deployrr keeps going when a pull fails and still reports success at the end. Read the lines Docker prints during the pull step for `Error`.
 
 ## Cause
 

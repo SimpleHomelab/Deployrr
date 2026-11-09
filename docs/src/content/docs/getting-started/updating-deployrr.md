@@ -22,6 +22,8 @@ sidebar:
 
 You can update Deployrr with one command, or say yes when Deployrr offers an update as it starts.
 
+This page updates Deployrr itself. To update your apps, see [Update your apps](/using-deployrr/update-apps/).
+
 ## Before you start
 
 - Deployrr v6 is installed. If not, follow the [Quick start](/getting-started/quick-start/).
