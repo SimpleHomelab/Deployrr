@@ -3,7 +3,7 @@ title: Videos and guides
 description: Official videos, guides and community links for Deployrr v6, with older v5 material clearly marked so you know what still applies.
 type: reference
 tags:
-  - learning
+  - support
 applies_to: v6.0+
 related:
   - getting-started/quick-start

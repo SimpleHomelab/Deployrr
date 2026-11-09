@@ -3,7 +3,6 @@ title: Run a second copy of an app
 description: Run a second instance of an app, such as Sonarr 4K next to Sonarr, by copying its Compose service into custom.yml and giving it its own name, port and folder.
 type: how-to
 tags:
-  - app-instances
   - compose
   - traefik
 applies_to: v6.0+

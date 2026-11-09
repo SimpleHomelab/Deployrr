@@ -3,7 +3,7 @@ title: Change the hostname
 description: Update Deployrr after you rename your server, so it matches the new hostname and stops showing a Hostname Mismatch error.
 type: how-to
 tags:
-  - hostname
+  - host
   - compose
 applies_to: v6.0+
 related:

@@ -4,7 +4,6 @@ description: Fix apps on a VPS or dedicated server that cannot reach the interne
 type: troubleshooting
 tags:
   - firewall
-  - vps
   - docker
   - traefik
   - ports

@@ -3,7 +3,6 @@ title: Theme your apps with Theme Park
 description: Install the Theme Park app, or add the Theme Park plugin to Traefik, to give qBittorrent and other web apps a custom colour theme.
 type: how-to
 tags:
-  - theming
   - traefik
   - media
 applies_to: v6.0+

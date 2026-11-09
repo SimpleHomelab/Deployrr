@@ -4,7 +4,7 @@ description: Fix the Docker "failed to create shim task" permission denied error
 type: troubleshooting
 tags:
   - docker
-  - debian
+  - host
   - updates
 applies_to: v6.0+
 symptoms:

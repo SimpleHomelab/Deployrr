@@ -4,7 +4,7 @@ description: Fix lost internet or DNS on a Debian server after Prerequisites, an
 type: troubleshooting
 tags:
   - docker
-  - debian
+  - host
   - install
 applies_to: v6.0+
 symptoms:

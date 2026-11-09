@@ -3,7 +3,6 @@ title: "Home Assistant behind Traefik: fix 400 Bad Request"
 description: Put a Home Assistant that runs elsewhere behind Deployrr's Traefik, and fix the 400 Bad Request error by adding trusted proxies to configuration.yaml.
 type: troubleshooting
 tags:
-  - home-automation
   - traefik
   - remote-access
 applies_to: v6.0+
