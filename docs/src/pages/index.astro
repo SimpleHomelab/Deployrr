@@ -2,8 +2,7 @@
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 import { getEntry } from 'astro:content';
-import logoLight from '../assets/deployrr-logo.png';
-import logoDark from '../assets/deployrr-logo-dark.png';
+import heroImage from '../assets/deployrr-hero.png';
 import SearchButton from '../components/SearchButton.astro';
 import { docHref, firstInSection } from '../lib/docs';
 
@@ -50,7 +49,7 @@ const cards = [
 		hero: {
 			title: 'Deployrr Docs',
 			tagline: 'Fix problems and get more out of your homelab.',
-			image: { light: logoLight, dark: logoDark, alt: 'Deployrr logo' },
+			image: { file: heroImage, alt: 'The Deployrr main menu in a terminal' },
 		},
 	}}
 >
