@@ -158,7 +158,12 @@ Steps 1, 2 and 5 are general Linux and UFW advice. They are not part of Deployrr
 
    Deployrr v6 does not have a UFW-Docker option any more. Its release notes list "UFW Docker integration" as removed. If you installed UFW-Docker with an older version, remove it the way its own documentation says.
 
-   **Prerequisites** > **Packages** installs UFW, but Deployrr never turns it on. That is up to you. When UFW is installed, Deployrr adds allow rules for the ports an app declares when you install that app. You see "Configuring firewall rules (ufw)..." and then "Firewall rules configured" during the install. (On systems that use firewalld, the message says firewalld instead.) Traefik declares ports 80, 81, 443 and 444 over TCP, and 443 and 444 over UDP. If those rules are missing after setup, add them yourself.
+   Deployrr never turns your firewall on or manages it for you. That is up to you. It adds firewall rules for only two apps:
+
+   - **Traefik**: ports 80, 81, 443 and 444 over TCP, and 443 and 444 over UDP.
+   - **Socket Proxy**: allows traffic from `192.168.91.0/24`, the Socket Proxy's Docker network.
+
+   Other apps add no firewall rules. Deployrr uses UFW if it is installed, otherwise firewalld. If neither is there, it skips this step. If you open an app's port to the internet without Traefik, add that rule yourself.
 
 ### Reach private apps with Tailscale
 

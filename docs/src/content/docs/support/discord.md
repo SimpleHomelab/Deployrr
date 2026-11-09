@@ -18,7 +18,7 @@ status: current
 old_paths: ["/deployrr/get-support-on-discord"]
 ---
 
-Discord is the main place to ask for help with Deployrr. You can also ask general homelab questions and talk with other users. This page shows how to join, where to post and what to include so people can help you quickly.
+Discord is the place to ask for help with Deployrr, whatever license you have. You can also ask general homelab questions and talk with other users. This page shows how to join, where to post and what to include so people can help you quickly.
 
 ## Before you start
 
@@ -41,6 +41,10 @@ Paid supporters get a dedicated support channel called `#deployrr`. To see it, c
 2. Open your profile.
 3. Connect your Discord account.
 4. Go back to Discord and look for the extra channels.
+
+:::note
+If you are a paid supporter and Deployrr is not for you, you can get a full refund, no questions asked. Ask on Discord.
+:::
 
 ### Check the docs first
 

@@ -12,7 +12,7 @@ related:
   - getting-started/videos-and-guides
   - support/discord
 further_reading: []
-last_reviewed: 2026-11-08
+last_reviewed: 2026-11-09
 status: current
 old_paths: ["/deployrr/quick-start-guide"]
 sidebar:
@@ -27,8 +27,8 @@ Check these before you install.
 
 ### Supported systems
 
-- Ubuntu and Debian based systems. These are the main platforms.
-- Arch, CentOS, RHEL, Rocky Linux and similar systems (Fedora, AlmaLinux) work, but they are not officially supported.
+- Ubuntu 22.04 or newer, and Debian 11 or newer. These are the main, supported platforms. Systems based on them work too.
+- Fedora, Arch, CentOS, RHEL and Rocky Linux work, but they are not officially supported. On these, Deployrr uses the system's own package manager (dnf or pacman), and it works with firewalld as well as UFW.
 - An x86_64 or ARM64 processor. A Raspberry Pi works when it runs a supported OS.
 - NAS systems such as Synology or QNAP are not supported. If your NAS can run a virtual machine, install a supported OS in a VM and run Deployrr there.
 - Any of these system types: an LXC container (unprivileged or privileged), a virtual machine on any hypervisor (Proxmox, ESXi, VirtualBox, Windows WSL and others), bare metal, or a VPS. In a Proxmox LXC container, a Docker update can stop containers from starting. See [Docker fails with "failed to create shim task"](/host/shim-task-debian/).

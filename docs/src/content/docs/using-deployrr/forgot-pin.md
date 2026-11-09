@@ -17,7 +17,7 @@ related:
   - support/discord
   - getting-started/updating-deployrr
 further_reading: []
-last_reviewed: 2026-11-08
+last_reviewed: 2026-11-09
 status: current
 old_paths: ["/deployrr/forgot-pin"]
 sidebar:
@@ -114,6 +114,8 @@ Ask for help on [Discord](https://www.simplehomelab.com/discord/) if any of thes
 - You see an error saying your email is not configured. Run **Prerequisites** > **Verify** first, then try again.
 - No email arrives after several minutes.
 - You see **Error Creating Pin** with `Pin could not be created.`
+
+Support can reset your PIN for you. After they do, open **Prerequisites** > **Verify** in Deployrr and go through it again, as in steps 7 to 10 of option 3. Deployrr asks you to create a new PIN.
 
 Tell them the email address of your SimpleHomelab.com account. Never post your PIN in a public channel.
 

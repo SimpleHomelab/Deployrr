@@ -29,7 +29,9 @@ sources:
   - { type: discord, ref: "https://discord.com/channels/974306760171073556/1380094049729380462" }
 ---
 
-Home Assistant is not an app you install from the Deployrr menu in v6. You run it somewhere else, for example as a Home Assistant OS VM, on another machine, or as a container you add yourself with [custom.yml](/using-deployrr/custom-yml/). This page shows how to put that Home Assistant behind the Traefik that Deployrr runs. It also fixes the `400: Bad Request` error that appears when you skip the Home Assistant side.
+Home Assistant is not an app you install from the Deployrr menu in v6, and it is not coming back, because running Home Assistant in Docker is no longer recommended. Run it somewhere else instead, for example as a Home Assistant OS VM or on another machine. If you still run it as a container, you can add it yourself with [custom.yml](/using-deployrr/custom-yml/).
+
+Putting that Home Assistant behind Deployrr's Traefik still works well, and this page shows how. It also fixes the `400: Bad Request` error that appears when you skip the Home Assistant side.
 
 ## Symptoms
 

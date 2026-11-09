@@ -55,6 +55,8 @@ These cover Docker and tools Deployrr can set up, such as Traefik. They are not 
 The playlists and the UDMS series may include older videos and posts. Menus and screens can differ from what you see in v6.
 :::
 
+v6 does some things differently, but these videos still teach the Docker and Traefik concepts behind it.
+
 ## Older material (Deployrr v5)
 
 These were made for Deployrr v5. The screens and menus are different in v6, so use them for background only. If you must stay on v5, the [Deployrr README](https://github.com/SimpleHomelab/Deployrr) explains how to get v5.11.2. To move to v6, see [Move from Deployrr v5 to v6](/getting-started/move-from-v5/).

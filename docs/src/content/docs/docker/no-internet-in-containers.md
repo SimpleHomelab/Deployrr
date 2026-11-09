@@ -87,7 +87,7 @@ These are general Linux commands, not Deployrr features.
 3. Read the result.
    - Both work: the server is fine. Go to [Containers cannot reach the internet](#containers-cannot-reach-the-internet).
    - The IP works and the name fails: DNS is the problem. Continue with the next section.
-   - Both fail: the server has no network at all. Check the cable, Wi-Fi, router and your VPS firewall. On a VPS, see [Apps on a VPS cannot reach the internet](/networking/ufw-firewall-vps/).
+   - Both fail: the server has no network at all. Check the cable, Wi-Fi, router and your VPS firewall. On a VPS, see [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/).
 
 4. Optional: see which DNS servers the server uses:
 
@@ -188,7 +188,7 @@ This section is general Docker advice.
 
 5. Run the test from step 1 again.
 
-If the test works but the app still fails with TLS timeouts while it pulls images, see [Docker image pulls fail](/docker/rate-limit/). If the host firewall blocks traffic from containers, see [Apps on a VPS cannot reach the internet](/networking/ufw-firewall-vps/).
+If the test works but the app still fails with TLS timeouts while it pulls images, see [Docker image pulls fail](/docker/rate-limit/). If the host firewall blocks traffic from containers, see [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/).
 
 ## Check it worked
 
@@ -210,5 +210,5 @@ If the test works but the app still fails with TLS timeouts while it pulls image
 
 - [Pi-hole will not start because port 53 is already in use](/apps/pi-hole-port-53-conflict/): the same `resolved.conf` file, and what the Debian Packages step changes in it.
 - [Docker image pulls fail](/docker/rate-limit/): TLS handshake timeouts when pulling images.
-- [Apps on a VPS cannot reach the internet](/networking/ufw-firewall-vps/): when the firewall on your VPS blocks traffic.
+- [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/): when the firewall on your VPS blocks traffic.
 - [Quick start](/getting-started/quick-start/): the Prerequisites steps in order.

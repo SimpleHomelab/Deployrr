@@ -18,6 +18,10 @@ old_paths: ["/deployrr/get-support-via-ssh"]
 
 Some problems are easier to fix with someone looking at your system. Remote Assist lets the support team connect to your host for a short session. You start it and stop it from the Deployrr **Help** menu.
 
+:::caution[Remote Assist may not work right now]
+Remote Assist has a known problem and may fail to start a session. If it does not work, ask for help on [Discord](/support/discord/) instead.
+:::
+
 :::caution
 While Remote Assist is on, the support team can see your system and its contents. Turn it off as soon as the session ends. Never post the session details in a public channel.
 :::
@@ -89,7 +93,7 @@ If your host restarts while Remote Assist is on, open **Help** and check the sta
 
 ## If you do not have a Pro license
 
-Remote Assist is not in your **Help** menu. Ask for help on Discord first. Support will tell you if remote access is needed and how to go on. See [Get help on Discord](/support/discord/).
+Remote Assist is not in your **Help** menu. Discord is the way to get help for every license. Post your question there, and support will tell you how to go on. See [Get help on Discord](/support/discord/).
 
 :::note
 Do not open SSH on your router to the internet so someone can log in with a password. It is not safe.
