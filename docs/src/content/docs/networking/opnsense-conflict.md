@@ -149,7 +149,7 @@ This avoids the problem. It does not fix it. You still do not get HTTPS addresse
 2. **Proxy** > **Traefik** > **Staging** finishes without the error.
 3. The Traefik log has no new `unable to obtain ACME certificate` lines.
 
-When staging works, a browser shows a "Not Secure" warning for your domain. Deployrr says this is normal for a staging certificate. The next step is **Proxy** > **Traefik** > **Production**.
+When staging works, a browser shows a "Not Secure" warning for your domain. Deployrr says this is normal for a staging certificate. The next step is **Proxy** > **Traefik** > **Production**. See [Set up Traefik](/reverse-proxy/traefik-setup/) for the whole setup.
 
 ## Related
 
