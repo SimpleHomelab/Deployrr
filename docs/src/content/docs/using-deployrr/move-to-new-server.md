@@ -31,7 +31,7 @@ Use a Migration Package to move your whole setup to a new server. The package ho
 
 A [backup](/using-deployrr/backups/) holds only the Docker folder and is meant to be restored on the same server. A Migration Package also holds your Deployrr settings and is meant for a new machine.
 
-Neither holds anything else. For example, media on a mounted share is not in the package. Move it or mount it again on the new server yourself.
+Neither holds anything else. For example, media on a mounted share is not in the package. Move it or mount it again on the new server yourself, for example with [Rclone](/host/rclone-smb-setup/).
 
 ## Steps
 

@@ -173,7 +173,7 @@ sudo tail -n 30 YOUR_DOCKER_FOLDER/logs/YOUR_HOSTNAME/rclone-NAME.log
 
 Apps that use the mount can start before the mount is ready. They then write into the empty folder. Deployrr warns about this: "Typically, Docker containers that rely on Rclone mounts start before the mount is active. This can cause crashes."
 
-In **System** > **Mounts** > **Rclone**, choose **Delay Media Apps** ("Set Media apps to Start after Rclone"). Run it after Automount works, because it needs a mounted share. It stops your media apps from starting on their own at boot. Instead, they start once the Rclone mount is ready. The menu shows "DONE" next to it when it is set up.
+In **System** > **Mounts** > **Rclone**, choose **Delay Media Apps** ("Set Media apps to Start after Rclone"). Run it after Automount works, because it needs a mounted share. It stops your media apps from starting on their own at boot. Instead, they start once the Rclone mount is ready. The menu shows "DONE" next to it when it is set up. [Mount a NAS share with Rclone](/host/rclone-smb-setup/) covers the whole Rclone setup.
 
 If the mount is still not ready after about 15 minutes, the media apps stay stopped. Check the timer logs `rclone-NAME-timer.log` and `rclone-NAME-timer.err` in the same logs folder as the Rclone log.
 
