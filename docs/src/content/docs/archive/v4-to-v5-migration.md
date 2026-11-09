@@ -11,6 +11,7 @@ related:
   - support/discord
   - getting-started/quick-start
   - getting-started/videos-and-guides
+  - archive/deployarr-to-deployrr
 further_reading:
   - title: "Video: Deployrr v4 to v5 migration"
     url: https://youtu.be/_9C7bDPveMg
@@ -56,5 +57,7 @@ Deployrr v5.0 changed a lot of the code. Because of that, v4 setups do not carry
 13. When Deployrr asks if you want to reinstall Traefik, choose to overwrite.
 
 ## Get help
+
+If you then run Deployarr v5.7 or older, see [Migrate from Deployarr to Deployrr](/archive/deployarr-to-deployrr/) for the rename.
 
 If you run into problems, see [Get help on Discord](/support/discord/).

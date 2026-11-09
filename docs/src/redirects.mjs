@@ -29,6 +29,7 @@ export const redirects = {
 	'/deployrr/get-support-on-discord': '/support/discord/',
 	'/deployrr/get-support-via-ssh': '/support/ssh-access/',
 	'/deployrr/v4-to-v5-migration': '/archive/v4-to-v5-migration/',
+	'/deployrr/deployarr-to-deployrr': '/archive/deployarr-to-deployrr/',
 };
 
 // Redirects that do not belong to a single page's old_paths.
