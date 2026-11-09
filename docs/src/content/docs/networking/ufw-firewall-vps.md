@@ -200,6 +200,8 @@ After you add the interface, set the server IP in Deployrr (step 4) to the priva
    sudo docker exec -it CONTAINER_NAME sh
    ```
 
+   With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dexec CONTAINER_NAME sh`.
+
 2. Run a test. If `curl` is not installed in the container, use `wget` instead:
 
    ```bash

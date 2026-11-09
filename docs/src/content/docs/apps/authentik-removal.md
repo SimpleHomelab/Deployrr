@@ -132,6 +132,8 @@ The Authentik rule files in `appdata/traefik3/rules/HOSTNAME/` (`chain-authentik
    sudo docker ps -a --filter name=authentik
    ```
 
+   With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dps`. It lists all containers, so check that no name starts with `authentik`.
+
    The list should be empty.
 
 2. Open one of the apps you switched. It should ask for the new login, or load straight away if you chose **No Authentication**.

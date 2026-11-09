@@ -172,6 +172,8 @@ This section is general Docker advice.
    sudo docker exec -it CONTAINER_NAME sh
    ```
 
+   With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dexec CONTAINER_NAME sh`.
+
 3. If the host works but the container fails, restart Docker. This makes containers pick up the host's current DNS settings:
 
    ```bash
@@ -183,6 +185,8 @@ This section is general Docker advice.
    ```bash
    sudo docker ps
    ```
+
+   With the aliases: `dps`.
 
    Containers with a restart policy start on their own. Others may need to be started again.
 

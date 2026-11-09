@@ -91,11 +91,13 @@ Anyone on your network who knows the default can log in with it. Change the pass
 
 qBittorrent blocks your IP address for a while after several wrong logins. Restarting the container clears the block.
 
-1. Run this for qBittorrent. For qBittorrent VPN, use `qbittorrent-vpn` instead:
+1. Run this for qBittorrent. For qBittorrent VPN, use `qbittorrent-vpn` instead, here and in the commands below:
 
    ```bash
    sudo docker restart qbittorrent
    ```
+
+   With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dcrestart qbittorrent`.
 
 2. Open the web page again and log in.
 
@@ -109,11 +111,15 @@ qBittorrent VPN has no port of its own. You reach it through Gluetun, so both co
    sudo docker ps
    ```
 
+   With the aliases: `dps`.
+
 2. Check that `gluetun` and `qbittorrent-vpn` both show as `Up`. If `gluetun` keeps restarting, read its log:
 
    ```bash
    sudo docker logs gluetun
    ```
+
+   With the aliases: `dlogs gluetun`. It follows the log live; press Ctrl+C to stop.
 
    Gluetun must be set up with your VPN provider and connected. If its log shows it can't connect, fix the VPN settings first. qBittorrent VPN can't work without it.
 
@@ -138,6 +144,8 @@ qBittorrent VPN has no port of its own. You reach it through Gluetun, so both co
    sudo docker restart qbittorrent-vpn
    ```
 
+   With the aliases: `dcrestart qbittorrent-vpn`.
+
 :::note
 `$QBITTORRENTVPN_PORT` is a variable name. Leave it as it is in the file. It takes the number from your `.env` file.
 :::
@@ -150,6 +158,8 @@ qBittorrent VPN has no port of its own. You reach it through Gluetun, so both co
    sudo docker stop qbittorrent
    ```
 
+   With the aliases: `dstop qbittorrent`.
+
 2. Open the qBittorrent config file. It is in your Docker folder, under `appdata/qbittorrent/qBittorrent/qBittorrent.conf`. For qBittorrent VPN, the folder is `appdata/qbittorrent-vpn/qBittorrent/qBittorrent.conf`.
 3. Find the line that starts with `WebUI\Password_PBKDF2` and delete it.
 4. Save the file.
@@ -159,11 +169,15 @@ qBittorrent VPN has no port of its own. You reach it through Gluetun, so both co
    sudo docker start qbittorrent
    ```
 
+   With the aliases: `dcstart qbittorrent`.
+
 6. Read the container log and find the temporary password. Current qBittorrent versions (4.6.1 and later) print one when no password is set:
 
    ```bash
    sudo docker logs qbittorrent
    ```
+
+   With the aliases: `dlogs qbittorrent`. Press Ctrl+C to stop following the log.
 
 7. Log in with your username (`admin` unless you changed it) and the temporary password.
 8. In qBittorrent, open **Tools**, then **Options**, then **WebUI**. Set a new password and save. The temporary password only works until the container restarts.
@@ -188,7 +202,7 @@ If the web page works but Sonarr or Radarr can't connect, the host and port are 
 
 - The qBittorrent login page opens at `http://YOUR_SERVER_IP:PORT`.
 - You log in and see the torrent list.
-- For qBittorrent VPN, both `gluetun` and `qbittorrent-vpn` show as `Up` in `sudo docker ps`.
+- For qBittorrent VPN, both `gluetun` and `qbittorrent-vpn` show as `Up` in `sudo docker ps` (or `dps`).
 
 If it still fails, read the qBittorrent log and look for the last error lines. You can also run `dlogs qbittorrent` from [Bash aliases](/using-deployrr/bash-aliases/). It follows the log live; press Ctrl+C to stop.
 

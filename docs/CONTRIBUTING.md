@@ -89,6 +89,7 @@ Tags come from a fixed list in `tags.yml`. Each tag has a label and a one-line d
 - Short sentences and plain words.
 - Numbered steps for anything done in order. One action per step.
 - Commands in code blocks with a language, for example `bash` or `yaml`.
+- When you give a `docker` or `docker compose` command, also give the matching [Deployrr bash alias](src/content/docs/using-deployrr/bash-aliases.md) if there is one, for example "With the Deployrr bash aliases: `dps`." Use only aliases listed on that page. If no alias does the same thing, give only the command.
 - Use asides (`:::note`, `:::caution`, `:::tip`) for warnings and tips.
 - Images go in `src/assets/<section>/`. Link them with a relative path and always add alt text.
 - Link to other docs pages wherever you mention something that has its own page.

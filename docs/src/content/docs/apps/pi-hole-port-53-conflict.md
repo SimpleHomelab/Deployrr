@@ -121,6 +121,8 @@ On Debian, **Prerequisites** > **Packages** rewrites `/etc/systemd/resolved.conf
    sudo docker ps --filter name=pihole
    ```
 
+   With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dps`. It lists all containers, so look for the `pihole` line.
+
    The status should say `Up`.
 
 3. Open the Pi-hole web interface. The address is shown at the end of the install. It looks like `http://SERVER_IP:83/admin/` with the web port you chose.

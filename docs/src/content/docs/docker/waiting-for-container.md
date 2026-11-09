@@ -103,6 +103,8 @@ These are general Docker commands.
    sudo docker ps -a
    ```
 
+   With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dps`.
+
 2. Find your container in the list. Look at the `STATUS` column.
    - `Exited` or `Restarting` means the container crashed. Go to step 3.
    - `Up (unhealthy)` means it runs but its health check fails. Go to step 3.
@@ -116,7 +118,7 @@ These are general Docker commands.
 
    The last lines usually say what is wrong. Typical causes are a wrong setting, a missing file or a permission error. If Docker says `failed to create shim task` and you run in a Proxmox LXC container, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/). If the app uses an Rclone mount for your NAS and the files are missing, see [Rclone mount fails because the folder is not empty](/host/rclone-mount-not-empty/).
 
-   Deployrr also adds short commands for this. `dlogs CONTAINER` follows one container's log. `dclogs` follows the logs of all your apps. See [Bash aliases](/using-deployrr/bash-aliases/). For Traefik, see [Read the Traefik logs](/reverse-proxy/check-traefik-logs/).
+   With the aliases: `dlogs CONTAINER`. It shows the last 50 lines and follows the log; press Ctrl+C to stop. `dclogs` follows the logs of all your apps. See [Bash aliases](/using-deployrr/bash-aliases/). For Traefik, see [Read the Traefik logs](/reverse-proxy/check-traefik-logs/).
 
 4. If the app uses a helper container, such as a database, check that container too. Repeat steps 2 and 3 for it. If the helper is `unhealthy` or not running, fix it first. The app waits for it.
 
@@ -236,6 +238,8 @@ Our advice: don't install Docker yourself before you use Deployrr. Let the Prere
    ```bash
    sudo docker ps
    ```
+
+   With the aliases: `dps`.
 
 3. When you install the app in Deployrr again, the "Waiting for" step finishes without a timeout.
 

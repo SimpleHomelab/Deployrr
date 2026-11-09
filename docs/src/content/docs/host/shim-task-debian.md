@@ -132,6 +132,8 @@ Use this only if you cannot use fix 1. Run these steps on the Proxmox host, not 
    sudo docker ps
    ```
 
+   With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dps`.
+
 2. Your containers show `Up` in the `STATUS` column. The `failed to create shim task` error is gone.
 3. If you used fix 1, check the version and the hold:
 
@@ -154,7 +156,7 @@ sudo apt update
 sudo apt install --only-upgrade containerd.io
 ```
 
-Then run `sudo docker ps` and start a container to test. If the error returns, repeat fix 1.
+Then run `sudo docker ps` (or `dps`) and start a container to test. If the error returns, repeat fix 1.
 
 For fix 2, remove the `lxc.apparmor.profile = unconfined` line from `/etc/pve/lxc/ID.conf` on the Proxmox host. Then restart the LXC container.
 

@@ -76,6 +76,8 @@ In these steps, `OLD` is the old hostname and `NEW` is the new one. All paths ar
    sudo docker stop $(sudo docker ps -q)
    ```
 
+   With the bash aliases: `dstopall`.
+
 4. Open the `.env` file:
 
    ```bash

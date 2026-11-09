@@ -76,6 +76,8 @@ Deployrr sets this header in the file `middlewares-secure-headers.yml`. All Depl
    sudo docker restart traefik
    ```
 
+   With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dcrestart traefik`.
+
 5. On the TV, open the Jellyfin app and add your server again. Use your full address, for example `https://jellyfin.YOUR_DOMAIN`. Replace `YOUR_DOMAIN` with your own domain.
 6. If it still fails, try the address with `https://` and without it. Also try it with `:443` at the end and without it.
 
