@@ -60,7 +60,7 @@ You need all of these for Authelia, Authentik, Google OAuth and TinyAuth. If som
 - A Pro license.
 - All **Prerequisites** steps are done.
 - **Setup Mode** is **Hybrid**.
-- Traefik Production is done and Traefik is running. See [Set up Traefik](/reverse-proxy/traefik-setup/).
+- Traefik Production is done and Traefik is running. See [Set up Traefik](/reverse-proxy/traefik-setup/). These login apps don't work with [Nginx Proxy Manager](/reverse-proxy/nginx-proxy-manager/).
 - The **Socket Proxy** app is running.
 
 Your server also needs a working domain, because each login page opens at an address such as `https://authelia.YOUR_DOMAIN`. Replace `YOUR_DOMAIN` with your domain.

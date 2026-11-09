@@ -36,7 +36,7 @@ Traefik is the reverse proxy that gives your apps their own web addresses, such 
   - Zone / DNS / Edit
 - The **Socket Proxy** app is running. You can check it in the **Docker** menu.
 - Ports 80, 81, 443 and 444 are free on your server.
-- If you use Nginx Proxy Manager (NPM), Deployrr will offer to stop it. It stops it and does not remove it. NPM and Traefik both need ports 80 and 443.
+- If you use Nginx Proxy Manager (NPM), Deployrr will offer to stop it. It stops it and does not remove it. NPM and Traefik both need ports 80 and 443. To use NPM instead of Traefik, see [Use Nginx Proxy Manager instead of Traefik](/reverse-proxy/nginx-proxy-manager/).
 
 ## Steps
 

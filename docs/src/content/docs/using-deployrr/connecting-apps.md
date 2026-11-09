@@ -38,7 +38,7 @@ Use the container name of the other app and its internal port, joined with a col
 container-name:internal-port
 ```
 
-This works when both apps are on the same Docker network. Most apps installed with Deployrr are on the `default` network, so this is the normal case.
+This works when both apps are on the same Docker network. Most apps installed with Deployrr are on the `default` network, so this is the normal case. The same rule applies to the **Forward Hostname / IP** box in [Nginx Proxy Manager](/reverse-proxy/nginx-proxy-manager/).
 
 Do not type `localhost` or `127.0.0.1`. Inside a container, those point to the container itself and not to the other app.
 
