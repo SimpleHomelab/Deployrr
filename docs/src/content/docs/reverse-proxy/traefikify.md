@@ -91,7 +91,7 @@ Some choices are refused for some app names. For example, Basic HTTP Auth is not
 ### Exposure choices
 
 - In Simple Traefik mode, the only choice is **Both**. The app is reachable on your LAN and over the internet.
-- In Advanced mode, you can also pick **Internal** (your LAN only) or **External** (over the internet only). Switch modes under **Proxy** > **Traefik** > **Traefik Mode**.
+- In Advanced mode, you can also pick **Internal** (your LAN only) or **External** (over the internet only). Switch modes under **Proxy** > **Traefik** > **Traefik Mode**. See [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/) before you switch.
 
 If you cancel this box, Deployrr uses **Both**. To change the choice later, see **Manage Exposure** in the same menu. To limit an app to your LAN, see [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/).
 

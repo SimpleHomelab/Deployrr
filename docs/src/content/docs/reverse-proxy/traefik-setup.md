@@ -55,7 +55,7 @@ If Setup Mode is **Local**, you see a "Proxy Type - Local Mode Warning" box. You
 
 ### Choose Simple or Advanced mode (optional)
 
-Traefik has two modes. This choice decides which ports you forward on your router. Until you pick one, the **Traefik Mode** entry shows "NOT SET" and Deployrr treats your setup as Simple. You can also change it later.
+Traefik has two modes. This choice decides which ports you forward on your router. Until you pick one, the **Traefik Mode** entry shows "NOT SET", and Manage Exposure and Traefikify behave as in Simple mode. You can also change it later. To compare the modes in more detail, see [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/).
 
 | Mode | Router port forwards | What you get |
 | --- | --- | --- |
