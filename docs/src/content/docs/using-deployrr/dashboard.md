@@ -134,7 +134,7 @@ If you see "Failed to add", check that the dashboard runs and that its `services
 
 When you put an app that runs on another server behind Traefik, Deployrr offers to add it to the dashboard.
 
-1. Run **Proxy** > **Traefik** > **Traefikify** and answer its prompts. The steps are in [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/).
+1. Run **Proxy** > **Traefik** > **Traefikify** and answer its prompts. The steps are in [Put any app behind Traefik with Traefikify](/reverse-proxy/traefikify/), and [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/) covers apps on other Deployrr servers.
 2. When the "Traefikify - Success" box closes, Deployrr asks "Add to Deployrr Dashboard?" if the dashboard is running. Select **Yes**.
 3. At **Dashboard - App Name**, type the name to show. The default is your subdomain with a capital first letter.
 4. At **Dashboard - Icon**, type an icon name or leave it empty. The default is `si-` followed by your subdomain. If no icon with that name exists, change it.

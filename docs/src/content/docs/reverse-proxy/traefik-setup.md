@@ -188,7 +188,7 @@ Production shows the same errors as Staging, plus these:
 - Install apps from **Apps** > **Browse Apps**. For apps that support Traefik, Deployrr asks for a subdomain (the app name without hyphens by default) and a login method, then sets up the route for you. In Advanced mode it also asks you to pick an exposure method: Both, Internal or External. Cancel picks Internal.
 - The **Proxy** > **Traefik** menu has more tools once Production is done: **Manage Exposure**, **Traefikify**, **Un-Traefikify**, **Domain Passthrough** and **Auth Bypass**.
 - Add login protection from the **Security** menu. You can choose Authelia, Authentik, Google OAuth or TinyAuth. See [Choose a login method](/reverse-proxy/choose-login-method/).
-- Put an app that Deployrr did not install behind Traefik with **Proxy** > **Traefik** > **Traefikify**. See [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/) or [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/) for examples.
+- Put an app that Deployrr did not install behind Traefik with **Proxy** > **Traefik** > **Traefikify**. See [Put any app behind Traefik with Traefikify](/reverse-proxy/traefikify/), or [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/) or [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/) for examples.
 - Limit who can reach an app with [an IP allowlist](/reverse-proxy/restrict-access-using-ip-allowlist/).
 - Block known bad visitors with [CrowdSec](/reverse-proxy/crowdsec/).
 - If your server is a VPS, see [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/).

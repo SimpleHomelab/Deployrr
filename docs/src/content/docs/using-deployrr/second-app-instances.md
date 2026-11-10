@@ -176,7 +176,7 @@ This needs a Plus or Pro license, with Socket Proxy and Traefik Production set u
 4. At **Select an Authentication Method for the App**, pick the same method as your first copy. Only methods you have set up are accepted.
 5. At **Pick an Exposure Method**, pick how the app is reached. In Simple Traefik mode, the only choice is **Both** (internal and external).
 
-Traefikify also works for apps on other machines. For an example, see [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/).
+Traefikify also works for apps on other machines. For an example, see [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/). For every prompt and choice, see [Put any app behind Traefik with Traefikify](/reverse-proxy/traefikify/).
 
 Deployrr creates `app-sonarr-4k.yml` and shows `File provider created for sonarr4k.` Traefik picks up the new file on its own, so you don't need to restart it. If the Deployrr Dashboard is running, Deployrr also offers to add the app to it.
 
