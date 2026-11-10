@@ -51,9 +51,11 @@ function hostOf(url) {
 	}
 }
 
-// YouTube video id from youtu.be/ID or youtube.com/watch?v=ID links, else null.
+// YouTube video id from youtu.be/ID, youtube.com/watch?v=ID, /live/ID, /shorts/ID or /embed/ID links, else null.
 function videoIdOf(url) {
-	const m = url.match(/^https?:\/\/(?:www\.)?(?:youtu\.be\/|youtube\.com\/watch\?(?:[^#]*&)?v=)([A-Za-z0-9_-]{11})/);
+	const m = url.match(
+		/^https?:\/\/(?:(?:www|m)\.)?(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:[^#]*&)?v=|live\/|shorts\/|embed\/))([A-Za-z0-9_-]{11})/
+	);
 	return m ? m[1] : null;
 }
 

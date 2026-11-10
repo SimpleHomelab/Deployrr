@@ -77,7 +77,7 @@ Tags come from a fixed list in `tags.yml`. Each tag has a label and a one-line d
 
 Link SimpleHomelab videos and guides where they help the reader at that point of the page.
 
-- Link a video at the chapter that shows the step, with `?t=` and the start in seconds: `[Deployrr 5 walkthrough: Socket Proxy setup at 26:13](https://youtu.be/rdqbAr0TFnQ?t=1573)`. Add the same video to `videos`.
+- Link a video at the chapter that shows the step, with `?t=` and the start in seconds: `[Deployrr 5 walkthrough: Socket Proxy setup at 26:13](https://youtu.be/rdqbAr0TFnQ?t=1573) (shows Deployrr v5; menus differ in v6)`. Add the same video to `videos`, with the same note in `note`.
 - Only link a video or guide when it covers what the page does there. If it shows Deployrr v5 or a manual Docker Compose setup, say so next to the link, for example "(shows Deployrr v5; menus differ in v6)", and add the same `note` in `videos`.
 - Never link a chapter whose steps contradict the page.
 - Keep it to 3 videos and 3 SimpleHomelab posts per page, and one link to the same video or post in the text.
