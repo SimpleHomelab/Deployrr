@@ -14,6 +14,7 @@ related:
   - section/other-page # 2 to 5 page slugs, most useful first
   - section/another-page
 further_reading: []
+videos: []
 last_reviewed: 2026-01-01
 status: current # current, needs-review or archived
 old_paths: [] # Old docs.deployrr.app paths, e.g. /docker/some-page. Each needs an entry in src/redirects.mjs.

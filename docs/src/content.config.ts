@@ -37,6 +37,18 @@ const docsExtension = z.object({
 	further_reading: z
 		.array(z.object({ title: z.string().min(1), url: z.url() }))
 		.default([]),
+	// Video chapters shown in the "Watch" box. start is seconds from the start of the video.
+	videos: z
+		.array(
+			z.object({
+				id: z.string().regex(/^[A-Za-z0-9_-]{11}$/, 'Use the 11-character YouTube video id'),
+				start: z.number().int().min(0).default(0),
+				title: z.string().min(1),
+				note: z.string().min(1).optional(),
+			})
+		)
+		.max(3)
+		.default([]),
 	last_reviewed: z.coerce.date().optional(),
 	status: z.enum(['current', 'needs-review', 'archived']).optional(),
 	old_paths: z.array(z.string().regex(/^\/[a-z0-9._-]+\/[a-z0-9._-]+$/)).default([]),

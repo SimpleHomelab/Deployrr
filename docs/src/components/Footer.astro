@@ -15,10 +15,25 @@ const related = (
 const furtherReading: { title: string; url: string }[] = Array.isArray(data.further_reading)
 	? data.further_reading
 	: [];
+const formatTime = (s: number) => {
+	const h = Math.floor(s / 3600);
+	const m = Math.floor((s % 3600) / 60);
+	const sec = String(s % 60).padStart(2, '0');
+	return h > 0 ? `${h}:${String(m).padStart(2, '0')}:${sec}` : `${m}:${sec}`;
+};
+const videos: { href: string; title: string; at: string | null; note?: string }[] = (
+	Array.isArray(data.videos) ? data.videos : []
+).map((v: { id: string; start?: number; title: string; note?: string }) => ({
+	href: v.start ? `https://youtu.be/${v.id}?t=${v.start}` : `https://youtu.be/${v.id}`,
+	title: v.title,
+	at: v.start ? formatTime(v.start) : null,
+	note: v.note,
+}));
+const firstHeading = related.length > 0 ? 'related' : videos.length > 0 ? 'videos' : 'further';
 ---
 
 {
-	(related.length > 0 || furtherReading.length > 0) && (
+	(related.length > 0 || videos.length > 0 || furtherReading.length > 0) && (
 		<aside class="related-block" aria-labelledby="related-heading">
 			{related.length > 0 && (
 				<>
@@ -33,9 +48,23 @@ const furtherReading: { title: string; url: string }[] = Array.isArray(data.furt
 					</ul>
 				</>
 			)}
+			{videos.length > 0 && (
+				<>
+					<h2 id={firstHeading === 'videos' ? 'related-heading' : undefined}>Watch</h2>
+					<ul class="related-list">
+						{videos.map((item) => (
+							<li>
+								<a href={item.href}>{item.title}</a>
+								{item.at && <span class="video-at"> (starts at {item.at})</span>}
+								{item.note && <p>{item.note}</p>}
+							</li>
+						))}
+					</ul>
+				</>
+			)}
 			{furtherReading.length > 0 && (
 				<>
-					<h2 id={related.length > 0 ? undefined : 'related-heading'}>Further reading</h2>
+					<h2 id={firstHeading === 'further' ? 'related-heading' : undefined}>Further reading</h2>
 					<ul class="related-list">
 						{furtherReading.map((item) => (
 							<li>
@@ -61,8 +90,12 @@ const furtherReading: { title: string; url: string }[] = Array.isArray(data.furt
 		color: var(--sl-color-white);
 		margin-bottom: 0.75rem;
 	}
-	.related-block h2 + .related-list + h2 {
+	.related-block .related-list + h2 {
 		margin-top: 1.5rem;
+	}
+	.video-at {
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
 	}
 	.related-list {
 		list-style: none;
