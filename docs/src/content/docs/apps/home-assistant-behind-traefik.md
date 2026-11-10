@@ -19,9 +19,16 @@ related:
   - reverse-proxy/check-traefik-logs
   - reverse-proxy/setup-auth-bypass-using-file-provider
   - reverse-proxy/multi-server-same-domain
+videos:
+  - id: 6S9PwhAlZUs
+    start: 543
+    title: "Traefik guide: external HTTP apps behind Traefik with a file provider"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 further_reading:
   - title: Home Assistant HTTP integration (trusted_proxies)
     url: https://www.home-assistant.io/integrations/http/#trusted_proxies
+  - title: "UDMS part 18: adding non-Docker or external apps behind Traefik"
+    url: https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Adding_non-Docker_or_External_Apps_Behind_Traefik
 last_reviewed: 2026-11-08
 status: current
 old_paths: ["/apps/home-assistant-behind-traefik"]
@@ -82,6 +89,8 @@ If you already did this part, go to part 2. The same steps work for any app on a
 Deployrr shows a success box with the address, for example `https://homeassistant.YOUR_DOMAIN`. Traefik picks up the new file on its own, so you don't need to restart it.
 
 Replace `YOUR_DOMAIN` with your own domain. Your DNS must send the subdomain to your server. See [Run a second copy of an app](/using-deployrr/second-app-instances/) for the same prompts in more detail and for what the rules file looks like.
+
+To see the same idea done by hand with a rules file for an app on another machine, watch [Traefik guide: external HTTP apps behind Traefik at 9:03](https://youtu.be/6S9PwhAlZUs?t=543) (manual Docker Compose setup; Deployrr does this for you). For background on how it works, read [UDMS part 18: adding non-Docker or external apps behind Traefik](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Adding_non-Docker_or_External_Apps_Behind_Traefik) (manual setup).
 
 :::note
 Use `http` and port `8123` unless you turned on SSL inside Home Assistant. You shouldn't. Traefik handles the certificate for you.
