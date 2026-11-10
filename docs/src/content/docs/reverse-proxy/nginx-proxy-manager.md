@@ -42,7 +42,7 @@ With NPM, you do this work in NPM's own web page. Deployrr does not do it for yo
 - **No automatic addresses.** While Traefik is stopped, Deployrr does not ask for a subdomain when you install an app and does not create a route. You add each app in NPM yourself.
 - **No Traefik menu tools.** Entries such as **Traefik Mode**, **Manage Exposure**, **Traefikify**, **Un-Traefikify**, **Domain Passthrough** and **Auth Bypass** need Traefik.
 - **No Security menu login apps.** Authelia, Authentik, Google OAuth, TinyAuth and **Manage Auth** need Traefik Production done and Traefik running (and a Pro license). With NPM you see a "Requirements Not Met" box that lists Traefik among other items. See [Choose a login method](/reverse-proxy/choose-login-method/) for what they do.
-- **CrowdSec is untested with NPM.** **Traefik Bouncer** needs Traefik, so it is blocked. **CrowdSec** and **Firewall Bouncer** are not blocked, but the NPM intro box says: "Middleware integration (Authelia, Authentik, CrowdSec) is NOT fully tested. Manual configuration may be required."
+- **CrowdSec is untested with NPM.** **Traefik Bouncer** needs Traefik, so it is blocked. **CrowdSec** and **Firewall Bouncer** are not blocked, but the NPM intro box says: "Middleware integration (Authelia, Authentik, CrowdSec) is NOT fully tested. Manual configuration may be required." See [Block bad visitors with CrowdSec](/reverse-proxy/crowdsec/).
 
 If you want any of these, use [Traefik](/reverse-proxy/traefik-setup/) instead.
 

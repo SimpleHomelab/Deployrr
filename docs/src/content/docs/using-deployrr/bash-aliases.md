@@ -112,7 +112,7 @@ You can add an app name to most of the `dc` aliases to act on one app, for examp
 
 ## CrowdSec
 
-These work only if you installed CrowdSec with Deployrr.
+These work only if you installed CrowdSec with Deployrr. See [Block bad visitors with CrowdSec](/reverse-proxy/crowdsec/).
 
 | Alias | What it does |
 | --- | --- |

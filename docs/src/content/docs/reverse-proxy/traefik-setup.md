@@ -190,6 +190,7 @@ Production shows the same errors as Staging, plus these:
 - Add login protection from the **Security** menu. You can choose Authelia, Authentik, Google OAuth or TinyAuth. See [Choose a login method](/reverse-proxy/choose-login-method/).
 - Put an app that Deployrr did not install behind Traefik with **Proxy** > **Traefik** > **Traefikify**. See [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/) or [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/) for examples.
 - Limit who can reach an app with [an IP allowlist](/reverse-proxy/restrict-access-using-ip-allowlist/).
+- Block known bad visitors with [CrowdSec](/reverse-proxy/crowdsec/).
 - If your server is a VPS, see [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/).
 
 ## Related
