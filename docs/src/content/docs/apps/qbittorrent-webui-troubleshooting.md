@@ -30,8 +30,8 @@ videos:
     title: "qBittorrent Docker Compose guide: fixing the Unauthorized error"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
   - id: arew_OGQYyw
-    start: 899
-    title: "Gluetun guide: exposing the qBittorrent web UI port on the Gluetun container"
+    start: 803
+    title: "Gluetun guide: putting qBittorrent behind the VPN kill switch"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 further_reading:
   - title: "qBittorrent, Gluetun VPN, and DeUnhealth: The Perfect Trio (video playlist)"
@@ -142,7 +142,8 @@ qBittorrent VPN has no port of its own. You reach it through Gluetun, so both co
 
    In a fresh Gluetun install, both lines start with `#`. Installing qBittorrent VPN removes the `#`.
 
-   To see why the web UI port is set on the Gluetun container, watch [Gluetun guide: exposing the qBittorrent web UI port at 14:59](https://youtu.be/arew_OGQYyw?t=899). It is a manual Docker Compose setup. Skip its Docker labels part: Deployrr doesn't use labels for qBittorrent VPN.
+   To see why the web UI port is set on the Gluetun container, watch [Gluetun guide: putting qBittorrent behind the VPN kill switch at 13:23](https://youtu.be/arew_OGQYyw?t=803). It is a manual Docker Compose setup; Deployrr does this for you. Skip its Traefik labels part: Deployrr doesn't put qBittorrent VPN behind Traefik.
+
 5. If the line is missing or has a `#` in front, install qBittorrent VPN again: **Apps** > **Browse Apps** > **qBittorrent VPN** > **Install**. At the **Already Installed** prompt, choose **Yes**. The install adds the line back, restarts Gluetun and starts qBittorrent VPN again.
 
    :::caution
@@ -205,7 +206,7 @@ WebUI\HostHeaderValidation=false
 
 If you change the file, stop the container first and start it again after you save. qBittorrent can overwrite your edits while it runs.
 
-To see the same fix done by hand, watch [qBittorrent Docker Compose guide: fixing the Unauthorized error at 8:28](https://youtu.be/Wt8hS0msLxw?t=508) (manual Docker Compose setup).
+To see the same fix done by hand, watch [qBittorrent Docker Compose guide: fixing the Unauthorized error at 8:28](https://youtu.be/Wt8hS0msLxw?t=508). It is a manual Docker Compose setup; Deployrr does this for you.
 
 ### 7. Check the apps that connect to qBittorrent
 
