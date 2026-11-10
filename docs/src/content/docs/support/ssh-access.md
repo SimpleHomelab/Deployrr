@@ -72,7 +72,7 @@ Send the details only in a direct message. Do not post them in a channel, a foru
 
 If you select **No**, Deployrr reminds you to run `passwd` yourself later. Do that soon, because the temporary password stays active until you change it.
 
-You can also stop Remote Assist from **Tools** > **Diagnostics**. While a session is on, the Remote Assist row there reads "Status - ACTIVE - Security Warning!" and the overall health shows "Unhealthy - Issues detected". Diagnostics can only stop a session. To start one, use **Help** > **Remote Assist**.
+You can also stop Remote Assist from **Tools** > **Diagnostics**. While a session is on, the Remote Assist row there reads "Status - ACTIVE - Security Warning!" and the overall health shows "Unhealthy - Issues detected". Diagnostics can only stop a session. To start one, use **Help** > **Remote Assist**. See [Deployrr shows "Unhealthy - Issues detected"](/using-deployrr/diagnostics/) for the other Diagnostics checks.
 
 If your host restarts while Remote Assist is on, open **Help** and check the status. If it still shows **ACTIVE**, select **Remote Assist** to stop it. That cleans up the details file and lets you restore your password.
 
