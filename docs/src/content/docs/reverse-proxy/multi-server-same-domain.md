@@ -78,7 +78,7 @@ Do this on the main server, once for each app on another server.
    - `WebUI port number of the App:`: the port you wrote down
 4. At **Pick an Authentication Method**, pick the method you want. Authelia, Authentik, Google OAuth and TinyAuth only show up if they are running on the main server. Basic HTTP Auth and No Authentication are always there. **Skip** means no authentication. [Choose a login method](/reverse-proxy/choose-login-method/) helps you pick.
 5. At **Pick an Exposure Method**, pick how you reach the app. In Simple Traefik mode, the only choice is **Both** (internal and external). Advanced mode, under **Proxy** > **Traefik** > **Traefik Mode**, adds **Internal** and **External**. Advanced mode also needs your router to forward ports 80 and 443 to ports 81 and 444 on the main server.
-6. If the Deployrr Dashboard is running, Deployrr asks if you want to add the app to it. Say yes to see the app in the Dashboard's **Remote Apps** section.
+6. If the Deployrr Dashboard is running, Deployrr asks if you want to add the app to it. Say yes to see the app in the Dashboard's **Apps (Remote)** section. See [Set up and maintain the Deployrr Dashboard](/using-deployrr/dashboard/).
 
 Deployrr creates a file named `app-NAME.yml` in `appdata/traefik3/rules/HOSTNAME/` inside your Docker folder. `NAME` is the app name and `HOSTNAME` is the main server's hostname. Traefik picks up the new file on its own, so you don't need to restart it.
 
