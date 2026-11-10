@@ -20,10 +20,10 @@ related:
   - reverse-proxy/restrict-access-using-ip-allowlist
   - apps/jellyfin-client-on-lg-webos
 further_reading:
-  - title: Google OAuth with Traefik forward auth (creating the client ID and secret)
+  - title: "Google OAuth with Traefik forward auth: creating the client ID and secret (manual setup)"
     url: https://www.simplehomelab.com/google-oauth-traefik-forward-auth-2024/
-  - title: Authentik Docker Compose guide
-    url: https://www.simplehomelab.com/authentik-docker-compose-guide-2025/
+  - title: "UDMS part 21: Authentik with Docker Compose (manual setup)"
+    url: https://www.simplehomelab.com/udms-21-authentik-docker-compose/
 last_reviewed: 2026-11-09
 status: current
 old_paths: []
@@ -103,7 +103,7 @@ Authentik asks you for nothing during install. Its database password and secret 
 
 ### Google OAuth
 
-Create the client ID and secret in Google first. The Google OAuth guide listed under Further reading on this page shows how.
+Create the client ID and secret in Google first. Deployrr's **Google OAuth Requirements** box points to the [Google OAuth guide](https://www.simplehomelab.com/google-oauth-traefik-forward-auth-2024/), which shows how (it is a manual setup guide; only its Google part applies here).
 
 1. Select **Google OAuth** ("Forward Auth with Google").
 2. In the **Google OAuth Requirements** box, read "Do you have these credentials ready?". Select **Yes**.
@@ -146,8 +146,8 @@ If Traefik is running and the app supports it, apps you install after this get a
 
 Two restrictions apply in that box:
 
-- Basic HTTP Auth is not offered for Portainer, Open WebUI, Kavita, Flame, Paperless-ngx and Flowise. Deployrr says "Basic Auth does not work with or is not recommended for" the app.
-- No Authentication is not offered for wg-easy.
+- Basic HTTP Auth is refused for Portainer, Open WebUI, Kavita, Flame, Paperless-ngx and Flowise. Deployrr says "Basic Auth does not work with or is not recommended for" the app.
+- No Authentication is refused for wg-easy. If you pick a refused method, Deployrr shows the message and asks again.
 
 Manage Auth does not apply these restrictions. Avoid picking those methods for those apps there too.
 

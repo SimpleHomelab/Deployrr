@@ -89,7 +89,7 @@ Ports 80 and 443 are fixed. Deployrr doesn't let you change them for NPM.
 3. Log in.
 
 :::caution
-We recommend you don't forward the admin port to the internet on your router. Only forward ports 80 and 443 to your server.
+Don't forward the admin port to the internet on your router. Only forward ports 80 and 443 to your server.
 :::
 
 ### Forward your router ports

@@ -31,7 +31,7 @@ CrowdSec reads your logs and spots bad visitors, such as password guessers and s
 - All **Prerequisites** steps are done.
 - For **Firewall Bouncer**: CrowdSec is installed and running.
 - For **Traefik Bouncer**: CrowdSec and Traefik are both running. See [Set up Traefik](/reverse-proxy/traefik-setup/).
-- Install Traefik before CrowdSec if you can. CrowdSec reads the Traefik logs only if they exist when you install it. See [Read Traefik logs](/reverse-proxy/check-traefik-logs/).
+- Install Traefik before CrowdSec if you can. CrowdSec reads the Traefik logs only if they exist when you install it. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/).
 
 If something is missing, Deployrr shows a **Requirements Not Met** box that lists it. For example: "License - Pro required" or "CrowdSec - Must be running (Security menu)".
 
@@ -186,7 +186,7 @@ Each command comes in two forms. The short alias works if you installed the [Dep
    Do not ban your own address. The bouncer you installed may then lock you out of your apps. The Firewall Bouncer may also lock you out of SSH. That is general firewall behavior.
    :::
 
-Deployrr says: "When an IP is blocked, you will see [CSFB_BLOCK] in the logs." If you installed the aliases, `tailkern` follows `/var/log/kern.log` and `tailcsfb` follows `/var/log/crowdsec-firewall-bouncer.log`. For the Traefik Bouncer, run `sudo docker logs traefik`. See [Read Traefik logs](/reverse-proxy/check-traefik-logs/).
+Deployrr says: "When an IP is blocked, you will see [CSFB_BLOCK] in the logs." If you installed the aliases, `tailkern` follows `/var/log/kern.log` and `tailcsfb` follows `/var/log/crowdsec-firewall-bouncer.log`. For the Traefik Bouncer, run `sudo docker logs traefik`. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/).
 
 ## Unblock yourself
 
@@ -252,7 +252,7 @@ sudo docker compose --profile all -f DOCKER_FOLDER/docker-compose-HOSTNAME.yml e
 ## Related
 
 - [Set up Traefik](/reverse-proxy/traefik-setup/): the Traefik Bouncer needs it running.
-- [Read Traefik logs](/reverse-proxy/check-traefik-logs/): see blocked requests and bouncer errors.
+- [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): see blocked requests and bouncer errors.
 - [Bash aliases](/using-deployrr/bash-aliases/): the full alias list.
 - [Choose a login method](/reverse-proxy/choose-login-method/): the chains the Traefik Bouncer joins.
 - [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/): limit an app to chosen addresses.

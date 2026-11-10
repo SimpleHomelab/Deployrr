@@ -141,7 +141,7 @@ For `acme.json`, `File not found` means Traefik is running but the file is missi
 acme.json file not found at expected path
 ```
 
-Deployrr adds the path it looked in. It can't recreate the file. We suggest you don't create it by hand: [read the Traefik logs](/reverse-proxy/check-traefik-logs/) to see why it is missing.
+Deployrr adds the path it looked in. It can't recreate the file. Don't create it by hand. [Read the Traefik logs](/reverse-proxy/check-traefik-logs/) to see why it is missing.
 
 For `.env` or `secrets`, `Unhealthy ()` with nothing in the brackets means Deployrr could not find the file or folder. The fix screen says `File/folder not found:` and the path, and offers no repair. Check the path in your Docker folder. If it is really gone, ask for help on [Discord](/support/discord/).
 
@@ -166,6 +166,7 @@ Stopping needs a Pro license.
 With a Basic or Plus license, the line still shows, but selecting it opens **Remote Assist - Pro License Required**: "Remote Assist is only available for Pro license holders." Deployrr can't stop the session for you then. Ask for help on [Discord](/support/discord/).
 
 Diagnostics can only stop Remote Assist. If the line says `NOT ACTIVE` and you select it, Deployrr shows **Remote Assist Not Active** and tells you to use **Help** > **Remote Assist** to turn it on. See [Get remote help with Remote Assist](/support/ssh-access/) for the full steps and what the password prompts mean.
+
 ### 4. Fix YAML errors
 
 YAML Yoda checks the compose files in `compose/HOSTNAME/` and your main compose file `docker-compose-HOSTNAME.yml` for syntax errors and missing included files. It shows one error at a time.

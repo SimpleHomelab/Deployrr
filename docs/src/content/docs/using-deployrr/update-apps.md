@@ -142,7 +142,7 @@ The aliases exist only after you turn on Deployrr's Bash aliases in **Prerequisi
 - Open the app. It loads and works.
 - Run **Check Pins** again. It lists no older pins.
 - Look at the app's logs for errors. The `dclogs` alias shows the last 50 lines of your app logs and follows them.
-- If an app is stopped after the update, start it with **Stack Manager** > **Start Container**. For Traefik, see [Check Traefik logs](/reverse-proxy/check-traefik-logs/).
+- If an app is stopped after the update, start it with **Stack Manager** > **Start Container**. For Traefik, see [Read the Traefik logs](/reverse-proxy/check-traefik-logs/).
 - Old images can stay on disk after updates. To clear them, see [Free up disk space used by Docker](/docker/free-disk-space/).
 
 ## Related

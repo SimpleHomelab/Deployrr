@@ -189,29 +189,41 @@ Deployrr shows "Failed to mount SMB share. Please check your settings and try ag
 
 If you see "Failed to add SMB mount entry to /etc/fstab. Please check permissions and try again." instead, Deployrr could not write the file. Check that your user can use `sudo`, then run the option again.
 
-Deployrr keeps the entry in `/etc/fstab` even when the mount fails. Running the option again adds a second entry. Fix the entry first:
+Deployrr keeps the entry in `/etc/fstab` even when the mount fails. Running the option again adds a second entry. Fix the entry first.
 
-1. Open the file:
+:::caution
+Linux reads `/etc/fstab` at every boot. A broken line in it can stop your server from booting normally, and the lines Deployrr adds don't tell Linux to skip a share it can't reach. Copy the file before you edit it, change only the Deployrr lines, and test your change with `sudo mount -a` before you reboot.
+:::
+
+1. Make a copy of the file:
+
+   ```bash
+   sudo cp /etc/fstab /etc/fstab.before-edit
+   ```
+
+   Deployrr also saved copies before each of its own changes, as `/etc/fstab_` followed by the date and time.
+
+2. Open the file:
 
    ```bash
    sudo nano /etc/fstab
    ```
 
-2. Find the line that starts with `# SMB mount added by Deployrr` or `# NFS mount added by Deployrr`. The mount line is right below it.
-3. Correct the server, share or export path, or delete the comment line and the mount line.
-4. Save the file, then try the mount again:
+3. Find the line that starts with `# SMB mount added by Deployrr` or `# NFS mount added by Deployrr`. The mount line is right below it.
+4. Correct the server, share or export path, or delete the comment line and the mount line. Leave every other line as it is.
+5. Save the file, then test it:
 
    ```bash
    sudo mount -a
    ```
 
-Check the IP address, share name or export path, and (for SMB) the user name and password in `/etc/samba/credentials`. Also check that the NAS is on and allows your server to connect.
+   No output means the file is fine. If you see an error, fix the line it names, or put your copy back with `sudo cp /etc/fstab.before-edit /etc/fstab`. Don't reboot until `sudo mount -a` runs without errors.
 
-Before each change, Deployrr saves a copy of the file as `/etc/fstab_` followed by the date and time. If you break the file, copy the latest one back.
+Check the IP address, share name or export path, and (for SMB) the user name and password in `/etc/samba/credentials`. Also check that the NAS is on and allows your server to connect.
 
 ## Remove a mount
 
-**SMB Mount** and **NFS Mount** have no remove option. To remove a mount:
+**SMB Mount** and **NFS Mount** have no remove option. To remove a mount, edit `/etc/fstab` with the same care as above.
 
 1. Unmount it. Replace `MOUNT_FOLDER` with your folder:
 
@@ -219,13 +231,27 @@ Before each change, Deployrr saves a copy of the file as `/etc/fstab_` followed 
    sudo umount MOUNT_FOLDER
    ```
 
-2. Open `/etc/fstab`, delete the `# SMB mount added by Deployrr` (or NFS) line and the mount line below it, and save.
+2. Make a copy of the file:
+
+   ```bash
+   sudo cp /etc/fstab /etc/fstab.before-edit
+   ```
+
+3. Open `/etc/fstab`, delete the `# SMB mount added by Deployrr` (or NFS) line and the mount line below it, and save. Leave every other line as it is.
 
    ```bash
    sudo nano /etc/fstab
    ```
 
-3. In **System** > **Folders**, point any folder that used the mount to a new place, then recreate your apps.
+4. Test the file before you reboot:
+
+   ```bash
+   sudo mount -a
+   ```
+
+   No output means the file is fine. If you see an error, put your copy back with `sudo cp /etc/fstab.before-edit /etc/fstab`.
+
+5. In **System** > **Folders**, point any folder that used the mount to a new place, then recreate your apps.
 
 ## Related
 

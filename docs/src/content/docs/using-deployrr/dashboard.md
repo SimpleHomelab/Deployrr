@@ -134,7 +134,7 @@ If you see "Failed to add", check that the dashboard runs and that its `services
 
 When you put an app that runs on another server behind Traefik, Deployrr offers to add it to the dashboard.
 
-1. Run **Proxy** > **Traefik** > **Traefikify** and answer its prompts. The steps are in [Run several servers on one domain](/reverse-proxy/multi-server-same-domain/).
+1. Run **Proxy** > **Traefik** > **Traefikify** and answer its prompts. The steps are in [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/).
 2. When the "Traefikify - Success" box closes, Deployrr asks "Add to Deployrr Dashboard?" if the dashboard is running. Select **Yes**.
 3. At **Dashboard - App Name**, type the name to show. The default is your subdomain with a capital first letter.
 4. At **Dashboard - Icon**, type an icon name or leave it empty. The default is `si-` followed by your subdomain. If no icon with that name exists, change it.
@@ -224,7 +224,7 @@ Leave the comment lines in `services.yaml` alone, such as the ones ending in `PL
 | "ACCESS DENIED" in a **License Required** box | The dashboard and Socket Proxy need a Basic, Plus or Pro license. |
 | **Requirements Not Met (N)** | Finish the steps the box lists, then try again. |
 | The page does not load at `http://SERVER_IP:PORT` | Check that the container runs. See [Stack Manager](/using-deployrr/stack-manager/), or run `sudo docker ps -a` (`dps` with the aliases). |
-| The page does not load at your domain address | Check that the local address works first. Then see [Check Traefik logs](/reverse-proxy/check-traefik-logs/). |
+| The page does not load at your domain address | Check that the local address works first. Then see [Read the Traefik logs](/reverse-proxy/check-traefik-logs/). |
 | An app is missing | Start the dashboard if it is stopped, then run **ReDash**. |
 | A hand edit disappeared | Find the saved file in `appdata/deployrr-dashboard/config/`. It is named `services.DATE_TIME.yaml`. Copy your lines from it. |
 | Entries show an old server IP address | Run **Tools** > **Change Server IP**. |
@@ -233,6 +233,6 @@ Leave the comment lines in `services.yaml` alone, such as the ones ending in `PL
 
 - [Set up Traefik](/reverse-proxy/traefik-setup/): Traefik Production adds Traefik and the dashboard to the dashboard.
 - [Stack Manager](/using-deployrr/stack-manager/): delete an app and its dashboard entry, or restart the dashboard.
-- [Run several servers on one domain](/reverse-proxy/multi-server-same-domain/): the Traefikify steps for remote apps.
+- [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/): the Traefikify steps for remote apps.
 - [Open a dashboard at your root domain](/reverse-proxy/point-root-domain-to-a-dashboard/): show the dashboard at `example.com`.
 - [Move from v5](/getting-started/move-from-v5/): the dashboard is one of the core setup steps.
