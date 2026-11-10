@@ -61,7 +61,7 @@ This table shows the menus and features each level unlocks.
 | **Prerequisites** menu, including **Verify** | Yes | Yes | Yes | Yes |
 | **Help** menu | Yes | Yes | Yes | Yes |
 | **Docker** > **Docker Login**, **Disk Usage**, **Cleanup** (after Prerequisites) | Yes | Yes | Yes | Yes |
-| **System** > **Folders**, **Tools** > **Preferred Editor**, **Proxy** > **Proxy Type** and **Traefik Mode** | Yes | Yes | Yes | Yes |
+| **System** > **Folders**, **Tools** > **Preferred Editor**, **Proxy** > **Proxy Type** and **Proxy** > **Traefik** > **Traefik Mode** | Yes | Yes | Yes | Yes |
 | **Apps** > **Browse Apps** (installing an app) | No | Yes | Yes | Yes |
 | **Docker** > **Socket Proxy** and **Deployrr Dashboard** | No | Yes | Yes | Yes |
 | **System** menu: **Mounts** (SMB, NFS and Rclone), **GPU**, **Network**, **Bash Aliases**, **SMTP**, **Mail Relay** | No | Yes | Yes | Yes |
@@ -89,6 +89,8 @@ Some items also need other steps, such as Traefik running or Hybrid mode on. A m
 - Local mode needs Basic, Plus or Pro.
 - Hybrid mode needs Plus or Pro, plus a domain name, Traefik and the other items the screen lists.
 - With a Free license, both screens show `NOTE: With Free license, this setting has no effect.`
+
+For the full list of what each mode needs, see [Setup Mode: Local or Hybrid](/getting-started/setup-mode/).
 
 ### What you see in Help
 

@@ -27,7 +27,7 @@ Traefik is the reverse proxy that gives your apps their own web addresses, such 
 
 ## Before you start
 
-- Finish the steps in the [Quick start](/getting-started/quick-start/): **Prerequisites**, Setup Mode set to **Hybrid**, and Domain Checks.
+- Finish the steps in the [Quick start](/getting-started/quick-start/): **Prerequisites**, Setup Mode set to **Hybrid** (see [Setup Mode: Local or Hybrid](/getting-started/setup-mode/)), and Domain Checks.
 - You need a Deployrr Plus or Pro license.
 - Your domain uses Cloudflare as its DNS provider. The domain can come from any registrar that lets you change the DNS servers to Cloudflare.
 - The DNS records for your domain point to your public IP. That means an A record for the domain and a wildcard record (`*.YOUR_DOMAIN`, often a CNAME). Set both to DNS only (grey cloud) in Cloudflare. With the Cloudflare proxy (orange cloud) on, Domain Checks sees a different IP and fails with "Cloudflare proxy is probably enabled/orange-clouded".
@@ -50,7 +50,7 @@ Traefik is the reverse proxy that gives your apps their own web addresses, such 
 This step turns Traefik on in your compose file ("Enabling traefik.yml in compose file...") and turns NPM off ("Disabling npm.yml in compose file..."). You need it before you can use **Traefik Mode**.
 
 :::caution
-If Setup Mode is **Local**, you see a "Proxy Type - Local Mode Warning" box. Your changes have no effect until you switch to **Hybrid**. Go to **Prerequisites** > **Setup Mode**, pick **Hybrid**, then come back.
+If Setup Mode is **Local**, you see a "Proxy Type - Local Mode Warning" box. Your changes have no effect until you switch to **Hybrid**. Go to **Prerequisites** and select **Setup Mode** until the box says `Hybrid mode ENABLED`, then come back.
 :::
 
 ### Choose Simple or Advanced mode (optional)

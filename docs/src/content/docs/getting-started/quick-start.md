@@ -110,6 +110,8 @@ When Deployrr opens, you see the main menu. The first item is **Prerequisites**.
 - **Local** (the default): apps are only reachable on your home network. You need no reverse proxy, domain name, port forwarding or Cloudflare.
 - **Hybrid**: apps can also be reached from the internet through Traefik. You need a domain, Cloudflare for DNS with SSL mode set to **FULL**, DNS records for your domain, and ports 80 and 443 forwarded. Hybrid needs a Plus or Pro license.
 
+See [Setup Mode: Local or Hybrid](/getting-started/setup-mode/) for the full Hybrid checklist and how to switch later.
+
 ### Verify your license and set a PIN
 
 1. In **Prerequisites**, select **Verify**. Do **Disclaimers** and **Docker Folder** first.
