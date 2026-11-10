@@ -143,7 +143,7 @@ Your NAS shares should appear as folders inside the mount folder. Open the mount
 3. Choose the folder on the share that holds your media, such as `/media/rclone/nas/MY_SHARE/media`. Replace the path with your own.
 4. Set **Downloads Folder** the same way if your downloads live on the NAS.
 
-At least one media folder is required for the media, downloader and Arr apps.
+At least one media folder is required for the media, downloader and Arr apps. To let Plex, Jellyfin or Emby use your graphics card, see [Set up GPU hardware transcoding](/apps/gpu-transcoding/).
 
 :::note
 If you change a folder path, you must recreate the apps that use it. Until then they keep the old path. Recreate all your apps with this Deployrr command. See [Bash aliases](/using-deployrr/bash-aliases/).
