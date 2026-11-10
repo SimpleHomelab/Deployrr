@@ -167,3 +167,4 @@ For fix 2, remove the `lxc.apparmor.profile = unconfined` line from `/etc/pve/lx
 - [Quick start](/getting-started/quick-start/): the Prerequisites steps in order.
 - [Videos and guides](/getting-started/videos-and-guides/): includes a Proxmox tutorials playlist.
 - [Rclone mount fails because the folder is not empty](/host/rclone-mount-not-empty/): the other host-level problem in this section.
+- [Mount a NAS share with Rclone](/host/rclone-smb-setup/): reach NAS storage from Deployrr. In a Proxmox LXC, Deployrr blocks SMB and NFS mounts and points you to Rclone or bind mounts.

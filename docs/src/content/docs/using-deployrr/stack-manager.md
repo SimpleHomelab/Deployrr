@@ -186,7 +186,7 @@ You can't enable a helper on its own. Deployrr says "Cannot enable dependency di
 6. At "Press Y/y to proceed with deletion or any other key to exit:", press `Y`. Any other key leaves with "No changes made."
 7. Look for "APP deleted successfully", followed by "(safe delete - data preserved)" or "(full delete - all data removed)".
 
-Both kinds of delete also remove the app's compose file, its settings in `.env` (such as its version pin), its Traefik rules file and its Deployrr Dashboard entry.
+Both kinds of delete also remove the app's compose file, its settings in `.env` (such as its version pin), its Traefik rules file and its [Deployrr Dashboard](/using-deployrr/dashboard/) entry.
 
 You can't delete a helper on its own. Deployrr says "Cannot delete dependency directly" and tells you to delete the parent app.
 

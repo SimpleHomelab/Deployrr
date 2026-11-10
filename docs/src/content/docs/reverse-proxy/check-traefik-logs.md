@@ -67,7 +67,7 @@ They are in the `logs/HOSTNAME/traefik/` folder inside your Docker folder. `HOST
 Deployrr sets Traefik to write its messages to the two files above. Read the files, not `docker logs traefik`.
 :::
 
-When you run **Proxy** > **Traefik** > **Production** (Setup Traefik Production), Deployrr renames the old log to `traefik_staging.log` and starts a new `traefik.log`. Nothing else trims or rotates these files, so they can grow large over time.
+When you run **Proxy** > **Traefik** > **Production** (Setup Traefik Production), Deployrr renames the old log to `traefik_staging.log` and starts a new `traefik.log`. Nothing else trims or rotates these files, so they can grow large over time. See [Free up disk space used by Docker](/docker/free-disk-space/) for other things that fill your disk.
 
 ### Follow the Traefik log live
 

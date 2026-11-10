@@ -20,6 +20,7 @@ related:
   - reverse-proxy/setup-auth-bypass-using-file-provider
   - reverse-proxy/check-traefik-logs
   - reverse-proxy/restrict-access-using-ip-allowlist
+  - apps/gpu-transcoding
 further_reading:
   - title: Traefik v3 Docker Compose guide, security headers
     url: https://www.simplehomelab.com/traefik-v3-docker-compose-guide-2024/#Security_Headers
@@ -106,3 +107,4 @@ To switch Jellyfin to `chain-no-auth`, use **Security** > **Manage Auth** (Pro l
 ## Related
 
 - [Remove Authentik](/apps/authentik-removal/): how to change an app's login chain, with a table of chains.
+- [Set up GPU hardware transcoding](/apps/gpu-transcoding/): let Jellyfin use your graphics card when it converts video for a TV or phone.

@@ -149,10 +149,10 @@ Set up these in order:
 
 1. **Prerequisites**. Do all the steps. **Prerequisites** > **Usage** shows the recommended order.
 2. **Socket Proxy**. Open **Docker** > **Socket Proxy**.
-3. **Deployrr Dashboard**. Open **Docker** > **Deployrr Dashboard**.
-4. **Traefik**. Open **Proxy** > **Traefik**. Run **Preparation**, then **Staging**, then **Production**.
+3. **Deployrr Dashboard**. Open **Docker** > **Deployrr Dashboard**. See [Set up and maintain the Deployrr Dashboard](/using-deployrr/dashboard/).
+4. **Traefik**. Open **Proxy** > **Traefik**. Run **Preparation**, then **Staging**, then **Production**. See [Set up Traefik](/reverse-proxy/traefik-setup/).
 5. Authentication. Open the **Security** menu and pick **Authelia**, **Authentik**, **Google OAuth** or **TinyAuth**.
-6. CrowdSec, if you want it. Open **Security** > **CrowdSec**. The **Firewall Bouncer** and **Traefik Bouncer** are in the same menu.
+6. CrowdSec, if you want it. Open **Security** > **CrowdSec**. The **Firewall Bouncer** and **Traefik Bouncer** are in the same menu. See [Block bad visitors with CrowdSec](/reverse-proxy/crowdsec/).
 
 Traefik in v6 needs three things:
 

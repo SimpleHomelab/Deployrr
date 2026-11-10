@@ -128,7 +128,7 @@ Use this if the file is badly damaged or you have no apps yet. A rebuild always 
 
 Use this when YAML Yoda reports a problem, or Docker names a line. YAML Yoda only checks syntax. It does not check the four placeholder lines.
 
-1. Run **Tools** > **Diagnostics** > **YAML Yoda**. If it finds an error, it shows the file and the message.
+1. Run **Tools** > **Diagnostics** > **YAML Yoda**. If it finds an error, it shows the file and the message. See [Deployrr shows "Unhealthy - Issues detected"](/using-deployrr/diagnostics/) for the other Diagnostics checks.
 
 2. You can run the same check yourself in your Docker folder. Replace `FILE` with the path of the file you want to test:
 
