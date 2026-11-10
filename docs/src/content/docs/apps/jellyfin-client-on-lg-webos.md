@@ -21,9 +21,14 @@ related:
   - reverse-proxy/check-traefik-logs
   - reverse-proxy/restrict-access-using-ip-allowlist
   - apps/gpu-transcoding
+videos:
+  - id: cUZ6kkum1pc
+    start: 655
+    title: "Traefik middlewares and chains: Secure Headers middleware"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 further_reading:
-  - title: Traefik v3 Docker Compose guide, security headers
-    url: https://www.simplehomelab.com/traefik-v3-docker-compose-guide-2024/#Security_Headers
+  - title: "UDMS part 18: the Security Headers middleware"
+    url: https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Security_Headers
 last_reviewed: 2026-11-08
 status: current
 old_paths: ["/apps/jellyfin-client-on-lg-webos"]
@@ -53,6 +58,8 @@ The error shows up before the login page.
 Traefik adds a security header called `X-Frame-Options` (set as `SAMEORIGIN`) to your apps. The LG webOS and Xbox apps don't accept it. Browsers and most other apps do.
 
 Deployrr sets this header in the file `middlewares-secure-headers.yml`. All Deployrr login chains use that file (`chain-no-auth`, `chain-basic-auth`, `chain-authelia`, `chain-authentik`, `chain-oauth` and `chain-tinyauth`), so every app behind Traefik gets the header.
+
+To understand what this file does, watch [Traefik middlewares and chains: Secure Headers middleware at 10:55](https://youtu.be/cUZ6kkum1pc?t=655) (manual Docker Compose setup; Deployrr creates the file for you).
 
 ## Fix
 
