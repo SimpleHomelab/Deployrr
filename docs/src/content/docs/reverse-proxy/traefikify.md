@@ -39,7 +39,7 @@ Traefikify puts an app behind your Traefik. The app can run on the same server, 
 
 ## Before you start
 
-- You have a Plus or Pro license.
+- You have a Plus or Pro license. See [Licenses](/getting-started/licenses/).
 - All **Prerequisites** steps are done, and the **Socket Proxy** app is running.
 - Traefik Production is done and Traefik is running. See [Set up Traefik](/reverse-proxy/traefik-setup/).
 - The app is running, and you can open it from your Deployrr server at `http://IP_ADDRESS:PORT`.

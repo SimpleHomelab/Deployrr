@@ -128,7 +128,7 @@ You can install Deployrr and complete Prerequisites with the free version. Insta
 
 If you pick an app or feature your license does not cover, Deployrr shows a `License Required` message with the license you need and the one you have. After you upgrade, run **Prerequisites** > **Verify** again.
 
-See [plans and pricing](https://www.simplehomelab.com/deployrr/pricing/) on the Deployrr website.
+See [Licenses](/getting-started/licenses/) for what each license unlocks and how to verify it on a new server. For plans and prices, see [plans and pricing](https://www.simplehomelab.com/deployrr/pricing/) on the Deployrr website.
 
 ## Update Deployrr
 

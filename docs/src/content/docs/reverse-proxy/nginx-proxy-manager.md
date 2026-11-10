@@ -28,7 +28,7 @@ Nginx Proxy Manager (NPM) is a reverse proxy with a web page where you add each 
 
 ## Before you start
 
-- You have a Deployrr Plus or Pro license, the same as for Traefik. On Free or Basic, the install stops at a "License Required" box.
+- You have a Deployrr Plus or Pro license, the same as for Traefik. On Free or Basic, the install stops at a "License Required" box. See [Licenses](/getting-started/licenses/).
 - Finish the steps in the [Quick start](/getting-started/quick-start/), including **Prerequisites** with all steps done.
 - Set **Setup Mode** to **Hybrid** (in **Prerequisites**). NPM needs it. **Setup Mode** is a toggle: each time you select it, it switches between Local and Hybrid. Check the box says "Hybrid mode ENABLED".
 - Own a domain and point its DNS records at your public IP. For one address per app, you'd usually add an A record for the domain and a wildcard record (`*.YOUR_DOMAIN`). This is general advice; Deployrr doesn't check DNS for NPM.

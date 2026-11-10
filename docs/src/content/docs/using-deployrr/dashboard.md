@@ -32,7 +32,7 @@ The dashboard is based on Homepage. The install box says "Based on Homepage". In
 ## Before you start
 
 - You finished all **Prerequisites** steps. If a step is missing, **Dashify**, **ReDash** and **Traefikify** show a **Requirements Not Met (N)** box that says "Prerequisites - All steps must be completed". See the [Quick start](/getting-started/quick-start/).
-- You have a Basic, Plus or Pro license. On a Free license, installing the dashboard shows a **License Required** box with "ACCESS DENIED" and "This app requires a Basic, Plus, or Pro license". **Tools** > **Dashify** and **Tools** > **ReDash** need the same license.
+- You have a Basic, Plus or Pro license. On a Free license, installing the dashboard shows a **License Required** box with "ACCESS DENIED" and "This app requires a Basic, Plus, or Pro license". **Tools** > **Dashify** and **Tools** > **ReDash** need the same license. See [Licenses](/getting-started/licenses/).
 - Socket Proxy is installed and running. Open **Docker** > **Socket Proxy** to set it up. It needs a Basic, Plus or Pro license too. Without it, Deployrr says "Required app not running" and "socket-proxy must be installed and running first".
 - **Traefikify** needs a Plus or Pro license, Socket Proxy running, Traefik Production done and Traefik running.
 
