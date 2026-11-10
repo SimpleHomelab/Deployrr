@@ -42,6 +42,21 @@ function splitFrontmatter(text) {
 	return { data: parse(match[1]) ?? {}, body: text.slice(match[0].length) };
 }
 
+// Hostname of an absolute URL, or '' if it isn't one.
+function hostOf(url) {
+	try {
+		return new URL(url).hostname;
+	} catch {
+		return '';
+	}
+}
+
+// YouTube video id from youtu.be/ID or youtube.com/watch?v=ID links, else null.
+function videoIdOf(url) {
+	const m = url.match(/^https?:\/\/(?:www\.)?(?:youtu\.be\/|youtube\.com\/watch\?(?:[^#]*&)?v=)([A-Za-z0-9_-]{11})/);
+	return m ? m[1] : null;
+}
+
 // Turn a link target into a page slug, or null if it's external or not a page link.
 function linkToSlug(target, fromSlug) {
 	if (/^[a-z]+:/i.test(target) || target.startsWith('#') || target.startsWith('//')) return null;
@@ -124,6 +139,16 @@ for (const [slug, page] of pages) {
 		if (targetSlug === null) continue;
 		if (targetSlug === slug) fail(file, `links to itself: ${target}`);
 		else if (inbound.has(targetSlug)) inbound.get(targetSlug).add(slug);
+	}
+
+	// Cross-links: at most 3 videos (schema) and 3 simplehomelab.com posts; inline video links
+	// should also be in the Watch box.
+	const shlPosts = (data.further_reading ?? []).filter((item) => /(^|\.)simplehomelab\.com$/.test(hostOf(item.url)));
+	if (shlPosts.length > 3) fail(file, `further_reading has ${shlPosts.length} simplehomelab.com posts (max 3)`);
+	const listedVideos = new Set((data.videos ?? []).map((v) => v.id));
+	for (const match of body.matchAll(linkPattern)) {
+		const id = videoIdOf(match[1] ?? match[2]);
+		if (id && !listedVideos.has(id)) warnings.push(`${file}: inline video link ${id} is not listed in "videos"`);
 	}
 
 	// Images have alt text.
