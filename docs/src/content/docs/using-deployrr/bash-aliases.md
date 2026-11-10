@@ -79,7 +79,7 @@ Deployrr also sets a colored prompt that shows your username (green), hostname (
 ### Docker cleanup
 
 :::caution
-These aliases remove data. `drm`, `ddelimages`, `derase` and `dprune` act on all containers or images, not just one. `dprunevol` and `dprunesys` ask you to confirm first. Make a [backup](/using-deployrr/backups/) before you run any of them.
+These aliases remove data. `drm`, `ddelimages`, `derase` and `dprune` act on all containers or images, not just one. `dprunevol` and `dprunesys` ask you to confirm first. Make a [backup](/using-deployrr/backups/) before you run any of them. [Free up disk space used by Docker](/docker/free-disk-space/) explains which one to pick.
 :::
 
 | Alias | What it does |
