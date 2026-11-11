@@ -196,6 +196,8 @@ A **Full** delete removes the app's data and settings for good. Back up first.
 
 For a full walk-through with two real apps, see [Pi-hole will not start because port 53 is already in use](/apps/pi-hole-port-53-conflict/) and [Remove Authentik](/apps/authentik-removal/). The Authentik page also lists what **Safe** and **Full** remove.
 
+To bring an app back after a **Safe** delete and reuse its data, see [Reinstall an app and keep its data](/apps/reinstall-app/).
+
 ## Your own compose files
 
 Apps you add with [custom.yml](/using-deployrr/custom-yml/) are in your main compose file too. `custom.yml` itself is not listed in these options. Extra files you add next to it are listed as apps.

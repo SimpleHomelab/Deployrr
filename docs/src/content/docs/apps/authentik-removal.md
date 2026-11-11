@@ -25,7 +25,7 @@ This page shows you how to remove Authentik from your server. First you move you
 
 - Authentik is installed with Deployrr.
 - Decide which login method your apps will use instead: Authelia, Google OAuth, TinyAuth, Basic HTTP Auth or No Authentication. If you pick Authelia, Google OAuth or TinyAuth, set it up from the **Security** menu first and make sure it is running. [Choose a login method](/reverse-proxy/choose-login-method/) compares them.
-- Decide if you want to keep Authentik's data. A **Full** delete removes its users, settings and database. A **Safe** delete keeps them, so you can reinstall later and reuse them.
+- Decide if you want to keep Authentik's data. A **Full** delete removes its users, settings and database. A **Safe** delete keeps them, so you can reinstall later and reuse them. See [Reinstall an app and keep its data](/apps/reinstall-app/).
 - Deleting with the Stack Manager needs a Basic, Plus or Pro license.
 
 :::caution
