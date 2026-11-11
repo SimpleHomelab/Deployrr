@@ -30,7 +30,7 @@ Traefik is the reverse proxy that gives your apps their own web addresses, such 
 - Finish the steps in the [Quick start](/getting-started/quick-start/): **Prerequisites**, Setup Mode set to **Hybrid** (see [Setup Mode: Local or Hybrid](/getting-started/setup-mode/)), and Domain Checks.
 - You need a Deployrr Plus or Pro license.
 - Your domain uses Cloudflare as its DNS provider. The domain can come from any registrar that lets you change the DNS servers to Cloudflare.
-- The DNS records for your domain point to your public IP. That means an A record for the domain and a wildcard record (`*.YOUR_DOMAIN`, often a CNAME). Set both to DNS only (grey cloud) in Cloudflare. With the Cloudflare proxy (orange cloud) on, Domain Checks sees a different IP and fails with "Cloudflare proxy is probably enabled/orange-clouded".
+- The DNS records for your domain point to your public IP. That means an A record for the domain and a wildcard record (`*.YOUR_DOMAIN`, often a CNAME). Set both to DNS only (grey cloud) in Cloudflare. With the Cloudflare proxy (orange cloud) on, Domain Checks sees a different IP and fails with "Cloudflare proxy is probably enabled/orange-clouded". If **Domain Checks** does not show `DONE`, see [Domain Checks failed](/networking/domain-checks-failed/).
 - Make a Cloudflare DNS API token. In Cloudflare, go to **My Profile** > **API Tokens**. Use a user token, not an Account API Token. Give it these two permissions:
   - Zone / Zone / Read
   - Zone / DNS / Edit

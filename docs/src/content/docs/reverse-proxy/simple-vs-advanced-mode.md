@@ -78,6 +78,8 @@ If you see **Proxy Type Required**, first pick Traefik under **Proxy** > **Proxy
 Change the mode and the router forwards together. If your router still forwards 80 and 443 to 80 and 443 after you switch to Advanced, or to 81 and 444 after you switch to Simple, your apps can stop opening. Deployrr does not change your router. Have your router's admin page open before you switch.
 :::
 
+**Domain Checks** accepts either pair of forwards. If it fails on port 80 or 443, see [Domain Checks failed](/networking/domain-checks-failed/).
+
 ### What Simple mode does
 
 The box says: "No control over exposure of app. All apps are exposed both locally and over the internet". Forward ports 80 and 443 on your router to ports 80 and 443 on the Docker host. To see how router port forwarding works by hand, read [UDMS part 18: Setting up port forwarding for Traefik](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Setting_Up_Port_Forwarding) (manual setup).

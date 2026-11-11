@@ -336,7 +336,7 @@ If it is already `DONE`, you see `It appears that System Checks were already com
 7. The A record in Cloudflare is not proxied (gray cloud).
 8. The wildcard CNAME record in Cloudflare is not proxied (gray cloud).
 
-When a check fails, the terminal lists the likely causes. They include a blocked or unforwarded port, an ISP that blocks port 80, an ISP that shares one IP between customers, a wrong DNS record and an orange-cloud Cloudflare record. If you just changed a Cloudflare record to gray cloud, the terminal suggests setting your router's DNS to 1.1.1.1. Fix the cause and run **Domain Checks** again. New DNS records can take time to spread.
+When a check fails, the terminal lists the likely causes. They include a blocked or unforwarded port, an ISP that blocks port 80, an ISP that shares one IP between customers, a wrong DNS record and an orange-cloud Cloudflare record. If you just changed a Cloudflare record to gray cloud, the terminal suggests setting your router's DNS to 1.1.1.1. Fix the cause and run **Domain Checks** again. New DNS records can take time to spread. See [Domain Checks failed](/networking/domain-checks-failed/) for each check and its fix.
 
 If you turned on EXPERT mode in **Settings**, each failed check asks if you want to override it. Only do that if you know the check is wrong.
 
