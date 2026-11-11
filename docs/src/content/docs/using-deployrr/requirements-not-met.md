@@ -106,7 +106,7 @@ Open **Prerequisites** and look at each line. Some items show `DONE` when finish
 - **Telemetry**
 - **Verify**. Run it and enter your email.
 
-In Hybrid mode, **Domain 1** and **Domain Checks** must be done too. In Local mode they show `NOT-REQUIRED`. **Setup Mode** itself needs no value, because it always shows Local or Hybrid. Follow the [Quick start](/getting-started/quick-start/) for the order. To see the Prerequisites menu worked through, watch [Deployrr 5 walkthrough: Prerequisites menu at 5:31](https://youtu.be/rdqbAr0TFnQ?t=331) (shows Deployrr v5; menus and steps differ in v6).
+In Hybrid mode, **Domain 1** and **Domain Checks** must be done too. In Local mode they show `NOT-REQUIRED`. **Setup Mode** itself needs no value, because it always shows Local or Hybrid. Follow the [Quick start](/getting-started/quick-start/) for the order, and see [Prerequisites, step by step](/getting-started/prerequisites/) for what each step asks and changes. To see the Prerequisites menu worked through, watch [Deployrr 5 walkthrough: Prerequisites menu at 5:31](https://youtu.be/rdqbAr0TFnQ?t=331) (shows Deployrr v5; menus and steps differ in v6).
 
 #### Which Prerequisites steps need another step first
 

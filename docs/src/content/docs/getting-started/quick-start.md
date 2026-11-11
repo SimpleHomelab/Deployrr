@@ -7,6 +7,7 @@ tags:
   - pin
 applies_to: v6.0+
 related:
+  - getting-started/prerequisites
   - getting-started/updating-deployrr
   - using-deployrr/forgot-pin
   - getting-started/videos-and-guides
@@ -102,6 +103,8 @@ When Deployrr opens, you see the main menu. The first item is **Prerequisites**.
    - **Verify**: checks your license. See below.
    - **Telemetry**: choose how much usage data to share.
 3. Go back to the main menu. You can now install apps from **Apps**.
+
+For what each step asks, what to pick and what it changes on your server, see [Prerequisites, step by step](/getting-started/prerequisites/).
 
 ### Setup Mode: Local or Hybrid
 
