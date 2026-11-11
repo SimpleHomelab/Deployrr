@@ -69,7 +69,7 @@ If Setup Mode is **Local**, you see a "Proxy Type - Local Mode Warning" box. You
 2. If you see a "License Required" box, you need a Plus or Pro license. If you see a "Requirements Not Met" box, fix what it lists, then start again. It lists missing Prerequisites or a Setup Mode that isn't Hybrid.
 3. If you see "Proxy Type Required", go back and do [Pick NPM as your proxy type](#pick-npm-as-your-proxy-type).
 4. If you see "Port Conflict - Cannot Install", Traefik is still running. Stop or uninstall Traefik first.
-5. In the **Port Configuration** box, read "Enter the port for Nginx Proxy Manager (Admin web interface port):". Deployrr suggests the first free port from 81. Press Enter to accept it, or type another port from 1 to 65535. If the port is invalid or in use, Deployrr says so and uses the suggested port.
+5. In the **Port Configuration** box, read "Enter the port for Nginx Proxy Manager (Admin web interface port):". Deployrr suggests the first free port from 81. Press Enter to accept it, or type another port from 1 to 65535. If the port is invalid or in use, Deployrr says so and uses the suggested port. See [Port already in use](/apps/port-already-in-use/).
 6. Wait while the image downloads. Deployrr warns it "may take a few minutes".
 7. Wait for "Nginx Proxy Manager installed successfully!".
 8. Note the line "Access NPM Admin Panel: http://SERVER_IP:81". It shows your server's IP and the port you chose.

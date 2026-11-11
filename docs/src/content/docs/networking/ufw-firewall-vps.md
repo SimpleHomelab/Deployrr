@@ -29,7 +29,7 @@ old_paths: ["/networking/ufw-firewall-vps-dedi"]
 sources: []
 ---
 
-You run Deployrr on a rented VPS or a dedicated server. Your apps cannot reach the internet, or you see certificate errors you cannot explain. This page helps you clean up the firewall on the server and get back to a working state.
+You run Deployrr on a rented VPS or a dedicated server. Your apps cannot reach the internet, or you see certificate errors you cannot explain. This page helps you clean up the firewall on the server and get back to a working state. If **Domain Checks** reports that port 80 or 443 is not reachable, see [Domain Checks failed](/networking/domain-checks-failed/).
 
 ## Symptoms
 

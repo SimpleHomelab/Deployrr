@@ -74,7 +74,7 @@ When you switch to Hybrid, the box lists eight requirements:
 7. A DNS CNAME record for `*` that points to `@`.
 8. Cloudflare SSL mode set to FULL.
 
-Meet these before you set up Traefik. See [Set up Traefik](/reverse-proxy/traefik-setup/).
+Meet these before you set up Traefik. See [Set up Traefik](/reverse-proxy/traefik-setup/). If **Domain Checks** fails, see [Domain Checks failed](/networking/domain-checks-failed/).
 
 To see the DNS records made by hand, watch [Traefik 3 guide: Cloudflare A and CNAME DNS records at 7:35](https://youtu.be/KMZIyoZ3jWM?t=455) (manual Docker Compose setup). To understand the same requirements in a manual setup, read [UDMS part 18: Requirements for a Traefik setup](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Requirements_for_Docker_Traefik_Setup) (manual setup).
 
@@ -142,7 +142,7 @@ The items are:
 - **NPM** > **Install** (Nginx Proxy Manager)
 - **Security** > **Authelia**, **Authentik**, **Google OAuth**, **TinyAuth** and **Manage Auth**
 
-The box lists every missing item at once, so you may see the Hybrid line next to others, such as a license or Traefik not running. Switch to Hybrid in **Prerequisites** > **Setup Mode**, fix the other items, then try again.
+The box lists every missing item at once, so you may see the Hybrid line next to others, such as a license or Traefik not running. Switch to Hybrid in **Prerequisites** > **Setup Mode**, fix the other items, then try again. [Deployrr shows "Requirements Not Met"](/using-deployrr/requirements-not-met/) explains every line the box can list.
 
 **Traefikify**, **Un-Traefikify** and **Traefik Mode** don't check Setup Mode. They have their own requirements.
 
