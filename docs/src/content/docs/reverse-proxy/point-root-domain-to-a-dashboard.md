@@ -16,7 +16,14 @@ related:
   - apps/home-assistant-behind-traefik
   - using-deployrr/change-hostname
   - reverse-proxy/restrict-access-using-ip-allowlist
-further_reading: []
+further_reading:
+  - title: "UDMS part 18: Homepage behind Traefik (manual setup)"
+    url: "https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Homepage"
+videos:
+  - id: 6S9PwhAlZUs
+    start: 437
+    title: "Traefik 3 guide: Homepage at the root domain and www"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 last_reviewed: 2026-11-08
 status: current
 old_paths: ["/traefik/point-root-domain-to-a-dashboard"]
@@ -103,6 +110,8 @@ Keep the backup outside the `rules` folder. Traefik reads the files in that fold
    ```
 
    Do not type your domain name. `{{env "DOMAINNAME_1"}}` already holds the domain you gave Deployrr.
+
+   To see the same root domain and `www` idea in a manual setup, watch [Traefik 3 guide: Homepage at the root domain and www at 7:17](https://youtu.be/6S9PwhAlZUs?t=437) (manual Docker Compose setup that uses Docker labels, not a rules file). For background, see [UDMS part 18: Homepage behind Traefik](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Homepage) (manual setup).
 
 4. Leave every other line as it is. If one of the `entryPoints` lines starts with `#`, the app is set to internal or external access only. Leave it like that.
 5. Save the file.
