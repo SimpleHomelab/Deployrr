@@ -14,7 +14,18 @@ related:
   - using-deployrr/bash-aliases
   - docker/no-internet-in-containers
   - apps/qbittorrent-webui-troubleshooting
-further_reading: []
+videos:
+  - id: arew_OGQYyw
+    start: 1635
+    title: "Gluetun VPN kill switch for qBittorrent: accessing qBittorrent from other services"
+    note: "Manual Docker Compose setup. The video puts Gluetun and Radarr on a network called t3_proxy, not the default network of Deployrr v6, and it uses port 8081 on the host. The rule is the same: use the container name and the internal port 8080."
+  - id: arew_OGQYyw
+    start: 852
+    title: "Gluetun VPN kill switch for qBittorrent: network_mode service gluetun"
+    note: "Manual Docker Compose setup. It edits the qBittorrent file by hand and uses Docker labels and a t3_proxy network. Use it to understand what network_mode: service:gluetun means, not as steps to follow in Deployrr v6."
+further_reading:
+  - title: "UDMS part 14: connecting apps by container name or Docker host IP"
+    url: https://www.simplehomelab.com/udms-14-docker-media-server/#Connecting_the_Apps
 last_reviewed: 2026-11-08
 status: current
 old_paths: ["/networking/connecting-applications-together"]
@@ -41,6 +52,8 @@ container-name:internal-port
 This works when both apps are on the same Docker network. Most apps installed with Deployrr are on the `default` network, so this is the normal case. The same rule applies to the **Forward Hostname / IP** box in [Nginx Proxy Manager](/reverse-proxy/nginx-proxy-manager/).
 
 Do not type `localhost` or `127.0.0.1`. Inside a container, those point to the container itself and not to the other app.
+
+To understand how container names and the Docker host IP work together, read [UDMS part 14: connecting apps by container name or Docker host IP](https://www.simplehomelab.com/udms-14-docker-media-server/#Connecting_the_Apps) (manual setup; it builds its own Compose file, not the Deployrr files).
 
 ## Steps
 
@@ -120,6 +133,8 @@ To connect another app to it, use `gluetun` as the host name and `8080` as the p
 :::caution
 After you install qBittorrent VPN, Deployrr shows a message that says to use `gluetun` and your qBittorrent VPN port (8082 by default). That port only works from your browser. From another container, use port `8080`.
 :::
+
+To see the `gluetun` host name used from Radarr, watch [Gluetun VPN kill switch for qBittorrent: accessing qBittorrent from other services at 27:15](https://youtu.be/arew_OGQYyw?t=1635) (manual setup; the video uses a network called `t3_proxy`, not `default`, and port 8081 on the host).
 
 When you install qBittorrent VPN, Deployrr turns on a port mapping in the Gluetun file and restarts Gluetun. After that, the qBittorrent web page is at `http://YOUR_SERVER_IP:QBITTORRENTVPN_PORT`. Replace `YOUR_SERVER_IP` with your server's local IP address and `QBITTORRENTVPN_PORT` with the port you picked at install. If that page doesn't open or says `Unauthorized`, see [qBittorrent web UI says Unauthorized or won't open](/apps/qbittorrent-webui-troubleshooting/).
 

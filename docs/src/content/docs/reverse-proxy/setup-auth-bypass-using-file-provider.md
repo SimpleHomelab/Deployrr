@@ -14,7 +14,9 @@ related:
   - reverse-proxy/multi-server-same-domain
   - apps/home-assistant-behind-traefik
   - apps/jellyfin-client-on-lg-webos
-further_reading: []
+further_reading:
+  - title: "UDMS part 28: Why and how to conditionally bypass Traefik auth with a key"
+    url: "https://www.simplehomelab.com/udms-28-traefik-auth-bypass/"
 last_reviewed: 2026-11-08
 status: current
 old_paths: ["/traefik/setup-auth-bypass-using-file-provider"]
@@ -114,7 +116,7 @@ Do step 5 again each time you change the key.
 
 Don't type your key into this file. The `{{env "TRAEFIK_AUTH_BYPASS_KEY"}}` part reads it from Traefik.
 
-The higher priority (100 against 99) makes Traefik try the bypass route first. Requests without the right header fall through to the normal route and its login.
+The higher priority (100 against 99) makes Traefik try the bypass route first. Requests without the right header fall through to the normal route and its login. To understand why this works, read [UDMS part 28: Traefik conditional auth bypass](https://www.simplehomelab.com/udms-28-traefik-auth-bypass/) (manual setup, background only; it puts rules files in a different folder than Deployrr v6, so follow the steps on this page).
 
 :::caution
 If you run **Traefikify** again for this app and choose to overwrite the file, your bypass route is lost. Add it again afterwards. Keep a copy of the file outside the `rules` folder.

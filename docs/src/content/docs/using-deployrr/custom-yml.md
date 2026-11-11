@@ -11,7 +11,18 @@ related:
   - using-deployrr/connecting-apps
   - docker/compose-malformed
   - using-deployrr/change-hostname
-further_reading: []
+videos:
+  - id: rdqbAr0TFnQ
+    start: 5139
+    title: "Deployrr 5 walkthrough: Installing a custom app with its own compose file"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
+  - id: THuLgGwq0vg
+    start: 869
+    title: "Ultimate Docker Server: How the include list pulls in separate compose files"
+    note: "Manual Docker Compose setup. Folder and file names differ from Deployrr v6; use it to understand how include works."
+further_reading:
+  - title: "UDMS part 14: Start the Docker Compose File and include your service files (manual setup)"
+    url: "https://www.simplehomelab.com/udms-14-docker-media-server/#Start_the_Docker_Compose_File"
 last_reviewed: 2026-11-08
 status: current
 old_paths: ["/docker/custom.yml-usage"]
@@ -21,6 +32,8 @@ sidebar:
 ---
 
 Use `custom.yml` to run containers that are not in the Deployrr apps library, or to run your own version of an app. You write the Compose code. Deployrr starts it together with your other apps.
+
+To see a custom app added by hand, watch [Deployrr 5 walkthrough: Installing Custom Apps at 1:25:39](https://youtu.be/rdqbAr0TFnQ?t=5139) (shows Deployrr v5; menus and steps differ in v6).
 
 To run a second copy of an app you already installed, see [Run a second copy of an app](/using-deployrr/second-app-instances/).
 
@@ -172,6 +185,8 @@ include:
   - compose/$HOSTNAME/mycustomapp.yml
   # SERVICE-PLACEHOLDER-DO-NOT-DELETE
 ```
+
+To understand how the `include:` list works, watch [Ultimate Docker Server: Creating the Docker Compose File at 14:29](https://youtu.be/THuLgGwq0vg?t=869) (manual Docker Compose setup; folder and file names differ from Deployrr v6).
 
 :::caution
 Deployrr lists these extra files as apps in **Tools** > **Stack Manager** (see [Stack Manager](/using-deployrr/stack-manager/) for what each option does). Don't use **Disable**, **Enable** or **Delete** on them there. **Delete** removes the line and deletes the file. `custom.yml` itself is not listed.
