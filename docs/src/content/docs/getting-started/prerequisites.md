@@ -177,7 +177,11 @@ If you rerun **Packages** on Debian, the new copy overwrites `resolved.conf.bak`
 su - YOUR_USERNAME
 ```
 
-Replace `YOUR_USERNAME` with the user you created. If you run Deployrr as root when you set the name, you get a warning to restart Deployrr as that user.
+Replace `YOUR_USERNAME` with the user you created.
+
+:::caution
+On Fedora, RHEL, Rocky Linux and CentOS, the new user gets no password and no sudo rights, even though Deployrr says it was created. Set them by hand: `sudo passwd YOUR_USERNAME` and `sudo usermod -aG wheel YOUR_USERNAME`. See [Install errors](/getting-started/install-errors/#create-a-regular-user-with-sudo-rights).
+:::
 
 To see a user created and added to sudo by hand, watch [Docker on Proxmox LXC: creating a non-root user at 10:20](https://youtu.be/-ZSQdJ62r-Q?t=620) (manual setup; Deployrr does this for you).
 
