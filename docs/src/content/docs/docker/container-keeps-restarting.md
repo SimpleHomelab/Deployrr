@@ -112,7 +112,7 @@ The log is still there after you stop the container.
 
 ### 3. Read the log
 
-The quickest way in Deployrr: go to **Apps** > **Manage Apps**, pick the app and choose **Logs**. It shows the last 50 lines and keeps following. Ctrl+C stops the log. This may also close Deployrr. If it does, start Deployrr again.
+The quickest way in Deployrr: go to **Apps** > **Manage Apps**, pick the app and choose **Logs**. It shows the last 50 lines and keeps following. Press Ctrl+C once to stop following the log and go back to the menu. Deployrr keeps running. Pressing Ctrl+C twice closes Deployrr.
 
 In the terminal:
 

@@ -153,7 +153,7 @@ To understand how container logs work, read [UDMS part 13: Container logs with D
 
 ### Logs
 
-**Logs** shows "Logs: APP" and "Showing last 50 lines (Ctrl+C to exit)". It then keeps following new lines. Ctrl+C stops the log. This may also close Deployrr. If it does, start Deployrr again.
+**Logs** shows "Logs: APP" and "Showing last 50 lines (Ctrl+C to exit)". It then keeps following new lines. Press Ctrl+C once to stop following the log and go back to the menu. Deployrr keeps running. Pressing Ctrl+C twice closes Deployrr.
 
 ### Remove
 
