@@ -14,7 +14,24 @@ related:
   - using-deployrr/second-app-instances
   - reverse-proxy/check-traefik-logs
   - reverse-proxy/point-root-domain-to-a-dashboard
-further_reading: []
+further_reading:
+  - title: "UDMS part 18: adding non-Docker or external apps behind Traefik"
+    url: https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Adding_non-Docker_or_External_Apps_Behind_Traefik
+  - title: "UDMS part 27: handling multiple domains on multiple Traefik hosts"
+    url: https://www.simplehomelab.com/udms-27-traefik-domain-passthrough/
+videos:
+  - id: rdqbAr0TFnQ
+    start: 421
+    title: "Deployrr 5 walkthrough: Local vs Hybrid mode"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
+  - id: 6S9PwhAlZUs
+    start: 543
+    title: "Traefik guide: External apps (HTTP) behind Traefik with a file provider"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
+  - id: rdqbAr0TFnQ
+    start: 4242
+    title: "Deployrr 5 walkthrough: Domain Passthrough"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
 last_reviewed: 2026-11-08
 status: current
 old_paths: ["/traefik/multi-server-same-domain"]
@@ -36,6 +53,8 @@ You end up with this layout:
 The main server's Traefik sends each subdomain to the right machine. You tell it where each app lives with **Traefikify**. The other servers need no domain, no Traefik and no port forwarding.
 
 Your DNS stays as it is. The `*` CNAME record pointing to `@` that Hybrid mode asks for already covers every new subdomain.
+
+To see the two modes explained, watch [Deployrr 5 walkthrough: Local vs Hybrid mode at 7:01](https://youtu.be/rdqbAr0TFnQ?t=421) (shows Deployrr v5; menus differ in v6).
 
 ## Before you start
 
@@ -80,7 +99,7 @@ Do this on the main server, once for each app on another server. [Put any app be
 5. At **Pick an Exposure Method**, pick how you reach the app. In Simple Traefik mode, the only choice is **Both** (internal and external). Advanced mode, under **Proxy** > **Traefik** > **Traefik Mode**, adds **Internal** and **External**. Advanced mode also needs your router to forward ports 80 and 443 to ports 81 and 444 on the main server.
 6. If the Deployrr Dashboard is running, Deployrr asks if you want to add the app to it. Say yes to see the app in the Dashboard's **Apps (Remote)** section. See [Set up and maintain the Deployrr Dashboard](/using-deployrr/dashboard/).
 
-Deployrr creates a file named `app-NAME.yml` in `appdata/traefik3/rules/HOSTNAME/` inside your Docker folder. `NAME` is the app name and `HOSTNAME` is the main server's hostname. Traefik picks up the new file on its own, so you don't need to restart it.
+Deployrr creates a file named `app-NAME.yml` in `appdata/traefik3/rules/HOSTNAME/` inside your Docker folder. `NAME` is the app name and `HOSTNAME` is the main server's hostname. Traefik picks up the new file on its own, so you don't need to restart it. To see how such a file works when you write it by hand, watch [Traefik guide: External apps (HTTP) behind Traefik at 9:03](https://youtu.be/6S9PwhAlZUs?t=543) (manual Docker Compose setup).
 
 If you see `Connection to http://192.168.1.20:8096 could not be verified`, setup still continues. Your IP address and port will differ. Check the IP address and the port, and see the limits below.
 
@@ -122,7 +141,7 @@ If the page does not load, [read the Traefik logs](/reverse-proxy/check-traefik-
 
 ## If the other server runs its own Traefik
 
-Your router can send ports 80 and 443 to one machine only. If another server runs its own Traefik for a different domain, use **Domain Passthrough** on the main server instead of **Traefikify**. It is in **Proxy** > **Traefik**, with the description "To Another Traefik Instance". Deployrr asks for a name for the host, the other server's IP address and the domain to pass through. All requests for that domain and its subdomains then go to the other server. This has the same requirements as **Traefikify**, including a Plus or Pro license.
+Your router can send ports 80 and 443 to one machine only. If another server runs its own Traefik for a different domain, use **Domain Passthrough** on the main server instead of **Traefikify**. It is in **Proxy** > **Traefik**, with the description "To Another Traefik Instance". Deployrr asks for a name for the host, the other server's IP address and the domain to pass through. All requests for that domain and its subdomains then go to the other server. This has the same requirements as **Traefikify**, including a Plus or Pro license. To see it in use, watch [Deployrr 5 walkthrough: Domain Passthrough at 1:10:42](https://youtu.be/rdqbAr0TFnQ?t=4242) (shows Deployrr v5; menus differ in v6). To understand how it works underneath, read [UDMS part 27: handling multiple domains on multiple Traefik hosts](https://www.simplehomelab.com/udms-27-traefik-domain-passthrough/) (manual setup).
 
 ## Next steps
 
