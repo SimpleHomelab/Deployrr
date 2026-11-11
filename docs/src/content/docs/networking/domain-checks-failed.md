@@ -277,7 +277,7 @@ Do not rerun **Domain Checks** once it shows `DONE` and Traefik is running. Pres
 
 ## Override a check with EXPERT mode
 
-If you know a failed check is wrong, you can override it. Turn on EXPERT mode first.
+If you know a failed check is wrong, you can override it. Turn on [EXPERT mode](/using-deployrr/expert-mode/) first.
 
 1. In Deployrr, open **Settings**.
 2. Select **Mode**. Its description reads `Toggle Deployrr Mode - NORMAL`.
