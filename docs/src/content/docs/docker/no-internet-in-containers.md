@@ -155,7 +155,7 @@ If you installed Pi-hole and turned off the stub listener, the new file removes 
 
 On Debian, this step overwrites `/etc/systemd/resolved.conf` again and replaces the `.bak` file with your current file. If you want your own DNS values to stay, edit the file again after the step finishes.
 
-If the check still fails and you are sure the server has internet, you can turn on EXPERT mode with **Settings** > **Mode**. Run **Packages** again. When the check fails, Deployrr now asks "Do you want to override and continue?". Only do this when `ping -c 3 google.com` works.
+If the check still fails and you are sure the server has internet, you can turn on [EXPERT mode](/using-deployrr/expert-mode/) with **Settings** > **Mode**. Run **Packages** again. When the check fails, Deployrr now asks "Do you want to override and continue?". Only do this when `ping -c 3 google.com` works.
 
 ### Containers cannot reach the internet
 

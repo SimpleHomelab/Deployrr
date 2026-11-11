@@ -198,6 +198,8 @@ For a full walk-through with two real apps, see [Pi-hole will not start because 
 
 To bring an app back after a **Safe** delete and reuse its data, see [Reinstall an app and keep its data](/apps/reinstall-app/).
 
+**Apps** > **Manage Apps** > **Remove** is a different path with different questions. See [Install and manage apps from the Apps menu](/apps/manage-apps/) for how the two compare.
+
 ## Your own compose files
 
 Apps you add with [custom.yml](/using-deployrr/custom-yml/) are in your main compose file too. `custom.yml` itself is not listed in these options. Extra files you add next to it are listed as apps.

@@ -245,7 +245,7 @@ Traefik also waits about 2 minutes before it checks DNS. A long wait with no err
 4. If the server lost DNS or internet after Prerequisites, see [No internet on the server or in containers after setup](/docker/no-internet-in-containers/).
 5. Go to [Run Staging again](#run-staging-again).
 
-Deployrr says you can override this error by turning on EXPERT mode in **Settings** > **Mode**. The box then reads "Expert mode ENABLED". The override does not fix DNS. Deployrr checks the log about every 20 seconds, so while the same line is in the log, the override question (`Expert mode enabled. Do you want to override (Y/y)?:`) can come back again and again. This looks like a Deployrr bug. Fix DNS instead.
+Deployrr says you can override this error by turning on [EXPERT mode](/using-deployrr/expert-mode/) in **Settings** > **Mode**. The box then reads "Expert mode ENABLED". The override does not fix DNS. Deployrr checks the log about every 20 seconds, so while the same line is in the log, the override question (`Expert mode enabled. Do you want to override (Y/y)?:`) can come back again and again. Fix DNS instead.
 
 ### Wait out a rate limit
 

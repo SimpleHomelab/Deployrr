@@ -92,7 +92,7 @@ You can also go to **Tools** > **Stack Manager** > **Containers Status** in Depl
 
 A container that restarts every few seconds fills its log and can use a lot of CPU. Stop it first.
 
-1. In Deployrr, go to **Apps** > **Manage Apps** and pick the app. A restarting app usually shows "Status: Running" here.
+1. In Deployrr, go to **Apps** > **Manage Apps** and pick the app. A restarting app usually shows "Status: Running" here. See [Install and manage apps from the Apps menu](/apps/manage-apps/) for the markers.
 2. Choose **Stop**.
 3. Look for "APP stopped successfully".
 
@@ -112,7 +112,7 @@ The log is still there after you stop the container.
 
 ### 3. Read the log
 
-The quickest way in Deployrr: go to **Apps** > **Manage Apps**, pick the app and choose **Logs**. It shows the last 50 lines and keeps following. Press Ctrl+C to stop.
+The quickest way in Deployrr: go to **Apps** > **Manage Apps**, pick the app and choose **Logs**. It shows the last 50 lines and keeps following. Press Ctrl+C once to stop following the log and go back to the menu. Deployrr keeps running. Pressing Ctrl+C twice closes Deployrr.
 
 In the terminal:
 

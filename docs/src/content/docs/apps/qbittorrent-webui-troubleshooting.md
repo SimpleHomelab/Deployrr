@@ -130,7 +130,7 @@ qBittorrent VPN has no port of its own. You reach it through Gluetun, so both co
 
    With the aliases: `dlogs gluetun`. It follows the log live; press Ctrl+C to stop.
 
-   Gluetun must be set up with your VPN provider and connected. If its log shows it can't connect, fix the VPN settings first. qBittorrent VPN can't work without it.
+   Gluetun must be set up with your VPN provider and connected. If its log shows it can't connect, fix the VPN settings first. qBittorrent VPN can't work without it. For the full install order and the VPN details Gluetun asks for, see [Install qBittorrent VPN](/apps/qbittorrent-vpn/).
 
 3. Open the Gluetun file in the `compose/HOSTNAME` folder inside your Docker folder. `HOSTNAME` is your server's hostname. The file is `gluetun.yml`.
 4. Find the `ports` section. It must have this line without a `#` in front:

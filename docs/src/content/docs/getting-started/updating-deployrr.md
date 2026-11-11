@@ -10,6 +10,7 @@ related:
   - getting-started/quick-start
   - support/discord
   - getting-started/videos-and-guides
+  - using-deployrr/reset-or-remove-deployrr
 further_reading:
   - title: Deployrr changelog
     url: https://github.com/SimpleHomelab/Deployrr/blob/main/CHANGELOG.md
@@ -95,6 +96,8 @@ If you installed with curl:
 sudo bash -c "$(curl -fsSL https://files.deployrr.app/install.sh)"
 ```
 
+You also need this after **Settings** > **Reset**, which currently deletes the Deployrr program. See [Refresh, Reset or Remove Deployrr](/using-deployrr/reset-or-remove-deployrr/).
+
 ## Check it worked
 
 - After `deployrr update`, you see `Deployrr has been updated successfully!` and then `Restarting Deployrr...`. Deployrr opens again on its own.
@@ -106,3 +109,4 @@ sudo bash -c "$(curl -fsSL https://files.deployrr.app/install.sh)"
 
 - [Quick start](/getting-started/quick-start/): install Deployrr and complete Prerequisites.
 - [Videos and guides](/getting-started/videos-and-guides/): videos that show the v6 menus.
+- [Refresh, Reset or Remove Deployrr](/using-deployrr/reset-or-remove-deployrr/): clear Deployrr's cache, start over or uninstall it.

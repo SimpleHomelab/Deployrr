@@ -11,7 +11,7 @@ related:
   - docker/compose-malformed
   - using-deployrr/custom-yml
   - using-deployrr/change-hostname
-  - support/discord
+  - using-deployrr/reset-or-remove-deployrr
 further_reading: []
 last_reviewed: 2026-11-09
 status: current
@@ -143,4 +143,4 @@ A backup on the same disk does not help if that disk fails. Copy the backups you
 - [Docker environment setup fails: docker-compose file is malformed](/docker/compose-malformed/): rebuild your setup, and back up first.
 - [Add your own containers with custom.yml](/using-deployrr/custom-yml/): your `custom.yml` is part of the Docker folder, so it is in every backup.
 - [Change the hostname](/using-deployrr/change-hostname/): another change worth backing up before you start.
-- [Get help on Discord](/support/discord/): ask the community if a backup or restore fails.
+- [Refresh, Reset or Remove Deployrr](/using-deployrr/reset-or-remove-deployrr/): back up first, because Reset currently stops your apps and deletes their images.

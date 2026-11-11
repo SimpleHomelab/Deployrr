@@ -102,7 +102,7 @@ Choosing **Yes** stops and removes the app's container if it is running, then in
 
 **Reinstall** is only in the menu when the app is stopped. This route skips the **Already Installed** box.
 
-For context, the other actions in this box are:
+For context, the other actions in this box are below. See [Install and manage apps from the Apps menu](/apps/manage-apps/) for each one.
 
 | App status | Actions |
 | --- | --- |

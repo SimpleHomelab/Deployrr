@@ -8,10 +8,10 @@ tags:
 applies_to: v6.0+
 related:
   - getting-started/prerequisites
+  - getting-started/install-errors
   - getting-started/updating-deployrr
   - using-deployrr/forgot-pin
   - getting-started/videos-and-guides
-  - support/discord
 further_reading: []
 last_reviewed: 2026-11-09
 status: current
@@ -82,6 +82,8 @@ The installer picks the right download for your processor. After this, you can s
 :::caution
 Do not start Deployrr as the root user. If you do, it stops with `Do not run Deployrr as the root user. Run as a regular user with sudo privileges instead.` Deployrr asks for your password when it needs root access.
 :::
+
+If the installer or Deployrr stops with an error, see [Install errors](/getting-started/install-errors/).
 
 ## First steps
 

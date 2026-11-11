@@ -45,7 +45,7 @@ Anyone who has the key can open the app without logging in. Use a long, random k
 
 1. In Deployrr, go to **Proxy** > **Traefik** > **Auth Bypass**. Its description reads "Set Traefik Forward Auth Bypass Key". It shows **Set** after you have saved a key.
 2. Read the **Traefik Auth Bypass Key** box and confirm that you want to proceed.
-3. In the **Update Environment Variable** box, check the key. Deployrr suggests a random key of 16 letters and digits. You can use it as it is or type your own.
+3. In the **Docker Environment Variables** box, check the key. Deployrr suggests a random key of 16 letters and digits. You can use it as it is or type your own.
 4. Confirm. Deployrr saves the key in the `.env` file in your Docker folder.
 5. Wait for the **Auth Bypass Key - Set** box and close it.
 6. Check that **Auth Bypass** now shows **Set** in the menu. The success box can show even if you cancelled the key box.

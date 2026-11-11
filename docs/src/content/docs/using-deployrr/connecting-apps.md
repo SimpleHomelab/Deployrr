@@ -126,7 +126,7 @@ To connect to one of them from another app, use the IP address of your server an
 
 ### Apps that run through Gluetun
 
-The qBittorrent VPN app has `network_mode: "service:gluetun"` in its file. It shares the network of the Gluetun container. It has no network of its own and no `ports` section.
+The qBittorrent VPN app has `network_mode: "service:gluetun"` in its file. To install it, see [Install qBittorrent VPN](/apps/qbittorrent-vpn/). It shares the network of the Gluetun container. It has no network of its own and no `ports` section.
 
 To connect another app to it, use `gluetun` as the host name and `8080` as the port. Other apps can reach `gluetun` because Gluetun is on the `default` network.
 

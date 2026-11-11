@@ -151,7 +151,7 @@ On Debian only, the step also changes your DNS settings. It does these things:
 If you rerun **Packages** on Debian, the new copy overwrites `resolved.conf.bak`. Your original settings are gone after the second run. If you set your own DNS servers, copy the file to a safe place first.
 :::
 
-**If the internet check fails.** You see **Internet Connectivity Check Failed**. On Debian 12, the box adds a note that some users lose internet after this step. See [No internet on the server or in containers after setup](/docker/no-internet-in-containers/). The box also says you can turn on EXPERT mode in **Settings** to override the check. Only do that if you are sure the server has internet.
+**If the internet check fails.** You see **Internet Connectivity Check Failed**. On Debian 12, the box adds a note that some users lose internet after this step. See [No internet on the server or in containers after setup](/docker/no-internet-in-containers/). The box also says you can turn on [EXPERT mode](/using-deployrr/expert-mode/) in **Settings** > **Mode** to override the check. Only do that if you are sure the server has internet.
 
 **Done status.** `DONE`.
 
@@ -177,7 +177,11 @@ If you rerun **Packages** on Debian, the new copy overwrites `resolved.conf.bak`
 su - YOUR_USERNAME
 ```
 
-Replace `YOUR_USERNAME` with the user you created. If you run Deployrr as root when you set the name, you get a warning to restart Deployrr as that user.
+Replace `YOUR_USERNAME` with the user you created.
+
+:::caution
+On Fedora, RHEL, Rocky Linux and CentOS, the new user gets no password and no sudo rights, even though Deployrr says it was created. Set them by hand: `sudo passwd YOUR_USERNAME` and `sudo usermod -aG wheel YOUR_USERNAME`. See [Install errors](/getting-started/install-errors/#create-a-regular-user-with-sudo-rights).
+:::
 
 To see a user created and added to sudo by hand, watch [Docker on Proxmox LXC: creating a non-root user at 10:20](https://youtu.be/-ZSQdJ62r-Q?t=620) (manual setup; Deployrr does this for you).
 
@@ -338,7 +342,7 @@ If it is already `DONE`, you see `It appears that System Checks were already com
 
 When a check fails, the terminal lists the likely causes. They include a blocked or unforwarded port, an ISP that blocks port 80, an ISP that shares one IP between customers, a wrong DNS record and an orange-cloud Cloudflare record. If you just changed a Cloudflare record to gray cloud, the terminal suggests setting your router's DNS to 1.1.1.1. Fix the cause and run **Domain Checks** again. New DNS records can take time to spread. See [Domain Checks failed](/networking/domain-checks-failed/) for each check and its fix.
 
-If you turned on EXPERT mode in **Settings**, each failed check asks if you want to override it. Only do that if you know the check is wrong.
+If you turned on [EXPERT mode](/using-deployrr/expert-mode/) in **Settings** > **Mode**, each failed check asks if you want to override it. Only do that if you know the check is wrong.
 
 **Done status.** `DONE` after all eight checks pass (`Domain Checks Passed: 8 / 8`). A failed run sets it back to `NOT DONE`. In Local mode it shows `NOT-REQUIRED`.
 
