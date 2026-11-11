@@ -77,7 +77,7 @@ In Advanced mode, local traffic can count as external if your router has no hair
 1. Open **Proxy** > **Traefik** > **Preparation** ("Traefik Preparation"). After it finishes, this entry shows "- DONE".
 2. Read the first box. It lists what you need: the Cloudflare token, its permissions, Cloudflare as your DNS provider, and a valid domain.
 3. Select **Yes** to continue. It is the button on the right. Enter picks **No** by default, so move to **Yes** first.
-4. If a **Requirements Not Met** box appears (with the number of missing items), it lists what is missing. Fix those items and start again. The requirements are:
+4. If a **Requirements Not Met** box appears (with the number of missing items), it lists what is missing. Fix those items and start again. [Deployrr shows "Requirements Not Met"](/using-deployrr/requirements-not-met/) explains each line. The requirements are:
    - All **Prerequisites** done
    - Setup Mode **Hybrid**
    - Socket Proxy running

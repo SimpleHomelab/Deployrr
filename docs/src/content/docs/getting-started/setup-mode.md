@@ -142,7 +142,7 @@ The items are:
 - **NPM** > **Install** (Nginx Proxy Manager)
 - **Security** > **Authelia**, **Authentik**, **Google OAuth**, **TinyAuth** and **Manage Auth**
 
-The box lists every missing item at once, so you may see the Hybrid line next to others, such as a license or Traefik not running. Switch to Hybrid in **Prerequisites** > **Setup Mode**, fix the other items, then try again.
+The box lists every missing item at once, so you may see the Hybrid line next to others, such as a license or Traefik not running. Switch to Hybrid in **Prerequisites** > **Setup Mode**, fix the other items, then try again. [Deployrr shows "Requirements Not Met"](/using-deployrr/requirements-not-met/) explains every line the box can list.
 
 **Traefikify**, **Un-Traefikify** and **Traefik Mode** don't check Setup Mode. They have their own requirements.
 

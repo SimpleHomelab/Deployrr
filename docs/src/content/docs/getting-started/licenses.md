@@ -77,7 +77,7 @@ This table shows the menus and features each level unlocks.
 | **Help** > **Remote Assist** | No | No | No | Yes |
 
 :::note
-Some items also need other steps, such as Traefik running or Hybrid mode on. A missing step shows a **Requirements Not Met** box. See the page for each feature.
+Some items also need other steps, such as Traefik running or Hybrid mode on. A missing step shows a **Requirements Not Met** box. See [Deployrr shows "Requirements Not Met"](/using-deployrr/requirements-not-met/) for every line it can list.
 :::
 
 **Help** > **Remote Assist** appears only with a Pro license. It starts and stops a support session. With Basic or Plus, **Tools** > **Diagnostics** > **Remote Assist** shows whether a session is running and can only stop it.

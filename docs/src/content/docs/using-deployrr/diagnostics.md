@@ -82,7 +82,7 @@ The other main menu messages mean something different:
 
 ### 1. Open Diagnostics
 
-You need all Prerequisites done and a Basic, Plus or Pro license. Without them, Deployrr shows a box titled **Requirements Not Met** with the number of missing items, such as "Requirements Not Met (1)", and lists them. For unfinished Prerequisites it says "Prerequisites - All steps must be completed". For a missing license it says "License - Basic, Plus, or Pro required", followed by your current license and a hint to **Prerequisites** > **Verify**.
+You need all Prerequisites done and a Basic, Plus or Pro license. Without them, Deployrr shows a box titled **Requirements Not Met** with the number of missing items, such as "Requirements Not Met (1)", and lists them. For unfinished Prerequisites it says "Prerequisites - All steps must be completed". For a missing license it says "License - Basic, Plus, or Pro required", followed by your current license and a hint to **Prerequisites** > **Verify**. See [Deployrr shows "Requirements Not Met"](/using-deployrr/requirements-not-met/) for what each line means.
 
 1. In Deployrr, open **Tools**.
 2. Select **Diagnostics**.
