@@ -98,7 +98,7 @@ Use any names and port you like. The port must be free on your server. The numbe
    sudo ss -tulpn | grep ':8990 '
    ```
 
-   If this prints a line, the port is taken. Pick another number.
+   If this prints a line, the port is taken. Pick another number. To find out what holds a port, see [Port already in use](/apps/port-already-in-use/).
 
 4. Create the config folder for the new copy.
 
