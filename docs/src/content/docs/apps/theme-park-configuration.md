@@ -12,7 +12,9 @@ related:
   - using-deployrr/custom-yml
   - using-deployrr/bash-aliases
   - reverse-proxy/check-traefik-logs
-further_reading: []
+further_reading:
+  - title: "UDMS part 25: Traefik plugins, including Theme Park"
+    url: https://www.simplehomelab.com/udms-25-traefik-plugins/
 last_reviewed: 2026-11-08
 status: current
 old_paths: ["/apps/theme-park-configuration"]
@@ -52,7 +54,7 @@ Do this part if you want to run your own Theme Park server.
 
 ### Part 2: Theme an app through Traefik
 
-Do this part if the app is behind Traefik and you want the theme added by Traefik. This method needs no Theme Park container. Replace `HOSTNAME` with your server's hostname everywhere below.
+Do this part if the app is behind Traefik and you want the theme added by Traefik. This method needs no Theme Park container. Replace `HOSTNAME` with your server's hostname everywhere below. For background on how Traefik plugins work, read [UDMS part 25: Traefik plugins, including Theme Park](https://www.simplehomelab.com/udms-25-traefik-plugins/) (manual setup, so file paths and settings differ from Deployrr).
 
 1. Go to the Traefik rules folder for your server. It is inside your Docker folder:
 
@@ -140,7 +142,7 @@ If the page looks unchanged or Traefik fails to start, [read the Traefik log](/r
 The plugin is downloaded when Traefik starts. If Traefik can't reach the internet, it can't load the plugin. A typo in `traefik.yml` can stop Traefik, and all your apps behind it. Back up the file before you edit it.
 :::
 
-If you run **Traefikify** again for the app and choose to overwrite its file, or remove the app from Traefik and add it back, Deployrr writes a new `app-APPNAME.yml` without your theme line. Add the line again afterwards. If you change the app's login method, check that the theme line is still in the `middlewares:` list.
+If you run [**Traefikify**](/reverse-proxy/traefikify/) again for the app and choose to overwrite its file, or remove the app from Traefik and add it back, Deployrr writes a new `app-APPNAME.yml` without your theme line. Add the line again afterwards. If you change the app's login method, check that the theme line is still in the `middlewares:` list.
 
 ## Related
 
