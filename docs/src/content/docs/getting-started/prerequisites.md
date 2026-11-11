@@ -287,7 +287,7 @@ To understand how the folders, permissions and `.env` file fit together, read [U
 
 **What it changes.** It saves the address in your `.env` file. Your compose files use it.
 
-**Done status.** Your IP in green. You can rerun it any time. The final box says so.
+**Done status.** Your IP in green. You can rerun it any time. The final box says so. If the server's IP changes after you installed apps, also follow [Change the server IP](/using-deployrr/change-server-ip/).
 
 ## 11. Domain 1
 

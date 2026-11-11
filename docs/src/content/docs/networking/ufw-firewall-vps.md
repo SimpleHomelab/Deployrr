@@ -125,7 +125,7 @@ Steps 1, 2 and 5 are general Linux and UFW advice. They are not part of Deployrr
 
    On a VPS in Simple mode, enter the server's public IP address. Deployrr then shows "Server IP set to" and your address. You can run this again at any time.
 
-   If you change the IP later, use **Tools** > **Change Server IP** (needs a Pro license). It asks for the new IP, then the previous IP. It then asks you to confirm. It updates the IP for services on the Deployrr Dashboard and in the Traefik file providers. [Move Deployrr to a new server](/using-deployrr/move-to-new-server/) walks through it.
+   If you change the IP later, use **Tools** > **Change Server IP** (needs a Pro license). It asks for the new IP, then the previous IP. It then asks you to confirm. It updates the IP for services on the Deployrr Dashboard and in the Traefik file providers. [Change the server IP](/using-deployrr/change-server-ip/) walks through it.
 
 ### Set a basic UFW rule set
 

@@ -101,13 +101,17 @@ Replace `FILE` with the path of your `.tar.gz` file. Replace `USER` with your Li
 
 #### If the new server has a different IP address
 
+These steps are the short version. For a backup step, the full output and what the tool leaves alone, see [Change the server IP](/using-deployrr/change-server-ip/).
+
 1. Go to **Tools** > **Change Server IP** ("Adapt Deployrr to a new server IP"). This needs Pro and finished Prerequisites.
 2. At "Enter the new Docker Host IP (LAN IP or WAN IP for VPS):", type the IP of the new server.
 3. At "Enter the previous Docker Host IP...", type the IP of the old server. It can't be empty or the same as the new IP.
 4. Read the **Update Service IP** box. It says Deployrr will update the IP for your services in the Deployrr Dashboard and in all Traefik file providers.
 5. Confirm.
-6. Read the lines Deployrr prints. Each file shows "Updated" with the old and new IP, or "No occurrence" if it did not contain the old IP. There is no separate success message. Press a key to go back.
-7. Update your router port forwards and DNS records that still point at the old IP.
+6. Read the lines Deployrr prints. Each file shows "Updated" with the old and new IP, or "No occurrence" if it did not contain the old IP. There is no separate success message. Press Enter, or wait, to go back.
+7. Go to **Prerequisites** > **Server IP** and enter the new IP again, so Deployrr's own setting matches.
+8. Recreate Plex, Open WebUI, Paperless-ngx and BookStack if you run them. They use the server IP.
+9. Update your router port forwards and DNS records that still point at the old IP.
 
 #### If the new server has a different hostname
 

@@ -227,7 +227,7 @@ Leave the comment lines in `services.yaml` alone, such as the ones ending in `PL
 | The page does not load at your domain address | Check that the local address works first. Then see [Read the Traefik logs](/reverse-proxy/check-traefik-logs/). |
 | An app is missing | Start the dashboard if it is stopped, then run **ReDash**. |
 | A hand edit disappeared | Find the saved file in `appdata/deployrr-dashboard/config/`. It is named `services.DATE_TIME.yaml`. Copy your lines from it. |
-| Entries show an old server IP address | Run **Tools** > **Change Server IP**. |
+| Entries show an old server IP address | Run **Tools** > **Change Server IP**. See [Change the server IP](/using-deployrr/change-server-ip/). |
 
 ## Related
 
