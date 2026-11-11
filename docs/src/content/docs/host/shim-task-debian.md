@@ -16,10 +16,10 @@ symptoms:
   - Containers stopped starting after I updated Docker on a Debian or Ubuntu LXC container in Proxmox
 related:
   - docker/waiting-for-container
+  - host/system-checks-failed
   - docker/no-internet-in-containers
   - getting-started/quick-start
   - getting-started/videos-and-guides
-  - host/rclone-mount-not-empty
 further_reading:
   - title: Docker Engine release notes
     url: https://docs.docker.com/engine/release-notes/
@@ -58,7 +58,7 @@ How Deployrr affects this:
 
 - When Docker is not installed yet, **Prerequisites** > **System Checks** (described as "System and Docker Checks") installs it with Docker's own install script. That gets the newest `containerd.io`.
 - When Docker is already installed, System Checks asks "Would you like to check and update your system? (Y/n)". If you press `Y`, it updates all your operating system packages. Pressing Enter skips the update. A normal update respects a held package, so fix 1 survives it.
-- If System Checks has to install Docker again, Deployrr shows "Unholding containerd.io..." and installs the newest version. Apply fix 1 again afterwards.
+- If System Checks has to install Docker again, Deployrr shows "Unholding containerd.io..." and installs the newest version. Apply fix 1 again afterwards. This also happens if Docker was stopped when you started Deployrr. See [System Checks failed](/host/system-checks-failed/#check-and-re-apply-held-packages).
 - In **Prerequisites** > **System Type**, choose "Unprivileged LXC" or "Privileged LXC" to match your container.
 
 ## Fix
@@ -163,6 +163,7 @@ For fix 2, remove the `lxc.apparmor.profile = unconfined` line from `/etc/pve/lx
 ## Related
 
 - [Deployrr times out waiting for a container to start](/docker/waiting-for-container/): other reasons a container does not start, and how to read its log.
+- [System Checks failed](/host/system-checks-failed/): what System Checks does to held Docker packages, and how to hold them again.
 - [No internet on the server or in containers after setup](/docker/no-internet-in-containers/): another host-level Docker problem.
 - [Quick start](/getting-started/quick-start/): the Prerequisites steps in order.
 - [Videos and guides](/getting-started/videos-and-guides/): includes a Proxmox tutorials playlist.

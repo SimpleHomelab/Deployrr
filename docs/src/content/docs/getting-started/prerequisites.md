@@ -317,7 +317,7 @@ The system update can also update Docker. On a Proxmox LXC, that can stop contai
 
 To see this step run and install Docker, watch [Deployrr 5 walkthrough: System Checks at 11:17](https://youtu.be/rdqbAr0TFnQ?t=677) (shows Deployrr v5; menus and steps differ in v6). To understand what the Docker install does, read [UDMS part 12: Install Docker on Ubuntu 24.04 or Debian 12](https://www.simplehomelab.com/udms-12-install-docker-and-docker-compose/#Install_Docker_on_Ubuntu_2404_or_Debian_12) (manual setup).
 
-**Done status.** `DONE` after the message `All System and Docker checks passed`.
+**Done status.** `DONE` after the message `All System and Docker checks passed`. If a check fails, see [System Checks failed](/host/system-checks-failed/).
 
 If it is already `DONE`, you see `It appears that System Checks were already completed.` Press `y` to run it again. Any other key goes back. A rerun that fails sets the status back to `NOT DONE`.
 
