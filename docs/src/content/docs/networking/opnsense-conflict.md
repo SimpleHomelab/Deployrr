@@ -19,10 +19,10 @@ symptoms:
   - "Cannot get ACME client get directory. Possible DNS server issue."
   - OPNsense redirects all DNS on your LAN to its own resolver
 related:
+  - reverse-proxy/certificate-errors
   - reverse-proxy/check-traefik-logs
   - apps/pi-hole-port-53-conflict
   - getting-started/quick-start
-  - reverse-proxy/restrict-access-using-ip-allowlist
   - networking/ufw-firewall-vps
 last_reviewed: 2026-11-09
 status: current
@@ -128,7 +128,7 @@ Run **Proxy** > **Traefik** > **Staging** again. Deployrr warns that a previous 
 
 ### Other staging errors
 
-Deployrr can stop staging with other messages. Each has its own fix:
+Deployrr can stop staging with other messages. Each has its own fix. [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/) covers each one in more detail:
 
 - **Failed to find zone**: the Cloudflare API token is wrong. It needs Zone / Zone / Read and Zone / DNS / Edit.
 - **Could not find DNS validation TXT record**: delete all `_acme-challenge` TXT records in Cloudflare and try again.
@@ -153,6 +153,7 @@ When staging works, a browser shows a "Not Secure" warning for your domain. Depl
 
 ## Related
 
+- [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/): every staging and production certificate error and its fix.
 - [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): where `traefik.log` is and how to search it.
 - [Pi-hole port 53 conflict](/apps/pi-hole-port-53-conflict/): another DNS problem on port 53.
 - [Quick start](/getting-started/quick-start/): the setup steps that come before Traefik staging.

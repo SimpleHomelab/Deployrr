@@ -122,7 +122,7 @@ Staging gets test certificates from the Let's Encrypt staging server. This keeps
 7. Open `https://traefik.YOUR_DOMAIN` in your browser. Replace `YOUR_DOMAIN` with your domain. You should see the Traefik dashboard. A "Not Secure" warning is normal here, because staging certificates are test certificates.
 8. Read the warning "Enable a strong authentication system from the 'Security' menu." You do that after Production.
 
-If Staging fails, find your message here.
+If Staging fails, find your message here. For the causes and step-by-step fixes, see [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/).
 
 | Message | What to do |
 | --- | --- |
