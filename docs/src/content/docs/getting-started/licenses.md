@@ -61,10 +61,10 @@ This table shows the menus and features each level unlocks.
 | **Prerequisites** menu, including **Verify** | Yes | Yes | Yes | Yes |
 | **Help** menu | Yes | Yes | Yes | Yes |
 | **Docker** > **Docker Login**, **Disk Usage**, **Cleanup** (after Prerequisites) | Yes | Yes | Yes | Yes |
-| **System** > **Folders**, **Tools** > **Preferred Editor**, **Proxy** > **Proxy Type** and **Proxy** > **Traefik** > **Traefik Mode** | Yes | Yes | Yes | Yes |
+| **Tools** > **Preferred Editor**, **Proxy** > **Proxy Type** and **Proxy** > **Traefik** > **Traefik Mode** | Yes | Yes | Yes | Yes |
 | **Apps** > **Browse Apps** (installing an app) | No | Yes | Yes | Yes |
 | **Docker** > **Socket Proxy** and **Deployrr Dashboard** | No | Yes | Yes | Yes |
-| **System** menu: **Mounts** (SMB, NFS and Rclone), **GPU**, **Network**, **Bash Aliases**, **SMTP**, **Mail Relay** | No | Yes | Yes | Yes |
+| **System** menu: **Mounts** (SMB, NFS and Rclone), **GPU**, **Network**, **Bash Aliases**, **SMTP**, **Mail Relay**, and setting a folder in [**Folders**](/using-deployrr/folders/) (Free can open the menu only) | No | Yes | Yes | Yes |
 | **Tools** > **Stack Manager**, **Diagnostics**, **Dashify**, **ReDash**, **Lazydocker** | No | Yes | Yes | Yes |
 | **Proxy** > **Traefik** > **Preparation**, **Staging** and **Production** | No | No | Yes | Yes |
 | **Proxy** > **Traefik** > **Manage Exposure**, **Traefikify**, **Un-Traefikify**, **Domain Passthrough**, **Auth Bypass** | No | No | Yes | Yes |

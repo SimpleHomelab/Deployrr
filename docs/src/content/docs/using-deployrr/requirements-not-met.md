@@ -173,7 +173,7 @@ To see the Rclone menu used from install to automount, watch [Deployrr 5 walkthr
 
 ### Folder lines
 
-These appear when you install an app that needs a folder. Set the folder in **System** > **Folders**. Setting a folder needs a Basic, Plus or Pro license.
+These appear when you install an app that needs a folder. Set the folder in **System** > **Folders**. Setting a folder needs a Basic, Plus or Pro license. See [Set your media, downloads and other folders](/using-deployrr/folders/) for every folder and which apps use it.
 
 | Line in the box | Where to clear it |
 | --- | --- |
