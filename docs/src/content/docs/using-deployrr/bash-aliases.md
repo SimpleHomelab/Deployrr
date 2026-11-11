@@ -12,7 +12,18 @@ related:
   - reverse-proxy/check-traefik-logs
   - docker/waiting-for-container
   - using-deployrr/change-hostname
-further_reading: []
+videos:
+  - id: rdqbAr0TFnQ
+    start: 1468
+    title: "Deployrr 5 walkthrough: installing the bash aliases"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
+  - id: Ux9khKhqhcg
+    start: 463
+    title: "Bash aliases: Docker and Docker Compose shortcuts in use"
+    note: "Manual setup. The video builds a ~/.bash_aliases file by hand and some alias names differ from v6. In Deployrr v6, use the names on this page."
+further_reading:
+  - title: "UDMS part 13: Docker commands and bash aliases"
+    url: https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/
 last_reviewed: 2026-11-08
 status: current
 old_paths: ["/operating-system/bash-aliases-explained"]
@@ -37,6 +48,8 @@ If the aliases are already set up, Deployrr shows `It appears that Docker Bash A
 
 If you see a **Requirements Not Met** box instead, complete the items it lists first. They are usually steps in **Prerequisites**.
 
+To see the aliases installed and the prompt change, watch [Deployrr 5 walkthrough: installing the bash aliases at 24:28](https://youtu.be/rdqbAr0TFnQ?t=1468) (shows Deployrr v5; menus differ in v6).
+
 :::note
 If you set up the Docker aliases with an older version of Deployrr, Deployrr moves you to the new alias file the next time it starts. It shows `Migrating Bash Aliases...` while it does this. See [Update Deployrr](/getting-started/updating-deployrr/).
 :::
@@ -46,6 +59,8 @@ If you set up the Docker aliases with an older version of Deployrr, Deployrr mov
 - The alias file is `shared/config/udms_bash_aliases` inside your Docker folder. Deployrr recommends `/home/YOUR_USER/docker` as the Docker folder, but you choose it in **Prerequisites** > **Docker Folder**, so yours may be elsewhere.
 - Deployrr adds a short block to your `~/.bashrc` that loads the file. The block starts with the comment `# Anand's UDMS Bash Aliases added by Deployrr`. If you were moved over from the older aliases, it reads `UDMS Bash Aliases added by Deployrr`.
 - Deployrr also adds a block to `~/.bash_profile`, starting with `# Sourcing .bashrc (added by Deployrr)`, so login shells load `~/.bashrc`.
+
+To understand how an alias file works, read [UDMS part 13: Docker commands and bash aliases](https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/) (manual setup; it uses `~/.bash_aliases`, not the Deployrr alias file).
 
 To read the file, use the `cdd` alias to jump to your Docker folder, then open the file:
 
@@ -109,6 +124,8 @@ These aliases work on the Compose file Deployrr keeps in your Docker folder for 
 | `traefiklogs` | Follows the Traefik log file. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/). |
 
 You can add an app name to most of the `dc` aliases to act on one app, for example `dclogs traefik` or `dcrestart traefik`.
+
+To watch aliases like these replace long Compose commands, see [Bash aliases: Docker and Docker Compose shortcuts at 7:43](https://youtu.be/Ux9khKhqhcg?t=463) (manual setup; some alias names differ from v6).
 
 ## CrowdSec
 
