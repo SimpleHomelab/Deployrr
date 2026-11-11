@@ -21,6 +21,11 @@ related:
   - using-deployrr/second-app-instances
   - getting-started/quick-start
   - docker/rate-limit
+videos:
+  - id: THuLgGwq0vg
+    start: 842
+    title: "Docker Compose walkthrough: main compose file with networks, include and YAML spacing"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 last_reviewed: 2026-11-08
 status: current
 old_paths: ["/docker/docker-compose-malformed"]
@@ -70,6 +75,8 @@ include:
 ```
 
 `include:` starts at the beginning of its line. The three comment lines start with two spaces. Each line must be on its own, with nothing else on it. Extra text or different indentation counts as missing.
+
+To understand how a main compose file is laid out, watch [Docker Compose walkthrough: networks, include and YAML spacing at 14:02](https://youtu.be/THuLgGwq0vg?t=842) (manual Docker Compose setup with different folder and file names; Deployrr does these steps for you, and its file also has the placeholder lines).
 
 When the error comes from **Prerequisites** > **Environment**, Deployrr has just copied in a fresh starter file and checked it, so your own edits are not the cause. The starter file it copied is damaged. Use [Option 2](#option-2-rebuild-the-file-with-the-environment-step), and ask on Discord if it fails again.
 
