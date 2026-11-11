@@ -97,7 +97,7 @@ sudo docker logs gluetun
 With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dlogs gluetun`. It keeps following the log; press Ctrl+C to stop.
 
 :::caution
-After a time-out, Deployrr still prints `Gluetun configuration complete` and counts Gluetun as installed. The qBittorrent VPN install in step 4 then goes ahead even though the VPN isn't connected. Fix your VPN details and get `VPN connected successfully!` before you go on. For a Gluetun that can't connect, see [qBittorrent web UI says Unauthorized or won't open](/apps/qbittorrent-webui-troubleshooting/).
+After a time-out, Gluetun currently counts as installed. The qBittorrent VPN install in step 4 then goes ahead even though the VPN isn't connected. Fix your VPN details and get `VPN connected successfully!` before you go on. For a Gluetun that can't connect, see [qBittorrent web UI says Unauthorized or won't open](/apps/qbittorrent-webui-troubleshooting/).
 :::
 
 At the end, Deployrr tells you that you can route other containers through Gluetun by adding `network_mode: service:gluetun` to their compose configuration. You don't need that for qBittorrent VPN. Its install does it for you.
@@ -148,7 +148,7 @@ In Sonarr, Radarr and other apps, add qBittorrent as a download client with thes
 - **Port**: `8080`
 
 :::caution
-At the end of the install, Deployrr says to use `gluetun` and your qBittorrent VPN port (`8082` by default). That port only works from your browser. Apps in other containers must use `8080`.
+Apps in other containers connect on port `8080`. The port you chose (`8082` by default) is for your browser.
 :::
 
 The host is `gluetun` because qBittorrent VPN shares Gluetun's network. It has no network or container address of its own. See [Connect your apps to each other](/using-deployrr/connecting-apps/).

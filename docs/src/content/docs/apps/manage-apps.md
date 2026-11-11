@@ -176,7 +176,7 @@ Answering **No** to "Remove app data as well?" keeps the `appdata` folder, but *
 :::
 
 :::caution
-By the time the **Multicontainer App Removal** box appears, Deployrr has already stopped and removed the app's container. **Cancel removal** does not bring it back. This is a known issue. Its compose file and settings are still in place, so if you cancel, bring the app back with **Tools** > **Stack Manager** > **Up**.
+By the time the **Multicontainer App Removal** box appears, Deployrr has already stopped and removed the app's container. **Cancel removal** currently does not bring it back. Its compose file and settings are still in place, so if you cancel, bring the app back with **Tools** > **Stack Manager** > **Up**.
 :::
 
 If you ever see "Cannot remove dependency directly", Deployrr names the app to remove instead. Remove that app.

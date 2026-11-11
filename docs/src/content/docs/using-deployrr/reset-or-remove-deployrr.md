@@ -53,7 +53,7 @@ Start with **Refresh**. It is safe and fixes most odd behaviour. **Reset** and *
 | What you do next | Start Deployrr again | Run the installer, then redo some Prerequisites | Nothing, or clean up by hand |
 
 :::caution
-The Reset screen says your Docker containers will remain running. Currently that is wrong. Reset stops and removes them. This is reported. Read [Reset](#reset-deployrr-status) before you press `Y`.
+Reset currently stops and removes your app containers. Read [Reset](#reset-deployrr-status) before you press `Y`.
 :::
 
 ## Which one do I need?
@@ -75,7 +75,7 @@ The **Settings** menu is titled **Deployrr Settings**. You do not need a license
 - **Logs**: makes a sanitized log you can share. Type `Y` and press Enter to start. The log is saved in the folder you ran Deployrr from, and the screen ends with "Sanitized log ready for sharing". Read the log before you share it.
 - **Refresh**, **Reset** and **Remove**: covered below.
 
-To see these three items on screen, watch [Deployrr 5 walkthrough: Settings menu at 1:24:19](https://youtu.be/rdqbAr0TFnQ?t=5059) (shows Deployrr v5; menus and steps differ in v6). It says Reset leaves your Docker apps alone. In v6 that is currently not true, so follow this page for Reset.
+To see these three items on screen, watch [Deployrr 5 walkthrough: Settings menu at 1:24:19](https://youtu.be/rdqbAr0TFnQ?t=5059) (shows Deployrr v5; menus and steps differ in v6). It says Reset leaves your Docker apps alone. In v6, Reset currently stops your apps, so follow this page for Reset.
 
 ## Refresh Deployrr
 
@@ -108,7 +108,7 @@ The screen is titled **Reset Deployrr Status**. It warns that the operation dele
 
 ### What actually happens
 
-Currently, the last two lines are only partly true. Your app data is kept, but your apps do not keep running.
+Currently, Reset keeps your app data but stops your apps.
 
 After you press `Y`, you see four steps:
 
@@ -173,8 +173,6 @@ The screen is titled **Remove Deployrr**. It warns that the operation permanentl
 - Deployrr scripts will be removed.
 - Docker containers will remain running.
 - Application data will not be deleted.
-
-For Remove, the last two lines are true.
 
 ### Remove step by step
 
