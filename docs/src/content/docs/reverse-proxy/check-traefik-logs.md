@@ -19,7 +19,18 @@ related:
   - using-deployrr/change-hostname
   - apps/theme-park-configuration
   - support/discord
-further_reading: []
+further_reading:
+  - title: "UDMS part 18: Learn to read Traefik logs"
+    url: "https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Learn_to_Read_Logs"
+videos:
+  - id: KMZIyoZ3jWM
+    start: 2723
+    title: "Traefik 3 guide: Following traefik.log during staging"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
+  - id: KMZIyoZ3jWM
+    start: 2114
+    title: "Traefik 3 guide: Traefik logging options and log level"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 last_reviewed: 2026-11-08
 status: current
 old_paths: ["/traefik/check-traefik-logs"]
@@ -89,6 +100,8 @@ When you run **Proxy** > **Traefik** > **Production** (Setup Traefik Production)
 
 If you see `Permission denied`, put `sudo` in front of the command.
 
+To see the log followed during a first certificate request, watch [Traefik 3 guide: following traefik.log during staging at 45:23](https://youtu.be/KMZIyoZ3jWM?t=2723) (manual Docker Compose setup; Deployrr does these steps for you).
+
 ### Follow the access log live
 
 There is no alias for the access log. Run this from your Docker folder:
@@ -128,6 +141,8 @@ For a `502`, check that the app is running:
 ```bash
 dpss
 ```
+
+To understand how the logs and common errors fit together, read [UDMS part 18: Learn to read Traefik logs](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Learn_to_Read_Logs) (manual setup; folder names differ from Deployrr).
 
 ### Change the log level
 
