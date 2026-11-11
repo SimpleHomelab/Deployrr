@@ -134,6 +134,8 @@ These are general Docker commands.
 
 If the log shows image pull errors, see [Docker image pulls fail](/docker/rate-limit/).
 
+If the app installed fine but later keeps restarting or shows unhealthy, see [A container keeps restarting, is unhealthy or has exited](/docker/container-keeps-restarting/).
+
 ### 2. Check which Docker you have
 
 Do this if you saw `unknown flag: --profile`, or if you installed Docker yourself before you used Deployrr. These are general Linux commands.
