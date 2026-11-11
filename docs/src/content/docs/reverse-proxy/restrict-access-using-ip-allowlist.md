@@ -14,7 +14,22 @@ related:
   - reverse-proxy/check-traefik-logs
   - reverse-proxy/multi-server-same-domain
   - reverse-proxy/point-root-domain-to-a-dashboard
-further_reading: []
+videos:
+  - id: rdqbAr0TFnQ
+    start: 4127
+    title: "Deployrr 5 walkthrough: Manage App Exposure (internal, external, both)"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
+  - id: rdqbAr0TFnQ
+    start: 2163
+    title: "Deployrr 5 walkthrough: Traefik exposure mode (Simple vs Advanced)"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
+  - id: cUZ6kkum1pc
+    start: 884
+    title: "Traefik 3 guide: middleware chains"
+    note: "Manual Docker Compose setup. Folder names differ from Deployrr v6; watch it to see how chains work."
+further_reading:
+  - title: "UDMS part 18: how middleware chains work (manual setup)"
+    url: "https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Middleware_Chains"
 last_reviewed: 2026-11-08
 status: current
 old_paths: ["/traefik/restrict-access-using-ip-allowlist"]
@@ -41,6 +56,8 @@ This is the simplest way. An app set to **Internal** answers only on your local 
 5. Go to **Proxy** > **Traefik** > **Manage Exposure**.
 6. Select the app and choose **Change**.
 7. In the **Change Exposure** box, choose **Internal** and select **Apply**. The options are **Both**, **Internal** and **External**. The change takes effect right away.
+
+To see Manage Exposure in use, and why hairpinning or local DNS matters, watch [Deployrr 5 walkthrough: Manage App Exposure at 1:08:47](https://youtu.be/rdqbAr0TFnQ?t=4127) (shows Deployrr v5; menus differ in v6).
 
 Internal works by which ports reach the server, not by checking who connects. If your router forwards ports 80 and 443 straight to the server instead of to 81 and 444, outside visitors can still reach Internal apps.
 
@@ -90,6 +107,8 @@ Deployrr does not ship an allowlist file, so you create this one yourself.
 ### Create a chain that uses it
 
 The shipped `chain-no-auth` file has rate limiting and secure headers. Make a copy of it with the allowlist added.
+
+To see how a chain groups middlewares, watch [Traefik 3 guide: middleware chains at 14:44](https://youtu.be/cUZ6kkum1pc?t=884) (manual Docker Compose setup; its folder names differ from Deployrr v6).
 
 1. In the same folder, create a file named `chain-no-auth-internal-only.yml`.
 2. Put this in it:
