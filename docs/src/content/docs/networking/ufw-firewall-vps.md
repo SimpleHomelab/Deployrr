@@ -111,7 +111,7 @@ Steps 1, 2 and 5 are general Linux and UFW advice. They are not part of Deployrr
    In Simple mode, Deployrr says all apps are exposed both locally and over the internet. You cannot set an app to Internal only. To keep an app private, use Tailscale (step 6), or protect the app with a login.
    :::
 
-   Advanced mode needs a router, gateway or firewall that forwards 80 to 81 and 443 to 444. A VPS with no firewall in front of it has nothing to do that. Stay on Simple mode unless you add such a device in front of your server. See [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/) for how Internal and External exposure work.
+   Advanced mode needs a router, gateway or firewall that forwards 80 to 81 and 443 to 444. A VPS with no firewall in front of it has nothing to do that. Stay on Simple mode unless you add such a device in front of your server. See [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/) for how the two modes differ, and [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/) for how Internal and External exposure work.
 
 ### Set the server IP
 

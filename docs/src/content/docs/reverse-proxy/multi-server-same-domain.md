@@ -9,11 +9,11 @@ tags:
 applies_to: v6.0+
 apps: [jellyfin]
 related:
+  - reverse-proxy/traefikify
   - apps/home-assistant-behind-traefik
   - using-deployrr/second-app-instances
   - reverse-proxy/check-traefik-logs
   - reverse-proxy/point-root-domain-to-a-dashboard
-  - getting-started/quick-start
 further_reading: []
 last_reviewed: 2026-11-08
 status: current
@@ -66,7 +66,7 @@ Keep the main Traefik on your most reliable server. If this server is off, every
 
 ## Add each app to the main server's Traefik
 
-Do this on the main server, once for each app on another server.
+Do this on the main server, once for each app on another server. [Put any app behind Traefik with Traefikify](/reverse-proxy/traefikify/) explains every prompt in more detail.
 
 1. In Deployrr, go to **Proxy** > **Traefik** > **Traefikify**.
 2. Read the **Traefikify** box and confirm that you want to proceed.

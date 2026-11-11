@@ -123,7 +123,7 @@ Deployrr adds the GPU lines when it installs the app. Scanning later does not ch
 You can also use **Apps** > **Manage Apps** > **Reinstall**. This option shows only when the app is stopped.
 
 :::caution
-Reinstalling replaces any manual edits in the app's compose file with the default. The file is `compose/HOSTNAME/APP.yml` inside your Docker folder. `HOSTNAME` is your server's hostname and `APP` is the app's name. Copy your edits somewhere safe first.
+Reinstalling replaces any manual edits in the app's compose file with the default. The file is `compose/HOSTNAME/APP.yml` inside your Docker folder. `HOSTNAME` is your server's hostname and `APP` is the app's name. Copy your edits somewhere safe first. For what else a reinstall keeps and resets, see [Reinstall an app and keep its data](/apps/reinstall-app/).
 :::
 
 ### 4. Turn on hardware transcoding in the app

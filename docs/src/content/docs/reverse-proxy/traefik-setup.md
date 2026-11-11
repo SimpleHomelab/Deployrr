@@ -27,7 +27,7 @@ Traefik is the reverse proxy that gives your apps their own web addresses, such 
 
 ## Before you start
 
-- Finish the steps in the [Quick start](/getting-started/quick-start/): **Prerequisites**, Setup Mode set to **Hybrid**, and Domain Checks.
+- Finish the steps in the [Quick start](/getting-started/quick-start/): **Prerequisites**, Setup Mode set to **Hybrid** (see [Setup Mode: Local or Hybrid](/getting-started/setup-mode/)), and Domain Checks.
 - You need a Deployrr Plus or Pro license.
 - Your domain uses Cloudflare as its DNS provider. The domain can come from any registrar that lets you change the DNS servers to Cloudflare.
 - The DNS records for your domain point to your public IP. That means an A record for the domain and a wildcard record (`*.YOUR_DOMAIN`, often a CNAME). Set both to DNS only (grey cloud) in Cloudflare. With the Cloudflare proxy (orange cloud) on, Domain Checks sees a different IP and fails with "Cloudflare proxy is probably enabled/orange-clouded".
@@ -50,12 +50,12 @@ Traefik is the reverse proxy that gives your apps their own web addresses, such 
 This step turns Traefik on in your compose file ("Enabling traefik.yml in compose file...") and turns NPM off ("Disabling npm.yml in compose file..."). You need it before you can use **Traefik Mode**.
 
 :::caution
-If Setup Mode is **Local**, you see a "Proxy Type - Local Mode Warning" box. Your changes have no effect until you switch to **Hybrid**. Go to **Prerequisites** > **Setup Mode**, pick **Hybrid**, then come back.
+If Setup Mode is **Local**, you see a "Proxy Type - Local Mode Warning" box. Your changes have no effect until you switch to **Hybrid**. Go to **Prerequisites** and select **Setup Mode** until the box says `Hybrid mode ENABLED`, then come back.
 :::
 
 ### Choose Simple or Advanced mode (optional)
 
-Traefik has two modes. This choice decides which ports you forward on your router. Until you pick one, the **Traefik Mode** entry shows "NOT SET" and Deployrr treats your setup as Simple. You can also change it later.
+Traefik has two modes. This choice decides which ports you forward on your router. Until you pick one, the **Traefik Mode** entry shows "NOT SET", and Manage Exposure and Traefikify behave as in Simple mode. You can also change it later. To compare the modes in more detail, see [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/).
 
 | Mode | Router port forwards | What you get |
 | --- | --- | --- |
@@ -188,7 +188,7 @@ Production shows the same errors as Staging, plus these:
 - Install apps from **Apps** > **Browse Apps**. For apps that support Traefik, Deployrr asks for a subdomain (the app name without hyphens by default) and a login method, then sets up the route for you. In Advanced mode it also asks you to pick an exposure method: Both, Internal or External. Cancel picks Internal.
 - The **Proxy** > **Traefik** menu has more tools once Production is done: **Manage Exposure**, **Traefikify**, **Un-Traefikify**, **Domain Passthrough** and **Auth Bypass**.
 - Add login protection from the **Security** menu. You can choose Authelia, Authentik, Google OAuth or TinyAuth. See [Choose a login method](/reverse-proxy/choose-login-method/).
-- Put an app that Deployrr did not install behind Traefik with **Proxy** > **Traefik** > **Traefikify**. See [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/) or [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/) for examples.
+- Put an app that Deployrr did not install behind Traefik with **Proxy** > **Traefik** > **Traefikify**. See [Put any app behind Traefik with Traefikify](/reverse-proxy/traefikify/), or [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/) or [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/) for examples.
 - Limit who can reach an app with [an IP allowlist](/reverse-proxy/restrict-access-using-ip-allowlist/).
 - Block known bad visitors with [CrowdSec](/reverse-proxy/crowdsec/).
 - If your server is a VPS, see [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/).

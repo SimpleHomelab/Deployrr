@@ -110,6 +110,8 @@ When Deployrr opens, you see the main menu. The first item is **Prerequisites**.
 - **Local** (the default): apps are only reachable on your home network. You need no reverse proxy, domain name, port forwarding or Cloudflare.
 - **Hybrid**: apps can also be reached from the internet through Traefik. You need a domain, Cloudflare for DNS with SSL mode set to **FULL**, DNS records for your domain, and ports 80 and 443 forwarded. Hybrid needs a Plus or Pro license.
 
+See [Setup Mode: Local or Hybrid](/getting-started/setup-mode/) for the full Hybrid checklist and how to switch later.
+
 ### Verify your license and set a PIN
 
 1. In **Prerequisites**, select **Verify**. Do **Disclaimers** and **Docker Folder** first.
@@ -128,7 +130,7 @@ You can install Deployrr and complete Prerequisites with the free version. Insta
 
 If you pick an app or feature your license does not cover, Deployrr shows a `License Required` message with the license you need and the one you have. After you upgrade, run **Prerequisites** > **Verify** again.
 
-See [plans and pricing](https://www.simplehomelab.com/deployrr/pricing/) on the Deployrr website.
+See [Licenses](/getting-started/licenses/) for what each license unlocks and how to verify it on a new server. For plans and prices, see [plans and pricing](https://www.simplehomelab.com/deployrr/pricing/) on the Deployrr website.
 
 ## Update Deployrr
 

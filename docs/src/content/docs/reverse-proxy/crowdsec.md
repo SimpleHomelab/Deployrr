@@ -27,7 +27,7 @@ CrowdSec reads your logs and spots bad visitors, such as password guessers and s
 
 ## Before you start
 
-- A Pro license. All three items need it.
+- A Pro license. All three items need it. See [Licenses](/getting-started/licenses/).
 - All **Prerequisites** steps are done.
 - For **Firewall Bouncer**: CrowdSec is installed and running.
 - For **Traefik Bouncer**: CrowdSec and Traefik are both running. See [Set up Traefik](/reverse-proxy/traefik-setup/).
