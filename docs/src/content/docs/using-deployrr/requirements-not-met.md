@@ -145,7 +145,7 @@ See [Setup Mode: Local or Hybrid](/getting-started/setup-mode/) for what Hybrid 
 
 | Line in the box | What it means | Where to clear it |
 | --- | --- | --- |
-| `Socket Proxy - Must be running (Docker menu)` | Socket Proxy is not installed or not running. | **Docker** > **Socket Proxy**. The menu line shows `RUNNING` when it is ready. |
+| `Socket Proxy - Must be running (Docker menu)` | Socket Proxy is not installed or not running. | **Docker** > **Socket Proxy**. The menu line shows `RUNNING` when it is ready. See [Socket Proxy](/docker/socket-proxy/). |
 | `Traefik Preparation - Must be completed (Proxy menu)` | Preparation has not finished. | **Proxy** > **Traefik** > **Preparation**. |
 | `Traefik Staging - Must be completed (Proxy menu)` | Staging has not finished. | **Proxy** > **Traefik** > **Staging**. |
 | `Traefik Production - Must be completed (Proxy menu)` | Production has not finished. | **Proxy** > **Traefik** > **Production**. |
