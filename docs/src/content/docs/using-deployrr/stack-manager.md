@@ -208,7 +208,7 @@ Don't use **Disable**, **Enable** or **Delete** on those extra files. **Delete**
 
 ## If an app does not start
 
-If **Up**, **Start Container** or an install seems stuck, see [Deployrr times out waiting for a container to start](/docker/waiting-for-container/).
+If **Up**, **Start Container** or an install seems stuck, see [Deployrr times out waiting for a container to start](/docker/waiting-for-container/). If an app that ran before keeps restarting, is unhealthy or has exited, see [A container keeps restarting, is unhealthy or has exited](/docker/container-keeps-restarting/).
 
 ## Related
 

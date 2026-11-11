@@ -145,7 +145,7 @@ See [Setup Mode: Local or Hybrid](/getting-started/setup-mode/) for what Hybrid 
 
 | Line in the box | What it means | Where to clear it |
 | --- | --- | --- |
-| `Socket Proxy - Must be running (Docker menu)` | Socket Proxy is not installed or not running. | **Docker** > **Socket Proxy**. The menu line shows `RUNNING` when it is ready. |
+| `Socket Proxy - Must be running (Docker menu)` | Socket Proxy is not installed or not running. | **Docker** > **Socket Proxy**. The menu line shows `RUNNING` when it is ready. See [Socket Proxy](/docker/socket-proxy/). |
 | `Traefik Preparation - Must be completed (Proxy menu)` | Preparation has not finished. | **Proxy** > **Traefik** > **Preparation**. |
 | `Traefik Staging - Must be completed (Proxy menu)` | Staging has not finished. | **Proxy** > **Traefik** > **Staging**. |
 | `Traefik Production - Must be completed (Proxy menu)` | Production has not finished. | **Proxy** > **Traefik** > **Production**. |
@@ -173,7 +173,7 @@ To see the Rclone menu used from install to automount, watch [Deployrr 5 walkthr
 
 ### Folder lines
 
-These appear when you install an app that needs a folder. Set the folder in **System** > **Folders**. Setting a folder needs a Basic, Plus or Pro license.
+These appear when you install an app that needs a folder. Set the folder in **System** > **Folders**. Setting a folder needs a Basic, Plus or Pro license. See [Set your media, downloads and other folders](/using-deployrr/folders/) for every folder and which apps use it.
 
 | Line in the box | Where to clear it |
 | --- | --- |

@@ -96,7 +96,7 @@ NFS does not ask for a user name or password. Deployrr's setup box says the UIDs
 
 ### Point your apps at the share
 
-Your NAS files now appear in the mount folder. Tell Deployrr to use it in **System** > **Folders**, then recreate your apps. Part 4 of [Mount a NAS share with Rclone](/host/rclone-smb-setup/) covers the folder steps and the recreate command. Use your mount folder where it shows the Rclone path.
+Your NAS files now appear in the mount folder. Tell Deployrr to use it in **System** > **Folders** (see [Set your media, downloads and other folders](/using-deployrr/folders/)), then recreate your apps. Part 4 of [Mount a NAS share with Rclone](/host/rclone-smb-setup/) covers the folder steps and the recreate command. Use your mount folder where it shows the Rclone path.
 
 ## Fix "Selected directory is not empty"
 

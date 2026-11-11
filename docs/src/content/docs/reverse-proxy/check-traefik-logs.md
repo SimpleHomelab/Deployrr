@@ -124,7 +124,7 @@ grep -i acme logs/$HOSTNAME/traefik/traefik.log | tail -n 20
 
 | Where | What you see | What it usually means |
 | --- | --- | --- |
-| `traefik.log` | Lines with `acme` or `certificate` and the word `error` | Traefik could not get or renew a Let's Encrypt certificate. Check your domain and Cloudflare details. |
+| `traefik.log` | Lines with `acme` or `certificate` and the word `error` | Traefik could not get or renew a Let's Encrypt certificate. See [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/). |
 | `traefik.log` | A message that a middleware does not exist or cannot be found | A router uses a middleware name that Traefik does not know. Check the spelling in the app's Traefik file. |
 | `traefik.log` | Messages about a router or service for one app | The app's Traefik file has a mistake. See the note below the table. |
 | `access.log` | A `404` for your app's address | Traefik found no router for that address. The address in the app's Traefik file does not match what you typed. See [Open a dashboard at your root domain](/reverse-proxy/point-root-domain-to-a-dashboard/) for how the `rule:` line sets the address. |
@@ -208,7 +208,7 @@ When an install finishes, Deployrr shows `Traefik Error Logs should now be avail
 - **The folder or files are missing.** Check that you used your own hostname and Docker folder. If you changed the hostname, see [Change the hostname](/using-deployrr/change-hostname/).
 - **`traefiklogs` says `command not found`.** Turn on the aliases, then open a new terminal. See [Bash aliases](/using-deployrr/bash-aliases/).
 - **The log is too big to read.** Lower the log level, or search with `grep` as shown above.
-- **The log shows `unable to obtain ACME certificate`.** See [Traefik staging fails on OPNsense](/networking/opnsense-conflict/). The steps there help with any firewall that filters DNS.
+- **The log shows a certificate error.** See [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/) for the fix for each error. For `unable to obtain ACME certificate` behind a firewall that filters DNS, also see [Traefik staging fails on OPNsense](/networking/opnsense-conflict/).
 - **Traefik never starts and Deployrr says `Timed out. Could not verify if Traefik is running.`** The log file may not exist yet. See [Deployrr times out waiting for a container to start](/docker/waiting-for-container/).
 
 ## Related

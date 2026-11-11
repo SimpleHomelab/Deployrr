@@ -34,7 +34,7 @@ Traefik is the reverse proxy that gives your apps their own web addresses, such 
 - Make a Cloudflare DNS API token. In Cloudflare, go to **My Profile** > **API Tokens**. Use a user token, not an Account API Token. Give it these two permissions:
   - Zone / Zone / Read
   - Zone / DNS / Edit
-- The **Socket Proxy** app is running. You can check it in the **Docker** menu.
+- The **Socket Proxy** app is running. You can check it in the **Docker** menu. See [Socket Proxy](/docker/socket-proxy/).
 - Ports 80, 81, 443 and 444 are free on your server.
 - If you use Nginx Proxy Manager (NPM), Deployrr will offer to stop it. It stops it and does not remove it. NPM and Traefik both need ports 80 and 443. To use NPM instead of Traefik, see [Use Nginx Proxy Manager instead of Traefik](/reverse-proxy/nginx-proxy-manager/).
 
@@ -122,7 +122,7 @@ Staging gets test certificates from the Let's Encrypt staging server. This keeps
 7. Open `https://traefik.YOUR_DOMAIN` in your browser. Replace `YOUR_DOMAIN` with your domain. You should see the Traefik dashboard. A "Not Secure" warning is normal here, because staging certificates are test certificates.
 8. Read the warning "Enable a strong authentication system from the 'Security' menu." You do that after Production.
 
-If Staging fails, find your message here.
+If Staging fails, find your message here. For the causes and step-by-step fixes, see [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/).
 
 | Message | What to do |
 | --- | --- |
