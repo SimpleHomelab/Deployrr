@@ -24,7 +24,7 @@ videos:
   - id: Nuo83uzTWco
     start: 223
     title: "Deployrr 6 overview: NGINX Proxy Manager as a Traefik alternative"
-last_reviewed: 2026-11-09
+last_reviewed: 2026-11-12
 status: current
 old_paths: []
 sources: []
@@ -139,7 +139,7 @@ NPM asks Let's Encrypt for the certificate. This works only if the domain points
 
 ## Check it worked
 
-1. Open the **Proxy** menu in Deployrr. The NPM line should end with "- Running". The NPM line only shows a status while Proxy Type is NPM. If NPM is stopped, it shows "- Not Installed" even though NPM is still installed.
+1. Open the **Proxy** menu in Deployrr. The NPM line should end with "- Running". The NPM line only shows a status while Proxy Type is NPM. If NPM is stopped, it shows "- Not Installed". Run `sudo docker ps -a` to see whether the `npm` container exists.
 2. Open `https://sonarr.YOUR_DOMAIN` in your browser, using the address you added.
 3. Check that the browser shows a padlock and the app's login page.
 4. Run this to check the container:
@@ -162,15 +162,17 @@ NPM asks Let's Encrypt for the certificate. This works only if the domain points
 2. Select **Traefik** and confirm the intro box.
 3. When the "NPM Container Running" box appears, agree. NPM is stopped, not removed.
 4. If Deployrr stopped NPM or changed the compose file, you see "Proxy Type set to: Traefik".
-5. Follow [Set up Traefik](/reverse-proxy/traefik-setup/) from **Preparation**.
+5. If you never set up Traefik before, follow [Set up Traefik](/reverse-proxy/traefik-setup/) from **Preparation**. If you did set it up before, skip this step. Running Preparation again warns "previous setup may be overwritten".
 
-If you set up Traefik before and its line in the **Proxy** menu shows "Not Running", the Traefik menu has no start option. Start the container yourself with Docker:
+If you set up Traefik before and its line in the **Proxy** menu shows "Not Running", the Traefik menu has no start option. Open **Tools** > **Stack Manager** > **Up** (needs a Basic, Plus or Pro license). It starts every enabled app, including Traefik.
+
+As a fallback, start the container yourself with Docker. This works only if the container still exists. A Stack Manager **Up** or **Update Stack** run while Traefik's line is disabled may have removed it.
 
 ```bash
 sudo docker start traefik
 ```
 
-Your proxy hosts in NPM do not move to Traefik. Traefik needs its own routes for your apps.
+Your proxy hosts in NPM do not move to Traefik. Traefik needs its own routes for your apps. For router forwards and moving your apps, see [Switch between Traefik and Nginx Proxy Manager](/reverse-proxy/switch-traefik-npm/).
 
 ## Related
 
@@ -179,3 +181,4 @@ Your proxy hosts in NPM do not move to Traefik. Traefik needs its own routes for
 - [Choose a login method for your apps](/reverse-proxy/choose-login-method/): the login options that need Traefik.
 - [Quick start](/getting-started/quick-start/): Prerequisites and Setup Mode.
 - [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/): fix blocked ports on a VPS.
+- [Switch between Traefik and Nginx Proxy Manager](/reverse-proxy/switch-traefik-npm/): what to stop, start and change on your router.
