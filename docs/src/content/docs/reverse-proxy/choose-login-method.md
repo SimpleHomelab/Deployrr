@@ -98,7 +98,7 @@ Open **Security** from the main menu. Then follow the part below for your method
    - `Enter/edit Authelia User Email.` can be any address. Authelia does not send real email.
 3. Wait for "All done with Authelia setup!".
 4. Open `https://authelia.YOUR_DOMAIN` and register your device.
-5. Authelia can't send email, so it saves its messages to a file. Print the file:
+5. Authelia can't send email, so it saves its messages to a file. The details in **System** > **SMTP** don't change this (see [Send email from your server](/host/smtp-mail-relay/)). Print the file:
 
    ```bash
    sudo cat appdata/authelia/notifications.txt

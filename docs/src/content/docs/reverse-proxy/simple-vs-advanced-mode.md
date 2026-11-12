@@ -70,7 +70,7 @@ If you do not acknowledge the **Disclaimers** in **Prerequisites**, Deployrr cle
 1. Open **Proxy** > **Traefik** > **Traefik Mode**.
 2. Read the **Traefik Exposure Mode** box. It says "Simple mode ENABLED" or "Advanced mode ENABLED" and tells you which ports to forward.
 3. If it is the mode you did not want, select **Traefik Mode** again to flip back.
-4. Change your router port forwards to match the table above.
+4. Change your router port forwards to match the table above. See [Forward the right router ports](/networking/port-forwarding/) for the steps and how to test them.
 
 If you see **Proxy Type Required**, first pick Traefik under **Proxy** > **Proxy Type**. See [Set up Traefik](/reverse-proxy/traefik-setup/). If you see **Requirements Not Met**, acknowledge the **Disclaimers** in **Prerequisites** first.
 
@@ -164,7 +164,7 @@ Try these in order. The router and DNS steps are general guidance, not Deployrr 
 
 1. Check your router forwards. Port 80 must go to 81 and port 443 to 444 on the Docker host.
 2. Look in your router settings for NAT loopback, NAT reflection or hairpin NAT, and turn it on.
-3. If your router has no such option, use local DNS. In Pi-hole or AdGuard Home, add a DNS rewrite that points `app.YOUR_DOMAIN` to your server's LAN IP address. A rewrite for `*.YOUR_DOMAIN` covers every app.
+3. If your router has no such option, use local DNS. In Pi-hole or AdGuard Home, add a DNS rewrite that points `app.YOUR_DOMAIN` to your server's LAN IP address. A rewrite for `*.YOUR_DOMAIN` covers every app. See [Set up local DNS rewrites](/networking/local-dns-rewrites/) for the steps.
 4. Make sure the devices on your network use that DNS server.
 5. Open the address again. Clear the browser's DNS cache or restart the browser if it still fails.
 

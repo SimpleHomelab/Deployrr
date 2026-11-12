@@ -96,8 +96,8 @@ Use this list to choose.
 | Edited the app's compose file, `compose/HOSTNAME/APP.yml` in your Docker folder | **Recreate** | Don't reinstall. A reinstall replaces that file with the default one and your edits are lost. |
 | Edited your own file from [custom.yml](/using-deployrr/custom-yml/) | `dcup SERVICE_NAME` or `dcrec SERVICE_NAME` | Replace `SERVICE_NAME` with your service's name. |
 | Edited the app's Traefik rules file | Nothing | Traefik watches the rules folder and loads the change by itself. Open the app's address to check. |
-| Changed a secret or password stored in `.env` | **Recreate** | Edit it in **Tools** > **.env Editor** (Pro) or in the file. The app reads it when the container is built. |
-| Changed a secret file in the `secrets` folder | **Recreate** | Recreate the app to be sure. Edit secrets in **Tools** > **Secrets Editor** (Pro). |
+| Changed a secret or password stored in `.env` | **Recreate** | Edit it in **Tools** > **.env Editor** (Pro) or in the file. See [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/). The app reads it when the container is built. |
+| Changed a secret file in the `secrets` folder | **Recreate** | Recreate the app to be sure. Edit secrets in **Tools** > **Secrets Editor** (Pro). See [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/). |
 | Changed the version pin or want a newer image | **Update App** | See [Update your apps](/using-deployrr/update-apps/). It pulls the image and recreates the app. |
 | Want a different subdomain, login or exposure | Edit the rules file, or use **Manage Auth** | A reinstall keeps the old rules file. See [Change the subdomain of an app you already installed](/reverse-proxy/change-app-subdomain/). |
 | Want the GPU or other install answers changed | **Reinstall** | |

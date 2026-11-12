@@ -169,7 +169,7 @@ If you made the wildcard an A record with an IP instead, it will not be updated.
 
 ## Are you behind CG-NAT?
 
-A dynamic DNS updater can't help if your ISP puts many customers behind one shared public IP (CG-NAT). Port forwards on your router then do nothing. For the signs to look for and what to do, see the CG-NAT point in [Fix ports 80 and 443](/networking/domain-checks-failed/#fix-ports-80-and-443). For the options in v6, watch [Deployrr 6 overview: Options for CG-NAT at 4:37](https://youtu.be/Nuo83uzTWco?t=277). For background on how CG-NAT breaks port forwarding, read [UDMS part 18: CG-NAT](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#CG-NAT) (manual setup).
+A dynamic DNS updater can't help if your ISP puts many customers behind one shared public IP (CG-NAT). Port forwards on your router then do nothing. For how to check and what to do, see [Behind CG-NAT](/networking/cg-nat/). For the options in v6, watch [Deployrr 6 overview: Options for CG-NAT at 4:37](https://youtu.be/Nuo83uzTWco?t=277). For background on how CG-NAT breaks port forwarding, read [UDMS part 18: CG-NAT](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#CG-NAT) (manual setup).
 
 ## If it doesn't work
 
