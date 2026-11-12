@@ -63,7 +63,7 @@ Open the address it prints (usually `http://localhost:4321`).
 | `symptoms` | For troubleshooting | Error messages or what you see, in the words you would search for. |
 | `related` | Yes | 2 to 5 other pages, as slugs like `docker/rate-limit`, most useful first. They show in the "Related articles" box. |
 | `further_reading` | No | Outside links, as `{ title, url }`. At most 3 SimpleHomelab posts (for example UDMS guide parts). Link a section with its `#Heading_Anchor` where it helps. |
-| `videos` | No | Up to 3 video chapters, as `{ id, start, title, note }`. `id` is the YouTube video id, `start` the chapter start in seconds, `title` what the chapter shows. Add `note` when the video shows an older Deployrr or a manual setup. They show in the "Watch" box. |
+| `videos` | No | Up to 3 video chapters, as `{ id, start, title, note }`. `id` is the YouTube video id, `start` the moment in seconds where the topic begins (see [Videos and guides](#videos-and-guides)), `title` what the chapter shows. Add `note` when the video shows an older Deployrr or a manual setup. They show in the "Watch" box. |
 | `last_reviewed` | Yes | The date you last checked the page against Deployrr, like `2026-01-31`. |
 | `status` | Yes | `current`, `needs-review` or `archived`. |
 | `old_paths` | No | Old addresses for this page. Each one also needs an entry in `src/redirects.mjs`, unless it is the same as the page's new address. |
@@ -77,7 +77,7 @@ Tags come from a fixed list in `tags.yml`. Each tag has a label and a one-line d
 
 Link SimpleHomelab videos and guides where they help the reader at that point of the page.
 
-- Link a video at the chapter that shows the step, with `?t=` and the start in seconds: `[Deployrr 5 walkthrough: Socket Proxy setup at 26:13](https://youtu.be/rdqbAr0TFnQ?t=1573) (shows Deployrr v5; menus differ in v6)`. Add the same video to `videos`, with the same note in `note`.
+- Link a video at the exact moment where the topic begins, with `?t=` and that time in seconds. This is often later than the chapter start: find the first subtitle line where the video starts on the step, and use the start of that line, never a time in the middle of a sentence. Use the chapter start only when the video has no subtitles or the topic begins right there. Example: `[Deployrr 5 walkthrough: Socket Proxy setup at 26:13](https://youtu.be/rdqbAr0TFnQ?t=1573) (shows Deployrr v5; menus differ in v6)`. Add the same video to `videos`, with the same note in `note`.
 - Only link a video or guide when it covers what the page does there. If it shows Deployrr v5 or a manual Docker Compose setup, say so next to the link, for example "(shows Deployrr v5; menus differ in v6)", and add the same `note` in `videos`.
 - Never link a chapter whose steps contradict the page.
 - Keep it to 3 videos and 3 SimpleHomelab posts per page, and one link to the same video or post in the text.
