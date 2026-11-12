@@ -145,7 +145,7 @@ The steps below are general Cloudflare guidance. Menu names can change.
 5. For each record, click the orange cloud so it turns gray and reads **DNS only**.
 6. Select **Save**.
 
-Your public IP is the address the internet sees for your home or server. The terminal shows it as `Current WAN IP`. A home IP can change. If yours does, the A record needs updating when it does.
+Your public IP is the address the internet sees for your home or server. The terminal shows it as `Current WAN IP`. A home IP can change. If yours does, the A record needs updating when it does. [DDNS Updater](/apps/ddns-updater/) can do that for you.
 
 ## Fix ports 80 and 443
 
