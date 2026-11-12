@@ -63,7 +63,7 @@ There are two separate causes.
 
 **The server cannot resolve names.** On Debian, the **Packages** step rewrites `/etc/systemd/resolved.conf`. It saves your old file as `/etc/systemd/resolved.conf.bak` and sets Cloudflare (1.1.1.1) and Google (8.8.8.8) as DNS servers. Deployrr restarts the DNS service after it. Some Debian 12 users report that internet stops working after this step. One possible reason is that the server cannot reach those DNS servers, for example when your network blocks them.
 
-The same message about dependencies can also mean Deployrr's own server is down for a short time. Wait a few minutes and try again before you change anything.
+The same message about dependencies can also mean Deployrr's own server is down for a short time. Wait a few minutes and try again before you change anything. If your server has internet and the message stays, check that `wget` is installed. Deployrr needs it to start. See [Deployrr needs wget](/getting-started/updating-deployrr/#deployrr-needs-wget).
 
 **The server works, but containers do not.** This is general Docker behavior, not something Deployrr sets. A container copies the host's DNS settings when it starts. If the host's DNS was broken or changed after that, running containers keep the old settings.
 
