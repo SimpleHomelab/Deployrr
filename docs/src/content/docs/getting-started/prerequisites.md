@@ -22,11 +22,11 @@ further_reading:
     url: https://www.simplehomelab.com/udms-14-docker-media-server/#1_Folders_and_Files
 videos:
   - id: rdqbAr0TFnQ
-    start: 331
+    start: 346
     title: "Deployrr 5 walkthrough: Prerequisites menu"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
   - id: rdqbAr0TFnQ
-    start: 677
+    start: 685
     title: "Deployrr 5 walkthrough: System Checks and Docker install"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
   - id: -ZSQdJ62r-Q
@@ -51,7 +51,7 @@ Other menus need every Prerequisites item done. If any one is missing, including
 
 Some steps change your server: they install packages, create folders, install Docker or write DNS settings. Read the caution under a step before you rerun it.
 
-To see the Prerequisites menu used from the top, watch [Deployrr 5 walkthrough: Prerequisites menu at 5:31](https://youtu.be/rdqbAr0TFnQ?t=331) (shows Deployrr v5; menus and steps differ in v6).
+To see the Prerequisites menu used from the top, watch [Deployrr 5 walkthrough: Prerequisites menu at 5:46](https://youtu.be/rdqbAr0TFnQ?t=346) (shows Deployrr v5; menus and steps differ in v6).
 
 :::caution
 Before you start, and before you rerun any step marked with a caution, take a backup. On Proxmox, take a snapshot of the VM or LXC. If Deployrr is already set up and you have a Pro license, you can also use **Tools** > **Backups**. See [Back up your Docker folder](/using-deployrr/backups/).
@@ -218,7 +218,7 @@ On a Proxmox LXC, a Docker update can also stop containers from starting. See [D
 
 **What it asks.** Nothing. Each time you select it, it toggles between **Local** and **Hybrid** and shows what that mode needs.
 
-**What to pick.** Stay on **Local** if you only use apps at home. Switch to **Hybrid** if you want to reach apps from the internet. Hybrid needs a domain, a Plus or Pro license, Traefik, ports 80 and 443 forwarded, Cloudflare DNS, a few DNS records and Cloudflare SSL mode set to FULL. With a Free license the box says the setting has no effect.
+**What to pick.** Stay on **Local** if you only use apps at home. Switch to **Hybrid** if you want to reach apps from the internet. Hybrid needs a domain, a Plus or Pro license, Traefik, ports 80 and 443 forwarded, Cloudflare DNS, a few DNS records and Cloudflare SSL mode set to FULL. The SSL mode only matters for proxied (orange cloud) records; see [Orange cloud or gray cloud](/networking/cloudflare/#orange-cloud-or-gray-cloud). With a Free license the box says the setting has no effect.
 
 **What it changes.** The mode decides whether **Domain 1** and **Domain Checks** count. Switching to Local also clears the saved proxy type.
 
@@ -321,7 +321,7 @@ To understand how the folders, permissions and `.env` file fit together, read [U
 The system update can also update Docker. On a Proxmox LXC, that can stop containers from starting. See [Docker fails with "failed to create shim task"](/host/shim-task-debian/). Take a snapshot first, or skip the update.
 :::
 
-To see this step run and install Docker, watch [Deployrr 5 walkthrough: System Checks at 11:17](https://youtu.be/rdqbAr0TFnQ?t=677) (shows Deployrr v5; menus and steps differ in v6). To understand what the Docker install does, read [UDMS part 12: Install Docker on Ubuntu 24.04 or Debian 12](https://www.simplehomelab.com/udms-12-install-docker-and-docker-compose/#Install_Docker_on_Ubuntu_2404_or_Debian_12) (manual setup).
+To see this step run and install Docker, watch [Deployrr 5 walkthrough: System Checks at 11:25](https://youtu.be/rdqbAr0TFnQ?t=685) (shows Deployrr v5; menus and steps differ in v6). To understand what the Docker install does, read [UDMS part 12: Install Docker on Ubuntu 24.04 or Debian 12](https://www.simplehomelab.com/udms-12-install-docker-and-docker-compose/#Install_Docker_on_Ubuntu_2404_or_Debian_12) (manual setup).
 
 **Done status.** `DONE` after the message `All System and Docker checks passed`. If a check fails, see [System Checks failed](/getting-started/system-checks-failed/).
 

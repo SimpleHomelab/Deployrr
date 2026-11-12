@@ -74,6 +74,8 @@ When you switch to Hybrid, the box lists eight requirements:
 7. A DNS CNAME record for `*` that points to `@`.
 8. Cloudflare SSL mode set to FULL.
 
+The SSL mode only applies to proxied (orange cloud) records. Deployrr's setup uses gray cloud records, so it matters only if you proxy a record yourself. See [Orange cloud or gray cloud](/networking/cloudflare/#orange-cloud-or-gray-cloud).
+
 Meet these before you set up Traefik. See [Set up Traefik](/reverse-proxy/traefik-setup/). If **Domain Checks** fails, see [Domain Checks failed](/getting-started/domain-checks-failed/).
 
 To see the DNS records made by hand, watch [Traefik 3 guide: Cloudflare A and CNAME DNS records at 7:35](https://youtu.be/KMZIyoZ3jWM?t=455) (manual Docker Compose setup). To understand the same requirements in a manual setup, read [UDMS part 18: Requirements for a Traefik setup](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Requirements_for_Docker_Traefik_Setup) (manual setup).

@@ -12,10 +12,10 @@ apps:
 applies_to: v6.0+
 related:
   - getting-started/quick-start
+  - reverse-proxy/certificate-errors
   - reverse-proxy/check-traefik-logs
-  - networking/opnsense-conflict
-  - reverse-proxy/restrict-access-using-ip-allowlist
-  - networking/ufw-firewall-vps
+  - networking/cloudflare
+  - using-deployrr/what-overwrites-your-changes
 further_reading:
   - title: "UDMS part 18: how Traefik, port forwarding and Let's Encrypt certificates work (manual setup)"
     url: https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/
@@ -32,7 +32,7 @@ videos:
     start: 533
     title: "Traefik 3 guide: create the Cloudflare DNS API token"
     note: Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens.
-last_reviewed: 2026-11-09
+last_reviewed: 2026-11-12
 status: current
 old_paths: []
 sources: []
@@ -74,7 +74,7 @@ If Setup Mode is **Local**, you see a "Proxy Type - Local Mode Warning" box. You
 
 ### Choose Simple or Advanced mode (optional)
 
-Traefik has two modes. This choice decides which ports you forward on your router. Until you pick one, the **Traefik Mode** entry shows "NOT SET", and Manage Exposure and Traefikify behave as in Simple mode. You can also change it later. To compare the modes in more detail, see [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/).
+Traefik has two modes. This choice decides which ports you forward on your router. Until you pick one, the **Traefik Mode** entry shows "NOT SET", and Manage Exposure and Traefikify behave as in Simple mode. You can also change it later. To compare the modes in more detail, see [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/). To hear the modes explained, watch [Deployrr 5 walkthrough: Traefik exposure mode at 36:02](https://youtu.be/rdqbAr0TFnQ?t=2162) (shows Deployrr v5; menus and steps differ in v6).
 
 | Mode | Router port forwards | What you get |
 | --- | --- | --- |
@@ -101,7 +101,7 @@ In Advanced mode, local traffic can count as external if your router has no hair
    - Setup Mode **Hybrid**
    - Socket Proxy running
    - A Plus or Pro license
-5. If you see "It appears that Traefik preparation was already done. If you proceed, previous setup may be overwritten.", press `Y` only if you want to redo it.
+5. If you see "It appears that Traefik preparation was already done. If you proceed, previous setup may be overwritten.", press `Y` only if you want to redo it. Any other key takes you back to the Traefik menu and changes nothing. See [Run the steps again](#run-the-steps-again) first.
 6. In the **Traefik Secrets** form, fill in these fields:
    - **Basic Auth Username**
    - **Basic Auth Password**
@@ -124,15 +124,15 @@ If Preparation stops with an error, use this table.
 | Password cannot be empty. | Type a password. |
 | Passwords do not match. | Type the same password in both fields. |
 | Invalid Cloudflare token. Please check token permissions. | Make a new user token with Zone / Zone / Read and Zone / DNS / Edit. |
-| Port N is occupied. This is needed for Traefik. | Stop whatever uses that port (443, 444, 80 or 81), then run Preparation again. |
+| Port N is occupied. This is needed for Traefik. | Stop whatever uses that port (443, 444, 80 or 81), then run Preparation again. If Traefik itself is running, that is the cause. See [Run the steps again](#run-the-steps-again). |
 
 ### Run Staging
 
 Staging gets test certificates from the Let's Encrypt staging server. This keeps you away from the real rate limit while you check that everything works. To understand how Traefik gets certificates, see [UDMS part 18: Traefik Docker Compose guide](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/) (manual setup; its folders and Docker labels differ from Deployrr v6, so use it as background only).
 
 1. Open **Proxy** > **Traefik** > **Staging** ("Setup Traefik Staging"). It needs the same things as Preparation, and Preparation done.
-2. If you ran Staging or Production before and certificates exist, you see a warning that it was already done. Press `Y` to continue.
-3. If your existing certificate is a staging one, Deployrr asks "Reuse existing staging SSL certificate? Press Y/y to reuse or any other key to create new certificates". Press `Y` to reuse. Press any other key to get new ones. If it is a production certificate, Staging deletes it without asking and gets a new staging one.
+2. If you ran Staging or Production before and certificates exist, you see "It appears that Traefik Staging/Production was already done. If you proceed, previous setup may be overwritten." Press `Y` to continue. Any other key takes you back to the Traefik menu.
+3. If your existing certificate is a staging one, Deployrr asks "Reuse existing staging SSL certificate? Press Y/y to reuse or any other key to create new certificates". Press `Y` to reuse it. Any other key empties `acme.json`, the file where Traefik keeps its certificates, and Traefik gets new ones. If it is a production certificate, Staging deletes it without asking ("Production SSL certificate found in acme.json. Erasing it...") and gets a new staging one.
 4. Wait while Traefik starts. The first start can take a few minutes because Deployrr downloads the Traefik image.
 5. Wait while Deployrr watches the logs. You see "Monitoring traefik logs for progress (this can take up to 15 min)...". Progress lines such as these are normal:
    - Obtaining bundled SAN certificate
@@ -148,20 +148,21 @@ If Staging fails, find your message here. For the causes and step-by-step fixes,
 | Message | What to do |
 | --- | --- |
 | Failed to find zone | The Cloudflare token is wrong. It needs Zone / Zone / Read and Zone / DNS / Edit. |
-| Could not find DNS validation TXT record | In Cloudflare, delete all `_acme-challenge` TXT records for your domain (Deployrr's hint spells it `_acme_challenge`). Run Staging again. |
+| Could not find DNS validation TXT record | In Cloudflare, delete all `_acme-challenge` TXT records for your domain. Run Staging again. |
 | Cannot get ACME client get directory. Possible DNS server issue. | Check your router DNS settings and that your server has internet access. |
 | Unable to obtain ACME certificate | Check the token. If you use an advanced firewall such as UDM or OPNsense, see [Traefik staging fails on OPNsense](/networking/opnsense-conflict/). |
 | Getting certificate failed with error 429 | You hit the Let's Encrypt rate limit. Wait at least 24 hours. |
 | Timed out. Could not verify if Traefik is running. | Read the Traefik log. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/). |
 | Staging certificate could not be verified. Try re-running Deployrr. | Close Deployrr, start it again and repeat Staging. |
+| Traefik container did not start within 5 minutes | Staging continues to the end. Before you run Production, check that Traefik runs (see [Check it worked](#check-it-worked)) and read the Traefik log. |
 
 ### Run Production
 
 Production switches Traefik to real Let's Encrypt certificates. Browsers trust them.
 
 1. Open **Proxy** > **Traefik** > **Production** ("Setup Traefik Production"). It needs Staging done and Traefik running.
-2. If Production was done before, or a production certificate exists, you see a warning. Press `Y` to continue.
-3. If you have production certificates already, Deployrr asks "Reuse existing production SSL certificate?". Press `Y` to reuse them and skip getting new ones.
+2. If Production was done before, or a production certificate exists, you see "It appears that Traefik Production was already done. If you proceed, previous setup may be overwritten." Press `Y` to continue. Any other key takes you back to the Traefik menu.
+3. If you have production certificates already, Deployrr asks "Reuse existing production SSL certificate?". Press `Y` to reuse them and skip getting new ones ("Skipping certificate acquisition (reusing existing)..."). Any other key empties `acme.json` and Traefik gets new ones. Reusing helps you stay under the Let's Encrypt rate limit. On the first Production run, the staging certificate is replaced without a question.
 4. Wait while Deployrr watches the logs. You see the same progress lines as in Staging. Production can take several minutes.
 5. Wait for "Traefik Production Setup completed successfully".
 6. Note the addresses it shows:
@@ -169,14 +170,14 @@ Production switches Traefik to real Let's Encrypt certificates. Browsers trust t
    - **Local Access (LAN):** `http://SERVER_IP:8080`
    - The Deployrr Dashboard URL, if the Deployrr Dashboard is running. By default it is `https://deployrr.YOUR_DOMAIN`.
 
-   Deployrr also adds the Traefik dashboard, and the Deployrr Dashboard if it runs, to your Deployrr Dashboard.
+   Deployrr also adds the Traefik dashboard to your [Deployrr Dashboard](/using-deployrr/dashboard/), and an entry for the Deployrr Dashboard itself if it runs.
 7. Read the last message: "IMPORTANT: Enable a strong authentication system from the 'Security' menu."
 
 :::note
-The LAN address always shows port 8080. If 8080 was already in use during Preparation, Deployrr picked the next free port instead ("Port N assigned for Traefik dashboard"). Use that port. The LAN address has no login, so only use it inside your home network.
+If port 8080 was already in use during Preparation, Deployrr assigned another port ("Port N assigned for Traefik dashboard"). The LAN address that Production shows and the Traefik local entry on the Deployrr Dashboard still use 8080, so put your assigned port in their place. You also find it as `TRAEFIK_PORT` in your `.env` file. The LAN address has no login, so only use it inside your home network.
 :::
 
-Deployrr keeps the old log as `traefik_staging.log` and starts a fresh `traefik.log`.
+Staging starts with an empty `traefik.log`. Production keeps the staging log as `traefik_staging.log` and starts a fresh `traefik.log`. The next Production run overwrites `traefik_staging.log`.
 
 Production shows the same errors as Staging, plus these:
 
@@ -204,6 +205,17 @@ Production shows the same errors as Staging, plus these:
 
    You should see `traefik` with a status that starts with "Up".
 
+## Run the steps again
+
+You may need to redo a step, for example to change the basic auth password or the Cloudflare token (Preparation), or after a certificate problem (Staging and Production). Keep these points in mind:
+
+- **Preparation fails while Traefik runs.** Traefik uses ports 80, 81, 443 and 444, so the port check stops with "Port 443 is occupied. This is needed for Traefik." Stop Traefik first with `sudo docker stop traefik`, then run Preparation.
+- **Preparation saves your entries first.** It checks that the fields are filled in and the passwords match, then saves the username, password and token before it checks the token and the ports. If a later step fails, the new values are still saved.
+- **A step is not DONE until it finishes again.** After you press `Y` at the "already done" warning, the step loses its `- DONE` mark. If you cancel or hit an error, run it again until it finishes.
+- **Staging resets Production.** After a Staging run, **Production** no longer shows `- DONE`. **Manage Exposure**, **Traefikify**, **Un-Traefikify**, **Domain Passthrough** and **Auth Bypass** then show "Traefik Production - Must be completed (Proxy menu)". Run Production again.
+
+So after a Preparation rerun, run Staging (it starts Traefik again), then Production. To keep the certificates you have, press `Y` at the reuse questions. For other actions that change Traefik files, see [What can overwrite or delete your changes](/using-deployrr/what-overwrites-your-changes/). For where `acme.json` and the Traefik secrets live, see [What is in your Docker folder](/using-deployrr/docker-folder-layout/).
+
 ## What to do next
 
 - Install apps from **Apps** > **Browse Apps**. For apps that support Traefik, Deployrr asks for a subdomain (the app name without hyphens by default) and a login method, then sets up the route for you. In Advanced mode it also asks you to pick an exposure method: Both, Internal or External. Cancel picks Internal.
@@ -217,7 +229,7 @@ Production shows the same errors as Staging, plus these:
 ## Related
 
 - [Quick start](/getting-started/quick-start/): Prerequisites, Setup Mode and Domain Checks.
+- [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/): causes and fixes when Staging or Production fails.
 - [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): find out why a certificate or route fails.
-- [Traefik staging fails on OPNsense](/networking/opnsense-conflict/): fix certificate errors caused by a firewall that filters DNS.
-- [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/): let only chosen addresses reach an app.
-- [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/): fix apps that can't reach the internet or show certificate errors on a VPS.
+- [Cloudflare for Deployrr](/networking/cloudflare/): the token, Zone ID and DNS records in one place.
+- [What can overwrite or delete your changes](/using-deployrr/what-overwrites-your-changes/): which Deployrr actions rewrite your files.

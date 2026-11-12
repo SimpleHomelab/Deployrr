@@ -15,8 +15,8 @@ related:
   - using-deployrr/backups
   - getting-started/prerequisites
   - using-deployrr/stack-manager
+  - using-deployrr/what-overwrites-your-changes
   - getting-started/updating-deployrr
-  - using-deployrr/manage-apps
 further_reading:
   - title: "UDMS part 13: Docker Compose commands and Bash aliases to stop and start a stack"
     url: https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/
@@ -29,7 +29,7 @@ videos:
     start: 523
     title: "Bash aliases: bring a whole Docker Compose stack down and back up"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
-last_reviewed: 2026-11-11
+last_reviewed: 2026-11-12
 status: current
 old_paths: ["/using-deployrr/reset-or-remove-deployrr"]
 sources: []
@@ -45,16 +45,16 @@ Start with **Refresh**. It is safe and fixes most odd behaviour. **Reset** and *
 | --- | --- | --- | --- |
 | Menu line | `Clear Deployrr Cache` | `Reset Deployrr Status` | `Remove Deployrr` |
 | Asks you to confirm | No | Yes (`Y`) | Yes (`Y`) |
-| Stops your apps | No | Yes, currently | No |
-| Deletes Docker images | No | Yes, currently | No |
+| Stops your apps | No | Yes | No |
+| Deletes Docker images | No | Yes | No |
 | Deletes saved settings (Docker folder, username, domain, Mode) | No | No | Yes |
 | Deletes setup status (what shows as DONE) | No | Yes | Yes |
-| Deletes the Deployrr program and its logs | No | Yes, currently | Yes |
+| Deletes the Deployrr program and its logs | No | Yes | Yes |
 | Touches your Docker folder and app data | No | No | No |
 | What you do next | Start Deployrr again | Run the installer, then redo some Prerequisites | Nothing, or clean up by hand |
 
 :::caution
-Reset currently stops and removes your app containers. Read [Reset](#reset-deployrr-status) before you press `Y`.
+Reset stops and removes your app containers. Read [Reset](#reset-deployrr-status) before you press `Y`.
 :::
 
 ## Which one do I need?
@@ -76,7 +76,7 @@ The **Settings** menu is titled **Deployrr Settings**. You do not need a license
 - **Logs**: makes a [sanitized log](/support/generate-support-log/) you can share. Type `Y` and press Enter to start. The log is saved in the folder you ran Deployrr from, and the screen ends with "Sanitized log ready for sharing". Read the log before you share it.
 - **Refresh**, **Reset** and **Remove**: covered below.
 
-To see these three items on screen, watch [Deployrr 5 walkthrough: Settings menu at 1:24:19](https://youtu.be/rdqbAr0TFnQ?t=5059) (shows Deployrr v5; menus and steps differ in v6). It says Reset leaves your Docker apps alone. In v6, Reset currently stops your apps, so follow this page for Reset.
+To see these three items on screen, watch [Deployrr 5 walkthrough: Settings menu at 1:24:19](https://youtu.be/rdqbAr0TFnQ?t=5059) (shows Deployrr v5; menus and steps differ in v6). It says Reset leaves your Docker apps alone. In v6, Reset stops your apps, so follow this page for Reset.
 
 ## Refresh Deployrr
 
@@ -97,38 +97,28 @@ Deployrr exits. Start it again to continue.
 
 Reset deletes Deployrr's setup status, program and logs. It keeps your saved settings, such as the Docker folder, username, server IP, domain, Intro and Mode. Use it only when Refresh did not help.
 
-### What the screen tells you
+### What Reset does
 
-The screen is titled **Reset Deployrr Status**. It warns that the operation deletes all user-supplied and status information. It says:
-
-- All Deployrr configuration and status files will be removed.
-- You will need to complete setup steps again.
-- Deployrr will auto-detect current status upon restart.
-- Docker containers will remain running.
-- Application data will not be deleted.
-
-### What actually happens
-
-Currently, Reset keeps your app data but stops your apps.
+The screen is titled **Reset Deployrr Status**. It warns that the operation deletes all user-supplied and status information, and that you will need to complete setup steps again. Reset keeps your app data, but it stops your apps.
 
 After you press `Y`, you see four steps:
 
 1. `1/4 Stopping Docker services`. This stops and removes your app containers.
-2. `2/4 Cleaning unused Docker data`. This deletes every Docker image that no running container uses. Because your apps are now down, that means all of your app images. It also deletes unused networks, build cache and unused volumes. A named volume that no container uses can be deleted too.
-3. `3/4 Resetting Deployrr configuration`. This deletes Deployrr's setup status, logs and the Deployrr program in `/opt/deployrr`. The one thing kept is the file with your saved settings: Docker folder, username, server IP, domain, setup mode, Intro, Mode and similar values.
+2. `2/4 Cleaning unused Docker data`. This deletes every Docker image that no running container uses. Because your apps are now down, that means all of your app images. It also deletes every stopped container on the server, unused networks, build cache and unused volumes. A named volume that no container uses can be deleted too.
+3. `3/4 Resetting Deployrr configuration`. This deletes Deployrr's setup status, logs and the Deployrr program in `/opt/deployrr`. The one thing kept is the file with your saved settings: Docker folder, Backups Folder, username, server IP, domain, setup mode, license email, Intro, Mode and similar values.
 4. `4/4 Clearing cache files`, then `Reset complete. Please re-run Deployrr to continue`.
 
-Reset does not touch your Docker folder. Your `.env` file, compose files, app data, secrets and rules files stay.
+Reset does not touch your Docker folder. Your `.env` file, compose files, app data, secrets and rules files stay. For what each of those files is, see [Docker folder layout](/using-deployrr/docker-folder-layout/).
 
 Containers you started outside Deployrr that are still running keep their images.
 
 :::note
-Reset currently also deletes the Deployrr program. The `deployrr` command (`/usr/local/bin/deployrr`) then points to a file that no longer exists, so it will not start until you run the installer again.
+Reset also deletes the Deployrr program. The `deployrr` command (`/usr/local/bin/deployrr`) then points to a file that no longer exists, so it will not start until you run the installer again.
 :::
 
 ### Before you reset
 
-1. Run **Settings** > **Logs** if you may need help later. Reset deletes Deployrr's logs. See [Support on Discord](/support/discord/) for where to share the log.
+1. Run **Settings** > **Logs** if you may need help later. Reset deletes Deployrr's logs. See [Generate a support log](/support/generate-support-log/) for the steps and [Support on Discord](/support/discord/) for where to share it.
 2. Back up your Docker folder. See [Back up and restore](/using-deployrr/backups/).
 3. Make sure you can wait for every app image to download again. Docker Hub limits can slow this. See [Docker Hub rate limit](/docker/rate-limit/).
 
@@ -143,7 +133,7 @@ Reset currently also deletes the Deployrr program. The `deployrr` command (`/usr
 ### After a reset
 
 1. Run the install command again. See [Run the installer again](/getting-started/updating-deployrr/#run-the-installer-again) for the command and [Install errors](/getting-started/install-errors/) if you see `command not found`.
-2. Start Deployrr and open **Prerequisites**. Your saved settings (Docker folder, username, server IP, domain, setup mode) are still set. **Environment** shows DONE again if your Docker folder is intact, so you don't need to redo it. Redo **Disclaimers**, **Packages**, **Build Cache**, **System Checks** and **Domain Checks**, and verify your license again if it shows as not done. See [Prerequisites](/getting-started/prerequisites/).
+2. Start Deployrr and open **Prerequisites**. Your saved settings (Docker folder, username, server IP, domain, setup mode) are still set. **Environment** shows DONE again if your Docker folder is intact, so you don't need to redo it. Redo **Disclaimers**, **Packages**, **Build Cache** and **System Checks**. In Hybrid mode, also redo **Domain Checks** (in Local mode it shows NOT-REQUIRED). Your license normally still works. If it shows as Free, run **Prerequisites** > **Verify**. See [Prerequisites](/getting-started/prerequisites/).
 3. **System** > **Bash Aliases** shows DONE again if the Deployrr block is still in `~/.bashrc` and the alias file is still in your Docker folder.
 4. Bring your apps back. **Tools** > **Stack Manager** > **Up** works once every Prerequisite is DONE and needs a Basic, Plus or Pro license. See [Stack Manager](/using-deployrr/stack-manager/). Or, with the [Bash aliases](/using-deployrr/bash-aliases/), run:
 
@@ -177,7 +167,7 @@ The screen is titled **Remove Deployrr**. It warns that the operation permanentl
 
 ### Remove step by step
 
-1. Run **Settings** > **Logs** if you may need help later. Remove deletes Deployrr's logs.
+1. Run **Settings** > **Logs** if you may need help later. Remove deletes Deployrr's logs. See [Generate a support log](/support/generate-support-log/).
 2. Back up your Docker folder. See [Back up and restore](/using-deployrr/backups/).
 3. Open **Settings**.
 4. Select **Remove**.
@@ -226,13 +216,13 @@ These steps delete files and stop your apps. Back up your Docker folder first. S
 Run the [install command](/getting-started/updating-deployrr/#run-the-installer-again) again. Deployrr starts fresh, and you redo the [Prerequisites](/getting-started/prerequisites/).
 
 :::caution
-**Prerequisites** > **Environment** offers **Reuse** for an old Docker folder, but Reuse keeps only `appdata`, `.env` and `secrets`. It removes everything else, including your app compose files, Traefik rules and the alias file, and writes a fresh `custom.yml`. Back up the Docker folder and copy `custom.yml` first. Read the Reuse and Recreate table on [Prerequisites](/getting-started/prerequisites/) before you pick one.
+**Prerequisites** > **Environment** offers **Reuse** for an old Docker folder, but Reuse keeps only `appdata`, `.env` and `secrets`. It removes everything else, including your app compose files, Traefik rules and the alias file, and writes a fresh `custom.yml`. Back up the Docker folder and copy `custom.yml` first. Keep the Backups Folder outside the Docker folder: Reuse and Recreate delete a Backups Folder inside it, with your backups. Read the Reuse and Recreate table on [Prerequisites](/getting-started/prerequisites/) and [Before you edit or delete anything](/using-deployrr/docker-folder-layout/#before-you-edit-or-delete-anything) before you pick one.
 :::
 
 ## Check it worked
 
 - After **Refresh**: Deployrr exited with `Refresh complete`. Start it again and the main menu opens.
-- After **Reset**: `Reset complete` appeared. After you reinstall and start Deployrr, your saved settings and **Environment** still show, and Disclaimers, Packages, Build Cache, System Checks and Domain Checks show as not done.
+- After **Reset**: `Reset complete` appeared. After you reinstall and start Deployrr, your saved settings and **Environment** still show, and Disclaimers, Packages, Build Cache and System Checks show as not done (Domain Checks too, in Hybrid mode).
 - After **Remove**: `Deployrr removal complete` appeared. Running `deployrr` fails, and `sudo docker ps` still lists your apps.
 
 ## Next steps
@@ -245,5 +235,5 @@ Run the [install command](/getting-started/updating-deployrr/#run-the-installer-
 - [Back up and restore](/using-deployrr/backups/): make a copy of your Docker folder before Reset or Remove.
 - [Prerequisites, step by step](/getting-started/prerequisites/): the steps you redo after a Reset.
 - [Stack Manager](/using-deployrr/stack-manager/): bring your apps back up after a Reset.
+- [What overwrites or deletes your changes](/using-deployrr/what-overwrites-your-changes/): every Deployrr action that rewrites or removes files, Reset and Remove included.
 - [Updating Deployrr](/getting-started/updating-deployrr/): update instead of resetting.
-- [Install and manage apps](/using-deployrr/manage-apps/): the Apps menu, including Refresh Cache for the app list.
