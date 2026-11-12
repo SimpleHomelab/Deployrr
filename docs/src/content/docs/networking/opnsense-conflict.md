@@ -24,6 +24,14 @@ related:
   - apps/pi-hole-port-53-conflict
   - getting-started/quick-start
   - networking/ufw-firewall-vps
+further_reading:
+  - title: "UDMS part 18: testing the Traefik staging certificate (manual setup)"
+    url: "https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Testing_Docker_Traefik_Setup"
+videos:
+  - id: KMZIyoZ3jWM
+    start: 2755
+    title: "Traefik 3 guide: Traefik waits for the DNS records to propagate during staging"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 last_reviewed: 2026-11-09
 status: current
 old_paths: ["/networking/opnsense-conflict"]
@@ -53,6 +61,8 @@ People on OPNsense have seen this even when all of these are true:
 ## Cause
 
 Traefik gets certificates from Let's Encrypt with a DNS challenge. It adds a temporary TXT record in Cloudflare, then asks public DNS servers to confirm they can see it. In the Traefik compose file (`compose/HOSTNAME/traefik.yml` in your Docker folder), those servers are set to `1.1.1.1:53` and `1.0.0.1:53`. Traefik asks them directly, whatever DNS server your network normally hands out.
+
+To see this check happen in the Traefik log, watch [Traefik 3 guide: waiting for the DNS records to propagate at 45:55](https://youtu.be/KMZIyoZ3jWM?t=2755) (manual Docker Compose setup, Deployrr does these steps for you).
 
 On OPNsense, the cause is a DNS redirect rule. Many people set OPNsense to redirect (hijack) every DNS request on the LAN to its own resolver. Then Traefik's questions to `1.1.1.1` and `1.0.0.1` never leave your network. Your local resolver answers instead, and the check fails.
 
