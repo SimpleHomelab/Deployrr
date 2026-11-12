@@ -119,16 +119,7 @@ Core apps such as Traefik are not in the Manage Apps list. They have their own m
 
 ## What a reinstall keeps and what it resets
 
-| Item | After a reinstall |
-| --- | --- |
-| The app's `appdata` folder | Kept. |
-| The app's compose file, `compose/HOSTNAME/APP.yml` | Replaced with the default. Your hand edits are lost. |
-| Config files the app ships | Written again. This can overwrite your changes to them. |
-| Install questions, such as the port | Asked again. Your answers go into `.env`. Passwords Deployrr generated earlier and saved in `.env` are kept. |
-| Traefik rules file | Kept if it exists. You still see the subdomain, login and exposure questions, but your answers don't change the file. |
-| Deployrr Dashboard entry | Added again with your new answers. From **Browse Apps**, the old entry is removed first. |
-
-For apps with linked containers, such as a database, the linked compose files are replaced too.
+A reinstall keeps the app's `appdata` folder and an existing Traefik rules file. It replaces the app's compose file, and those of linked containers such as a database, with the defaults, and asks the install questions again. For `.env` values, passwords and secret files, see [What Reinstall keeps and resets](/using-deployrr/restart-recreate-reinstall/#what-reinstall-keeps-and-resets).
 
 ### Config files
 
