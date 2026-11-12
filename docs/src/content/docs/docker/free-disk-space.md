@@ -93,7 +93,7 @@ Go in this order. The safest options come first. Check `df -h` after each one an
 :::caution
 Don't delete files inside `/var/lib/docker` by hand. You can break Docker and lose your images, containers and volumes.
 
-Don't delete app folders under `appdata` to make space. That is your app's data.
+Don't delete app folders under `appdata` to make space. That is your app's data. See [What is in your Docker folder](/using-deployrr/docker-folder-layout/).
 
 Truncating a log removes its old lines. You can't get them back. If you need them, copy the log somewhere else first. Make a [backup](/using-deployrr/backups/) before any step that removes more than logs or caches.
 :::

@@ -43,7 +43,7 @@ Use **Tools** > **Backups** to save a copy of your Docker folder, bring an old c
 
 A backup holds your whole Docker folder: the compose files, the `.env` file and the app data.
 
-It does not hold anything outside the Docker folder. For example, media on a mounted share is not in the backup.
+It does not hold anything outside the Docker folder. For example, media on a mounted share is not in the backup. For what the Docker folder holds, see [What is in your Docker folder](/using-deployrr/docker-folder-layout/).
 
 Each backup is one file named after the date and time it was made, like `20261109_143000.tar.gz`.
 
