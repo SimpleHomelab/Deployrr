@@ -147,7 +147,7 @@ Deployrr can stop staging with other messages. Each has its own fix. [Traefik ca
 
 ### If nothing works: use Tailscale
 
-If you only need to reach your apps from outside your home, you can use Tailscale instead of Traefik certificates. Tailscale is in Deployrr under **Apps** > **Browse Apps**. It needs the network adapter set up first (**System** > **Network Adapter**).
+If you only need to reach your apps from outside your home, you can use [Tailscale](/networking/tailscale/) instead of Traefik certificates. Tailscale is in Deployrr under **Apps** > **Browse Apps**. It needs the network adapter set up first (**System** > **Network**).
 
 During the install, the **Tailscale - Configuration** box asks for your Tailscale auth key. Deployrr then recommends that you turn off MagicDNS in the Tailscale admin console. Otherwise, the Docker host can lose internet access. After install, you open apps at `TAILSCALE-IP:PORT`.
 

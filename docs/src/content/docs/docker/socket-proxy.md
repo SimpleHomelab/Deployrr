@@ -124,7 +124,7 @@ Required app not running
 - Homepage, Homarr, Homer, Dashy and Flame
 - Glances
 - Dockwatch, Dockpeek, Dockhand and DweebUI
-- DeUnhealth
+- [DeUnhealth](/apps/deunhealth/)
 - Docker Garbage Collection
 
 Install Socket Proxy, then start the install again.

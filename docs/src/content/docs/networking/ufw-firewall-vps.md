@@ -167,7 +167,7 @@ Steps 1, 2 and 5 are general Linux and UFW advice. They are not part of Deployrr
 
 ### Reach private apps with Tailscale
 
-6. Open apps you do not want public through Tailscale. In Deployrr, set up the network adapter first at **System** > **Network** (needs a Basic, Plus or Pro license). Then install Tailscale from **Apps** > **Browse Apps**. It asks for your **Tailscale Auth Key**.
+6. Open apps you do not want public through Tailscale. In Deployrr, set up the network adapter first at **System** > **Network** (needs a Basic, Plus or Pro license). Then install Tailscale from **Apps** > **Browse Apps**. The **Tailscale - Configuration** box asks `Enter value for TS_AUTH_KEY:`. For the full walk-through, see [Set up Tailscale](/networking/tailscale/).
 
    Deployrr shows a **Tailscale Mode** box. It says Tailscale installs in host networking mode, and you open apps at `TAILSCALE-IP:PORT`. It also says you should turn off MagicDNS in the Tailscale admin console. If you leave MagicDNS on, the Docker host can lose its internet connection.
 

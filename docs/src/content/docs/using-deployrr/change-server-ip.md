@@ -32,7 +32,7 @@ Use the **Change Server IP** tool when your server gets a new IP address. This h
 - Deployrr is installed and Prerequisites are done.
 - You have a Pro license. Without it, or without Prerequisites, Deployrr shows a requirements box. See [Requirements not met](/using-deployrr/requirements-not-met/) and [Licenses](/getting-started/licenses/).
 - You know the new IP and the old IP.
-- Give the server a fixed IP so it does not change again. Set a DHCP reservation in your router, or a static IP in the operating system. This is not a Deployrr step.
+- [Give the server a fixed IP](/host/fixed-ip/) so it does not change again. Set a DHCP reservation in your router, or a static IP in the operating system. This is not a Deployrr step.
 
 :::caution
 The tool does a plain find and replace of the old IP text in your files. An old IP of `192.168.1.5` also matches inside `192.168.1.50` and changes it too. Type each IP exactly, with no spaces, slashes or port. Back up first, then check the files afterwards.

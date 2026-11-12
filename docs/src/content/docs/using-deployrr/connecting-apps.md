@@ -120,7 +120,7 @@ Some apps do not use the container name method.
 
 ### Apps that use host networking
 
-Some apps have `network_mode: host` in their file. Examples include Homebridge, Tailscale, ZeroTier, Netdata, Sshwifty and Cloudflare Tunnel. They have no container name on the Docker network.
+Some apps have `network_mode: host` in their file. Examples include Homebridge, [Tailscale](/networking/tailscale/), ZeroTier, Netdata, Sshwifty and Cloudflare Tunnel. They have no container name on the Docker network.
 
 To connect to one of them from another app, use the IP address of your server and the port the app listens on.
 
