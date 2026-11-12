@@ -158,7 +158,7 @@ To fix a wrong value, run **Traefikify** again with the same name and overwrite 
 3. Turn off Wi-Fi on your phone and open the same address. Skip this if you picked **Internal**.
 4. After Un-Traefikify, the same address should no longer open the app.
 
-If the address does not load, [read the Traefik logs](/reverse-proxy/check-traefik-logs/).
+If the address does not load, [read the Traefik logs](/reverse-proxy/check-traefik-logs/). If it shows 404, 502 or Gateway Timeout, see [One app behind Traefik shows 404, 502 or Gateway Timeout](/reverse-proxy/app-404-or-502/).
 
 ## Related
 

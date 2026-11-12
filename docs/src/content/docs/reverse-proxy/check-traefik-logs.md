@@ -142,6 +142,8 @@ For a `502`, check that the app is running:
 dpss
 ```
 
+For a checklist that starts from the `404`, `502` or `Gateway Timeout` you see, read [One app behind Traefik shows 404, 502 or Gateway Timeout](/reverse-proxy/app-404-or-502/).
+
 To understand how the logs and common errors fit together, read [UDMS part 18: Learn to read Traefik logs](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Learn_to_Read_Logs) (manual setup; folder names differ from Deployrr).
 
 ### Change the log level
