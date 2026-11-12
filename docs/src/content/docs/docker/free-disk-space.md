@@ -236,6 +236,8 @@ If you installed the bash aliases, these help you find big items. Run them from 
 | `space` | `du -sh * \| sort -hr` | Items in the current folder, largest first. |
 | `biggest` | `find . -type f -printf "%s %p\n" \| sort -nr \| head -10` | The 10 largest files under the current folder. |
 
+If cleaning up is not enough, move your media or Docker's storage to a bigger disk. See [Move your media or Docker data to another disk](/host/move-data-to-another-disk/).
+
 ## Keep the disk from filling again
 
 ### Install Docker Garbage Collection
