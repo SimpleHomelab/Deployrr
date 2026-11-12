@@ -27,7 +27,7 @@ further_reading:
     url: "https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#CG-NAT"
 videos:
   - id: rdqbAr0TFnQ
-    start: 2263
+    start: 2298
     title: "Deployrr 5 walkthrough: Port forwarding on the router"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
   - id: KMZIyoZ3jWM
@@ -100,7 +100,7 @@ Router menus differ by brand. The names below are common ones. Check your router
 6. Add a rule for port 443 the same way.
 7. Save the rules. Some routers need a restart to apply them.
 
-To see a router port forward set up, watch [Deployrr 5 walkthrough: Port forwarding at 37:43](https://youtu.be/rdqbAr0TFnQ?t=2263) (shows Deployrr v5; menus differ in v6, and it forwards 80 to 81 and 443 to 444 as in Advanced mode). For the same idea in a manual setup, watch [Traefik 3 guide: forwarding ports 80 and 443 at 18:42](https://youtu.be/KMZIyoZ3jWM?t=1122) (manual Docker Compose setup). For a written guide, see [UDMS part 18: Setting up port forwarding](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Setting_Up_Port_Forwarding) (manual setup).
+To see a router port forward set up, watch [Deployrr 5 walkthrough: Port forwarding at 38:18](https://youtu.be/rdqbAr0TFnQ?t=2298) (shows Deployrr v5; menus differ in v6, and it forwards 80 to 81 and 443 to 444 as in Advanced mode). For the same idea in a manual setup, watch [Traefik 3 guide: forwarding ports 80 and 443 at 18:42](https://youtu.be/KMZIyoZ3jWM?t=1122) (manual Docker Compose setup). For a written guide, see [UDMS part 18: Setting up port forwarding](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Setting_Up_Port_Forwarding) (manual setup).
 
 :::note
 Forward only 80 and 443. Don't forward app ports such as 8989 to your server. Let Traefik or Nginx Proxy Manager be the way in from the internet, so your apps get HTTPS and a login from one place.

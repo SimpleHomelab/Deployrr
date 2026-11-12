@@ -21,7 +21,7 @@ further_reading:
     url: https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Setting_Up_Port_Forwarding
 videos:
   - id: rdqbAr0TFnQ
-    start: 2263
+    start: 2264
     title: "Deployrr 5 walkthrough: Port forwarding for Advanced mode (80 to 81, 443 to 444)"
     note: Shows Deployrr v5. Menus and steps differ in v6.
   - id: rdqbAr0TFnQ
@@ -88,7 +88,7 @@ The box says: "No control over exposure of app. All apps are exposed both locall
 
 ### What Advanced mode does
 
-The box says Advanced mode allows "restricting app access to internal (home/LAN) only, external (outside home/LAN), or both, while still using a proper SSL and fully qualified domain name". Forward ports 80 and 443 on your router to ports 81 and 444 on the Docker host. To see these two router rules set up, watch [Deployrr 5 walkthrough: Port Forwarding at 37:43](https://youtu.be/rdqbAr0TFnQ?t=2263) (shows Deployrr v5; menus and steps differ in v6).
+The box says Advanced mode allows "restricting app access to internal (home/LAN) only, external (outside home/LAN), or both, while still using a proper SSL and fully qualified domain name". Forward ports 80 and 443 on your router to ports 81 and 444 on the Docker host. To see these two router rules set up, watch [Deployrr 5 walkthrough: Port Forwarding at 38:18](https://youtu.be/rdqbAr0TFnQ?t=2298) (shows Deployrr v5; menus and steps differ in v6).
 
 ## Pick a mode
 
