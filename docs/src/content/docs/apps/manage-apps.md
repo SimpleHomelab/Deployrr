@@ -220,7 +220,7 @@ When the cache expires, **Prerequisites** shows **Build Cache** as EXPIRED. Inst
 | Start, stop or restart one app and see if it worked | **Apps** > **Manage Apps** > the app |
 | Read the last 50 log lines and follow new ones | **Apps** > **Manage Apps** > the app > **Logs**, or `dlogs NAME` |
 | Start or stop one app by number, or all at once | **Tools** > **Stack Manager** > **Start Container** (lists only apps that are not running) or **Stop Container** (lists only running apps) |
-| Apply a change after you edit an app's compose file | **Tools** > **Stack Manager** > **Recreate**, or `dcrec APP` |
+| Apply a change after you edit an app's compose file | **Tools** > **Stack Manager** > **Recreate**, or `dcrec APP`. See [Restart, Recreate or Reinstall](/using-deployrr/restart-recreate-reinstall/) |
 | Restart one app from the terminal | `dcrestart APP` |
 | Remove an app and its container but keep its data | **Tools** > **Stack Manager** > **Delete** > **Safe** |
 | Remove an app and all its data | **Manage Apps** > **Remove** with **Yes**, or **Stack Manager** > **Delete** > **Full** |

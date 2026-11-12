@@ -35,7 +35,7 @@ Use **Tools** > **Stack Manager** to start, stop, update, recreate, disable and 
 | See every container and its version, ports and IP | **Containers Status** |
 | Start one app that is stopped | **Start Container** |
 | Stop one app and keep its container | **Stop Container** |
-| Apply changes after you edit an app's compose file or `.env` values | **Recreate** |
+| Apply changes after you edit an app's compose file or `.env` values | **Recreate** (see [Restart, Recreate or Reinstall](/using-deployrr/restart-recreate-reinstall/)) |
 | See which apps are on or off in your stack | **Services Status** |
 | Keep an app installed but stop it from starting with the stack | **Disable** |
 | Turn a disabled app back on | **Enable** |

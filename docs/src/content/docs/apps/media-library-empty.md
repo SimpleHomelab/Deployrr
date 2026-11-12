@@ -132,7 +132,7 @@ An app only gets the media folders that were set when you installed it. To see w
 4. If the lines are off, but you set the folder in **System** > **Folders**, [reinstall the app](/apps/reinstall-app/). Reinstalling keeps the app's data but replaces its compose file, so make the backups on that page first. For a running app, start the reinstall from **Apps** > **Browse Apps**. **Manage Apps** shows **Reinstall** only for a stopped app.
 5. If the lines are on and the path in `.env` changed, recreate the app. Go to **Tools** > **Stack Manager** > **Recreate** and pick the app. See [Stack Manager](/using-deployrr/stack-manager/). With the Deployrr bash aliases: `dcrec APP`.
 
-Recreating does not turn on a media folder that was off. Only a reinstall does. For the full explanation, see [Apps you installed before you set a media folder](/using-deployrr/folders/#apps-you-installed-before-you-set-a-media-folder).
+Recreating does not turn on a media folder that was off. Only a reinstall does. To pick the right action for other changes, see [Restart, Recreate or Reinstall an app](/using-deployrr/restart-recreate-reinstall/). For the full explanation, see [Apps you installed before you set a media folder](/using-deployrr/folders/#apps-you-installed-before-you-set-a-media-folder).
 
 ### 3. Use the path inside the app
 
