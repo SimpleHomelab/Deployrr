@@ -149,7 +149,7 @@ If the app is up and the address still does not work, check these:
 3. The app is running. Open `http://IP_ADDRESS:PORT` in a browser on your network.
 4. No firewall on the app's machine blocks the port from your Deployrr server.
 
-To fix a wrong value, run **Traefikify** again with the same name and overwrite the file. You can also edit `appdata/traefik3/rules/HOSTNAME/app-NAME.yml` and change the address on the `url:` line. Traefik picks up the change on its own.
+To fix a wrong value, run **Traefikify** again with the same name and overwrite the file. You can also edit `appdata/traefik3/rules/HOSTNAME/app-NAME.yml` and change the address on the `url:` line. Traefik picks up the change on its own. To change the subdomain the same way, see [Change the subdomain of an app you already installed](/reverse-proxy/change-app-subdomain/).
 
 ## Check it worked
 

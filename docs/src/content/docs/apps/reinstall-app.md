@@ -164,6 +164,7 @@ If the app already has a rules file, a plain reinstall keeps that file. You stil
 
 - Use **Security** > **Manage Auth** for the login method. The login page covers it.
 - Do a Safe delete, then install the app again. The new rules file uses your new answers.
+- To change only the subdomain, edit the rules file. See [Change the subdomain of an app you already installed](/reverse-proxy/change-app-subdomain/).
 
 ## If something goes wrong
 
