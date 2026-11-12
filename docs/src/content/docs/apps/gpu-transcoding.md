@@ -19,7 +19,21 @@ related:
   - using-deployrr/update-apps
   - using-deployrr/bash-aliases
   - apps/jellyfin-client-on-lg-webos
-further_reading: []
+further_reading:
+  - title: "UDMS part 11: Passing the iGPU through to a Proxmox LXC container"
+    url: "https://www.simplehomelab.com/udms-11-gpu-passthrough-on-proxmox-lxc/#Step-by-Step_Proxmox_GPU_Passthrough_to_LXC_Container"
+videos:
+  - id: Nuo83uzTWco
+    start: 337
+    title: "Deployrr 6 overview: Intelligent GPU Detection"
+  - id: xY3UrvDgGrs
+    start: 700
+    title: "Jellyfin Docker Compose: turn on and test hardware transcoding"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
+  - id: VbNABbeZC-Y
+    start: 1073
+    title: "Plex Docker Compose: configure and test hardware transcoding"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 last_reviewed: 2026-11-10
 status: current
 old_paths: []
@@ -52,7 +66,7 @@ This page needs Deployrr v6.0.42 or later. On earlier 6.0.x versions, Deployrr p
 - Plex only: you have a Plex Pass. Plex hardware transcoding needs it. This is general Plex knowledge, not a Deployrr rule.
 
 :::note
-If your server is a Proxmox LXC container, the GPU must first be passed through to it. Deployrr shows this note in the **Graphics Card** box: "LXC/Docker environments require the host to pass through the GPU device and toolkits." Set up the passthrough in Proxmox before you scan. Deployrr does not do it for you. A virtual machine needs the GPU passed through too. That is general knowledge, not something Deployrr shows. For other Docker problems in an LXC container, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
+If your server is a Proxmox LXC container, the GPU must first be passed through to it. Deployrr shows this note in the **Graphics Card** box: "LXC/Docker environments require the host to pass through the GPU device and toolkits." Set up the passthrough in Proxmox before you scan. Deployrr does not do it for you. For the Proxmox steps, see [UDMS part 11: Passing the iGPU through to a Proxmox LXC container](https://www.simplehomelab.com/udms-11-gpu-passthrough-on-proxmox-lxc/#Step-by-Step_Proxmox_GPU_Passthrough_to_LXC_Container) (manual setup). A virtual machine needs the GPU passed through too. That is general knowledge, not something Deployrr shows. For other Docker problems in an LXC container, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
 :::
 
 ## Steps
@@ -69,6 +83,8 @@ If your server is a Proxmox LXC container, the GPU must first be passed through 
 | "Graphics card detection completed - AI & Hardware transcoding supported" | At least one GPU is ready. Go to part 2. |
 | "GPU hardware detected but required toolkits are missing." | Deployrr found a GPU but it is not ready. Read the lines above that message. They name what is missing. Fix it, then run the scan again. |
 | "No graphics cards detected via lspci." or "Graphics card detection completed - No GPU hardware found" | Deployrr found no GPU. |
+
+To see GPU detection in Deployrr 6, watch [Deployrr 6 overview: Intelligent GPU Detection at 5:37](https://youtu.be/Nuo83uzTWco?t=337).
 
 The scan prints a line for each GPU it finds:
 
@@ -138,12 +154,16 @@ These steps are on the app's own screens, not Deployrr's. They are general knowl
 4. Under **Enable hardware decoding for**, tick the formats your GPU supports.
 5. Save.
 
+To see this done by hand, watch [Jellyfin Docker Compose: turn on and test hardware transcoding at 11:40](https://youtu.be/xY3UrvDgGrs?t=700) (manual Docker Compose setup). The video picks Intel Quick Sync for an Intel GPU and says VAAPI suits AMD.
+
 **Plex** (needs Plex Pass)
 
 1. Open Plex and go to **Settings** > **Transcoder**.
 2. Turn on **Use hardware acceleration when available**.
 3. Turn on **Use hardware-accelerated video encoding** if you see it.
 4. Save.
+
+To see the Plex transcoder settings and a test, watch [Plex Docker Compose: configure and test hardware transcoding at 17:53](https://youtu.be/VbNABbeZC-Y?t=1073) (manual Docker Compose setup).
 
 **Emby** (needs Emby Premiere)
 
