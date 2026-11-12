@@ -14,7 +14,11 @@ related:
   - host/shim-task-debian
   - using-deployrr/move-to-new-server
   - using-deployrr/bash-aliases
-further_reading: []
+further_reading:
+  - title: "UDMS part 08: Permission denied errors on NFS mounts"
+    url: "https://www.simplehomelab.com/udms-08-mount-remote-folders-using-nfs/#Permission_Denied_Errors"
+  - title: "UDMS part 07: Test the fstab entry for an SMB mount"
+    url: "https://www.simplehomelab.com/udms-07-mount-remote-shares-smb/#Test_fstab_Configuration"
 last_reviewed: 2026-11-09
 status: current
 old_paths: []
@@ -92,7 +96,7 @@ The password field does not hide what you type. Check that nobody can see your s
 9. Pick the mount folder as in the SMB steps and choose **Confirm**.
 10. Wait for the **Success** box: "NFS share mounted successfully at" and your folder.
 
-NFS does not ask for a user name or password. Deployrr's setup box says the UIDs must match. If they don't, you may not be able to read or write the files.
+NFS does not ask for a user name or password. Deployrr's setup box says the UIDs must match. If they don't, you may not be able to read or write the files. To understand how this works, read [UDMS part 08: Permission Denied Errors](https://www.simplehomelab.com/udms-08-mount-remote-folders-using-nfs/#Permission_Denied_Errors) (manual setup, background only).
 
 ### Point your apps at the share
 
@@ -217,7 +221,7 @@ Linux reads `/etc/fstab` at every boot. A broken line in it can stop your server
    sudo mount -a
    ```
 
-   No output means the file is fine. If you see an error, fix the line it names, or put your copy back with `sudo cp /etc/fstab.before-edit /etc/fstab`. Don't reboot until `sudo mount -a` runs without errors.
+   No output means the file is fine. If you see an error, fix the line it names, or put your copy back with `sudo cp /etc/fstab.before-edit /etc/fstab`. Don't reboot until `sudo mount -a` runs without errors. For how a manual setup tests an fstab entry, see [UDMS part 07: Test fstab Configuration](https://www.simplehomelab.com/udms-07-mount-remote-shares-smb/#Test_fstab_Configuration) (manual setup, background only).
 
 Check the IP address, share name or export path, and (for SMB) the user name and password in `/etc/samba/credentials`. Also check that the NAS is on and allows your server to connect.
 

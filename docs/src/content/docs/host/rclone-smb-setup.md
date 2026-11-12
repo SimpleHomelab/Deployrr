@@ -15,6 +15,19 @@ related:
   - docker/waiting-for-container
   - using-deployrr/bash-aliases
 further_reading: []
+videos:
+  - id: rdqbAr0TFnQ
+    start: 1059
+    title: "Deployrr 5 walkthrough: Rclone SMB remote and automount"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
+  - id: rdqbAr0TFnQ
+    start: 1176
+    title: "Deployrr 5 walkthrough: Delay Media Apps after the Rclone mount"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
+  - id: D-XS0biLP14
+    start: 734
+    title: "Rclone SMB mount: the script that starts media apps after the mount"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 last_reviewed: 2026-11-09
 status: current
 old_paths: []
@@ -90,6 +103,8 @@ sudo nano DOCKER_FOLDER/appdata/rclone/rclone.conf
 Delete the lines from `[NAME]` down to the next `[` line (or the end of the file), save, and run **SMB Remote** again.
 
 The **SMB Remote** line in the menu now reads "1 remote(s) defined".
+
+To see the remote and the automount filled in on screen, watch [Deployrr 5 walkthrough: Rclone SMB remote and automount at 17:39](https://youtu.be/rdqbAr0TFnQ?t=1059) (shows Deployrr v5; menus differ in v6).
 
 ### 3. Set up the automount
 
@@ -170,6 +185,8 @@ Your server can start Docker before the NAS share is mounted. Then media apps wr
 3. Wait for "Delayed media start script installed successfully".
 
 From the next boot, your media apps, such as Plex, Jellyfin, Radarr and Sonarr, do not start by themselves. They start once the mount is ready. Deployrr checks every 5 seconds. If the mount is not ready after about 15 minutes, the media apps stay stopped.
+
+To understand how a start script waits for the mount, watch [Rclone SMB mount: the script that starts media apps at 12:14](https://youtu.be/D-XS0biLP14?t=734) (manual setup; Deployrr does these steps for you).
 
 The menu shows "DONE" next to **Delay Media Apps** once it is set up.
 

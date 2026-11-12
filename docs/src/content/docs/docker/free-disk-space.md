@@ -13,7 +13,14 @@ related:
   - reverse-proxy/check-traefik-logs
   - using-deployrr/update-apps
   - using-deployrr/stack-manager
-further_reading: []
+further_reading:
+  - title: "UDMS part 13: System cleanup commands for Docker"
+    url: https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/#System_Cleanup
+videos:
+  - id: Ux9khKhqhcg
+    start: 578
+    title: "Bash aliases video: Docker cleanup aliases (prune volumes, images and unused data)"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 last_reviewed: 2026-11-10
 status: current
 old_paths: []
@@ -67,6 +74,8 @@ If you stopped an app, Cleanup removes its container. Its settings stay in your 
 ## Pick a cleanup alias
 
 If you installed the bash aliases, you have more cleanup aliases. They are stronger than the menu option. Each alias below shows its long form, which works without the aliases.
+
+To see how the cleanup aliases work in a manual setup, watch [Bash aliases video: Docker cleanup aliases at 9:38](https://youtu.be/Ux9khKhqhcg?t=578) (manual Docker Compose setup; alias names and behavior can differ from Deployrr). For the matching commands, read [UDMS part 13: System cleanup commands for Docker](https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/#System_Cleanup) (manual setup, for background only).
 
 :::caution
 Removing a volume deletes its data and you can't undo it. Back up first.
