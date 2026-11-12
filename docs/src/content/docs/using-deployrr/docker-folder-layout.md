@@ -30,6 +30,10 @@ videos:
     start: 1493
     title: "Traefik 3 guide: Traefik appdata, rules, acme.json and logs folders"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
+  - id: KMZIyoZ3jWM
+    start: 2898
+    title: "Traefik 3 guide: switching from staging to production and emptying acme.json"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 last_reviewed: 2026-11-12
 status: current
 old_paths: []
@@ -80,7 +84,7 @@ docker/
 └── secrets/
 ```
 
-The `scripts` folder only exists if you ran **System** > **Mounts** > **Rclone** > **Delay Media Apps**. The Traefik rules folder holds a few more files than the tree shows, such as more `middlewares-*.yml` and `chain-*.yml` files.
+The `scripts` folder only exists if you ran **System** > **Mounts** > **Rclone** > **Delay Media Apps**. See [Apps are stopped or show empty folders after a reboot](/docker/apps-not-starting-after-reboot/). The Traefik rules folder holds a few more files than the tree shows, such as more `middlewares-*.yml` and `chain-*.yml` files.
 
 To see a similar folder layout built by hand, watch [Ultimate Docker Server in 52 min: folders and files at 5:35](https://youtu.be/THuLgGwq0vg?t=335) (manual Docker Compose setup; names and permissions differ from Deployrr v6). You can also read [UDMS part 14: folders, files and permissions](https://www.simplehomelab.com/udms-14-docker-media-server/) (manual setup).
 
@@ -124,7 +128,7 @@ In the table, replace `SERVICE_NAME` with the name of your own service. To pick 
 
 ### Reinstall
 
-You reach **Reinstall** in **Apps** > **Manage Apps** > the app > **Reinstall**. It shows only when the app is stopped. For a running app, use **Apps** > **Browse Apps** > the app > **Install**, then **Yes** in the **Already Installed** box.
+You reach **Reinstall** in **Apps** > **Manage Apps** > the app > **Reinstall**. It shows only when the app is stopped. For a running app, use **Apps** > **Browse Apps** > the app > **Install**, then **Yes** in the **Already Installed** box. For the full steps, see [Reinstall an app and keep its data](/using-deployrr/reinstall-app/).
 
 Reinstall replaces `compose/HOSTNAME/APP.yml`. It also writes again every config file the app ships in `appdata/APP`, so your edits to those files are lost. Other files in `appdata/APP` stay. An existing `app-APP.yml` rules file stays too. Deployrr still asks for the subdomain, login and exposure, but your answers do not change that file. Edit the rules file yourself instead.
 
@@ -152,11 +156,17 @@ Each `app-APP.yml` file tells Traefik where to find one app. If an app behind Tr
 
 To make a file again from the menu, run **Traefikify** with the same name. Deployrr shows **File Provider Exists** and asks if you want to overwrite it. See [Put any app behind Traefik with Traefikify](/reverse-proxy/traefikify/).
 
-The other files in the rules folder (`tls-opts.yml`, `middlewares-*.yml` and `chain-*.yml`) are written by Traefik **Preparation**. Don't rename or delete them. If you run Preparation again, it replaces them without asking. This only works while Traefik is stopped, because Preparation stops with "Port N is occupied" while Traefik runs. Your hand edits to these files are lost, including the line CrowdSec adds to a chain file. Keep a copy.
+The other files in the rules folder (`tls-opts.yml`, `middlewares-*.yml` and `chain-*.yml`) come from Traefik **Preparation** and from the login setups. Don't rename or delete them.
+
+If you run Preparation again, Deployrr says it was already done and asks you to press Y to go on. After a Y, it writes fresh copies of seven files: `tls-opts.yml`, `middlewares-basic-auth.yml`, `middlewares-buffering.yml`, `middlewares-rate-limit.yml`, `middlewares-secure-headers.yml`, `chain-basic-auth.yml` and `chain-no-auth.yml`. Your hand edits to these seven are lost, including a line CrowdSec added to one of the chain files. Keep a copy. A rerun only works while Traefik is stopped, because Preparation stops with "Port N is occupied" while Traefik runs. That check comes after the **Traefik Secrets** box, so a rerun that stops there has already saved the Basic Auth and Cloudflare values you typed. A Basic Auth Password left blank keeps the old one.
 
 To understand how the Traefik folders fit together, watch [Master Traefik 3 in 60 min: Traefik folders at 24:53](https://youtu.be/KMZIyoZ3jWM?t=1493) (manual Docker Compose setup). You can also read [UDMS part 18: preparing the Traefik folders](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Prepare_Traefik_Folders) (manual setup).
 
-The setups for Authelia, Authentik, Google OAuth, TinyAuth and CrowdSec write their own rules files each time you run them. Traefik **Staging** and **Production** do not touch rules files. They change `compose/HOSTNAME/traefik.yml`. They also clear `traefik.log`.
+The setups for Authelia, Authentik, Google OAuth, TinyAuth and CrowdSec write their own rules files each time you run them.
+
+Traefik **Staging** and **Production** do not touch rules files. In `compose/HOSTNAME/traefik.yml` they only turn the Let's Encrypt staging server line on (Staging) or off (Production). Staging deletes the old `traefik.log` and starts an empty one. Production moves the old one to `traefik_staging.log`, then starts an empty one.
+
+When you run Staging or Production again, Deployrr first says it was already done and asks you to press Y to go on. Any other key goes back and changes nothing. After a Y, if `acme.json` holds a certificate of the same kind, Deployrr asks "Reuse existing staging SSL certificate?" or "Reuse existing production SSL certificate?". Press Y to keep it. Any other key empties `acme.json`, and Traefik asks for new certificates. In every other case, Staging and Production start with an empty `acme.json`. See [Set up Traefik](/reverse-proxy/traefik-setup/).
 
 ## Before you edit or delete anything
 
@@ -181,9 +191,11 @@ sudo cp YOUR_DOCKER_FOLDER/compose/HOSTNAME/custom.yml ~/custom.yml.bak
 Keep the copy outside the rules folder, so Traefik does not read it.
 
 :::caution
-Do not run **Prerequisites** > **Environment** again on a server with apps. First set a Backups Folder and make your own backup. Deployrr shows "It appears that Docker Environment is already setup..." and then asks you to pick one of three options.
+Do not run **Prerequisites** > **Environment** again on a server with apps. First set a Backups Folder and make your own backup. Keep the Backups Folder outside the Docker folder: with a Backups Folder such as `docker/backups`, Recreate and Reuse delete it, together with your backups and, for Reuse, your app data.
 
-- **Recreate** ("Delete existing and create new folder") copies the whole Docker folder to `docker_backup_DATE` in your Backups Folder, then deletes everything in it. If no Backups Folder is set, nothing is copied before the delete.
+Deployrr first warns "It appears that Docker Environment is already setup..." and asks if you want to proceed. If the Docker folder already has files, the **Create Docker Root Folder** box then asks you to pick one of three options.
+
+- **Recreate** ("Delete existing and create new folder") copies the whole Docker folder to `docker_backup_DATE` in your Backups Folder, then deletes everything in it except hidden files such as `.env`. If no Backups Folder is set, nothing is copied before the delete. The copy is a plain folder, not a `.tar.gz` backup, so **Tools** > **Backups** > **Restore** can't use it. Copy files back from it by hand.
 - **Reuse** keeps `appdata` (including the Traefik rules), `.env` and `secrets`. It deletes everything else: `docker-compose-HOSTNAME.yml`, every `compose/HOSTNAME/APP.yml`, `logs` and `scripts`. Your installed apps drop out of the stack until you reinstall them. It writes a fresh `custom.yml`, so copy yours somewhere safe first. Reuse needs a Backups Folder. Without one you see "Cannot preserve data - BACKUP_FOLDER not set".
 
 Choose **Exit** to make no changes. See [Prerequisites, step by step](/getting-started/prerequisites/).
