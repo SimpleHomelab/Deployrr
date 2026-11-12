@@ -201,7 +201,7 @@ This table shows which lines each item can list. Prerequisites means the `Prereq
 | **System** > **Mounts** > **Rclone** > **SMB Remote** | Prerequisites, Basic, Plus or Pro license, Rclone installed |
 | **System** > **Mounts** > **Rclone** > **Automount** | Prerequisites, Basic, Plus or Pro license, Rclone installed, SMB Remote configured |
 | **System** > **Mounts** > **Rclone** > **Delay Media Apps**, **Refresh Cache** | Prerequisites, Basic, Plus or Pro license, Rclone installed, SMB Remote configured, SMB Remote mounted |
-| **Tools** > **Stack Manager**, **Lazydocker**, **Diagnostics**, **Dashify**, **ReDash** | Prerequisites, Basic, Plus or Pro license |
+| **Tools** > **Stack Manager**, **Lazydocker** (see [Lazydocker on Docker v29](/docker/lazydocker/)), **Diagnostics**, **Dashify**, **ReDash** | Prerequisites, Basic, Plus or Pro license |
 | **Tools** > **Backups** (**Backup**, **View**, **Delete**, **MP Create**), **.env Editor**, **Secrets Editor**, **Change Hostname**, **Change Server IP**; **Settings** > **Version Pins** | Prerequisites, Pro license |
 | **Tools** > **Backups** > **Restore** | Disclaimers, Pro license |
 | **Tools** > **Backups** > **MP Restore** | Pro license |
@@ -217,7 +217,7 @@ This table shows which lines each item can list. Prerequisites means the `Prereq
 | **Security** > **CrowdSec** | Prerequisites, Pro license |
 | **Security** > **Firewall Bouncer** | Prerequisites, CrowdSec running, Pro license |
 | **Security** > **Traefik Bouncer** | Prerequisites, CrowdSec running, Traefik running, Pro license |
-| **Apps** > **ShellInABox** | Prerequisites, Traefik Production, Advanced Authentication, Basic, Plus or Pro license |
+| **Apps** > [**ShellInABox**](/apps/shellinabox/) | Prerequisites, Traefik Production, Advanced Authentication, Basic, Plus or Pro license |
 | **Help** > **Request Pin**, **Reset Pin** | Disclaimers |
 | **Feedback** | Disclaimers, Basic, Plus or Pro license |
 

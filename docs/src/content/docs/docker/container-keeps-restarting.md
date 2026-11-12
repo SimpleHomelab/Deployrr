@@ -133,7 +133,7 @@ Two other ways to read logs:
 - Lazydocker is in the **Tools** menu ("Terminal UI for Docker Management"). Use the arrow keys to pick a container and open its logs. Press `q` to quit. These keys are general Lazydocker behaviour.
 
 :::note
-Before Lazydocker starts, Deployrr shows a box saying Lazydocker is currently incompatible with Docker v29 and newer, and that you may see errors. If Lazydocker fails, use **Manage Apps** > **Logs** or the Docker commands on this page instead. Lazydocker needs completed Prerequisites and a Basic, Plus or Pro license.
+Before Lazydocker starts, Deployrr shows a box saying Lazydocker is currently incompatible with Docker v29 and newer, and that you may see errors. If Lazydocker fails, see [Lazydocker shows "client version 1.25 is too old"](/docker/lazydocker/) or use **Manage Apps** > **Logs** or the Docker commands on this page instead. Lazydocker needs completed Prerequisites and a Basic, Plus or Pro license.
 :::
 
 ### 4. Read the health check

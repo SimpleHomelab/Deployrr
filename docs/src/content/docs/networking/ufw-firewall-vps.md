@@ -32,12 +32,12 @@ videos:
   - id: KMZIyoZ3jWM
     start: 1003
     title: "Traefik 3 guide: why a VPS needs a firewall from your provider"
-    note: "Manual Docker Compose setup. Deployrr does not manage your firewall; use it to understand why the provider's firewall matters."
+    note: "Manual Docker Compose setup. Deployrr does not turn UFW on, so use this to understand why the provider's firewall matters."
   - id: M6GMp4FJrB8
     start: 654
     title: "Tailscale tutorial: opening a service by its Tailscale IP"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
-last_reviewed: 2026-11-09
+last_reviewed: 2026-11-12
 status: current
 old_paths: ["/networking/ufw-firewall-vps-dedi"]
 sources: []
@@ -153,7 +153,7 @@ Steps 1, 2 and 5 are general Linux and UFW advice. They are not part of Deployrr
    sudo ufw allow 443/tcp
    ```
 
-   Change `22` in the SSH rule if you moved SSH to another port. If you get this wrong, you lock yourself out of the server.
+   Change `22` in the SSH rule if you moved SSH to another port. If you get this wrong, you lock yourself out of the server. To set up SSH keys and the provider firewall on a new server first, see [Secure a fresh VPS before you install Deployrr](/host/secure-a-vps/).
 
    Add these rules too. The first two allow web traffic that UFW routes through the server to Docker. The last one allows Tailscale, if you use it:
 
@@ -172,12 +172,12 @@ Steps 1, 2 and 5 are general Linux and UFW advice. They are not part of Deployrr
 
    Deployrr v6 does not have a UFW-Docker option any more. Its release notes list "UFW Docker integration" as removed. If you installed UFW-Docker with an older version, remove it the way its own documentation says.
 
-   Deployrr never turns your firewall on or manages it for you. That is up to you. It adds firewall rules for only two apps:
+   Deployrr does not turn UFW on. It does add allow rules when it sets up these two apps, even if UFW is off:
 
    - **Traefik**: ports 80, 81, 443 and 444 over TCP, and 443 and 444 over UDP.
    - **Socket Proxy**: allows traffic from `192.168.91.0/24`, the Socket Proxy's Docker network.
 
-   Other apps add no firewall rules. Deployrr uses UFW if it is installed, otherwise firewalld. If neither is there, it skips this step. If you open an app's port to the internet without Traefik, add that rule yourself.
+   Other apps add no firewall rules. Deployrr uses UFW if it is installed, otherwise firewalld, if it is installed. If neither is there, it skips this step. If you open an app's port to the internet without Traefik, add that rule yourself.
 
 ### Reach private apps with Tailscale
 
@@ -238,3 +238,4 @@ If the problem stays, check whether your provider has its own firewall page in i
 - [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/): how Internal and External exposure work in Advanced mode.
 - [Traefik staging fails on OPNsense](/networking/opnsense-conflict/): another firewall problem, with DNS filtering.
 - [Quick start](/getting-started/quick-start/): the setup order for Deployrr.
+- [Secure a fresh VPS before you install Deployrr](/host/secure-a-vps/): SSH keys, the provider firewall and a sudo user for a new server.

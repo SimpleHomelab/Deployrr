@@ -72,7 +72,7 @@ sudo du -sh YOUR_FOLDER
 A disk you mount by hand is gone after a reboot. Add it to `/etc/fstab`, the file Linux reads at boot. This example uses a disk with an `ext4` filesystem. Replace the values in capitals where the steps say so.
 
 :::caution
-A broken line in `/etc/fstab` can stop your server from booting normally. Copy the file first. Test your change with `sudo mount -a` before you reboot. Do not reboot until the test shows no errors.
+A broken line in `/etc/fstab` can stop your server from booting normally. Copy the file first. Test your change with `sudo mount -a` before you reboot. Do not reboot until the test shows no errors. If your server already won't boot, see [Server won't boot after an /etc/fstab change](/host/fstab-boot-recovery/).
 :::
 
 1. Find your disk and its UUID:
