@@ -22,6 +22,15 @@ related:
   - host/shim-task-debian
   - getting-started/quick-start
 further_reading: []
+videos:
+  - id: rdqbAr0TFnQ
+    start: 1176
+    title: "Deployrr 5 walkthrough: Delay Media Apps after the Rclone mount"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
+  - id: D-XS0biLP14
+    start: 628
+    title: "Rclone SMB mount: creating the mount folders"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 last_reviewed: 2026-11-09
 status: current
 old_paths: ["/operating-system/rclone-mount-point-not-empty-error"]
@@ -60,6 +69,8 @@ Rclone refuses to mount a share on a folder that already has files in it. This p
 The usual reason is that apps wrote into the folder while the share was not mounted. For example, Jellyfin or Radarr started before the mount was ready and created folders there. Files left over from an earlier mount attempt can also cause it.
 
 Those files sit on your server's own disk. They are not your NAS files. Deployrr does not check the folder for stray files before it mounts, so you only find out from the log.
+
+To see how an empty mount folder is made and mounted by hand, watch [Rclone SMB mount: creating the mount folders at 10:28](https://youtu.be/D-XS0biLP14?t=628) (manual setup; Deployrr does these steps for you).
 
 :::note
 Automount needs a Basic, Plus or Pro license. If Deployrr shows `License - Basic, Plus, or Pro required`, the mount folder is not the problem.
@@ -173,7 +184,7 @@ sudo tail -n 30 YOUR_DOCKER_FOLDER/logs/YOUR_HOSTNAME/rclone-NAME.log
 
 Apps that use the mount can start before the mount is ready. They then write into the empty folder. Deployrr warns about this: "Typically, Docker containers that rely on Rclone mounts start before the mount is active. This can cause crashes."
 
-In **System** > **Mounts** > **Rclone**, choose **Delay Media Apps** ("Set Media apps to Start after Rclone"). Run it after Automount works, because it needs a mounted share. It stops your media apps from starting on their own at boot. Instead, they start once the Rclone mount is ready. The menu shows "DONE" next to it when it is set up. [Mount a NAS share with Rclone](/host/rclone-smb-setup/) covers the whole Rclone setup.
+In **System** > **Mounts** > **Rclone**, choose **Delay Media Apps** ("Set Media apps to Start after Rclone"). Run it after Automount works, because it needs a mounted share. It stops your media apps from starting on their own at boot. Instead, they start once the Rclone mount is ready. The menu shows "DONE" next to it when it is set up. To see why it matters, watch [Deployrr 5 walkthrough: Delay Media Apps at 19:36](https://youtu.be/rdqbAr0TFnQ?t=1176) (shows Deployrr v5; menus differ in v6). [Mount a NAS share with Rclone](/host/rclone-smb-setup/) covers the whole Rclone setup.
 
 If the mount is still not ready after about 15 minutes, the media apps stay stopped. Check the timer logs `rclone-NAME-timer.log` and `rclone-NAME-timer.err` in the same logs folder as the Rclone log.
 
