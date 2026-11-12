@@ -70,7 +70,7 @@ If you do not acknowledge the **Disclaimers** in **Prerequisites**, Deployrr cle
 1. Open **Proxy** > **Traefik** > **Traefik Mode**.
 2. Read the **Traefik Exposure Mode** box. It says "Simple mode ENABLED" or "Advanced mode ENABLED" and tells you which ports to forward.
 3. If it is the mode you did not want, select **Traefik Mode** again to flip back.
-4. Change your router port forwards to match the table above.
+4. Change your router port forwards to match the table above. See [Forward the right router ports](/networking/port-forwarding/) for the steps and how to test them.
 
 If you see **Proxy Type Required**, first pick Traefik under **Proxy** > **Proxy Type**. See [Set up Traefik](/reverse-proxy/traefik-setup/). If you see **Requirements Not Met**, acknowledge the **Disclaimers** in **Prerequisites** first.
 
