@@ -23,6 +23,26 @@ related:
   - reverse-proxy/restrict-access-using-ip-allowlist
   - networking/opnsense-conflict
   - getting-started/quick-start
+further_reading:
+  - title: "UDMS part 05: enabling the UFW firewall (manual setup)"
+    url: "https://www.simplehomelab.com/udms-05-installing-ubuntu-on-proxmox/#6_Enable_Firewall"
+  - title: "UDMS part 18: allowing ports 80 and 443 on the firewall (manual setup)"
+    url: "https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Allow_Ports_80_and_443_on_Firewall"
+  - title: "UDMS part 16: reaching services by Tailscale IP (manual setup)"
+    url: "https://www.simplehomelab.com/udms-part-16-tailscale-homelab-remote-access/#1_Access_by_Tailscale_IP"
+videos:
+  - id: "-ZSQdJ62r-Q"
+    start: 919
+    title: "Docker on Proxmox LXC: default UFW rules and enabling the firewall"
+    note: "Manual setup on a home server. Deployrr does not manage your firewall; use it to understand what the commands do."
+  - id: KMZIyoZ3jWM
+    start: 1003
+    title: "Traefik 3 guide: why a VPS needs a firewall from your provider"
+    note: "Manual Docker Compose setup. Deployrr does not manage your firewall; use it to understand why the provider's firewall matters."
+  - id: M6GMp4FJrB8
+    start: 654
+    title: "Tailscale tutorial: opening a service by its Tailscale IP"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
 last_reviewed: 2026-11-09
 status: current
 old_paths: ["/networking/ufw-firewall-vps-dedi"]
@@ -141,6 +161,8 @@ Steps 1, 2 and 5 are general Linux and UFW advice. They are not part of Deployrr
 
    Change `22` in the SSH rule if you moved SSH to another port. If you get this wrong, you lock yourself out of the server.
 
+   To see the default rules and `ufw enable` done by hand, watch [Docker on Proxmox LXC: UFW firewall setup at 15:19](https://youtu.be/-ZSQdJ62r-Q?t=919) (manual setup on a home server). The matching guide section is [UDMS part 05: Enable Firewall](https://www.simplehomelab.com/udms-05-installing-ubuntu-on-proxmox/#6_Enable_Firewall) (manual setup).
+
    Add these rules too. The first two allow web traffic that UFW routes through the server to Docker. The last one allows Tailscale, if you use it:
 
    ```bash
@@ -172,6 +194,8 @@ Steps 1, 2 and 5 are general Linux and UFW advice. They are not part of Deployrr
    Deployrr shows a **Tailscale Mode** box. It says Tailscale installs in host networking mode, and you open apps at `TAILSCALE-IP:PORT`. It also says you should turn off MagicDNS in the Tailscale admin console. If you leave MagicDNS on, the Docker host can lose its internet connection.
 
 7. Open an app at `http://TAILSCALE-IP:PORT`. Replace `TAILSCALE-IP` with your server's Tailscale address and `PORT` with the app's port. This address uses plain `http`, with no certificate and no domain name.
+
+   To see an app opened by its Tailscale IP, watch [Tailscale tutorial: Accessing Tailnet Devices and Services at 10:54](https://youtu.be/M6GMp4FJrB8?t=654) (shows Deployrr v5; menus differ in v6). The matching guide section is [UDMS part 16: Access by Tailscale IP](https://www.simplehomelab.com/udms-part-16-tailscale-homelab-remote-access/#1_Access_by_Tailscale_IP) (manual setup).
 
 ### Private networking (only if you use Advanced mode)
 
@@ -214,7 +238,7 @@ After you add the interface, set the server IP in Deployrr (step 4) to the priva
 4. Open your app's domain in a browser. The certificate warning should be gone.
 5. Check the Traefik log. After a fresh restart, the "Serving default certificate" and "bad record MAC" lines should not come back. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/) for how to find the log.
 
-If the problem stays, check whether your provider has its own firewall page in its web panel. Open ports 80 and 443 there too.
+If the problem stays, check whether your provider has its own firewall page in its web panel. Open ports 80 and 443 there too. For why a VPS needs this extra layer, watch [Traefik 3 guide: firewall and VPS provider rules at 16:43](https://youtu.be/KMZIyoZ3jWM?t=1003) (manual Docker Compose setup). To allow the ports in UFW by hand, see [UDMS part 18: Allow Ports 80 and 443 on Firewall](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Allow_Ports_80_and_443_on_Firewall) (manual setup).
 
 ## Related
 
