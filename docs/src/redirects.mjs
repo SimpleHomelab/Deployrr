@@ -9,6 +9,8 @@ export const redirects = {
 	'/deployrr/references': '/getting-started/videos-and-guides/',
 	// Printed by shipped Deployrr versions. Must keep working.
 	'/deployrr/forgot-pin': '/using-deployrr/forgot-pin/',
+	// Printed by shipped Deployrr versions. Must keep working.
+	'/traefik/traefik-minimum-supported-docker-api': '/docker/lazydocker/',
 	'/deployrr/change-hostname': '/using-deployrr/change-hostname/',
 	'/operating-system/bash-aliases-explained': '/using-deployrr/bash-aliases/',
 	'/docker/custom.yml-usage': '/using-deployrr/custom-yml/',
