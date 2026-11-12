@@ -172,10 +172,10 @@ Keep the old token active until the last step. If you revoke it first, Traefik a
    Or use **Tools** > **Stack Manager** > **Recreate** and pick Traefik. Recreate needs a Basic, Plus or Pro license. Your apps are unreachable by domain for a short time while Traefik restarts.
 
 6. If you use DDNS Updater, put the new token in `config.json`. Follow [Edit config.json](/apps/ddns-updater/#edit-configjson). In step 4 there, replace the value on the `"token"` line. The restart in that section applies it.
-7. Test the new token against your domain. Replace `YOUR_DOMAIN` with your domain:
+7. Test the new token against your domain. Replace `YOUR_DOMAIN` with your domain. The token goes to `curl` through a pipe, so it doesn't show in the process list:
 
    ```bash
-   curl -s "https://api.cloudflare.com/client/v4/zones?name=YOUR_DOMAIN" -H "Authorization: Bearer $(sudo cat secrets/cf_dns_api_token)"
+   { printf 'Authorization: Bearer '; sudo cat secrets/cf_dns_api_token; } | curl -s -H @- "https://api.cloudflare.com/client/v4/zones?name=YOUR_DOMAIN"
    ```
 
    The reply starts with `"success":true` and lists your zone. This proves the token is active and can read the zone. Traefik only uses the DNS Edit permission when it next asks for a certificate, so check the Traefik log at your next renewal. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/).
