@@ -12,6 +12,11 @@ related:
   - getting-started/quick-start
   - support/discord
 further_reading: []
+videos:
+  - id: rdqbAr0TFnQ
+    start: 4701
+    title: "Deployrr 5 walkthrough: moving your setup with a Migration Package"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
 last_reviewed: 2026-11-09
 status: current
 old_paths: []
@@ -34,6 +39,8 @@ A [backup](/using-deployrr/backups/) holds only the Docker folder and is meant t
 Neither holds anything else. For example, media on a mounted share is not in the package. Move it or mount it again on the new server yourself, for example with [Rclone](/host/rclone-smb-setup/) or [SMB or NFS Mount](/host/smb-nfs-mounts/).
 
 ## Steps
+
+For a short spoken overview of these steps, watch [Deployrr 5 walkthrough: moving your setup with a Migration Package at 1:18:21](https://youtu.be/rdqbAr0TFnQ?t=4701) (shows Deployrr v5; it describes the steps but doesn't show them, and menus and steps differ in v6).
 
 ### Create the package on the old server
 

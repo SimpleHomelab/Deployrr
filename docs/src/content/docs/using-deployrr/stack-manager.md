@@ -14,7 +14,22 @@ related:
   - using-deployrr/custom-yml
   - using-deployrr/backups
   - docker/waiting-for-container
-further_reading: []
+further_reading:
+  - title: "UDMS part 13: Starting and stopping services with Docker Compose"
+    url: https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/#Starting_and_Stopping_Services
+videos:
+  - id: rdqbAr0TFnQ
+    start: 4527
+    title: "Deployrr 5 walkthrough: Stack Manager options"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
+  - id: rdqbAr0TFnQ
+    start: 1954
+    title: "Deployrr 5 walkthrough: Stack Manager Delete (Safe and Full)"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
+  - id: Ux9khKhqhcg
+    start: 523
+    title: "Bash aliases: bring a whole Docker Compose stack down and back up"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 last_reviewed: 2026-11-09
 status: current
 old_paths: []
@@ -58,6 +73,8 @@ The Stack Manager screen starts with a red **IMPORTANT!** and this note: "The op
 
 Some options ask you to pick an app. Those lists are plain numbered lists in the terminal, not menus. Type the number and press Enter.
 
+To see the menu in use, watch [Deployrr 5 walkthrough: Stack Manager options at 1:15:27](https://youtu.be/rdqbAr0TFnQ?t=4527) (shows Deployrr v5; menus and steps differ in v6).
+
 ## Stack
 
 These options act on all your apps at once.
@@ -73,6 +90,8 @@ With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dcup`. Unlike 
 "Docker Stack Down". Stops every app and removes its containers. You see "Stopping Docker stack..." and then "Docker stack is down". Your app data stays in place.
 
 With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dcdown`.
+
+To see a whole stack brought down and up with aliases, watch [Bash aliases: bring a whole Docker Compose stack down and back up at 8:43](https://youtu.be/Ux9khKhqhcg?t=523) (manual Docker Compose setup; Deployrr does these steps for you, and some of its alias names differ from the video). For the matching commands, see [UDMS part 13: Starting and stopping services with Docker Compose](https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/#Starting_and_Stopping_Services) (manual setup, to understand how it works).
 
 ### Update Stack
 
@@ -174,7 +193,7 @@ You can't enable a helper on its own. Deployrr says "Cannot enable dependency di
 
 ### Delete
 
-"Full or safe delete an app and its data". Use it to remove an app, or to reinstall one from a clean start.
+"Full or safe delete an app and its data". Use it to remove an app, or to reinstall one from a clean start. To see it done, watch [Deployrr 5 walkthrough: Stack Manager Delete (Safe and Full) at 32:34](https://youtu.be/rdqbAr0TFnQ?t=1954) (shows Deployrr v5; menus and steps differ in v6).
 
 1. Choose **Delete**.
 2. In the **Delete a Service** box ("How do you want to delete the app?"), pick how to delete:
