@@ -60,7 +60,7 @@ You may also notice that the app's web page does not open, or that it opens and 
 
 Most Deployrr apps are set up so Docker starts them again if they stop. If such an app crashes right after it starts, Docker starts it again, it crashes again, and you see `Restarting`. This is called a crash loop.
 
-Some apps are set up not to start on their own. These are mostly media apps, such as Plex, Jellyfin, Emby, Sonarr, Radarr, Lidarr, Bazarr, Tautulli, Kavita, Komga, Navidrome and Calibre. They often use files from a NAS, so Deployrr does not start them before the share is mounted. After a crash or a server reboot, they show `Exited` instead of `Restarting`. To start them after a reboot once your Rclone mount is up, see **Delay Media Apps** in [Mount a NAS share with Rclone](/host/rclone-smb-setup/).
+Some apps are set up not to start on their own. These are mostly media apps, such as Plex, Jellyfin, Emby, Sonarr, Radarr, Lidarr, Bazarr, Tautulli, Kavita, Komga, Navidrome and Calibre. They often use files from a NAS, so Deployrr does not start them before the share is mounted. After a crash or a server reboot, they show `Exited` instead of `Restarting`. To start them after a reboot once your Rclone mount is up, see **Delay Media Apps** in [Mount a NAS share with Rclone](/host/rclone-smb-setup/). For every way to start them after a reboot, see [Apps are stopped or show empty folders after a reboot](/docker/apps-not-starting-after-reboot/).
 
 `Up ... (unhealthy)` means the container runs but its own health check fails. `Exited` means the container stopped.
 
