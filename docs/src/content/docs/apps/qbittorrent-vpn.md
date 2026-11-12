@@ -191,7 +191,7 @@ Deployrr only checks for the device. It doesn't create it. These are the two res
 
 Until the adapter is set, installing Gluetun shows `Network Adapter - Must be configured (System menu)` in a **Requirements Not Met** box.
 
-Deployrr gives no steps for this. If your server is a Proxmox LXC container, the device usually has to be passed from the Proxmox host into the container. You set that on the Proxmox host, not in Deployrr. After you change it, restart the container and run **System** > **Network** again. Deployrr saves the result, so the menu line only changes when you run it again.
+Deployrr gives no steps for this. If your server is a Proxmox LXC container, the device usually has to be passed from the Proxmox host into the container. You set that on the Proxmox host, not in Deployrr. After you change it, restart the container and run **System** > **Network** again. Deployrr saves the result, so the menu line only changes when you run it again. The Proxmox steps are in [Run Deployrr in a Proxmox LXC container](/host/proxmox-lxc/#pass-devnettun-into-the-container).
 
 To see how the device is passed into an LXC, watch [Proxmox LXC network device passthrough at 2:12](https://youtu.be/r0nGMFs5pCY?t=132). The steps are also in [UDMS part 10: pass the TUN network device into a Proxmox LXC](https://www.simplehomelab.com/udms-10-proxmox-lxc-network-device-passthrough/) (manual setup).
 

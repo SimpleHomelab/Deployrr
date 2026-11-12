@@ -208,6 +208,8 @@ Select **Skip** to leave without a choice.
 - In **System** > **Mounts**, **SMB Mount** and **NFS Mount** only work on **VPS**, **Barebones** and **Virtual Machine**. On an LXC you see `SMB mounting is only supported on VPS, Barebones, or Virtual Machine systems.` **NFS Mount** shows the same message for NFS. Use bind mounts or Rclone instead. See [Mount SMB and NFS shares](/host/smb-nfs-mounts/) and [Mount a NAS share with Rclone](/host/rclone-smb-setup/).
 - Some apps only install on certain system types. If yours does not match, the install stops with `System type not compatible` and shows the types the app needs and your type.
 
+Running in a Proxmox LXC? See [Run Deployrr in a Proxmox LXC container](/host/proxmox-lxc/) for what each LXC choice changes.
+
 On a Proxmox LXC, a Docker update can also stop containers from starting. See [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
 
 **Done status.** The system type you picked, in green. You can rerun this step any time to change it.
@@ -360,8 +362,8 @@ If you turned on [EXPERT mode](/using-deployrr/expert-mode/) in **Settings** > *
 
 | Level | What it shares |
 | --- | --- |
-| `minimum` | Only the data needed to check your license: machine ID, email and domain. Nothing else. You are not in the Deployrr community dashboard (not public yet). |
-| `normal` | Whether steps passed or failed, and which apps you install. If none is saved, Deployrr asks once for a pseudonym or username (`Enter your preferred pseudonym/username:`). Your data may appear in the community dashboard (not public yet) under that name. Deployrr says it does not share sensitive data such as IPs or passwords, and does not sell your data. |
+| `minimum` | Only the data needed to check your license: machine ID, email and domain. Nothing else. |
+| `normal` | Whether steps passed or failed, and which apps you install. If none is saved, Deployrr asks once for a pseudonym or username (`Enter your preferred pseudonym/username:`). Deployrr says it does not share sensitive data such as IPs or passwords, and does not sell your data. |
 
 **What to pick.** The first time you select it, the box offers `minimum`. Select it a second time to switch to `normal`.
 

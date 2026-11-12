@@ -198,7 +198,7 @@ Deployrr only checks for `/dev/net/tun`. It does not create it. These results me
 | `No network adapter detected at /dev/net/tun` and `Network adapter detection completed - No adapter detected` | Your server has no `/dev/net/tun` device. |
 | `Device is not readable or writable by YOUR_USER` and `Network adapter detection failed - Permission issue detected` | The device exists, but your Linux user can't read and write it. |
 
-If your server is a Proxmox LXC container, the device must be passed from the Proxmox host into the container. You do that on the Proxmox host, not in Deployrr. After you change it, restart the container and run **System** > **Network** again. The steps are the same as for qBittorrent VPN. See [If the adapter is not found](/apps/qbittorrent-vpn/#if-the-adapter-is-not-found).
+If your server is a Proxmox LXC container, the device must be passed from the Proxmox host into the container. You do that on the Proxmox host, not in Deployrr. After you change it, restart the container and run **System** > **Network** again. The steps are the same as for qBittorrent VPN. See [If the adapter is not found](/apps/qbittorrent-vpn/#if-the-adapter-is-not-found), and the Proxmox steps in [Run Deployrr in a Proxmox LXC container](/host/proxmox-lxc/#pass-devnettun-into-the-container).
 
 ### The server lost its internet connection
 
