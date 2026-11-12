@@ -196,8 +196,6 @@ For apps with a rules file, the change applies right away. For apps with Docker 
 
 If the box says "No authentication providers running", no auth app is up. Install one from **Security**, then try again.
 
-To see Manage Auth switch an app, watch [Deployrr 5 walkthrough: Manage Authentication at 52:52](https://youtu.be/rdqbAr0TFnQ?t=3172) (shows Deployrr v5; menus and steps differ in v6).
-
 ### By editing the rules file
 
 Each method is a login chain. You can set it by hand if you don't have a Pro license, or if you prefer files.

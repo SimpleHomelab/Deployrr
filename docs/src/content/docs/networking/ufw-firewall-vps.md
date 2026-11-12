@@ -24,17 +24,11 @@ related:
   - networking/opnsense-conflict
   - getting-started/quick-start
 further_reading:
-  - title: "UDMS part 05: enabling the UFW firewall (manual setup)"
-    url: "https://www.simplehomelab.com/udms-05-installing-ubuntu-on-proxmox/#6_Enable_Firewall"
   - title: "UDMS part 18: allowing ports 80 and 443 on the firewall (manual setup)"
     url: "https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Allow_Ports_80_and_443_on_Firewall"
   - title: "UDMS part 16: reaching services by Tailscale IP (manual setup)"
     url: "https://www.simplehomelab.com/udms-part-16-tailscale-homelab-remote-access/#1_Access_by_Tailscale_IP"
 videos:
-  - id: "-ZSQdJ62r-Q"
-    start: 919
-    title: "Docker on Proxmox LXC: default UFW rules and enabling the firewall"
-    note: "Manual setup on a home server. Deployrr does not manage your firewall; use it to understand what the commands do."
   - id: KMZIyoZ3jWM
     start: 1003
     title: "Traefik 3 guide: why a VPS needs a firewall from your provider"
@@ -160,8 +154,6 @@ Steps 1, 2 and 5 are general Linux and UFW advice. They are not part of Deployrr
    ```
 
    Change `22` in the SSH rule if you moved SSH to another port. If you get this wrong, you lock yourself out of the server.
-
-   To see the default rules and `ufw enable` done by hand, watch [Docker on Proxmox LXC: UFW firewall setup at 15:19](https://youtu.be/-ZSQdJ62r-Q?t=919) (manual setup on a home server). The matching guide section is [UDMS part 05: Enable Firewall](https://www.simplehomelab.com/udms-05-installing-ubuntu-on-proxmox/#6_Enable_Firewall) (manual setup).
 
    Add these rules too. The first two allow web traffic that UFW routes through the server to Docker. The last one allows Tailscale, if you use it:
 
