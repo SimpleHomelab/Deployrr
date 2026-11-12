@@ -158,7 +158,7 @@ If an app is set to Internal in Advanced mode, it should not open from mobile da
 ## If it doesn't work
 
 - **The forward points at the wrong IP.** The Docker host may have a new LAN IP. Set the rules to the current address. Then give the host a fixed one. See [Give your server a fixed IP address](/host/fixed-ip/) and [Change the server IP](/host/change-server-ip/).
-- **The ports don't match your mode.** Switching between Simple and Advanced later means changing the forwards too. See [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/).
+- **The ports don't match your mode.** Switching between Simple and Advanced later means changing the forwards too. See [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/). If you move between Traefik and Nginx Proxy Manager, see [Switch between Traefik and Nginx Proxy Manager](/reverse-proxy/switch-traefik-npm/).
 - **Your ISP blocks port 80, or you are behind CG-NAT or double NAT.** Forwards on your router then do nothing. See [Behind CG-NAT](/networking/cg-nat/). For the options in v6, watch [Deployrr 6 overview: Options for CG-NAT at 4:37](https://youtu.be/Nuo83uzTWco?t=277).
 - **A firewall on the server blocks the ports.** See [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/).
 - **Internal apps don't open from home in Advanced mode.** When you switch to Advanced mode, Deployrr's box notes: "If your router, gateway, or firewall is not capable of Hairpinning or you do not have a local DNS with rewrites (e.g. Pi-Hole, AdGuard Home, etc.), local traffic may be treated as external and you may not be able to access internal-only apps using FQDN." See [Set up local DNS rewrites](/networking/local-dns-rewrites/).

@@ -14,11 +14,11 @@ apps:
   - emby
 applies_to: v6.0.42+
 related:
+  - host/gpu-host-prep
   - using-deployrr/stack-manager
   - host/shim-task-debian
   - using-deployrr/update-apps
   - using-deployrr/bash-aliases
-  - apps/jellyfin-client-on-lg-webos
 further_reading:
   - title: "UDMS part 11: Passing the iGPU through to a Proxmox LXC container"
     url: "https://www.simplehomelab.com/udms-11-gpu-passthrough-on-proxmox-lxc/#Step-by-Step_Proxmox_GPU_Passthrough_to_LXC_Container"
@@ -43,11 +43,11 @@ sources: []
 A GPU lets Jellyfin, Plex and Emby convert video faster and with less CPU load. This page shows how to scan for your GPU in Deployrr, give it to the app, turn on hardware transcoding inside the app, and check that it works.
 
 :::caution
-NVIDIA GPUs do not work yet with Jellyfin, Plex and Emby. This is a known issue in the v6.0.42 release notes, and a fix will follow. If you pick **NVIDIA GPU** for one of these apps, Deployrr shows a red error that the GPU runtime is not supported for the app yet. Then it shows "Installing APP without GPU acceleration (CPU only)". Installing the app again does not fix it. Intel and AMD GPUs work.
+NVIDIA GPUs do not work yet with Jellyfin, Plex and Emby. This is a known issue in the v6.0.42 release notes, and a fix will follow. If you pick **NVIDIA GPU** for one of these apps, Deployrr shows a red error that starts with "GPU (runtime) is not supported for" and the app name. Then it shows "Installing APP without GPU acceleration (CPU only)". Installing the app again does not fix it. Intel and AMD GPUs work.
 :::
 
 :::note
-This page needs Deployrr v6.0.42 or later. On earlier 6.0.x versions, Deployrr printed "GPU acceleration configured" but added no GPU lines, so the app ran on the CPU. To fix this, update Deployrr. See [Update Deployrr](/getting-started/updating-deployrr/). Then run **Apps** > **Refresh Cache** (or **Prerequisites** > **Build Cache**). Without that step, the install shows an error and falls back to the CPU.
+This page needs Deployrr v6.0.42 or later. Apps installed with a GPU on earlier 6.0.x versions run on the CPU. To fix this, update Deployrr. See [Update Deployrr](/getting-started/updating-deployrr/). Then run **Apps** > **Refresh Cache** (or **Prerequisites** > **Build Cache**). Without that step, the install shows an error and falls back to the CPU. Then reinstall the app as in part 3.
 :::
 
 ## Before you start
@@ -61,12 +61,12 @@ This page needs Deployrr v6.0.42 or later. On earlier 6.0.x versions, Deployrr p
   ls /dev/dri
   ```
 
-  You should see a name that starts with `renderD`, such as `renderD128`.
+  You should see a name that starts with `renderD`, such as `renderD128`. If you don't, see [Prepare your server's GPU so Deployrr can use it](/host/gpu-host-prep/).
 
 - Plex only: you have a Plex Pass. Plex hardware transcoding needs it. This is general Plex knowledge, not a Deployrr rule.
 
 :::note
-If your server is a Proxmox LXC container, the GPU must first be passed through to it. Deployrr shows this note in the **Graphics Card** box: "LXC/Docker environments require the host to pass through the GPU device and toolkits." Set up the passthrough in Proxmox before you scan. Deployrr does not do it for you. For the Proxmox steps, see [UDMS part 11: Passing the iGPU through to a Proxmox LXC container](https://www.simplehomelab.com/udms-11-gpu-passthrough-on-proxmox-lxc/#Step-by-Step_Proxmox_GPU_Passthrough_to_LXC_Container) (manual setup). A virtual machine needs the GPU passed through too. That is general knowledge, not something Deployrr shows. For other Docker problems in an LXC container, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
+If your server is a Proxmox LXC container, the GPU must first be passed through to it. Deployrr shows this note in the **Graphics Card** box: "LXC/Docker environments require the host to pass through the GPU device and toolkits." Set up the passthrough in Proxmox before you scan. Deployrr does not do it for you. For the steps, see [Prepare your server's GPU so Deployrr can use it](/host/gpu-host-prep/). For a longer walkthrough, see [UDMS part 11: Passing the iGPU through to a Proxmox LXC container](https://www.simplehomelab.com/udms-11-gpu-passthrough-on-proxmox-lxc/#Step-by-Step_Proxmox_GPU_Passthrough_to_LXC_Container) (manual setup). A virtual machine needs the GPU passed through too. That is general knowledge, not something Deployrr shows. For other Docker problems in an LXC container, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
 :::
 
 ## Steps
@@ -91,11 +91,11 @@ The scan prints a line for each GPU it finds:
 | Line | What to do if it fails |
 | --- | --- |
 | "Intel GPU: Found" then "Intel Iris: Ready" | Nothing. It is ready. |
-| "Intel Iris: /dev/dri not available" | Install the Intel GPU drivers, then check that `/dev/dri` exists. |
+| "Intel Iris: /dev/dri not available" | Install the Intel GPU drivers, or pass the GPU into your LXC or VM, then check that `/dev/dri` exists. See [GPU host prep](/host/gpu-host-prep/). |
 | "AMD GPU: Found" then "AMD ROCm: Ready" | Nothing. It is ready. |
-| "AMD ROCm: /dev/dri not available" | Install the AMD GPU drivers, then check that `/dev/dri` exists. |
+| "AMD ROCm: /dev/dri not available" | Install the AMD GPU drivers, or pass the GPU into your LXC or VM, then check that `/dev/dri` exists. See [GPU host prep](/host/gpu-host-prep/). |
 | "NVIDIA GPU: Found" then "NVIDIA Container Toolkit: Ready" | The NVIDIA driver is installed and Docker is set up for NVIDIA. |
-| "NVIDIA Container Toolkit: Not installed or not configured" | Install the NVIDIA driver, then set up Docker for NVIDIA with the NVIDIA Container Toolkit. Deployrr does not install them. It prints the link to the NVIDIA install guide below this line. |
+| "NVIDIA Container Toolkit: Not installed or not configured" | Install the NVIDIA driver, then set up Docker for NVIDIA with the NVIDIA Container Toolkit. Deployrr does not install them. It prints the link to the NVIDIA install guide below this line. For the steps, see [GPU host prep](/host/gpu-host-prep/). |
 
 If you see "lspci command not found. Install pciutils to enable GPU detection.", install the `pciutils` package with your Linux package manager, then scan again.
 
@@ -235,8 +235,8 @@ sudo docker compose --profile all -f DOCKER_FOLDER/docker-compose-HOSTNAME.yml u
 
 ## Related
 
+- [Prepare your server's GPU so Deployrr can use it](/host/gpu-host-prep/): install drivers and pass the GPU into an LXC or VM.
 - [Stack Manager](/using-deployrr/stack-manager/): recreate an app after you edit its compose file.
 - [Update your apps](/using-deployrr/update-apps/): keep Jellyfin, Plex and Emby current.
 - [Docker fails with "failed to create shim task"](/host/shim-task-debian/): Docker problems inside a Proxmox LXC container.
 - [Bash aliases](/using-deployrr/bash-aliases/): what `dcrec` and `dps` do.
-- [Jellyfin app on LG webOS TV or Xbox shows error -27](/apps/jellyfin-client-on-lg-webos/): fix a Jellyfin client that cannot connect.

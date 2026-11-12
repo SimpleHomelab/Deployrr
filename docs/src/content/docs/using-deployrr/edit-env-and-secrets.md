@@ -78,7 +78,7 @@ With a Pro license you can also back up the whole Docker folder. See [Back up an
 :::caution
 This is general Docker behavior, not a Deployrr message. A database image sets its password only the first time it starts. If you change the database password in `.env` or in a secret file, the password stored inside the existing database stays the same. The app and its database then stop talking to each other.
 
-Change the password inside the database first, or leave the value as it is.
+Don't change it here first. Follow [Change a database password safely](/apps/change-database-password/), or leave the value as it is.
 :::
 
 Apps that don't have a database, or values like an API key or an auth key, are safe to change here.

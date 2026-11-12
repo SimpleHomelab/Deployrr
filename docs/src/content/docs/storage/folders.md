@@ -159,7 +159,7 @@ This table shows which folder each app asks for when you install it. If a folder
 
 Sonarr, Radarr, Lidarr, Plex, Jellyfin and Emby need both a media folder and the Downloads Folder. For Plex, Jellyfin, Emby, Lollypop, digiKam and Double Commander, the install may also ask about your graphics card. See [GPU hardware transcoding](/apps/gpu-transcoding/).
 
-Some apps need an app-specific folder to store data. Immich keeps all uploaded photos and videos in the Immich Folder. Nextcloud keeps uploaded files in the Nextcloud Folder. Pick a disk with enough free space for these two.
+Some apps need an app-specific folder to store data. Immich keeps all uploaded photos and videos in the Immich Folder. Nextcloud keeps uploaded files in the Nextcloud Folder. Pick a disk with enough free space for these two. Coming from Deployrr v5 with Immich or Nextcloud? See [Move Nextcloud, Immich or Paperless-ngx from v5](/apps/move-database-apps-from-v5/) before you set these folders.
 
 ## Change a folder after apps are installed
 
