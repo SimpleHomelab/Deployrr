@@ -49,6 +49,8 @@ Most apps use a rules file. Five apps use labels instead.
 | Rules file | `appdata/traefik3/rules/HOSTNAME/app-NAME.yml` | Every app you install behind Traefik, and every app you add with **Traefikify** | Nothing. Traefik applies a saved change by itself. |
 | Docker labels | The `labels:` lines in `compose/HOSTNAME/NAME.yml` | Traefik, Authelia, Authentik, OAuth and TinyAuth | Recreate the app. |
 
+For a container you added in `custom.yml`, you choose either way. See [Protect a custom.yml app with Traefik and a login](/reverse-proxy/custom-app-behind-traefik/).
+
 Keep rules files directly in the rules folder. Traefik does not watch subfolders. See [Which files Traefik loads](/reverse-proxy/app-404-or-502/#which-files-traefik-loads).
 
 To understand how the two differ, read [UDMS part 18: Docker labels vs file provider](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Docker_Labels_vs_File_Provider) (manual setup).
