@@ -35,7 +35,7 @@ Use `custom.yml` to run containers that are not in the Deployrr apps library, or
 
 To see a custom app added by hand, watch [Deployrr 5 walkthrough: Installing Custom Apps at 1:25:39](https://youtu.be/rdqbAr0TFnQ?t=5139) (shows Deployrr v5; menus and steps differ in v6).
 
-To run a second copy of an app you already installed, see [Run a second copy of an app](/using-deployrr/second-app-instances/).
+To run a second copy of an app you already installed, see [Run a second copy of an app](/using-deployrr/second-app-instances/). For a full example with host networking and a USB device, see [Run Home Assistant as a container with custom.yml](/apps/home-assistant-container/).
 
 ## Before you start
 
