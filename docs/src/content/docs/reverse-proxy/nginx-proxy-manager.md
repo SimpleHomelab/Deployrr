@@ -17,7 +17,13 @@ related:
   - reverse-proxy/choose-login-method
   - getting-started/quick-start
   - networking/ufw-firewall-vps
-further_reading: []
+further_reading:
+  - title: "UDMS part 18: Traefik vs Nginx Proxy Manager (manual setup)"
+    url: https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Traefik_vs_Nginx_Proxy_Manager
+videos:
+  - id: Nuo83uzTWco
+    start: 223
+    title: "Deployrr 6 overview: NGINX Proxy Manager as a Traefik alternative"
 last_reviewed: 2026-11-09
 status: current
 old_paths: []
@@ -25,6 +31,8 @@ sources: []
 ---
 
 Nginx Proxy Manager (NPM) is a reverse proxy with a web page where you add each app by hand. Deployrr v6 lets you pick it instead of Traefik. This page shows how to pick it, install it, add an app, and switch back to Traefik.
+
+For a short look at NPM in v6, watch [Deployrr 6 overview: NGINX Proxy Manager at 3:43](https://youtu.be/Nuo83uzTWco?t=223).
 
 ## Before you start
 
@@ -44,7 +52,7 @@ With NPM, you do this work in NPM's own web page. Deployrr does not do it for yo
 - **No Security menu login apps.** Authelia, Authentik, Google OAuth, TinyAuth and **Manage Auth** need Traefik Production done and Traefik running (and a Pro license). With NPM you see a "Requirements Not Met" box that lists Traefik among other items. See [Choose a login method](/reverse-proxy/choose-login-method/) for what they do.
 - **CrowdSec is untested with NPM.** **Traefik Bouncer** needs Traefik, so it is blocked. **CrowdSec** and **Firewall Bouncer** are not blocked, but the NPM intro box says: "Middleware integration (Authelia, Authentik, CrowdSec) is NOT fully tested. Manual configuration may be required." See [Block bad visitors with CrowdSec](/reverse-proxy/crowdsec/).
 
-If you want any of these, use [Traefik](/reverse-proxy/traefik-setup/) instead.
+If you want any of these, use [Traefik](/reverse-proxy/traefik-setup/) instead. To understand how the two proxies differ, read [UDMS part 18: Traefik vs Nginx Proxy Manager](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Traefik_vs_Nginx_Proxy_Manager) (manual setup, background only).
 
 ## Steps
 
