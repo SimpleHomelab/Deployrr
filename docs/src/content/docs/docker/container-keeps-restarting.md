@@ -209,7 +209,7 @@ Do not choose a **Full** delete unless you accept losing the app's data and sett
 
 [DeUnhealth](/apps/deunhealth/) is an official app ("Restart unhealthy containers"). It restarts unhealthy containers for you and needs Socket Proxy. In Deployrr v6, only the qBittorrent VPN app is set up for it. For other apps it does nothing unless you add a label to the app's compose file yourself. That is an advanced, manual edit, and a reinstall may overwrite it. To see how the health check and DeUnhealth work together, watch [DeUnhealth video: health check and automatic restart at 2:51](https://youtu.be/oY1U_Htes9A?t=171) (manual Docker Compose setup with labels).
 
-If you still need help, go to **Settings** > **Logs** ("Generate Sanitized Deployrr Log") and press `Y` to continue. Deployrr shows where it saved the log. Read the file before you share it, then ask on Discord. See [Get help on Discord](/support/discord/).
+If you still need help, go to **Settings** > **Logs** ("[Generate Sanitized Deployrr Log](/support/generate-support-log/)") and press `Y` to continue. Deployrr shows where it saved the log. Read the file before you share it, then ask on Discord. See [Get help on Discord](/support/discord/).
 
 ## Related
 

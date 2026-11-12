@@ -145,7 +145,7 @@ These are general Docker commands.
 
    If another program uses the port, stop that program or change the port. For port 53 and Pi-hole, see [Pi-hole will not start because port 53 is already in use](/apps/pi-hole-port-53-conflict/).
 
-6. If the problem is not clear, run **Tools** > **Diagnostics** ("Run System Health Checks") for a general check of your server. It needs a Basic, Plus or Pro license. See [Deployrr shows "Unhealthy - Issues detected"](/support/diagnostics/) for what each line means. Then generate a log to share when you ask for help. In Deployrr, open **Settings** > **Logs**. The menu describes it as "Generate Sanitized Deployrr Log". See [Get help on Discord](/support/discord/) for what else to include.
+6. If the problem is not clear, run **Tools** > **Diagnostics** ("Run System Health Checks") for a general check of your server. It needs a Basic, Plus or Pro license. See [Deployrr shows "Unhealthy - Issues detected"](/support/diagnostics/) for what each line means. Then [generate a log](/support/generate-support-log/) to share when you ask for help. In Deployrr, open **Settings** > **Logs**. The menu describes it as "Generate Sanitized Deployrr Log". See [Get help on Discord](/support/discord/) for what else to include.
 
 If the log shows image pull errors, see [Docker image pulls fail](/docker/rate-limit/).
 

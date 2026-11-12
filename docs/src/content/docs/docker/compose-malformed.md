@@ -166,7 +166,7 @@ Diagnostics and the Stack Manager actions need all Prerequisites done and a Basi
 Generate a log and share it when you ask for help:
 
 1. Open **Settings**.
-2. Choose **Logs** (Generate Sanitized Deployrr Log) and press `Y` to continue.
+2. Choose **Logs** ([Generate Sanitized Deployrr Log](/support/generate-support-log/)) and press `Y` to continue.
 3. Note the log path Deployrr shows at the end. The log is saved in the folder you started Deployrr from. Read the log yourself before you share it.
 4. Share the log on Discord with the exact error message.
 

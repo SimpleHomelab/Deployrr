@@ -63,13 +63,11 @@ A good request saves everyone time. Gather these items first.
 4. Write down what you did, step by step, and which menu option you were in.
 5. Copy the exact error text from the screen. Do not retype it from memory.
 6. Generate a sanitized log:
-   1. In Deployrr, open **Settings**.
-   2. Select **Logs**. The description reads "Generate Sanitized Deployrr Log".
-   3. Read the warnings. Press `Y` to continue. Any other key goes back.
-   4. When Deployrr finishes, it shows `Location:` followed by the path of the log file. The file is saved in the folder you started Deployrr from, with a name like `deployrr-log-sanitized-` plus the date and time. Note the path down before you leave the screen.
-   5. Open the file and read it. Remove anything private before you share it.
+   1. In Deployrr, open **Settings** > **Logs** and press `Y` to continue.
+   2. Write down the path after `Location:` before you leave the screen.
+   3. Open the file and remove anything private before you share it.
 
-   The log holds the Deployrr log and, if you have one, the Traefik log. If Deployrr says `Complete required information in main menu`, finish the first setup steps first. See [Quick start](/getting-started/quick-start/).
+   For what Deployrr replaces, how to check the file and what an `[ERROR]` line means, see [Generate a sanitized log for support](/support/generate-support-log/).
 
 :::caution
 Deployrr tries to replace your Linux username, your domain name and your WAN IP (IPv4) in the log. It does not replace IPv6 addresses. Deployrr says that you must check the log yourself before you share it publicly.

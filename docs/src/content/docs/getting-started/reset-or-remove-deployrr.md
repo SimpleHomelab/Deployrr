@@ -73,7 +73,7 @@ The **Settings** menu is titled **Deployrr Settings**. You do not need a license
 - **Mode**: switches between NORMAL and EXPERT. See [EXPERT mode](/getting-started/expert-mode/).
 - **Version Pins**: edits Docker image version pins. It needs a Pro license.
 - **Status**: shows the Deployrr status.
-- **Logs**: makes a sanitized log you can share. Type `Y` and press Enter to start. The log is saved in the folder you ran Deployrr from, and the screen ends with "Sanitized log ready for sharing". Read the log before you share it.
+- **Logs**: makes a [sanitized log](/support/generate-support-log/) you can share. Type `Y` and press Enter to start. The log is saved in the folder you ran Deployrr from, and the screen ends with "Sanitized log ready for sharing". Read the log before you share it.
 - **Refresh**, **Reset** and **Remove**: covered below.
 
 To see these three items on screen, watch [Deployrr 5 walkthrough: Settings menu at 1:24:19](https://youtu.be/rdqbAr0TFnQ?t=5059) (shows Deployrr v5; menus and steps differ in v6). It says Reset leaves your Docker apps alone. In v6, Reset currently stops your apps, so follow this page for Reset.

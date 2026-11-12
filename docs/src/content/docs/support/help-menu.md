@@ -108,7 +108,7 @@ Shows where to get help:
 - Discord support.
 - A `#deployrr` channel for paid supporters.
 
-It also reminds you to generate a sanitized log from **Settings** and share it when you ask for help. To see the exclusive Discord channels, connect your Discord account on your SimpleHomelab.com profile. See [Get help on Discord](/support/discord/).
+It also reminds you to [generate a sanitized log](/support/generate-support-log/) from **Settings** and share it when you ask for help. To see the exclusive Discord channels, connect your Discord account on your SimpleHomelab.com profile. See [Get help on Discord](/support/discord/).
 
 ### Feedback
 
@@ -123,12 +123,7 @@ Before you give feedback, **Feedback** ("Submit a Review/Feedback") is on the ma
 
 ## Generate a log for support
 
-1. From the main menu, select **Settings**.
-2. Select **Logs** ("Generate Sanitized Deployrr Log").
-3. Read the warnings, then press `y` to continue.
-4. Note the log file path shown at the end. Deployrr saves the file in the folder you started Deployrr from.
-5. Open the log and check it before you share it. Deployrr tries to replace private details such as your Linux username, domain name and WAN IP, but only IPv4 addresses are replaced, not IPv6. Deployrr warns that you must check the log yourself.
-6. Share the log when you ask for help. See [Get help on Discord](/support/discord/).
+To make a log you can share when you ask for help, see [Generate a sanitized log for support](/support/generate-support-log/).
 
 ## Hide the main menu notes
 

@@ -104,7 +104,7 @@ You need all Prerequisites done and a Basic, Plus or Pro license. Without them, 
 
 1. In Deployrr, open **Tools**.
 2. Select **Diagnostics**.
-3. Read the five lines. Each line is one check. Deployrr runs the checks when you open the screen. To share results, generate a log from **Settings** > **Logs**.
+3. Read the five lines. Each line is one check. Deployrr runs the checks when you open the screen. To share results, [generate a log](/support/generate-support-log/) from **Settings** > **Logs**.
 
 The lines are:
 
