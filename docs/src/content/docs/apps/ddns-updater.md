@@ -53,7 +53,7 @@ This is about your public IP, the address the internet sees. It is not your serv
 - You have a Basic, Plus or Pro license. A Free license can't install official apps. You see a License Required box. See [Licenses](/getting-started/licenses/).
 - You finished Prerequisites. See the [Quick start](/getting-started/quick-start/).
 - You use Cloudflare for your domain, and the A record for your root domain already exists. See [DNS records Deployrr expects](/networking/domain-checks-failed/#dns-records-deployrr-expects).
-- You know your Cloudflare Zone ID. In Cloudflare, select your domain and open the **Overview** tab to find it.
+- You know your Cloudflare Zone ID. In Cloudflare, select your domain and open the **Overview** tab to find it. See [Find your Zone ID](/networking/cloudflare/#find-your-zone-id). To change the token later, see [Change or rotate the token](/networking/cloudflare/#change-or-rotate-the-token).
 - You have a Cloudflare DNS API token. DDNS Updater reuses the one you typed in **Proxy** > **Traefik** > **Preparation**. That step needs a Plus or Pro license, Hybrid setup mode and Socket Proxy running. See [Set up Traefik](/reverse-proxy/traefik-setup/). If you can't run it, make a token by hand. See [If the token is empty](#if-the-token-is-empty).
 
 ## Install DDNS Updater

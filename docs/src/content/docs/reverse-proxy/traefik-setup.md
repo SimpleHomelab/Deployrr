@@ -50,7 +50,7 @@ Traefik is the reverse proxy that gives your apps their own web addresses, such 
   - Zone / Zone / Read
   - Zone / DNS / Edit
 
-  To see the token made step by step, watch [Traefik 3 guide: create the Cloudflare DNS API token at 8:53](https://youtu.be/KMZIyoZ3jWM?t=533) (manual Docker Compose setup; Deployrr does the rest for you).
+  For the token, Zone ID and how to change the token later, see [Cloudflare for Deployrr](/networking/cloudflare/). To see the token made step by step, watch [Traefik 3 guide: create the Cloudflare DNS API token at 8:53](https://youtu.be/KMZIyoZ3jWM?t=533) (manual Docker Compose setup; Deployrr does the rest for you).
 - The **Socket Proxy** app is running. You can check it in the **Docker** menu. See [Socket Proxy](/docker/socket-proxy/).
 - Ports 80, 81, 443 and 444 are free on your server.
 - If you use Nginx Proxy Manager (NPM), Deployrr will offer to stop it. It stops it and does not remove it. NPM and Traefik both need ports 80 and 443. To use NPM instead of Traefik, see [Use Nginx Proxy Manager instead of Traefik](/reverse-proxy/nginx-proxy-manager/).
@@ -105,7 +105,7 @@ In Advanced mode, local traffic can count as external if your router has no hair
    - **Basic Auth Password**
    - **Cloudflare DNS API Token**
 7. If a password exists already, you can leave the password blank to keep it ("Leave password blank to keep existing").
-8. Type the password again in **Confirm Basic Auth Password**.
+8. If you typed a new password, type it again in **Confirm Basic Auth Password**.
 9. Wait for the 11 steps to finish. You should see "Traefik Preparation completed successfully" and "You can now proceed to Traefik Staging to obtain SSL certificates".
 
 The basic auth username and password become the login for basic auth protection, until you set up a stronger login.
