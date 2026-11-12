@@ -246,13 +246,19 @@ Don't use this on Ubuntu, including Ubuntu Desktop. Ubuntu sets the network with
 
    Note the name of the connection that uses your interface. Replace `CONNECTION_NAME` below with it. Use quotes if it has spaces.
 
-2. Set the static address, gateway and DNS. Replace the addresses with your own:
+2. Save the current settings, so you can compare or restore them later:
+
+   ```bash
+   nmcli con show "CONNECTION_NAME" > ~/nm-before.txt
+   ```
+
+3. Set the static address, gateway and DNS. Replace the addresses with your own:
 
    ```bash
    sudo nmcli con mod "CONNECTION_NAME" ipv4.method manual ipv4.addresses 192.168.1.50/24 ipv4.gateway 192.168.1.1 ipv4.dns "192.168.1.1 1.1.1.1"
    ```
 
-3. Bring the connection up again:
+4. Bring the connection up again:
 
    ```bash
    sudo nmcli con up "CONNECTION_NAME"
@@ -319,6 +325,7 @@ If the address changed, pick the case that fits you.
 1. Write down your old IP before you start. The tool asks for it.
 2. Enter the new IP when asked.
 3. Enter the previous IP when asked.
+4. In the **Update Service IP** box, select **Yes** to proceed.
 
 The tool then updates the Deployrr Dashboard and the Traefik app rules files on this server. It does not recreate your apps. Recreate them afterwards. See [Restart, recreate and reinstall apps](/using-deployrr/restart-recreate-reinstall/).
 

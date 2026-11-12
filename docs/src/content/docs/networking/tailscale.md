@@ -23,9 +23,11 @@ videos:
   - id: M6GMp4FJrB8
     start: 883
     title: "Tailscale tutorial: create an auth key and install Tailscale with Deployrr"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
   - id: M6GMp4FJrB8
     start: 1249
     title: "Tailscale tutorial: open your apps by Tailscale IP and port"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
 last_reviewed: 2026-11-12
 status: current
 old_paths: []
@@ -94,7 +96,7 @@ An auth key lets the Tailscale container join your account without a browser log
 
 Treat the key like a password. Anyone who has it can add a device to your Tailscale account until it expires or you revoke it.
 
-To see the key created, watch [Tailscale tutorial: create an auth key at 14:43](https://youtu.be/M6GMp4FJrB8?t=883). The video also shows an older Deployrr install, so menus and the extra `tailscale up` step differ in v6.
+To see the key created, watch [Tailscale tutorial: create an auth key at 14:43](https://youtu.be/M6GMp4FJrB8?t=883). The video then installs Tailscale with Deployrr (shows Deployrr v5; menus differ in v6). The extra `tailscale up` step it shows also differs in v6.
 
 ### 4. Install Tailscale
 

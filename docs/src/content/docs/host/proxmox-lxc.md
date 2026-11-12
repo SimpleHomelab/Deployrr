@@ -23,13 +23,13 @@ further_reading:
     url: https://www.simplehomelab.com/udms-03-best-home-server-os/#When_to_Choose_VMs_Instead
 videos:
   - id: r0nGMFs5pCY
-    start: 108
+    start: 173
     title: "Proxmox LXC network device passthrough: add /dev/net/tun to the container"
   - id: -ZSQdJ62r-Q
-    start: 63
+    start: 105
     title: "Docker on Proxmox LXC: LXC vs VM and privileged vs unprivileged"
   - id: D-XS0biLP14
-    start: 187
+    start: 209
     title: "Rclone SMB mount on Ubuntu/LXC: Proxmox LXC modifications"
     note: Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens.
 last_reviewed: 2026-11-12
@@ -63,7 +63,7 @@ You will:
 | **Barebones** | Linux runs directly on the hardware. |
 | **VPS** | Linux runs on a virtual private server in the cloud. |
 
-To see how a VM, a privileged LXC and an unprivileged LXC differ, watch [Docker on Proxmox LXC: LXC vs VM and privileged vs unprivileged at 1:03](https://youtu.be/-ZSQdJ62r-Q?t=63).
+To see how a VM, a privileged LXC and an unprivileged LXC differ, watch [Docker on Proxmox LXC: LXC vs VM and privileged vs unprivileged at 1:45](https://youtu.be/-ZSQdJ62r-Q?t=105).
 
 You must set **System Type** before **Prerequisites** counts as complete. You can run it again at any time. See [System Type in Prerequisites](/getting-started/prerequisites/#5-system-type).
 
@@ -135,7 +135,7 @@ pct start ID
 
 Newer Proxmox versions can also add a device in the web UI under the container's **Resources**. Use `/dev/net/tun` as the path. The config lines above work on any version.
 
-To see the config lines added on a Proxmox host, watch [Proxmox LXC network device passthrough at 1:48](https://youtu.be/r0nGMFs5pCY?t=108). For the same steps in writing, read [UDMS part 10](https://www.simplehomelab.com/udms-10-proxmox-lxc-network-device-passthrough/) (manual setup).
+To see the config lines added on a Proxmox host, watch [Proxmox LXC network device passthrough at 2:53](https://youtu.be/r0nGMFs5pCY?t=173). For the same steps in writing, read [UDMS part 10](https://www.simplehomelab.com/udms-10-proxmox-lxc-network-device-passthrough/) (manual setup).
 
 ### What the result means
 
@@ -156,7 +156,7 @@ You have two choices:
 - **Rclone.** Deployrr does not block it in an LXC. See [Mount a NAS share with Rclone](/host/rclone-smb-setup/).
 - **A Proxmox bind mount.** Mount the NAS on the Proxmox host, then share that folder with the container. The steps below are general Proxmox knowledge.
 
-To see Rclone set up inside an unprivileged LXC, watch [Rclone SMB mount on Ubuntu/LXC: Proxmox LXC modifications at 3:07](https://youtu.be/D-XS0biLP14?t=187) (manual Docker Compose setup; Deployrr does these steps for you). To understand bind mounts and ID mapping, read [UDMS part 9](https://www.simplehomelab.com/udms-part-9-bind-mount-remote-storage-in-proxmox-lxc-containers/) (manual setup).
+To see the Proxmox LXC changes needed for Rclone, watch [Rclone SMB mount on Ubuntu/LXC: Proxmox LXC modifications at 3:29](https://youtu.be/D-XS0biLP14?t=209) (manual Docker Compose setup; Deployrr does these steps for you). To understand bind mounts and ID mapping, read [UDMS part 9](https://www.simplehomelab.com/udms-part-9-bind-mount-remote-storage-in-proxmox-lxc-containers/) (manual setup).
 
 ### Bind mount a folder into the container
 
@@ -166,19 +166,27 @@ This works for a NAS share mounted on the Proxmox host, or for a local disk. Rep
 - `/mnt/host-folder` is the folder on the Proxmox host.
 - `/mnt/media` is the path you want inside the container.
 
-1. On the Proxmox host, add the bind mount:
+1. On the Proxmox host, list the mount points the container already has:
+
+   ```bash
+   pct config ID | grep '^mp'
+   ```
+
+   `pct set` replaces a mount point with the same number. If `mp0` is in the list, use the next free number, such as `mp1`, in the next command.
+
+2. Add the bind mount:
 
    ```bash
    pct set ID -mp0 /mnt/host-folder,mp=/mnt/media
    ```
 
-2. Restart the container:
+3. Restart the container:
 
    ```bash
    pct reboot ID
    ```
 
-3. Inside the container, list the folder:
+4. Inside the container, list the folder:
 
    ```bash
    ls -l /mnt/media
@@ -186,7 +194,7 @@ This works for a NAS share mounted on the Proxmox host, or for a local disk. Rep
 
    You should see your files.
 
-4. In Deployrr, open **System** > **Folders** and set your media or downloads folder to `/mnt/media`. See [Set your media, downloads and other folders](/using-deployrr/folders/).
+5. In Deployrr, open **System** > **Folders** and set your media or downloads folder to `/mnt/media`. See [Set your media, downloads and other folders](/using-deployrr/folders/).
 
 ### Files show as nobody in an unprivileged LXC
 
