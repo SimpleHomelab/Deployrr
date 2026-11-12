@@ -102,7 +102,7 @@ To see a similar folder layout built by hand, watch [Ultimate Docker Server in 5
 
 ## What you can edit and what Deployrr writes
 
-Use this table before you change a file by hand.
+Use this table before you change a file by hand. To start from an action instead, such as a cleanup or a setup you run again, see [What can overwrite or delete your changes](/using-deployrr/what-overwrites-your-changes/).
 
 | File or folder | Can you edit it? | What Deployrr does with it | Apply a change with |
 | --- | --- | --- | --- |

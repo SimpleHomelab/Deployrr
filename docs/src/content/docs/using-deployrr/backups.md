@@ -155,6 +155,7 @@ A backup on the same disk does not help if that disk fails. Copy the backups you
 
 ## Related
 
+- [What can overwrite or delete your changes](/using-deployrr/what-overwrites-your-changes/): the actions to back up before.
 - [Move Deployrr to a new server](/using-deployrr/move-to-new-server/): use a migration package to move everything to another machine.
 - [Docker environment setup fails: docker-compose file is malformed](/docker/compose-malformed/): rebuild your setup, and back up first.
 - [Add your own containers with custom.yml](/using-deployrr/custom-yml/): your `custom.yml` is part of the Docker folder, so it is in every backup.
