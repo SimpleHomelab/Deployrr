@@ -16,13 +16,25 @@ related:
   - reverse-proxy/check-traefik-logs
   - support/discord
 further_reading: []
+videos:
+  - id: Nuo83uzTWco
+    start: 579
+    title: "Deployrr 6 overview: Migrating from v5 to v6"
+  - id: rdqbAr0TFnQ
+    start: 4527
+    title: "Deployrr 5 walkthrough: Stack Manager up and down"
+    note: Shows Deployrr v5. Menus and steps differ in v6.
+  - id: rdqbAr0TFnQ
+    start: 4684
+    title: "Deployrr 5 walkthrough: making a backup"
+    note: Shows Deployrr v5. Menus and steps differ in v6.
 last_reviewed: 2026-11-09
 status: current
 old_paths: []
 sources: []
 ---
 
-This guide is for you if you run Deployrr v5 and want to move to v6. It walks you through a fresh v6 setup and shows how to bring your app data across.
+This guide is for you if you run Deployrr v5 and want to move to v6. It walks you through a fresh v6 setup and shows how to bring your app data across. For a short look at the move, watch [Deployrr 6 overview: Migrating from v5 to v6 at 9:39](https://youtu.be/Nuo83uzTWco?t=579).
 
 :::caution
 There is no automatic move from v5 to v6. You install v6 fresh and set up your apps again. Do the steps in order, and keep your v5 copy until every app works in v6.
@@ -104,6 +116,8 @@ sudo docker compose --profile all -f /home/USERNAME/docker/docker-compose-HOSTNA
 
 With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dcdown`.
 
+To see the v5 Stack Manager menu, watch [Deployrr 5 walkthrough: Stack Manager at 1:15:27](https://youtu.be/rdqbAr0TFnQ?t=4527) (shows Deployrr v5; menus differ in v6).
+
 ### Step 2: Back up
 
 Make two backups. You need them only if something goes wrong, but you cannot make them later.
@@ -112,6 +126,8 @@ Make two backups. You need them only if something goes wrong, but you cannot mak
 2. In Deployrr v5, open **Tools** > **Backups** > **Backup** ("Backup Docker Folder"). This needs a Pro license. Without Pro, copy the folder yourself instead: `sudo cp -a /home/USERNAME/docker /home/USERNAME/docker-v5-backup`.
 3. At the end, Deployrr asks "Do you want to restart the Docker stack?". Press any key other than `Y`, so the stack stays down.
 4. Open **Tools** > **Backups** > **View** and check that the new backup is listed.
+
+To see a v5 backup being made, watch [Deployrr 5 walkthrough: Backups at 1:18:04](https://youtu.be/rdqbAr0TFnQ?t=4684) (shows Deployrr v5; menus differ in v6).
 
 For backups in v6, see [Back up and restore your Docker folder](/using-deployrr/backups/).
 
