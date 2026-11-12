@@ -25,8 +25,7 @@ The [v5 to v6 guide](/getting-started/move-from-v5/) suggests a fresh setup for 
 
 ## Before you start
 
-- You follow the [v5 to v6 guide](/getting-started/move-from-v5/). These steps assume you have done its backup and rename steps (Steps 2 and 3), and that v6 and its core apps run (Steps 5 and 6).
-- Your v5 Docker folder is renamed to `docker-v5`.
+- You follow the [v5 to v6 guide](/getting-started/move-from-v5/): you did its backup and rename steps (Steps 2 and 3, so your v5 folder is `docker-v5`), and v6 and its core apps run (Steps 5 and 6).
 - You have a few hours where these apps can be down.
 
 :::caution
@@ -41,8 +40,6 @@ In the commands, replace `USERNAME` with your Linux user name. The commands assu
 - **Nextcloud and Paperless-ngx:** v5 kept their data in one shared MariaDB. v6 gives each its own. You export the database from v5 and import it into the new one.
 
 The export needs the v5 MariaDB running. So do Part 1 **before** [Step 1 of the move guide](/getting-started/move-from-v5/#step-1-stop-the-whole-v5-stack), while v5 is still up. If you use only Immich, skip Part 1.
-
-Redis containers hold only cache. You do not move them.
 
 ## Part 1: Export in v5 (Nextcloud and Paperless-ngx)
 
@@ -117,7 +114,7 @@ Do this for each app you move.
 2. Install the app from **Apps** > **Browse Apps**.
 3. Wait until the app runs.
 
-Then follow the section for your app. Stop only the app, not its database, unless the steps say so. Use the [bash aliases](/using-deployrr/bash-aliases/) `dcrec` and `dlogs`, or the **Tools** > **Stack Manager** > **Recreate** menu.
+Then follow the section for your app. Stop only the app, not its database, unless the steps say so. Use the [bash aliases](/using-deployrr/bash-aliases/) `dcrec` and `dlogs`, or **Tools** > **Stack Manager** > **Recreate** (needs a Basic, Plus or Pro license).
 
 ### Immich
 
@@ -142,20 +139,15 @@ Then follow the section for your app. Stop only the app, not its database, unles
 
 4. Put that value into `IMMICH_POSTGRESQL_PASSWORD` in the v6 `.env`. Use **Tools** > **.env Editor** or edit the file by hand. See [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/). The old database keeps the password it was created with, so v6 must use the same one.
 5. Open **System** > **Folders** and set **Immich Folder** to your v5 upload folder. It is the `IMMICH_FOLDER` value in `docker-v5/.env`.
-6. Recreate the database, then Immich:
+6. Recreate the database, then Immich, and watch the logs:
 
    ```bash
    dcrec immich-postgresql
    dcrec immich
-   ```
-
-7. Watch the logs:
-
-   ```bash
    dlogs immich
    ```
 
-The first start can take a while. Immich moves your old search index to its new format and upgrades from v5's Immich version. Wait until the logs settle.
+   The first start can take a while. Immich moves your old search index to its new format and upgrades from v5's Immich version. Wait until the logs settle.
 
 ### Nextcloud
 
@@ -184,50 +176,38 @@ The first start can take a while. Immich moves your old search index to its new 
    sudo docker exec -i nextcloud-mariadb sh -c 'exec mariadb -u root -p"$(cat /run/secrets/nextcloud_mariadb_root_password)" nextcloud' < /home/USERNAME/nextcloud-v5.sql
    ```
 
-4. Replace the app files with the v5 ones:
+4. Replace the app files with the v5 ones. Check the paths before you press Enter. `rm -rf` deletes without asking:
 
    ```bash
    sudo rm -rf /home/USERNAME/docker/appdata/nextcloud
    sudo cp -a /home/USERNAME/docker-v5/appdata/nextcloud /home/USERNAME/docker/appdata/nextcloud
    ```
 
-5. Back up `config.php`:
+5. Back up `config.php`, show the v6 database password, and open `config.php` in an editor:
 
    ```bash
    sudo cp /home/USERNAME/docker/appdata/nextcloud/config/config.php /home/USERNAME/docker/appdata/nextcloud/config/config.php.bak
-   ```
-
-6. Show the v6 database password:
-
-   ```bash
    sudo cat /home/USERNAME/docker/secrets/nextcloud_mariadb_password
-   ```
-
-7. Open `config.php` in an editor:
-
-   ```bash
    sudo nano /home/USERNAME/docker/appdata/nextcloud/config/config.php
    ```
 
-8. Set these three values. For `dbpassword`, use the password from step 6:
+6. Set these three values. For `dbpassword`, use the password the second command showed:
 
    ```php
    'dbhost' => 'nextcloud-mariadb',
    'dbuser' => 'nextcloud_db_user',
-   'dbpassword' => 'PASSWORD_FROM_STEP_6',
+   'dbpassword' => 'V6_PASSWORD',
    ```
 
-9. Open **System** > **Folders** and set **Nextcloud Folder** to your v5 data folder. It is the `NEXTCLOUD_FOLDER` value in `docker-v5/.env`.
-10. Recreate Nextcloud and watch the logs:
+7. Open **System** > **Folders** and set **Nextcloud Folder** to your v5 data folder. It is the `NEXTCLOUD_FOLDER` value in `docker-v5/.env`.
+8. Recreate Nextcloud and watch the logs. If the v6 image is newer, Nextcloud upgrades itself on start. Wait for it to finish.
 
-    ```bash
-    dcrec nextcloud
-    dlogs nextcloud
-    ```
+   ```bash
+   dcrec nextcloud
+   dlogs nextcloud
+   ```
 
-    If the v6 image is newer, Nextcloud upgrades itself on start. Wait for it to finish.
-
-11. Turn maintenance mode off:
+9. Turn maintenance mode off:
 
     ```bash
     sudo docker exec -u www-data nextcloud php occ maintenance:mode --off
@@ -260,7 +240,7 @@ The first start can take a while. Immich moves your old search index to its new 
    sudo docker exec -i paperless-ngx-mariadb sh -c 'exec mariadb -u root -p"$MARIADB_ROOT_PASSWORD" paperless' < /home/USERNAME/paperless-v5.sql
    ```
 
-4. Replace the app files. The folder layout is the same in v5 and v6:
+4. Replace the app files. The folder layout is the same in v5 and v6. Check the paths before you press Enter:
 
    ```bash
    sudo rm -rf /home/USERNAME/docker/appdata/paperless-ngx
@@ -289,14 +269,6 @@ The first start can take a while. Immich moves your old search index to its new 
 
 The password in `config.php` or `.env` does not match the database. Recheck the value you copied. See [Change a database password safely](/apps/change-database-password/).
 
-### The app is up but looks empty
-
-The folder does not point at your old data. Set it again in **System** > **Folders**, then recreate the app. See [Folders](/storage/folders/).
-
-### Nextcloud shows a maintenance mode page
-
-Run the `occ maintenance:mode --off` command from the Nextcloud steps.
-
 ### The import prints errors
 
 The export file is empty or cut off. Make it again and check that it ends with `-- Dump completed`.
@@ -310,5 +282,3 @@ This page does not cover the other database apps listed in the [move guide](/get
 - [Move from Deployrr v5 to v6](/getting-started/move-from-v5/): the full move this page plugs into.
 - [Change a database password safely](/apps/change-database-password/): fix a password mismatch.
 - [Folders](/storage/folders/): change where an app keeps its data.
-- [Back up and restore your Docker folder](/using-deployrr/backups/): back up before you start.
-- [Deployrr bash aliases](/using-deployrr/bash-aliases/): the `dcrec` and `dlogs` shortcuts.

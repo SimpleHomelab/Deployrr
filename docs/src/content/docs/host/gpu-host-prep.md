@@ -37,16 +37,13 @@ sources: []
 
 Deployrr does not install GPU drivers or toolkits. It scans your server and reports what it finds. This page gets the server ready so **System** > **GPU** shows your GPU as **Ready**. For the scan screen, the result lines and installing apps with the GPU, see [GPU hardware transcoding](/apps/gpu-transcoding/).
 
-The steps below are general Linux, NVIDIA and Proxmox steps, not Deployrr features. Package names and menus can differ between versions of your system.
+The steps below are general Linux, NVIDIA and Proxmox steps. Package names can differ on your system.
 
 :::caution
-NVIDIA does not work yet with Jellyfin, Plex and Emby in v6.0.42. This is a known issue in the release notes. Intel and AMD work. NVIDIA is offered for Ollama and Dispatcharr, but the release notes say it is untested. See the [caution on the GPU page](/apps/gpu-transcoding/).
+NVIDIA does not work yet with Jellyfin, Plex and Emby in v6.0.42 (a known issue in the release notes), and it is untested with Ollama and Dispatcharr. Intel and AMD work. See the [caution on the GPU page](/apps/gpu-transcoding/).
 :::
 
-## Before you start
-
-- Know where Deployrr runs: directly on hardware, in a Proxmox VM, or in a Proxmox LXC container.
-- Have console access to the server. Some steps need a reboot, and a mistake in boot settings can stop the server from starting.
+Have console access to the server before you start. Some steps need a reboot, and a mistake in boot settings can stop the server from starting.
 
 ## What Ready means
 
@@ -54,21 +51,9 @@ The scan reports a GPU as ready when these checks pass on the machine where Depl
 
 | GPU | The scan needs |
 | --- | --- |
-| Any | The GPU shows in `lspci`. Without it you see "lspci command not found. Install pciutils to enable GPU detection." |
+| Any | The GPU shows in `lspci` (install `pciutils` if the command is missing). |
 | Intel or AMD | A `renderD` device exists in `/dev/dri`. |
-| NVIDIA | `nvidia-smi` works, and Docker lists an `nvidia` runtime. |
-
-Install `pciutils` first if it is missing:
-
-```bash
-sudo apt install pciutils
-```
-
-Then check that your GPU appears:
-
-```bash
-lspci | grep -Ei 'vga|3d|display'
-```
+| NVIDIA | The `nvidia-smi` command is installed, and Docker lists an `nvidia` runtime. The scan does not run it, so check that `nvidia-smi` works yourself (part 2). |
 
 ## Steps
 
@@ -84,31 +69,7 @@ ls -l /dev/dri
 
 You want a name that starts with `renderD`, such as `renderD128`.
 
-If the folder is missing or has no `renderD` device, install the video acceleration packages. On Debian or Ubuntu:
-
-1. For Intel:
-
-   ```bash
-   sudo apt install intel-media-va-driver
-   ```
-
-2. For AMD:
-
-   ```bash
-   sudo apt install mesa-va-drivers
-   ```
-
-3. Reboot the server.
-4. Run `ls -l /dev/dri` again.
-
-Optionally, install `vainfo` and run it to see which video formats the GPU can handle:
-
-```bash
-sudo apt install vainfo
-vainfo
-```
-
-If `/dev/dri` is still missing after a reboot, the kernel does not see the GPU driver. Check `lspci` and your distribution's documentation for your GPU model.
+If the folder is missing or has no `renderD` device, install the video acceleration package, reboot, and check again. On Debian or Ubuntu that is `sudo apt install intel-media-va-driver` for Intel or `sudo apt install mesa-va-drivers` for AMD. If it is still missing, check your distribution's documentation for your GPU model.
 
 ### 2. NVIDIA on bare metal or in a VM
 
@@ -129,7 +90,7 @@ You need two things: the NVIDIA driver, and the NVIDIA Container Toolkit so Dock
    nvidia-smi
    ```
 
-   You see a table with your GPU. If you get an error instead, see the note below.
+   You see a table with your GPU. If you get an error, check your distribution's NVIDIA driver documentation (Secure Boot can block the driver).
 
 4. Install the NVIDIA Container Toolkit. Follow NVIDIA's [install guide](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) for your distribution. It is the same link Deployrr prints under "NVIDIA Container Toolkit: Not installed or not configured".
 5. Tell Docker to use the toolkit:
@@ -153,18 +114,14 @@ You need two things: the NVIDIA driver, and the NVIDIA Container Toolkit so Dock
    The line must include `nvidia`.
 
 :::caution
-Restarting Docker stops your running containers. Do it when nobody is streaming. Most apps start again on their own, but Deployrr installs the media apps (Jellyfin, Plex, Emby, the Arr apps and others) so they don't. [Apps not starting after a reboot](/docker/apps-not-starting-after-reboot/) explains why. After the restart, open **Tools** > **Stack Manager** and choose **Up**. See [Stack Manager](/using-deployrr/stack-manager/).
-:::
-
-:::note
-If `nvidia-smi` says it cannot communicate with the driver after a reboot, Secure Boot may be blocking the NVIDIA kernel module. Either turn off Secure Boot in the BIOS or sign the module. Your distribution's documentation explains how.
+Restarting Docker stops your running containers. Deployrr installs the media apps (Jellyfin, Plex, Emby, the Arr apps and others) so they don't start again on their own ([why](/docker/apps-not-starting-after-reboot/)). After the restart, open **Tools** > **Stack Manager** and choose **Up**.
 :::
 
 ### 3. Proxmox LXC
 
-An LXC container shares the Proxmox host's kernel. The GPU driver lives on the Proxmox host, and you pass the GPU device into the container. Deployrr cannot do this for you. It shows "LXC/Docker environments require the host to pass through the GPU device and toolkits." in the **Graphics Card** box.
+An LXC container shares the Proxmox host's kernel. The GPU driver lives on the Proxmox host, and you pass the GPU device into the container. Deployrr cannot do this for you.
 
-To understand how the passthrough works, read [UDMS part 11: Passing the iGPU through to a Proxmox LXC container](https://www.simplehomelab.com/udms-11-gpu-passthrough-on-proxmox-lxc/#Step-by-Step_Proxmox_GPU_Passthrough_to_LXC_Container) (manual setup, Proxmox only; it edits the container config file instead of using the menu below). The short version for Intel and AMD:
+For background, read [UDMS part 11: Passing the iGPU through to a Proxmox LXC container](https://www.simplehomelab.com/udms-11-gpu-passthrough-on-proxmox-lxc/#Step-by-Step_Proxmox_GPU_Passthrough_to_LXC_Container) (manual setup; it edits the container config file instead of using the menu below). The short version for Intel and AMD:
 
 1. On the Proxmox host, check that `/dev/dri` exists and has a `renderD` device. If not, do part 1 on the host.
 2. In the Proxmox web interface, select your container, then **Resources** > **Add** > **Device Passthrough**.
@@ -180,19 +137,17 @@ To understand how the passthrough works, read [UDMS part 11: Passing the iGPU th
 5. Restart the container.
 6. Inside the container, run `ls -l /dev/dri` and check the `renderD` device is there.
 
-To see the `/dev/dri` check on screen, watch [Jellyfin Docker Compose guide: checking /dev/dri at 10:28](https://youtu.be/xY3UrvDgGrs?t=628) (manual Docker Compose setup; Deployrr does the compose part for you).
-
-On older Proxmox versions without this menu, you add `lxc.cgroup2.devices.allow` and `lxc.mount.entry` lines to the container's config file instead. The UDMS guide shows them. To see that method on screen, watch [Proxmox iGPU passthrough at 2:32](https://youtu.be/kvnJYyyLoIk?t=152) (config file method). Back up the file first, the same way as in [Run Deployrr in a Proxmox LXC](/host/proxmox-lxc/#pass-devnettun-into-the-container).
+On older Proxmox versions without this menu, add the device lines to the container's config file instead, as the UDMS guide and [Proxmox iGPU passthrough at 2:32](https://youtu.be/kvnJYyyLoIk?t=152) show. Back up the file first, the same way as in [Run Deployrr in a Proxmox LXC](/host/proxmox-lxc/#pass-devnettun-into-the-container).
 
 In an unprivileged container, the device can show as owned by `nobody` or `nogroup`. That is fine if the permissions let everyone read and write it (`crw-rw-rw-`). If they don't, and the app can't use the GPU, check the GID you set.
 
-**NVIDIA in an LXC** is more advanced. You install the NVIDIA driver on the Proxmox host. Inside the container, you install the same driver version with the `--no-kernel-module` option, pass the `/dev/nvidia*` devices in, and then do steps 4 to 7 of part 2 inside the container. NVIDIA and Proxmox document this, and the exact device list depends on your GPU. Because NVIDIA does not work yet with Jellyfin, Plex and Emby, an Intel or AMD GPU is the safer choice for those apps.
+**NVIDIA in an LXC** needs the driver on the Proxmox host and the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) inside the container. For Jellyfin, Plex and Emby, an Intel or AMD GPU is the safer choice for now.
 
 If Docker stops starting containers inside the LXC, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
 
 ### 4. Proxmox VM
 
-Passing a GPU to a VM hands the whole GPU to that VM. The Proxmox host and other guests can no longer use it. If you only have an integrated GPU (iGPU), the host may lose its display. An LXC is usually easier for an iGPU.
+Passing a GPU to a VM hands the whole GPU to that VM, so the host and other guests can't use it. For an integrated GPU (iGPU), an LXC is usually easier.
 
 :::caution
 Step 2 edits the kernel boot line. A typing mistake can stop the host from booting. Keep console or IPMI access, and note the original line before you change it.
@@ -211,8 +166,8 @@ Set **System Type** to **Virtual Machine** in **Prerequisites**. See [Run Deploy
 ## Check it worked
 
 1. Open **System** > **GPU** in Deployrr and run the scan again. It does not refresh on its own.
-2. Read the result. You want "Intel Iris: Ready", "AMD ROCm: Ready" or "NVIDIA Container Toolkit: Ready". The [GPU hardware transcoding](/apps/gpu-transcoding/#1-scan-for-your-gpu) page explains every line. To see the scan in action, watch [Deployrr 6 overview: Intelligent GPU Detection at 5:37](https://youtu.be/Nuo83uzTWco?t=337).
-3. Install the app with the GPU. Apps you installed earlier keep their old settings. To add the GPU to one, reinstall it. See [If the app is already installed](/apps/gpu-transcoding/#3-if-the-app-is-already-installed).
+2. You want "Intel Iris: Ready", "AMD ROCm: Ready" or "NVIDIA Container Toolkit: Ready". [GPU hardware transcoding](/apps/gpu-transcoding/#1-scan-for-your-gpu) explains every line. To see the scan, watch [Deployrr 6 overview: Intelligent GPU Detection at 5:37](https://youtu.be/Nuo83uzTWco?t=337).
+3. Install the app with the GPU. To add the GPU to an app you installed earlier, reinstall it. See [If the app is already installed](/apps/gpu-transcoding/#3-if-the-app-is-already-installed).
 
 ## Related
 

@@ -128,7 +128,7 @@ The standalone database apps work the same way, with these names in steps 1, 3 a
    - n8n: also open `YOUR_DOCKER_FOLDER/compose/HOSTNAME/n8n.yml` and replace the value of `DB_POSTGRESDB_PASSWORD` with the new password.
    - Nextcloud: also open `YOUR_DOCKER_FOLDER/appdata/nextcloud/config/config.php` and replace the `dbpassword` value. Nextcloud keeps a copy of the database password there after its first setup. This is how Nextcloud works, not something you can skip.
 
-5. Recreate the app, then its database container. A plain restart does not read new values, and **Manage Apps** has no Recreate. Go to **Tools** > **Stack Manager** > **Recreate**. Under "Select an app to recreate:", type the number of the app's container. Run it again for the database container, and for Authentik also for `authentik-worker`. See [Stack Manager](/using-deployrr/stack-manager/). Or, with the [Deployrr bash aliases](/using-deployrr/bash-aliases/), run these. Replace `APP` with the app name:
+5. Recreate the app, then its database container. A plain restart does not read new values, and **Manage Apps** has no Recreate. Go to **Tools** > **Stack Manager** > **Recreate** (needs a Basic, Plus or Pro license). Under "Select an app to recreate:", type the number of the app's container. Run it again for the database container, and for Authentik also for `authentik-worker`. See [Stack Manager](/using-deployrr/stack-manager/). Or, with the [Deployrr bash aliases](/using-deployrr/bash-aliases/), run these. Replace `APP` with the app name:
 
    ```bash
    dcrec APP
