@@ -13,8 +13,8 @@ applies_to: v6.0+
 related:
   - getting-started/quick-start
   - using-deployrr/backups
+  - apps/move-database-apps-from-v5
   - using-deployrr/bash-aliases
-  - reverse-proxy/check-traefik-logs
   - support/discord
 further_reading: []
 videos:
@@ -29,7 +29,7 @@ videos:
     start: 4684
     title: "Deployrr 5 walkthrough: making a backup"
     note: Shows Deployrr v5. Menus and steps differ in v6.
-last_reviewed: 2026-11-09
+last_reviewed: 2026-11-12
 status: current
 old_paths: []
 sources: []
@@ -101,6 +101,10 @@ On an ARM machine, use `deployrr_v5.11.2-arm.app` in all three commands.
 ### Step 1: Stop the whole v5 stack
 
 Stop everything before you copy or rename anything. This keeps your app data from changing while you work.
+
+:::note
+Moving Nextcloud or Paperless-ngx? Export their databases first, while v5 still runs. See [Move Nextcloud, Immich or Paperless-ngx from v5](/apps/move-database-apps-from-v5/).
+:::
 
 In Deployrr v5:
 
@@ -265,9 +269,9 @@ Database apps are different. See [Database apps](#database-apps) before you do t
 
 ### Database apps
 
-You can move a database app by hand, but it needs Docker and database knowledge. This guide does not cover it.
+You can move a database app by hand, but it needs Docker and database knowledge. v6 gives each app its own database service, where v5 used shared ones.
 
-We suggest a fresh setup for these apps. v6 gives each app its own database service, where v5 used shared ones.
+For Nextcloud, Immich and Paperless-ngx, follow [Move Nextcloud, Immich or Paperless-ngx from v5](/apps/move-database-apps-from-v5/). For Nextcloud and Paperless-ngx, part of it happens before you stop v5 in Step 1. For the other apps, we suggest a fresh setup.
 
 These v6 apps come with their own database service:
 
@@ -353,6 +357,7 @@ Yes. Your v5 folder is untouched, so you can go back.
 
 - [Quick start](/getting-started/quick-start/): install v6 and work through Prerequisites.
 - [Back up and restore your Docker folder](/using-deployrr/backups/): back up in v6.
+- [Move Nextcloud, Immich or Paperless-ngx from v5](/apps/move-database-apps-from-v5/): bring their databases across.
 - [Deployrr bash aliases](/using-deployrr/bash-aliases/): the shortcuts used in this guide.
 - [Check Traefik logs](/reverse-proxy/check-traefik-logs/): find out why a site does not load.
 - [Get help on Discord](/support/discord/): ask before you move if an app's data matters.
