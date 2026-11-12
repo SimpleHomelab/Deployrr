@@ -1,6 +1,7 @@
 ---
 title: "Docker environment setup fails with: docker-compose file is malformed"
 sidebar:
+  order: 7
   label: Compose file is malformed
 description: Deployrr stops with "is malformed (missing placeholders)" on your main compose file. Put the missing lines back, or rebuild it after a backup.
 type: troubleshooting
@@ -135,7 +136,7 @@ Use this if the file is badly damaged or you have no apps yet. A rebuild always 
 
 Use this when YAML Yoda reports a problem, or Docker names a line. YAML Yoda only checks syntax. It does not check the four placeholder lines.
 
-1. Run **Tools** > **Diagnostics** > **YAML Yoda**. If it finds an error, it shows the file and the message. See [Deployrr shows "Unhealthy - Issues detected"](/using-deployrr/diagnostics/) for the other Diagnostics checks.
+1. Run **Tools** > **Diagnostics** > **YAML Yoda**. If it finds an error, it shows the file and the message. See [Deployrr shows "Unhealthy - Issues detected"](/support/diagnostics/) for the other Diagnostics checks.
 
 2. You can run the same check yourself in your Docker folder. Replace `FILE` with the path of the file you want to test:
 

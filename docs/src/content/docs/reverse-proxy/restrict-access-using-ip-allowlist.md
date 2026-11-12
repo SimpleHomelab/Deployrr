@@ -34,6 +34,8 @@ last_reviewed: 2026-11-08
 status: current
 old_paths: ["/traefik/restrict-access-using-ip-allowlist"]
 sources: []
+sidebar:
+  order: 13
 ---
 
 You may want an app to open only from your home network, or only from your home network and a VPN. This page shows two ways to do that. Start with the built-in way. Use the IP allowlist when you need finer control.
@@ -129,7 +131,7 @@ To see how a chain groups middlewares, watch [Traefik 3 guide: middleware chains
 If the app uses a login chain such as Authelia, you can add `- middlewares-ipallowlist` to a chain of your own instead. Don't edit the chain files Deployrr ships. Make a copy with a new name.
 
 :::caution
-**Security** > **Manage Auth** replaces the chain name in `app-NAME.yml`. If you run it on this app, it swaps `chain-no-auth-internal-only` for the standard chain you pick. Set the chain by hand again afterward. Start your chain's name with an existing chain name, as in this example, or Manage Auth won't list the app at all. For the standard chains and how Manage Auth works, see [Remove Authentik](/apps/authentik-removal/).
+**Security** > **Manage Auth** replaces the chain name in `app-NAME.yml`. If you run it on this app, it swaps `chain-no-auth-internal-only` for the standard chain you pick. Set the chain by hand again afterward. Start your chain's name with an existing chain name, as in this example, or Manage Auth won't list the app at all. For the standard chains and how Manage Auth works, see [Remove Authentik](/reverse-proxy/authentik-removal/).
 :::
 
 ### Use the chain in the app

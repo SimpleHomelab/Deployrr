@@ -1,6 +1,7 @@
 ---
 title: Secure a fresh VPS before you install Deployrr
 sidebar:
+  order: 2
   label: Secure a fresh VPS
 description: Make a new VPS or dedicated server safer with a sudo user, SSH keys, no password login and a provider firewall, then install Deployrr in Simple mode.
 type: how-to
@@ -291,7 +292,7 @@ A wrong rule here can cut off SSH. Allow your SSH port before you save, and keep
 35. Open a new SSH session to check that you can still log in.
 
 :::note
-Allow ports 80 and 443 before you run Domain Checks in Prerequisites. If you do not, it fails with "Port 80 is not reachable from the internet" or "Port 443 is not reachable from the internet". See [Domain Checks failed](/networking/domain-checks-failed/).
+Allow ports 80 and 443 before you run Domain Checks in Prerequisites. If you do not, it fails with "Port 80 is not reachable from the internet" or "Port 443 is not reachable from the internet". See [Domain Checks failed](/getting-started/domain-checks-failed/).
 :::
 
 :::note

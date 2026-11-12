@@ -1,6 +1,7 @@
 ---
 title: Restart, Recreate or Reinstall an app after a change
 sidebar:
+  order: 3
   label: Restart vs Recreate vs Reinstall
 description: Pick Restart, Recreate or Reinstall after you change a port, folder, .env value or compose file, and see which one applies your change.
 type: how-to
@@ -11,9 +12,9 @@ tags:
 applies_to: v6.0+
 related:
   - using-deployrr/stack-manager
-  - apps/reinstall-app
-  - using-deployrr/folders
-  - apps/manage-apps
+  - using-deployrr/reinstall-app
+  - storage/folders
+  - using-deployrr/manage-apps
   - using-deployrr/bash-aliases
 last_reviewed: 2026-11-12
 status: current
@@ -80,7 +81,7 @@ Use this list to choose.
    sudo docker compose --profile all -f YOUR_DOCKER_FOLDER/docker-compose-HOSTNAME.yml up -d --force-recreate APP
    ```
 
-3. If you set a media folder after you installed an app that uses media folders, use **Reinstall**. Recreate does not add the folder. Back up first, as [Reinstall an app and keep its data](/apps/reinstall-app/) says.
+3. If you set a media folder after you installed an app that uses media folders, use **Reinstall**. Recreate does not add the folder. Back up first, as [Reinstall an app and keep its data](/using-deployrr/reinstall-app/) says.
 
    To reinstall a running app, go to **Apps** > **Browse Apps**, select the app and choose **Install**. At "Do you want to install this app?", choose **Yes**. Then read the **Already Installed** box and choose **Yes**. To reinstall a stopped app, go to **Apps** > **Manage Apps**, select the app, choose **Manage**, then **Reinstall**. This route asks no confirmation.
 
@@ -90,8 +91,8 @@ Use this list to choose.
 
 | You did this | Use | Notes |
 | --- | --- | --- |
-| Changed a port in `.env` | **Recreate** | See [Port already in use](/apps/port-already-in-use/) if the new port is taken. If the app sits behind Traefik, also change the port in the `url:` line of its rules file. A reinstall keeps the old rules file with the old port. The port question on a reinstall suggests the first free port counting up from the app's default, not your custom port. Type your own. |
-| Changed a folder in **System** > **Folders** | **Recreate** | Needed for each app that uses the folder, when the app already had that folder. See [Set your media, downloads and other folders](/using-deployrr/folders/). |
+| Changed a port in `.env` | **Recreate** | See [Port already in use](/docker/port-already-in-use/) if the new port is taken. If the app sits behind Traefik, also change the port in the `url:` line of its rules file. A reinstall keeps the old rules file with the old port. The port question on a reinstall suggests the first free port counting up from the app's default, not your custom port. Type your own. |
+| Changed a folder in **System** > **Folders** | **Recreate** | Needed for each app that uses the folder, when the app already had that folder. See [Set your media, downloads and other folders](/storage/folders/). |
 | Set Media Folder 2 or 3 (or any media folder) after installing an app that uses media folders | **Reinstall** | The app's compose file has the media folder lines switched off. Recreate does not switch them on. This only affects apps that use media folders. Those apps can't be installed with no media folder set. |
 | Edited the app's compose file, `compose/HOSTNAME/APP.yml` in your Docker folder | **Recreate** | Don't reinstall. A reinstall replaces that file with the default one and your edits are lost. |
 | Edited your own file from [custom.yml](/using-deployrr/custom-yml/) | `dcup SERVICE_NAME` or `dcrec SERVICE_NAME` | Replace `SERVICE_NAME` with your service's name. |
@@ -107,7 +108,7 @@ Use this list to choose.
 - It keeps the app's own data in its `appdata` folder. It overwrites the config files Deployrr ships for that app, for example Dashy's `conf.yml` or Mosquitto's `mosquitto.conf` and `passwd`.
 - It keeps an existing Traefik rules file, including its old port.
 - It keeps values Deployrr generated in `.env`. A password the install asks you for is replaced by what you enter. The default shown is a new random one, so type your old password to keep it.
-- Some apps' generated secret files can get new values. Back up `appdata` and `secrets` first. See [Reinstall an app and keep its data](/apps/reinstall-app/) and [Back up and restore your Docker folder](/using-deployrr/backups/).
+- Some apps' generated secret files can get new values. Back up `appdata` and `secrets` first. See [Reinstall an app and keep its data](/using-deployrr/reinstall-app/) and [Back up and restore your Docker folder](/using-deployrr/backups/).
 - It replaces the app's compose file with the default one.
 - It asks the install questions again, such as the port, and writes your answers to `.env`.
 - It switches on the media folder lines for the media folders you have set at that time.
@@ -139,7 +140,7 @@ The subdomain, login and exposure questions appear only when Traefik is running 
 ## Related
 
 - [Stack Manager](/using-deployrr/stack-manager/): every option, including **Recreate** and **Up**.
-- [Reinstall an app and keep its data](/apps/reinstall-app/): back up first, then reinstall.
-- [Set your media, downloads and other folders](/using-deployrr/folders/): what to do after a folder change.
-- [Install and manage apps from the Apps menu](/apps/manage-apps/): Start, Stop, Restart and Reinstall in Manage Apps.
+- [Reinstall an app and keep its data](/using-deployrr/reinstall-app/): back up first, then reinstall.
+- [Set your media, downloads and other folders](/storage/folders/): what to do after a folder change.
+- [Install and manage apps from the Apps menu](/using-deployrr/manage-apps/): Start, Stop, Restart and Reinstall in Manage Apps.
 - [Bash aliases](/using-deployrr/bash-aliases/): `dcrec`, `dcrestart`, `dcup` and more.

@@ -22,6 +22,8 @@ status: current
 old_paths: ["/traefik/setup-auth-bypass-using-file-provider"]
 sources:
   - { type: discord, ref: "https://discord.com/channels/974306760171073556/1380058913663357069" }
+sidebar:
+  order: 14
 ---
 
 Some mobile apps cannot show your login page. LunaSea and NZB360 are two examples. Auth Bypass lets such an app skip the login when it sends a secret key with each request. Everyone else still sees your login page.

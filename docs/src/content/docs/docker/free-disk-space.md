@@ -12,7 +12,7 @@ related:
   - reverse-proxy/check-traefik-logs
   - using-deployrr/backups
   - docker/socket-proxy
-  - host/system-checks-failed
+  - getting-started/system-checks-failed
 further_reading:
   - title: "UDMS part 13: System cleanup commands for Docker"
     url: https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/#System_Cleanup
@@ -31,6 +31,8 @@ last_reviewed: 2026-11-12
 status: current
 old_paths: []
 sources: []
+sidebar:
+  order: 9
 ---
 
 Docker keeps old images, stopped containers and logs on your server's disk. Over time they fill it. This page shows how to see what uses the space and how to clean it up safely. If your disk is already full, go to [When the disk is full](#when-the-disk-is-full). To stop it filling again, see [Keep the disk from filling again](#keep-the-disk-from-filling-again).
@@ -236,7 +238,7 @@ If you installed the bash aliases, these help you find big items. Run them from 
 | `space` | `du -sh * \| sort -hr` | Items in the current folder, largest first. |
 | `biggest` | `find . -type f -printf "%s %p\n" \| sort -nr \| head -10` | The 10 largest files under the current folder. |
 
-If cleaning up is not enough, move your media or Docker's storage to a bigger disk. See [Move your media or Docker data to another disk](/host/move-data-to-another-disk/).
+If cleaning up is not enough, move your media or Docker's storage to a bigger disk. See [Move your media or Docker data to another disk](/storage/move-data-to-another-disk/).
 
 ## Keep the disk from filling again
 
@@ -258,7 +260,7 @@ To install it:
 
 Docker GC asks no other questions. Deployrr prints four steps and ends with "Docker Garbage Collection installation complete!".
 
-If the terminal shows `Required app not running` with `[REQUIRED] socket-proxy must be installed and running first`, install or start Socket Proxy, then install again. It works the same way as for [DeUnhealth](/apps/deunhealth/). See [Requirements Not Met](/using-deployrr/requirements-not-met/) for other boxes.
+If the terminal shows `Required app not running` with `[REQUIRED] socket-proxy must be installed and running first`, install or start Socket Proxy, then install again. It works the same way as for [DeUnhealth](/apps/deunhealth/). See [Requirements Not Met](/getting-started/requirements-not-met/) for other boxes.
 
 Docker GC has no web page and no Traefik entry. If you set up the [Deployrr Dashboard](/using-deployrr/dashboard/), it shows in the **Apps (Others)** section, with no link.
 
@@ -313,7 +315,7 @@ Restarting Docker restarts every container. A mistake in the JSON stops Docker f
 sudo cp /etc/docker/daemon.json /etc/docker/daemon.json.bak
 ```
 
-If the file already exists, add these keys to what is there. Keep the whole file valid JSON. If Docker won't start, copy the backup back and see [System checks failed](/host/system-checks-failed/).
+If the file already exists, add these keys to what is there. Keep the whole file valid JSON. If Docker won't start, copy the backup back and see [System checks failed](/getting-started/system-checks-failed/).
 :::
 
 1. Open the file:
@@ -382,4 +384,4 @@ To hear why access logs grow fast, watch [Traefik 3 guide: Traefik log settings 
 - [Update your apps](/using-deployrr/update-apps/): updates leave old images behind.
 - [Stack Manager](/using-deployrr/stack-manager/): use **Up** to create the containers of stopped apps again after a cleanup.
 - [Socket Proxy](/docker/socket-proxy/): Docker GC needs it running.
-- [System checks failed](/host/system-checks-failed/): what to do if Docker won't start after a `daemon.json` change.
+- [System checks failed](/getting-started/system-checks-failed/): what to do if Docker won't start after a `daemon.json` change.

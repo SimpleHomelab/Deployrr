@@ -11,10 +11,10 @@ tags:
 applies_to: v6.0+
 apps: [ddns-updater]
 related:
-  - networking/domain-checks-failed
+  - getting-started/domain-checks-failed
   - reverse-proxy/traefik-setup
   - reverse-proxy/certificate-errors
-  - apps/manage-apps
+  - using-deployrr/manage-apps
   - reverse-proxy/choose-login-method
 further_reading:
   - title: "UDMS part 18: CG-NAT"
@@ -46,13 +46,13 @@ Most home internet plans give you a public IP that changes now and then. When it
 - It has a web page at `http://SERVER_IP:PORT`. If the Deployrr Dashboard runs, it also has an entry there.
 - It keeps its own backups every 96 hours in `appdata/ddns-updater/backups`.
 
-This is about your public IP, the address the internet sees. It is not your server's LAN address. For that, see [Change the server IP](/using-deployrr/change-server-ip/).
+This is about your public IP, the address the internet sees. It is not your server's LAN address. For that, see [Change the server IP](/host/change-server-ip/).
 
 ## Before you start
 
 - You have a Basic, Plus or Pro license. A Free license can't install official apps. You see a License Required box. See [Licenses](/getting-started/licenses/).
 - You finished Prerequisites. See the [Quick start](/getting-started/quick-start/).
-- You use Cloudflare for your domain, and the A record for your root domain already exists. See [DNS records Deployrr expects](/networking/domain-checks-failed/#dns-records-deployrr-expects).
+- You use Cloudflare for your domain, and the A record for your root domain already exists. See [DNS records Deployrr expects](/getting-started/domain-checks-failed/#dns-records-deployrr-expects).
 - You know your Cloudflare Zone ID. In Cloudflare, select your domain and open the **Overview** tab to find it. See [Find your Zone ID](/networking/cloudflare/#find-your-zone-id). To change the token later, see [Change or rotate the token](/networking/cloudflare/#change-or-rotate-the-token).
 - You have a Cloudflare DNS API token. DDNS Updater reuses the one you typed in **Proxy** > **Traefik** > **Preparation**. That step needs a Plus or Pro license, Hybrid setup mode and Socket Proxy running. See [Set up Traefik](/reverse-proxy/traefik-setup/). If you can't run it, make a token by hand. See [If the token is empty](#if-the-token-is-empty).
 
@@ -121,7 +121,7 @@ If the file has a typo, copy the `.bak` file back over it and restart again.
 
 ## Set the record to gray cloud
 
-The config Deployrr writes has `"proxied": true`. DDNS Updater then turns the root A record orange (proxied) in Cloudflare. Domain Checks wants the record gray (DNS only). See [Fix orange cloud records](/networking/domain-checks-failed/#fix-orange-cloud-records). To see why a proxied record fails the checks, watch [Deployrr 5 walkthrough: Domain Checks at 41:21](https://youtu.be/rdqbAr0TFnQ?t=2481) (shows Deployrr v5; menus and steps differ in v6).
+The config Deployrr writes has `"proxied": true`. DDNS Updater then turns the root A record orange (proxied) in Cloudflare. Domain Checks wants the record gray (DNS only). See [Fix orange cloud records](/getting-started/domain-checks-failed/#fix-orange-cloud-records). To see why a proxied record fails the checks, watch [Deployrr 5 walkthrough: Domain Checks at 41:21](https://youtu.be/rdqbAr0TFnQ?t=2481) (shows Deployrr v5; menus and steps differ in v6).
 
 If you follow the gray-cloud setup, change that setting to `false`.
 
@@ -150,7 +150,7 @@ Every reinstall writes a fresh `config.json`. You lose `"proxied": false` and an
 
 ## Check it worked
 
-1. Go to **Apps** > **Browse Apps**. The DDNS Updater line shows **[Running]**. **[Installed]** means it is installed but not running. See [Install and manage apps from the Apps menu](/apps/manage-apps/).
+1. Go to **Apps** > **Browse Apps**. The DDNS Updater line shows **[Running]**. **[Installed]** means it is installed but not running. See [Install and manage apps from the Apps menu](/using-deployrr/manage-apps/).
 2. Open `http://SERVER_IP:8000` in a browser. Replace `SERVER_IP` with your server's LAN IP, and `8000` with your port if you changed it.
 3. Read the log:
 
@@ -165,7 +165,7 @@ Every reinstall writes a fresh `config.json`. You lose `"proxied": false` and an
 
 DDNS Updater only updates the root record. Deployrr's setup uses a wildcard CNAME (`*`) that points to your root domain, so your subdomains follow the root record.
 
-If you made the wildcard an A record with an IP instead, it will not be updated. Change it to a CNAME that points to your root domain. See [DNS records Deployrr expects](/networking/domain-checks-failed/#dns-records-deployrr-expects). To see the root A record and wildcard CNAME made by hand, watch [Traefik 3 guide: Cloudflare settings at 7:35](https://youtu.be/KMZIyoZ3jWM?t=455) (manual Docker Compose setup).
+If you made the wildcard an A record with an IP instead, it will not be updated. Change it to a CNAME that points to your root domain. See [DNS records Deployrr expects](/getting-started/domain-checks-failed/#dns-records-deployrr-expects). To see the root A record and wildcard CNAME made by hand, watch [Traefik 3 guide: Cloudflare settings at 7:35](https://youtu.be/KMZIyoZ3jWM?t=455) (manual Docker Compose setup).
 
 ## Are you behind CG-NAT?
 
@@ -173,15 +173,15 @@ A dynamic DNS updater can't help if your ISP puts many customers behind one shar
 
 ## If it doesn't work
 
-- **The web page does not open.** Check that the app is running and that you used the right port. If another app uses the port, see [Port already in use](/apps/port-already-in-use/).
+- **The web page does not open.** Check that the app is running and that you used the right port. If another app uses the port, see [Port already in use](/docker/port-already-in-use/).
 - **The log shows an error from Cloudflare.** Check the Zone ID, the domain and the token in `config.json`. The token needs Zone / Zone / Read and Zone / DNS / Edit.
 - **The record is still orange.** Set `"proxied": false` as shown above and restart the app.
 - **Your IP changed and the record is old.** The app checks every 12 hours, so the record can stay old for a while. Read the log to see when it last checked.
 
 ## Related
 
-- [Domain Checks failed in Prerequisites](/networking/domain-checks-failed/): the DNS records and gray cloud Deployrr expects.
+- [Domain Checks failed in Prerequisites](/getting-started/domain-checks-failed/): the DNS records and gray cloud Deployrr expects.
 - [Set up Traefik](/reverse-proxy/traefik-setup/): where you enter the Cloudflare token DDNS Updater reuses.
 - [Certificate errors in Traefik](/reverse-proxy/certificate-errors/): how to fix the Cloudflare token.
-- [Install and manage apps from the Apps menu](/apps/manage-apps/): status, logs and restart.
+- [Install and manage apps from the Apps menu](/using-deployrr/manage-apps/): status, logs and restart.
 - [Choose a login method](/reverse-proxy/choose-login-method/): protect the app if you expose it.

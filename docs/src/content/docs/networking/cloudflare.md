@@ -1,6 +1,7 @@
 ---
 title: "Cloudflare for Deployrr: API token, Zone ID, orange vs gray cloud"
 sidebar:
+  order: 1
   label: Cloudflare for Deployrr
 description: Set up Cloudflare for Deployrr in one place. Create the API token, find the Zone ID, choose gray or orange cloud, and change the token later.
 type: guide
@@ -14,7 +15,7 @@ apps:
   - ddns-updater
 related:
   - reverse-proxy/traefik-setup
-  - networking/domain-checks-failed
+  - getting-started/domain-checks-failed
   - reverse-proxy/certificate-errors
   - apps/ddns-updater
   - reverse-proxy/simple-vs-advanced-mode
@@ -93,7 +94,7 @@ Cloudflare moves menus now and then, so look for the label if the layout differs
 
 ## DNS records Deployrr expects
 
-Hybrid mode needs an A record for your domain that points to your public IP, and a wildcard CNAME (`*`) that points to your domain. Both must be gray cloud. **Domain Checks** tests them. The records, the eight checks and the fix for each are on [Domain Checks failed](/networking/domain-checks-failed/#dns-records-deployrr-expects).
+Hybrid mode needs an A record for your domain that points to your public IP, and a wildcard CNAME (`*`) that points to your domain. Both must be gray cloud. **Domain Checks** tests them. The records, the eight checks and the fix for each are on [Domain Checks failed](/getting-started/domain-checks-failed/#dns-records-deployrr-expects).
 
 If your home IP changes, [DDNS Updater](/apps/ddns-updater/) keeps the A record current.
 
@@ -108,7 +109,7 @@ To see why proxied records fail the checks, watch [Deployrr 5 walkthrough: Domai
 
 Deployrr is set up for gray cloud:
 
-- **Domain Checks** compares your public IP with what your domain resolves to. An orange record fails the checks with `IP mismatch`. See [Fix orange cloud records](/networking/domain-checks-failed/#fix-orange-cloud-records).
+- **Domain Checks** compares your public IP with what your domain resolves to. An orange record fails the checks with `IP mismatch`. See [Fix orange cloud records](/getting-started/domain-checks-failed/#fix-orange-cloud-records).
 - DDNS Updater writes `"proxied": true` into its settings, which turns the A record orange. Change it to `false`. See [Set the record to gray cloud](/apps/ddns-updater/#set-the-record-to-gray-cloud).
 - Simple and Advanced mode do not depend on the cloud color. The mode decides which router ports you forward and whether an app is Internal, External or Both. See [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/). Internal apps open from home through your server's LAN IP, which comes from your router or from a [local DNS rewrite](/networking/local-dns-rewrites/).
 
@@ -199,7 +200,7 @@ DDNS Updater's reinstall writes a fresh `config.json` and loses your `"proxied":
 ## Related
 
 - [Set up Traefik](/reverse-proxy/traefik-setup/): where you paste the token.
-- [Domain Checks failed](/networking/domain-checks-failed/): the DNS records and gray cloud checks.
+- [Domain Checks failed](/getting-started/domain-checks-failed/): the DNS records and gray cloud checks.
 - [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/): token errors in Staging.
 - [DDNS Updater](/apps/ddns-updater/): Zone ID, token and the `config.json` file.
 - [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/): which ports each mode needs.

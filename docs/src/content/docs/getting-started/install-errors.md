@@ -22,7 +22,7 @@ symptoms:
 related:
   - getting-started/quick-start
   - getting-started/prerequisites
-  - host/system-checks-failed
+  - getting-started/system-checks-failed
   - getting-started/updating-deployrr
   - support/ssh-access
 further_reading:
@@ -36,6 +36,8 @@ last_reviewed: 2026-11-11
 status: current
 old_paths: []
 sources: []
+sidebar:
+  order: 2
 ---
 
 ## Symptoms
@@ -251,6 +253,6 @@ Next, follow [Quick start](/getting-started/quick-start/) to finish setup. To ke
 
 - [Quick start](/getting-started/quick-start/): the install commands and first steps.
 - [Prerequisites, step by step](/getting-started/prerequisites/): the Username step and the rest of first-run setup.
-- [System Checks failed](/host/system-checks-failed/): what to do when a host check fails after install.
+- [System Checks failed](/getting-started/system-checks-failed/): what to do when a host check fails after install.
 - [Update Deployrr](/getting-started/updating-deployrr/): update to the latest version.
 - [SSH access](/support/ssh-access/): log in to your server as another user.

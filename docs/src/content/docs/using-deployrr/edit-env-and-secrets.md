@@ -9,10 +9,10 @@ tags:
 applies_to: v6.0+
 related:
   - using-deployrr/restart-recreate-reinstall
-  - apps/reinstall-app
+  - using-deployrr/reinstall-app
   - using-deployrr/backups
   - getting-started/licenses
-  - apps/port-already-in-use
+  - docker/port-already-in-use
 further_reading:
   - title: "UDMS part 14: the .env file and its permissions"
     url: https://www.simplehomelab.com/udms-14-docker-media-server/
@@ -35,6 +35,8 @@ last_reviewed: 2026-11-12
 status: current
 old_paths: []
 sources: []
+sidebar:
+  order: 9
 ---
 
 Your apps read their settings, passwords and keys from the `.env` file and from files in the `secrets` folder. Use this page to change one of them, make the app use the new value, and choose the text editor Deployrr opens.
@@ -43,10 +45,10 @@ To see what these files are and why they belong to root, watch [Docker media ser
 
 ## Before you start
 
-- For the **.env Editor** and **Secrets Editor**, you need a Pro license and you need to finish **Prerequisites**. Without them you see a "Requirements Not Met" box. See [Licenses](/getting-started/licenses/) and [Requirements Not Met](/using-deployrr/requirements-not-met/).
+- For the **.env Editor** and **Secrets Editor**, you need a Pro license and you need to finish **Prerequisites**. Without them you see a "Requirements Not Met" box. See [Licenses](/getting-started/licenses/) and [Requirements Not Met](/getting-started/requirements-not-met/).
 - **Preferred Editor** works with any license. It saves your choice in `.env`, so your Docker folder must be set up first (**Prerequisites** > **Environment**).
 - The app is installed.
-- You know which value you want to change. For folder paths, use **System** > **Folders** instead. See [Set your media, downloads and other folders](/using-deployrr/folders/).
+- You know which value you want to change. For folder paths, use **System** > **Folders** instead. See [Set your media, downloads and other folders](/storage/folders/).
 
 :::caution
 Deployrr also keeps its own settings in `.env`, such as your folder paths and the editor you pick. Change a folder path in **System** > **Folders**. Don't edit it in `.env` unless you know why.
@@ -142,7 +144,7 @@ This is general Docker behavior: a restart keeps the values the container was cr
 
 ## A reinstall can replace passwords
 
-A reinstall can give some apps' generated secret files new values. Back up `secrets` and `appdata` before you reinstall. See [Reinstall an app and keep its data](/apps/reinstall-app/).
+A reinstall can give some apps' generated secret files new values. Back up `secrets` and `appdata` before you reinstall. See [Reinstall an app and keep its data](/using-deployrr/reinstall-app/).
 
 ## Edit by hand without Pro
 
@@ -206,7 +208,7 @@ The [bash aliases](/using-deployrr/bash-aliases/) that open files use nano, what
 ## Related
 
 - [Restart, Recreate or Reinstall an app after a change](/using-deployrr/restart-recreate-reinstall/): pick the action that applies your change.
-- [Reinstall an app and keep its data](/apps/reinstall-app/): what a reinstall keeps and resets.
+- [Reinstall an app and keep its data](/using-deployrr/reinstall-app/): what a reinstall keeps and resets.
 - [Back up and restore your Docker folder](/using-deployrr/backups/): a full backup before a big change.
 - [Licenses](/getting-started/licenses/): which features need Pro.
-- [Port already in use](/apps/port-already-in-use/): change an app's port in `.env`.
+- [Port already in use](/docker/port-already-in-use/): change an app's port in `.env`.

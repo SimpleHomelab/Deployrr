@@ -30,7 +30,7 @@ status: current
 old_paths: ["/docker/second-instances-of-apps"]
 sources: []
 sidebar:
-  order: 5
+  order: 7
 ---
 
 Deployrr installs one copy of each app. If you want a second copy, for example Sonarr for 4K shows next to your normal Sonarr, you add it yourself in `custom.yml`. This page uses Sonarr as the example. The same steps work for Radarr, Lidarr and most other apps.
@@ -109,7 +109,7 @@ Use any names and port you like. The port must be free on your server. The numbe
    sudo ss -tulpn | grep ':8990 '
    ```
 
-   If this prints a line, the port is taken. Pick another number. To find out what holds a port, see [Port already in use](/apps/port-already-in-use/).
+   If this prints a line, the port is taken. Pick another number. To find out what holds a port, see [Port already in use](/docker/port-already-in-use/).
 
 4. Create the config folder for the new copy.
 

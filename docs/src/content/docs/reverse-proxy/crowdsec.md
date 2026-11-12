@@ -34,6 +34,8 @@ last_reviewed: 2026-11-10
 status: current
 old_paths: []
 sources: []
+sidebar:
+  order: 12
 ---
 
 CrowdSec reads your logs and spots bad visitors, such as password guessers and scanners. It decides which IP addresses to ban. Two add-ons enforce the bans: the **Firewall Bouncer** blocks the address on your server, and the **Traefik Bouncer** makes Traefik refuse it. This page shows how to install all three, check they work, and get yourself unblocked.

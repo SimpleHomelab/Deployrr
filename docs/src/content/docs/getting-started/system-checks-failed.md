@@ -1,6 +1,7 @@
 ---
 title: "System Checks failed in Prerequisites (clock drift, username not found, Docker not running, docker0)"
 sidebar:
+  order: 4
   label: System Checks failed
 description: Fix each failed System Checks step in Deployrr v6, from clock drift and a missing Linux user to Docker not running and a missing docker0 address.
 type: troubleshooting
@@ -23,13 +24,13 @@ symptoms:
   - System Checks fails on a Proxmox LXC or a distro that is not Debian, Ubuntu or Arch
 related:
   - getting-started/prerequisites
-  - using-deployrr/requirements-not-met
+  - getting-started/requirements-not-met
   - host/shim-task-debian
   - docker/no-internet-in-containers
-  - networking/domain-checks-failed
+  - getting-started/domain-checks-failed
 last_reviewed: 2026-11-11
 status: current
-old_paths: []
+old_paths: ["/host/system-checks-failed"]
 sources: []
 further_reading:
   - title: "UDMS part 05: create a non-root Linux user"
@@ -84,7 +85,7 @@ System Checks makes sure the clock is right, your Linux user exists, Docker runs
 
 ## Before you start
 
-If you see **Requirements Not Met** instead of the five steps, finish **Disclaimers** and **Username** first. The username must be a Linux user other than `root`. See [Requirements Not Met](/using-deployrr/requirements-not-met/).
+If you see **Requirements Not Met** instead of the five steps, finish **Disclaimers** and **Username** first. The username must be a Linux user other than `root`. See [Requirements Not Met](/getting-started/requirements-not-met/).
 
 All commands below run on the Docker host, in a terminal. Commands marked as general Linux advice are not part of Deployrr. Menus and package names can differ by distribution.
 
@@ -420,12 +421,12 @@ The steps end with:
 All System and Docker checks passed
 ```
 
-In the **Prerequisites** menu, the row now reads `System and Docker Checks - DONE`. In Hybrid mode you can continue with **Domain Checks**. If that step fails, see [Domain Checks failed](/networking/domain-checks-failed/). In Local mode, Domain Checks is not needed.
+In the **Prerequisites** menu, the row now reads `System and Docker Checks - DONE`. In Hybrid mode you can continue with **Domain Checks**. If that step fails, see [Domain Checks failed](/getting-started/domain-checks-failed/). In Local mode, Domain Checks is not needed.
 
 ## Related
 
 - [Prerequisites, step by step](/getting-started/prerequisites/#12-system-checks): where System Checks sits in the menu.
-- [Requirements Not Met](/using-deployrr/requirements-not-met/): what to do when System Checks won't start.
+- [Requirements Not Met](/getting-started/requirements-not-met/): what to do when System Checks won't start.
 - [Docker fails with "failed to create shim task" in a Proxmox LXC container](/host/shim-task-debian/): pin `containerd.io` after a Docker reinstall.
 - [No internet on the server or in containers after setup](/docker/no-internet-in-containers/): fix the internet if the time check or the Docker install can't reach out.
-- [Domain Checks failed](/networking/domain-checks-failed/): the next step, which needs System Checks to show `DONE`.
+- [Domain Checks failed](/getting-started/domain-checks-failed/): the next step, which needs System Checks to show `DONE`.

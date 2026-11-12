@@ -1,6 +1,7 @@
 ---
 title: Mount a NAS share with Rclone
 sidebar:
+  order: 3
   label: Mount a NAS share with Rclone
 description: Mount an SMB share from your NAS with Rclone so Plex, Jellyfin and the Arr apps can use it, and so it comes back after every reboot.
 type: how-to
@@ -9,8 +10,8 @@ tags:
   - media
 applies_to: v6.0+
 related:
-  - host/rclone-mount-not-empty
-  - host/smb-nfs-mounts
+  - storage/rclone-mount-not-empty
+  - storage/smb-nfs-mounts
   - host/shim-task-debian
   - docker/waiting-for-container
   - using-deployrr/bash-aliases
@@ -30,7 +31,7 @@ videos:
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 last_reviewed: 2026-11-09
 status: current
-old_paths: []
+old_paths: ["/host/rclone-smb-setup"]
 sources: []
 ---
 
@@ -84,7 +85,7 @@ Fill in all four fields. If one is empty, Deployrr shows "Incomplete information
 Type your NAS password only in this form. The field does not hide what you type, so check that nobody can see your screen.
 :::
 
-The form does not ask for a share name. (The separate **SMB Mount** option does. See [Mount an SMB or NFS share without Rclone](/host/smb-nfs-mounts/).) You pick the folder you need in part 4.
+The form does not ask for a share name. (The separate **SMB Mount** option does. See [Mount an SMB or NFS share without Rclone](/storage/smb-nfs-mounts/).) You pick the folder you need in part 4.
 
 If the connection test fails, you see one of these messages:
 
@@ -120,7 +121,7 @@ To see the remote and the automount filled in on screen, watch [Deployrr 5 walkt
 10. Wait for "Rclone SMB successfully mounted and configured for auto-start".
 
 :::caution
-Use an empty folder as the mount folder. Deployrr does not check what is in it. If it holds files, the mount fails. See [Rclone mount folder is not empty](/host/rclone-mount-not-empty/).
+Use an empty folder as the mount folder. Deployrr does not check what is in it. If it holds files, the mount fails. See [Rclone mount folder is not empty](/storage/rclone-mount-not-empty/).
 :::
 
 Deployrr stops your media apps during this step. You start them again at the end.
@@ -158,10 +159,10 @@ Your NAS shares should appear as folders inside the mount folder. Open the mount
 3. Choose the folder on the share that holds your media, such as `/media/rclone/nas/MY_SHARE/media`. Replace the path with your own.
 4. Set **Downloads Folder** the same way if your downloads live on the NAS.
 
-At least one media folder is required for the media, downloader and Arr apps. For every folder and which apps use it, see [Set your media, downloads and other folders](/using-deployrr/folders/). To let Plex, Jellyfin or Emby use your graphics card, see [Set up GPU hardware transcoding](/apps/gpu-transcoding/).
+At least one media folder is required for the media, downloader and Arr apps. For every folder and which apps use it, see [Set your media, downloads and other folders](/storage/folders/). To let Plex, Jellyfin or Emby use your graphics card, see [Set up GPU hardware transcoding](/apps/gpu-transcoding/).
 
 :::note
-If you change a folder path, you must recreate the apps that use it. Until then they keep the old path. A media folder you set after an app was installed needs a reinstall instead; see [Apps you installed before you set a media folder](/using-deployrr/folders/#apps-you-installed-before-you-set-a-media-folder). Recreate all your apps with this Deployrr command. See [Bash aliases](/using-deployrr/bash-aliases/).
+If you change a folder path, you must recreate the apps that use it. Until then they keep the old path. A media folder you set after an app was installed needs a reinstall instead; see [Apps you installed before you set a media folder](/storage/folders/#apps-you-installed-before-you-set-a-media-folder). Recreate all your apps with this Deployrr command. See [Bash aliases](/using-deployrr/bash-aliases/).
 
 ```bash
 dcrec
@@ -251,8 +252,8 @@ The `.log` file says "Media containers started" with a date. The `.err` file say
 
 ## Related
 
-- [Rclone mount folder is not empty](/host/rclone-mount-not-empty/): fix "Mount verification failed" caused by files in the mount folder.
-- [Mount an SMB or NFS share without Rclone](/host/smb-nfs-mounts/): the SMB Mount and NFS Mount options.
+- [Rclone mount folder is not empty](/storage/rclone-mount-not-empty/): fix "Mount verification failed" caused by files in the mount folder.
+- [Mount an SMB or NFS share without Rclone](/storage/smb-nfs-mounts/): the SMB Mount and NFS Mount options.
 - [Docker fails with "failed to create shim task"](/host/shim-task-debian/): Docker problems in a Proxmox LXC container.
 - [Deployrr times out waiting for a container to start](/docker/waiting-for-container/): what to do when an app will not start.
 - [Bash aliases](/using-deployrr/bash-aliases/): what `dcup`, `dcrec` and `dps` do.

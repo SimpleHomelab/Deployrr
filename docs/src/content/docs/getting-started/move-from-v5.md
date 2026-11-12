@@ -1,6 +1,7 @@
 ---
 title: Move from Deployrr v5 to v6
 sidebar:
+  order: 11
   label: Move from v5 to v6
 description: Move from Deployrr v5 to v6 step by step. Set up the core apps fresh, then copy your app data over one app at a time.
 type: guide

@@ -1,6 +1,7 @@
 ---
 title: "EXPERT mode (Settings > Mode): which checks it overrides and the risks"
 sidebar:
+  order: 9
   label: EXPERT mode
 description: Turn Deployrr EXPERT mode on and off, see which three checks it lets you override, and learn the risks before you answer Y to an override question.
 type: guide
@@ -11,14 +12,14 @@ tags:
   - host
 applies_to: v6.0+
 related:
-  - networking/domain-checks-failed
+  - getting-started/domain-checks-failed
   - reverse-proxy/certificate-errors
   - docker/no-internet-in-containers
   - getting-started/prerequisites
   - networking/opnsense-conflict
 last_reviewed: 2026-11-11
 status: current
-old_paths: []
+old_paths: ["/using-deployrr/expert-mode"]
 sources: []
 videos:
   - id: rdqbAr0TFnQ
@@ -127,7 +128,7 @@ In **Prerequisites** > **Domain Checks**, each failed check can be overridden on
 
 An overridden check counts as passed. So you can see `Domain Checks Passed: 8 / 8` even though a check failed. If you answer no to a question, **Domain Checks** stays `NOT DONE`.
 
-For what each check means and how to fix the cause, see [Domain Checks failed](/networking/domain-checks-failed/).
+For what each check means and how to fix the cause, see [Domain Checks failed](/getting-started/domain-checks-failed/).
 
 Cases where an override makes sense:
 
@@ -137,7 +138,7 @@ Cases where an override makes sense:
 - You turned the orange cloud on purpose.
 
 :::caution
-Do not rerun **Domain Checks** after Traefik is running. The rerun fails at port 80 with `Port 80 is reachable but something is already listening on it`, because Traefik is using the port. [Domain Checks failed](/networking/domain-checks-failed/#rerunning-domain-checks-after-traefik-is-running) tells you to press any key other than `Y` when it asks to redo the checks. EXPERT mode is the only way past that failure. Only use it if you really need to rerun them.
+Do not rerun **Domain Checks** after Traefik is running. The rerun fails at port 80 with `Port 80 is reachable but something is already listening on it`, because Traefik is using the port. [Domain Checks failed](/getting-started/domain-checks-failed/#rerunning-domain-checks-after-traefik-is-running) tells you to press any key other than `Y` when it asks to redo the checks. EXPERT mode is the only way past that failure. Only use it if you really need to rerun them.
 
 A rerun can also stop whatever listens on ports 80 and 443, even when you override. If you rerun, restart Traefik afterwards with `sudo docker restart traefik` (or your Nginx Proxy Manager container), then check that your apps open.
 :::
@@ -161,7 +162,7 @@ EXPERT mode has no effect on anything else in Deployrr. These work the same in b
 
 - **System Checks**.
 - License checks.
-- The **Requirements Not Met** box. See [Requirements Not Met](/using-deployrr/requirements-not-met/).
+- The **Requirements Not Met** box. See [Requirements Not Met](/getting-started/requirements-not-met/).
 - The checks that run when you install an app.
 
 ## Risks
@@ -191,7 +192,7 @@ If you overrode a check, test the result with the step that comes next. For Doma
 
 ## Related
 
-- [Domain Checks failed](/networking/domain-checks-failed/): fix each Domain Check, and see the override in context.
+- [Domain Checks failed](/getting-started/domain-checks-failed/): fix each Domain Check, and see the override in context.
 - [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/): the Traefik DNS error and its override.
 - [No internet on the server or in containers after setup](/docker/no-internet-in-containers/): fix the internet check before you override it.
 - [Prerequisites, step by step](/getting-started/prerequisites/): where Packages and Domain Checks sit.

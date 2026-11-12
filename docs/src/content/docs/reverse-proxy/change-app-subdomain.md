@@ -1,6 +1,7 @@
 ---
 title: Change the subdomain of an app you already installed
 sidebar:
+  order: 9
   label: Change an app's subdomain
 description: Change the address of an installed app, for example from plex to media, by editing its Traefik file. Also find where login and exposure are changed.
 type: how-to
@@ -15,7 +16,7 @@ related:
   - using-deployrr/dashboard
   - reverse-proxy/choose-login-method
   - reverse-proxy/simple-vs-advanced-mode
-  - apps/reinstall-app
+  - using-deployrr/reinstall-app
 further_reading:
   - title: "UDMS part 18: Docker labels vs the file provider"
     url: https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Docker_Labels_vs_File_Provider
@@ -65,7 +66,7 @@ Traefik, Authelia, Authentik, OAuth and TinyAuth have no `app-NAME.yml` file. Th
 
 ## Steps
 
-You can't change the subdomain by reinstalling the app. If the app already has its file, a reinstall asks the three questions again but keeps the old file. The Dashboard entry can then show the new name while Traefik still uses the old one. If that happened, change the Dashboard entry to match the file, as in [Update the Deployrr Dashboard](#update-the-deployrr-dashboard). See [Reinstall an app and keep its data](/apps/reinstall-app/#change-login-or-exposure).
+You can't change the subdomain by reinstalling the app. If the app already has its file, a reinstall asks the three questions again but keeps the old file. The Dashboard entry can then show the new name while Traefik still uses the old one. If that happened, change the Dashboard entry to match the file, as in [Update the Deployrr Dashboard](#update-the-deployrr-dashboard). See [Reinstall an app and keep its data](/using-deployrr/reinstall-app/#change-login-or-exposure).
 
 1. Go to your Docker folder.
 
@@ -192,4 +193,4 @@ To remove an app's file instead, use Un-Traefikify. See [Put any app behind Trae
 - [Set up and maintain the Deployrr Dashboard](/using-deployrr/dashboard/): fix the Dashboard entries.
 - [Choose a login method for your apps](/reverse-proxy/choose-login-method/): change an app's login.
 - [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/): change an app's exposure.
-- [Reinstall an app and keep its data](/apps/reinstall-app/): what a reinstall keeps, including the rules file.
+- [Reinstall an app and keep its data](/using-deployrr/reinstall-app/): what a reinstall keeps, including the rules file.

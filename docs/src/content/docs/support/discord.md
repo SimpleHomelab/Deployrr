@@ -8,7 +8,7 @@ tags:
 applies_to: v6.0+
 related:
   - support/ssh-access
-  - using-deployrr/forgot-pin
+  - support/forgot-pin
   - getting-started/quick-start
   - reverse-proxy/check-traefik-logs
   - docker/waiting-for-container
@@ -16,6 +16,8 @@ further_reading: []
 last_reviewed: 2026-11-09
 status: current
 old_paths: ["/deployrr/get-support-on-discord"]
+sidebar:
+  order: 1
 ---
 
 Discord is the place to ask for help with Deployrr, whatever license you have. You can also ask general homelab questions and talk with other users. This page shows how to join, where to post and what to include so people can help you quickly.
@@ -74,7 +76,7 @@ Deployrr tries to replace your Linux username, your domain name and your WAN IP 
 :::
 
 :::caution
-Never post passwords, tokens, API keys or your Deployrr PIN. This applies to messages, screenshots and log files. If you lose your PIN, see [I forgot my Deployrr PIN](/using-deployrr/forgot-pin/).
+Never post passwords, tokens, API keys or your Deployrr PIN. This applies to messages, screenshots and log files. If you lose your PIN, see [I forgot my Deployrr PIN](/support/forgot-pin/).
 :::
 
 ### Post your request
@@ -100,7 +102,7 @@ Deployrr has a **Support** entry in the **Help** menu. It is described as "How a
 ## Related
 
 - [Get remote help with Remote Assist](/support/ssh-access/): let support look at your system (Pro).
-- [I forgot my Deployrr PIN](/using-deployrr/forgot-pin/): view, email or reset your PIN without asking on Discord.
+- [I forgot my Deployrr PIN](/support/forgot-pin/): view, email or reset your PIN without asking on Discord.
 - [Quick start](/getting-started/quick-start/): the first-run steps in order.
 - [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): find more log detail for routing and certificate problems.
 - [Deployrr times out waiting for a container to start](/docker/waiting-for-container/): read container logs when an app does not start.

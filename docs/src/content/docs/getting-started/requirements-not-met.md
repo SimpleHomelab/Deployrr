@@ -37,8 +37,10 @@ videos:
     note: "Shows Deployrr v5. Menus and steps differ in v6."
 last_reviewed: 2026-11-11
 status: current
-old_paths: []
+old_paths: ["/using-deployrr/requirements-not-met"]
 sources: []
+sidebar:
+  order: 8
 ---
 
 ## Symptoms
@@ -167,13 +169,13 @@ The full Traefik order is in [Set up Traefik](/reverse-proxy/traefik-setup/).
 | `Network Adapter - Must be configured (System menu)` | The network adapter for VPN apps is not set up. | **System** > **Network**. |
 | `Rclone - Must be installed (System->Rclone menu)` | Rclone is missing. | **System** > **Mounts** > **Rclone** > **Install**. |
 | `SMB Remote - At least one must be configured (System->Rclone menu)` | No Rclone remote exists. | **System** > **Mounts** > **Rclone** > **SMB Remote**. |
-| `SMB Remote - At least one must be mounted (System->Rclone menu)` | No Rclone remote is mounted. | **System** > **Mounts** > **Rclone** > **Automount**. See [Mount a NAS share with Rclone](/host/rclone-smb-setup/). |
+| `SMB Remote - At least one must be mounted (System->Rclone menu)` | No Rclone remote is mounted. | **System** > **Mounts** > **Rclone** > **Automount**. See [Mount a NAS share with Rclone](/storage/rclone-smb-setup/). |
 
 To see the Rclone menu used from install to automount, watch [Deployrr 5 walkthrough: Rclone setup and mounting at 17:08](https://youtu.be/rdqbAr0TFnQ?t=1028) (shows Deployrr v5; menus and steps differ in v6).
 
 ### Folder lines
 
-These appear when you install an app that needs a folder. Set the folder in **System** > **Folders**. Setting a folder needs a Basic, Plus or Pro license. See [Set your media, downloads and other folders](/using-deployrr/folders/) for every folder and which apps use it.
+These appear when you install an app that needs a folder. Set the folder in **System** > **Folders**. Setting a folder needs a Basic, Plus or Pro license. See [Set your media, downloads and other folders](/storage/folders/) for every folder and which apps use it.
 
 | Line in the box | Where to clear it |
 | --- | --- |

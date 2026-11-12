@@ -21,8 +21,10 @@ videos:
     note: "Shows Deployrr v5. Menus and steps differ in v6."
 last_reviewed: 2026-11-11
 status: current
-old_paths: []
+old_paths: ["/using-deployrr/change-server-ip"]
 sources: []
+sidebar:
+  order: 4
 ---
 
 Use the **Change Server IP** tool when your server gets a new IP address. This happens after a DHCP change, after a router swap, or after you [move to a new server](/using-deployrr/move-to-new-server/). The tool saves the new IP and swaps it into your Dashboard and Traefik file provider files. It does nothing else, so this page also lists what you still do by hand.
@@ -30,7 +32,7 @@ Use the **Change Server IP** tool when your server gets a new IP address. This h
 ## Before you start
 
 - Deployrr is installed and Prerequisites are done.
-- You have a Pro license. Without it, or without Prerequisites, Deployrr shows a requirements box. See [Requirements not met](/using-deployrr/requirements-not-met/) and [Licenses](/getting-started/licenses/).
+- You have a Pro license. Without it, or without Prerequisites, Deployrr shows a requirements box. See [Requirements not met](/getting-started/requirements-not-met/) and [Licenses](/getting-started/licenses/).
 - You know the new IP and the old IP.
 - [Give the server a fixed IP](/host/fixed-ip/) so it does not change again. Set a DHCP reservation in your router, or a static IP in the operating system. This is not a Deployrr step.
 
@@ -163,4 +165,4 @@ A running container keeps the old value until you recreate it. For each of these
 - [Dashboard](/using-deployrr/dashboard/): the services file this tool edits.
 - [Traefikify](/reverse-proxy/traefikify/): the file providers this tool edits, and remote apps.
 - [Stack Manager](/using-deployrr/stack-manager/): recreate apps after the IP change.
-- [Change the hostname](/using-deployrr/change-hostname/): the matching tool for a renamed server.
+- [Change the hostname](/host/change-hostname/): the matching tool for a renamed server.

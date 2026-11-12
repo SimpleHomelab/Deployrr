@@ -8,7 +8,7 @@ tags:
   - updates
 applies_to: v6.0+
 related:
-  - using-deployrr/forgot-pin
+  - support/forgot-pin
   - getting-started/licenses
   - getting-started/updating-deployrr
   - support/discord
@@ -23,8 +23,10 @@ videos:
     title: "Deployrr 6 overview: The new Free plan"
 last_reviewed: 2026-11-12
 status: current
-old_paths: []
+old_paths: ["/using-deployrr/help-menu"]
 sources: []
+sidebar:
+  order: 5
 ---
 
 The **Help** menu ("Help, Support & Information") shows which Deployrr version you run and gives you quick access to your PIN, license info and support. This page lists what each item does.
@@ -81,7 +83,7 @@ To switch modes, see [Setup mode](/getting-started/setup-mode/).
 - **Request Pin** asks for `SimpleHomelab.com Account Email:`. If an account exists with that email, the PIN arrives by email within about 2 minutes.
 - **Reset Pin** warns that it clears your current PIN from this system and that you must set a new one in **Prerequisites** > **Verify**. If you continue, it asks for your account email. The reset takes about 2 minutes. Then set a new PIN in **Prerequisites** > **Verify**.
 
-**Request Pin** and **Reset Pin** need **Prerequisites** > **Disclaimers** done first: read the box and choose **Yes**. Otherwise a **Requirements Not Met** box appears. For the full steps, see [I forgot my Deployrr PIN](/using-deployrr/forgot-pin/).
+**Request Pin** and **Reset Pin** need **Prerequisites** > **Disclaimers** done first: read the box and choose **Yes**. Otherwise a **Requirements Not Met** box appears. For the full steps, see [I forgot my Deployrr PIN](/support/forgot-pin/).
 
 ### Deployrr and Membership
 
@@ -144,7 +146,7 @@ The item shows `ON` or `OFF`. Each time you select it, it switches.
 
 ## Related
 
-- [I forgot my Deployrr PIN](/using-deployrr/forgot-pin/): view, email or reset your PIN step by step.
+- [I forgot my Deployrr PIN](/support/forgot-pin/): view, email or reset your PIN step by step.
 - [Deployrr licenses](/getting-started/licenses/): what Free, Basic, Plus and Pro include.
 - [Updating Deployrr](/getting-started/updating-deployrr/): update when your version is behind.
 - [Get help on Discord](/support/discord/): share a sanitized log and ask for help.

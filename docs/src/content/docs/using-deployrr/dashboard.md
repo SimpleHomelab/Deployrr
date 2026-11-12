@@ -36,6 +36,8 @@ last_reviewed: 2026-11-10
 status: current
 old_paths: []
 sources: []
+sidebar:
+  order: 12
 ---
 
 The Deployrr Dashboard is one web page with a link to each of your apps. Deployrr adds new apps to it for you. This page shows how to install it, open it, add apps by hand, and fix it when it no longer matches what you have installed.
@@ -244,7 +246,7 @@ Leave the comment lines in `services.yaml` alone, such as the ones ending in `PL
 | The page does not load at your domain address | Check that the local address works first. Then see [Read the Traefik logs](/reverse-proxy/check-traefik-logs/). |
 | An app is missing | Start the dashboard if it is stopped, then run **ReDash**. |
 | A hand edit disappeared | Find the saved file in `appdata/deployrr-dashboard/config/`. It is named `services.DATE_TIME.yaml`. Copy your lines from it. |
-| Entries show an old server IP address | Run **Tools** > **Change Server IP**. See [Change the server IP](/using-deployrr/change-server-ip/). |
+| Entries show an old server IP address | Run **Tools** > **Change Server IP**. See [Change the server IP](/host/change-server-ip/). |
 
 ## Related
 

@@ -1,6 +1,7 @@
 ---
 title: Mount an SMB or NFS share without Rclone
 sidebar:
+  order: 2
   label: Mount an SMB or NFS share
 description: Mount an SMB or NFS share from your NAS with System > Mounts, without Rclone, and fix the "Selected directory is not empty" message.
 type: how-to
@@ -9,8 +10,8 @@ tags:
   - media
 applies_to: v6.0+
 related:
-  - host/rclone-smb-setup
-  - host/rclone-mount-not-empty
+  - storage/rclone-smb-setup
+  - storage/rclone-mount-not-empty
   - host/shim-task-debian
   - using-deployrr/move-to-new-server
   - using-deployrr/bash-aliases
@@ -21,7 +22,7 @@ further_reading:
     url: "https://www.simplehomelab.com/udms-07-mount-remote-shares-smb/#Test_fstab_Configuration"
 last_reviewed: 2026-11-09
 status: current
-old_paths: []
+old_paths: ["/host/smb-nfs-mounts"]
 sources: []
 ---
 
@@ -41,7 +42,7 @@ All three are under **System** > **Mounts**.
 | After a reboot | Entry in `/etc/fstab` | Entry in `/etc/fstab` | Its own service |
 | **Delay Media Apps** | Not offered | Not offered | Offered |
 
-Pick **SMB Mount** or **NFS Mount** if your server is a VPS, a bare-metal machine or a virtual machine and you want a plain mount. Pick **Rclone** if your server is a Proxmox LXC container, or if you want **Delay Media Apps** to hold your media apps back until the share is ready. See [Mount a NAS share with Rclone](/host/rclone-smb-setup/).
+Pick **SMB Mount** or **NFS Mount** if your server is a VPS, a bare-metal machine or a virtual machine and you want a plain mount. Pick **Rclone** if your server is a Proxmox LXC container, or if you want **Delay Media Apps** to hold your media apps back until the share is ready. See [Mount a NAS share with Rclone](/storage/rclone-smb-setup/).
 
 ## Before you start
 
@@ -54,7 +55,7 @@ Pick **SMB Mount** or **NFS Mount** if your server is a VPS, a bare-metal machin
 - You have an empty folder for the mount, or you are happy to let Deployrr create one.
 
 :::note
-In a Proxmox LXC container, after you choose **Yes** at the first prompt, Deployrr shows "Not Supported". The text says: "SMB mounting is only supported on VPS, Barebones, or Virtual Machine systems. If you are using a Proxmox LXC, then use Bind Mounts or Rclone." The NFS option shows the same text with "NFS". Use Proxmox bind mounts or [Rclone](/host/rclone-smb-setup/) instead. If Docker itself fails in your LXC, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
+In a Proxmox LXC container, after you choose **Yes** at the first prompt, Deployrr shows "Not Supported". The text says: "SMB mounting is only supported on VPS, Barebones, or Virtual Machine systems. If you are using a Proxmox LXC, then use Bind Mounts or Rclone." The NFS option shows the same text with "NFS". Use Proxmox bind mounts or [Rclone](/storage/rclone-smb-setup/) instead. If Docker itself fails in your LXC, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
 :::
 
 ## Steps
@@ -100,7 +101,7 @@ NFS does not ask for a user name or password. Deployrr's setup box says the UIDs
 
 ### Point your apps at the share
 
-Your NAS files now appear in the mount folder. Tell Deployrr to use it in **System** > **Folders** (see [Set your media, downloads and other folders](/using-deployrr/folders/)), then recreate your apps. Part 4 of [Mount a NAS share with Rclone](/host/rclone-smb-setup/) covers the folder steps and the recreate command. Use your mount folder where it shows the Rclone path.
+Your NAS files now appear in the mount folder. Tell Deployrr to use it in **System** > **Folders** (see [Set your media, downloads and other folders](/storage/folders/)), then recreate your apps. Part 4 of [Mount a NAS share with Rclone](/storage/rclone-smb-setup/) covers the folder steps and the recreate command. Use your mount folder where it shows the Rclone path.
 
 ## Fix "Selected directory is not empty"
 
@@ -155,7 +156,7 @@ Without the aliases, run this. Replace `DOCKER_FOLDER` with your Docker folder p
 sudo docker compose --profile all -f DOCKER_FOLDER/docker-compose-HOSTNAME.yml down --remove-orphans
 ```
 
-Start them again with `dcup` when the mount works. The Rclone version of this problem is a different error. See [Rclone mount folder is not empty](/host/rclone-mount-not-empty/).
+Start them again with `dcup` when the mount works. The Rclone version of this problem is a different error. See [Rclone mount folder is not empty](/storage/rclone-mount-not-empty/).
 
 ## Check it worked
 
@@ -196,7 +197,7 @@ If you see "Failed to add SMB mount entry to /etc/fstab. Please check permission
 Deployrr keeps the entry in `/etc/fstab` even when the mount fails. Running the option again adds a second entry. Fix the entry first.
 
 :::caution
-Linux reads `/etc/fstab` at every boot. A broken line in it can stop your server from booting normally, and the lines Deployrr adds don't tell Linux to skip a share it can't reach. Copy the file before you edit it, change only the Deployrr lines, and test your change with `sudo mount -a` before you reboot. If your server already won't boot, see [Server won't boot after an /etc/fstab change](/host/fstab-boot-recovery/).
+Linux reads `/etc/fstab` at every boot. A broken line in it can stop your server from booting normally, and the lines Deployrr adds don't tell Linux to skip a share it can't reach. Copy the file before you edit it, change only the Deployrr lines, and test your change with `sudo mount -a` before you reboot. If your server already won't boot, see [Server won't boot after an /etc/fstab change](/storage/fstab-boot-recovery/).
 :::
 
 1. Make a copy of the file:
@@ -259,8 +260,8 @@ Check the IP address, share name or export path, and (for SMB) the user name and
 
 ## Related
 
-- [Mount a NAS share with Rclone](/host/rclone-smb-setup/): the Rclone way, which Deployrr does not block in a Proxmox LXC container.
-- [Rclone mount folder is not empty](/host/rclone-mount-not-empty/): the Rclone version of the not-empty problem.
+- [Mount a NAS share with Rclone](/storage/rclone-smb-setup/): the Rclone way, which Deployrr does not block in a Proxmox LXC container.
+- [Rclone mount folder is not empty](/storage/rclone-mount-not-empty/): the Rclone version of the not-empty problem.
 - [Docker fails with "failed to create shim task"](/host/shim-task-debian/): Docker problems in a Proxmox LXC container.
 - [Move Deployrr to a new server](/using-deployrr/move-to-new-server/): mounts are not part of the move, so mount your share again on the new server.
 - [Bash aliases](/using-deployrr/bash-aliases/): what `dcup` and `dcdown` do.

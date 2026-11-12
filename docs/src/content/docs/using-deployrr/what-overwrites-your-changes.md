@@ -1,6 +1,7 @@
 ---
 title: What can overwrite or delete your changes
 sidebar:
+  order: 11
   label: What overwrites your changes
 description: Check which Deployrr actions overwrite or delete your edited files and app data, what each one keeps, and how to protect your change first.
 type: guide
@@ -52,8 +53,8 @@ Make a backup first. A deleted file or folder is gone. A rewritten file loses yo
 
 | Action | Overwrites or deletes | Keeps | Protect your change | Details |
 | --- | --- | --- | --- | --- |
-| **Apps** > **Manage Apps** > the app > **Reinstall** (shown only for a stopped app), or **Install** then **Yes** in **Already Installed** | The app's compose file, the compose files of its database containers, and every config file Deployrr ships for the app. Secrets that Deployrr makes without asking you get new values. | `appdata/APP` data, an existing Traefik rules file, secrets you typed in (the prompt offers to keep them) | Copy the files you changed and, for an app with a database, its files in `secrets/`. Put edits back, then **Recreate**. | [Reinstall](/using-deployrr/docker-folder-layout/#reinstall), [Reinstall an app](/apps/reinstall-app/) |
-| **Apps** > **Manage Apps** > the app > **Remove** | The container, the compose file and the app's secret files, also when you keep app data | `appdata/APP`, if you answer **No** to removing app data | Copy the app's files in `secrets/` first. | [Manage your apps](/apps/manage-apps/) |
+| **Apps** > **Manage Apps** > the app > **Reinstall** (shown only for a stopped app), or **Install** then **Yes** in **Already Installed** | The app's compose file, the compose files of its database containers, and every config file Deployrr ships for the app. Secrets that Deployrr makes without asking you get new values. | `appdata/APP` data, an existing Traefik rules file, secrets you typed in (the prompt offers to keep them) | Copy the files you changed and, for an app with a database, its files in `secrets/`. Put edits back, then **Recreate**. | [Reinstall](/using-deployrr/docker-folder-layout/#reinstall), [Reinstall an app](/using-deployrr/reinstall-app/) |
+| **Apps** > **Manage Apps** > the app > **Remove** | The container, the compose file and the app's secret files, also when you keep app data | `appdata/APP`, if you answer **No** to removing app data | Copy the app's files in `secrets/` first. | [Manage your apps](/using-deployrr/manage-apps/) |
 | **Tools** > **Stack Manager** > **Delete** > **Safe** | The container, compose file, the app's entries in `.env`, its Traefik rules file and Dashboard entry | `appdata/APP` and secrets | Copy the compose file and rules file first. | [Stack Manager](/using-deployrr/stack-manager/#delete) |
 | **Stack Manager** > **Delete** > **Full** | All of the above, plus `appdata/APP` and the app's secrets. It can also remove unused Docker volumes. You can't undo it. | Nothing of that app | Back up the Docker folder first. | [Stack Manager](/using-deployrr/stack-manager/#delete) |
 | **Docker** > **Cleanup** | Stopped containers, unused networks, dangling images and build cache | Running containers, volumes, your Docker folder | Nothing to copy. See [Stopped apps](#stopped-apps-after-a-cleanup). | [Free up disk space](/docker/free-disk-space/#clean-up-with-the-docker-menu) |
@@ -72,7 +73,7 @@ Make a backup first. A deleted file or folder is gone. A rewritten file loses yo
 | **Proxy** > **Traefik** > **Traefikify** with a name you used before | `app-NAME.yml`, only if you answer **Yes** at **File Provider Exists** | The file, if you answer **No** | Copy the file first. | [Traefikify](/reverse-proxy/traefikify/) |
 | **Tools** > **ReDash** | The Dashboard's `services.yaml`. Your hand edits in it are lost. It restarts the Dashboard. | The old file, saved as `services.DATE_TIME.yaml`. Dashify entries come back. | Copy your lines from the saved file. | [Dashboard](/using-deployrr/dashboard/#fix-a-dashboard-that-is-out-of-date) |
 | **Prerequisites** > **Packages** (Debian) | `/etc/systemd/resolved.conf`, set to Cloudflare and Google DNS on every run. A second run replaces the `.bak` copy with the changed file. | Nothing of your DNS settings | Copy `/etc/systemd/resolved.conf` before the first run. | [Prerequisites](/getting-started/prerequisites/) |
-| **System** > **Mounts** > **SMB Mount** | `/etc/samba/credentials`, early in each run, even if you cancel later. This changes the login of your earlier SMB mounts. | Your other mount entries. It copies `/etc/fstab` first. | Use the same NAS user every time. | [SMB and NFS mounts](/host/smb-nfs-mounts/) |
+| **System** > **Mounts** > **SMB Mount** | `/etc/samba/credentials`, early in each run, even if you cancel later. This changes the login of your earlier SMB mounts. | Your other mount entries. It copies `/etc/fstab` first. | Use the same NAS user every time. | [SMB and NFS mounts](/storage/smb-nfs-mounts/) |
 
 ## Restore and reset
 
@@ -80,8 +81,8 @@ Make a backup first. A deleted file or folder is gone. A rewritten file loses yo
 | --- | --- | --- | --- | --- |
 | **Tools** > **Backups** > **Restore** (Pro) | Your whole Docker folder, replaced by the backup. Running containers stop. | The backup file | At "Do you want to create a current backup before restoring...", any key but `n` makes one in your Backups Folder. | [Backups](/using-deployrr/backups/#restore-a-backup) |
 | **Tools** > **Backups** > **MP Restore** (Pro) | All Deployrr settings on this server, and Docker folder files that are also in the package | Docker folder files not in the package | Use it on a new server only. | [Move to a new server](/using-deployrr/move-to-new-server/) |
-| **Settings** > **Reset** | Stops and removes your app containers, then deletes unused images, volumes and networks. Clears Deployrr's status, logs and downloaded data, and the cache. | Docker folder, app data, saved settings | Back up first. | [Refresh, Reset or Remove](/using-deployrr/reset-or-remove-deployrr/#reset-deployrr-status) |
-| **Settings** > **Remove** | Deployrr's configuration, saved settings, cache, scripts and logs | Your apps, images and Docker folder | Back up first. | [Refresh, Reset or Remove](/using-deployrr/reset-or-remove-deployrr/#remove-deployrr) |
+| **Settings** > **Reset** | Stops and removes your app containers, then deletes unused images, volumes and networks. Clears Deployrr's status, logs and downloaded data, and the cache. | Docker folder, app data, saved settings | Back up first. | [Refresh, Reset or Remove](/getting-started/reset-or-remove-deployrr/#reset-deployrr-status) |
+| **Settings** > **Remove** | Deployrr's configuration, saved settings, cache, scripts and logs | Your apps, images and Docker folder | Back up first. | [Refresh, Reset or Remove](/getting-started/reset-or-remove-deployrr/#remove-deployrr) |
 
 ## Notes the tables can't hold
 

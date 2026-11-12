@@ -28,7 +28,7 @@ last_reviewed: 2026-11-08
 status: current
 old_paths: ["/deployrr/references"]
 sidebar:
-  order: 3
+  order: 13
 ---
 
 This page lists videos, guides and community links that help you learn Deployrr and the tools it works with. Material made for older versions is marked.

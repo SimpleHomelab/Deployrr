@@ -1,6 +1,7 @@
 ---
 title: Forward the right router ports for Deployrr
 sidebar:
+  order: 2
   label: Port forwarding
 description: Find out which router ports Deployrr needs for Traefik Simple, Traefik Advanced or Nginx Proxy Manager, set them on your router, and test them.
 type: how-to
@@ -14,7 +15,7 @@ apps:
   - traefik
   - npm
 related:
-  - networking/domain-checks-failed
+  - getting-started/domain-checks-failed
   - reverse-proxy/simple-vs-advanced-mode
   - host/fixed-ip
   - networking/cg-nat
@@ -138,10 +139,10 @@ Each port is checked on its own, and Domain Checks doesn't compare the result wi
 
 A green line here doesn't always prove the forward reaches your server. When the test from the internet is refused, Domain Checks also shows `Port 80 resolves to 80` (or `Port 443 resolves to 443`). Do the [check from outside](#check-from-outside) too once your reverse proxy is running.
 
-If you see an error instead, see [Domain Checks failed](/networking/domain-checks-failed/#fix-ports-80-and-443).
+If you see an error instead, see [Domain Checks failed](/getting-started/domain-checks-failed/#fix-ports-80-and-443).
 
 :::caution
-Run **Domain Checks** before Traefik or Nginx Proxy Manager is installed. Once one of them is running, a rerun fails at port 80 with `Port 80 is reachable but something is already listening on it`. See [Rerunning Domain Checks after Traefik is running](/networking/domain-checks-failed/#rerunning-domain-checks-after-traefik-is-running).
+Run **Domain Checks** before Traefik or Nginx Proxy Manager is installed. Once one of them is running, a rerun fails at port 80 with `Port 80 is reachable but something is already listening on it`. See [Rerunning Domain Checks after Traefik is running](/getting-started/domain-checks-failed/#rerunning-domain-checks-after-traefik-is-running).
 :::
 
 ### Check from outside
@@ -156,7 +157,7 @@ If an app is set to Internal in Advanced mode, it should not open from mobile da
 
 ## If it doesn't work
 
-- **The forward points at the wrong IP.** The Docker host may have a new LAN IP. Set the rules to the current address. Then give the host a fixed one. See [Give your server a fixed IP address](/host/fixed-ip/) and [Change the server IP](/using-deployrr/change-server-ip/).
+- **The forward points at the wrong IP.** The Docker host may have a new LAN IP. Set the rules to the current address. Then give the host a fixed one. See [Give your server a fixed IP address](/host/fixed-ip/) and [Change the server IP](/host/change-server-ip/).
 - **The ports don't match your mode.** Switching between Simple and Advanced later means changing the forwards too. See [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/).
 - **Your ISP blocks port 80, or you are behind CG-NAT or double NAT.** Forwards on your router then do nothing. See [Behind CG-NAT](/networking/cg-nat/). For the options in v6, watch [Deployrr 6 overview: Options for CG-NAT at 4:37](https://youtu.be/Nuo83uzTWco?t=277).
 - **A firewall on the server blocks the ports.** See [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/).
@@ -165,7 +166,7 @@ If an app is set to Internal in Advanced mode, it should not open from mobile da
 
 ## Related
 
-- [Domain Checks failed in Prerequisites](/networking/domain-checks-failed/): every check, its message and its fix.
+- [Domain Checks failed in Prerequisites](/getting-started/domain-checks-failed/): every check, its message and its fix.
 - [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/): pick the mode that decides your ports.
 - [Give your server a fixed IP address](/host/fixed-ip/): keep the forward's destination from changing.
 - [Behind CG-NAT](/networking/cg-nat/): when forwards on your router can't work.

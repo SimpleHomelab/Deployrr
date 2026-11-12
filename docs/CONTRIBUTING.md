@@ -20,21 +20,34 @@ npm run dev
 
 Open the address it prints (usually `http://localhost:4321`).
 
+## What gets a page
+
+A new page should do at least one of these:
+
+- Solve a real problem users hit, for example from Discord, an issue or a support thread.
+- Cover a step where a mistake costs data, access or a lot of time.
+- Cover a homelab topic that matters to Deployrr users, or that Deployrr itself points to.
+
+If the answer fits in about two sentences, add it to an existing page instead. Skip very easy basics, and tours of a menu where the screen explains itself. Don't retell the screen. Aim for 600 to 1,200 words.
+
 ## Add a page
 
 1. Pick the section folder under `src/content/docs/`:
 
-   | Folder | What goes there |
-   |---|---|
-   | `getting-started` | Installing, updating, first steps |
-   | `using-deployrr` | Everyday tasks in Deployrr |
-   | `apps` | Tips and fixes for one app |
-   | `reverse-proxy` | Traefik and remote access |
-   | `networking` | Firewalls, routers and network conflicts |
-   | `docker` | Docker and container problems |
-   | `host` | The operating system Deployrr runs on |
-   | `support` | Getting help |
-   | `archive` | Pages for older versions, kept for reference |
+   | Folder | Sidebar label | What goes there |
+   |---|---|---|
+   | `getting-started` | Getting started | Installing, Prerequisites, System Checks and Domain Checks, setup mode, licenses, updating Deployrr, moving from v5 |
+   | `using-deployrr` | Managing apps | Installing, updating, restarting and reinstalling apps, Stack Manager, custom.yml, .env and secrets, the Dashboard, backups, moving to a new server |
+   | `apps` | Apps | Tips and fixes for one app |
+   | `reverse-proxy` | Traefik and logins | Traefik, certificates and login methods |
+   | `networking` | Remote access and networking | Cloudflare, port forwarding, Tailscale, CG-NAT, local DNS, firewalls |
+   | `storage` | Storage | Media folders, network shares, Rclone, moving data, fstab |
+   | `docker` | Docker | Docker and container problems |
+   | `host` | Host and OS | The operating system Deployrr runs on |
+   | `support` | Support | Getting help |
+   | `archive` | Archive | Pages for older versions, kept for reference |
+
+   Set `sidebar.order` in the frontmatter so the page sits in a sensible place in its section, core pages first. Pages under `apps` have no order and sort by title.
 
 2. Copy a template from `templates/` into that folder and rename it. The file name becomes the page address, so use short lowercase words with hyphens, for example `src/content/docs/docker/rate-limit.md` becomes `/docker/rate-limit/`.
 

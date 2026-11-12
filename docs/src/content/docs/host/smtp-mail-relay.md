@@ -11,7 +11,7 @@ related:
   - using-deployrr/edit-env-and-secrets
   - reverse-proxy/choose-login-method
   - getting-started/licenses
-  - using-deployrr/requirements-not-met
+  - getting-started/requirements-not-met
 further_reading: []
 videos:
   - id: rdqbAr0TFnQ
@@ -26,6 +26,8 @@ last_reviewed: 2026-11-12
 status: current
 old_paths: []
 sources: []
+sidebar:
+  order: 6
 ---
 
 Use this page to let your server send email. You save your SMTP provider details in Deployrr, then set up Mail Relay. After that, tools on the server such as cron, smartd and fail2ban can email you.
@@ -44,7 +46,7 @@ To see where Authelia puts those emails, watch [Deployrr 5 walkthrough: Authelia
 
 - Deployrr [Prerequisites](/getting-started/prerequisites/) are done.
 - **Domain 1** is set in Prerequisites. Mail Relay needs it. In Local [setup mode](/getting-started/setup-mode/), Prerequisites can be done without a domain, so check this one.
-- You have a Basic, Plus or Pro [license](/getting-started/licenses/). Without these, you see the Requirements Not Met box. See [Requirements not met](/using-deployrr/requirements-not-met/).
+- You have a Basic, Plus or Pro [license](/getting-started/licenses/). Without these, you see the Requirements Not Met box. See [Requirements not met](/getting-started/requirements-not-met/).
 - Your server runs Debian, Ubuntu or Arch. Mail Relay installs its packages with `apt` or, on Arch, from the AUR.
 - You have an account with an SMTP provider, such as Gmail or Brevo. The Deployrr info box mentions that Brevo's free plan allows up to 300 emails per day.
 - You have your provider's SMTP host, port, username and password or key. Check your provider's SMTP settings page for them.
@@ -194,4 +196,4 @@ The `/etc/ssmtp` folder may stay behind. Once ssmtp is uninstalled, the **DONE**
 - [Edit .env and secrets](/using-deployrr/edit-env-and-secrets/): change values and secret files in your Docker folder.
 - [Choose a login method](/reverse-proxy/choose-login-method/): Authelia does not use your SMTP details.
 - [Licenses](/getting-started/licenses/): SMTP and Mail Relay need a Basic, Plus or Pro license.
-- [Requirements not met](/using-deployrr/requirements-not-met/): what to do if the menu blocks you.
+- [Requirements not met](/getting-started/requirements-not-met/): what to do if the menu blocks you.

@@ -8,11 +8,11 @@ tags:
   - compose
 applies_to: v6.0.42+
 related:
-  - apps/reinstall-app
+  - using-deployrr/reinstall-app
   - using-deployrr/stack-manager
   - docker/container-keeps-restarting
   - getting-started/licenses
-  - using-deployrr/requirements-not-met
+  - getting-started/requirements-not-met
 further_reading:
   - title: "UDMS part 13: Container logs with Docker commands"
     url: https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/#Container_Logs
@@ -31,8 +31,10 @@ videos:
     note: "Shows Deployrr v5. Menus and steps differ in v6."
 last_reviewed: 2026-11-11
 status: current
-old_paths: []
+old_paths: ["/apps/manage-apps"]
 sources: []
+sidebar:
+  order: 1
 ---
 
 The **Apps** menu is where you install apps and look after the ones you have. This guide covers **Browse Apps**, **Manage Apps** and **Refresh Cache**, and tells you when to use Stack Manager or an alias instead.
@@ -78,8 +80,8 @@ If the list is empty, you see "No apps found in registry." and "Please check tha
 
 Which questions you see depends on the app. You may see some or all of these:
 
-- **Already Installed.** This shows when you pick an app that is already installed or running. It says "plex is already running." or "plex is already installed." The name is the app's short name in lowercase. It lists what a reinstall does: stop the existing container, recreate it with the latest image and keep data volumes. Choose **Yes** to go on or **No** to cancel. **Yes** also removes the app's entry from the [Deployrr Dashboard](/using-deployrr/dashboard/). It is added again at the end of the install. See [Reinstall an app and keep its data](/apps/reinstall-app/).
-- **Port Configuration.** "Enter the port for APP". Deployrr suggests the first free port. If you type a port that is not a number in the allowed range, you see "Invalid Port" and Deployrr uses the suggestion. If your port is taken, you see "Port In Use" and Deployrr uses the suggestion. For a clash you can't fix, see [Port is already in use](/apps/port-already-in-use/).
+- **Already Installed.** This shows when you pick an app that is already installed or running. It says "plex is already running." or "plex is already installed." The name is the app's short name in lowercase. It lists what a reinstall does: stop the existing container, recreate it with the latest image and keep data volumes. Choose **Yes** to go on or **No** to cancel. **Yes** also removes the app's entry from the [Deployrr Dashboard](/using-deployrr/dashboard/). It is added again at the end of the install. See [Reinstall an app and keep its data](/using-deployrr/reinstall-app/).
+- **Port Configuration.** "Enter the port for APP". Deployrr suggests the first free port. If you type a port that is not a number in the allowed range, you see "Invalid Port" and Deployrr uses the suggestion. If your port is taken, you see "Port In Use" and Deployrr uses the suggestion. For a clash you can't fix, see [Port is already in use](/docker/port-already-in-use/).
 - **Password Configuration.** Deployrr suggests a password. Keep it or type your own. Leave the box empty to use the suggestion.
 - **GPU Selection.** For apps that can use a GPU. Pick a GPU, or choose the CPU. If you cancel, the app uses the CPU. See [GPU hardware transcoding](/apps/gpu-transcoding/).
 - **Traefik Subdomain.** "Enter a subdomain for APP". It shows when Traefik is running and the app supports it. Use lowercase letters and no spaces. If you cancel or leave it empty, Deployrr uses the default.
@@ -87,7 +89,7 @@ Which questions you see depends on the app. You may see some or all of these:
 - **Pick an Exposure Method.** **Both**, **Internal** or **External**. You see it only in Advanced mode. **Default (Internal)** keeps the app on your LAN. In Simple mode there is no prompt, and the app is exposed on both. See [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/).
 
 :::note
-If you see **License Required**, see [Licenses](/getting-started/licenses/). If you see a **Requirements Not Met** box, finish the items it lists first. See [Requirements Not Met](/using-deployrr/requirements-not-met/).
+If you see **License Required**, see [Licenses](/getting-started/licenses/). If you see a **Requirements Not Met** box, finish the items it lists first. See [Requirements Not Met](/getting-started/requirements-not-met/).
 :::
 
 ## See your installed apps with Manage Apps
@@ -172,7 +174,7 @@ The steps stop the container and remove it. They also remove the app's compose c
 **Remove** has no backup prompt and doesn't clean up unused Docker volumes. Stack Manager **Delete** > **Full** does clean them up.
 
 :::caution
-Answering **No** to "Remove app data as well?" keeps the `appdata` folder, but **Remove** currently still deletes the app's secrets. A **Safe** delete in Stack Manager keeps them. To remove an app and reuse its data and secrets later, use **Tools** > **Stack Manager** > **Delete** > **Safe**. See [Reinstall an app and keep its data](/apps/reinstall-app/).
+Answering **No** to "Remove app data as well?" keeps the `appdata` folder, but **Remove** currently still deletes the app's secrets. A **Safe** delete in Stack Manager keeps them. To remove an app and reuse its data and secrets later, use **Tools** > **Stack Manager** > **Delete** > **Safe**. See [Reinstall an app and keep its data](/using-deployrr/reinstall-app/).
 :::
 
 :::caution
@@ -189,7 +191,7 @@ If you ever see "Cannot remove dependency directly", Deployrr names the app to r
 Reinstall replaces the app's compose file with the default one. Any edits you made to it by hand are lost.
 :::
 
-See [Reinstall an app and keep its data](/apps/reinstall-app/) for what it keeps and resets.
+See [Reinstall an app and keep its data](/using-deployrr/reinstall-app/) for what it keeps and resets.
 
 ## Refresh the app list
 
@@ -206,7 +208,7 @@ See [Reinstall an app and keep its data](/apps/reinstall-app/) for what it keeps
 
 If you see "Cache build incomplete", the sync of the apps you can install failed. The sync downloads app files, so check that your server is online, then run it again. Other "sync failed" lines are warnings and don't stop the build.
 
-The only requirement is the Disclaimers step. If you see a **Requirements Not Met** box, see [Requirements Not Met](/using-deployrr/requirements-not-met/).
+The only requirement is the Disclaimers step. If you see a **Requirements Not Met** box, see [Requirements Not Met](/getting-started/requirements-not-met/).
 
 ### The cache expires after 7 days
 
@@ -224,7 +226,7 @@ When the cache expires, **Prerequisites** shows **Build Cache** as EXPIRED. Inst
 | Restart one app from the terminal | `dcrestart APP` |
 | Remove an app and its container but keep its data | **Tools** > **Stack Manager** > **Delete** > **Safe** |
 | Remove an app and all its data | **Manage Apps** > **Remove** with **Yes**, or **Stack Manager** > **Delete** > **Full** |
-| Install an app again with default settings | [Reinstall an app and keep its data](/apps/reinstall-app/) |
+| Install an app again with default settings | [Reinstall an app and keep its data](/using-deployrr/reinstall-app/) |
 
 In the aliases, replace `APP` with the app's name. See [Bash aliases](/using-deployrr/bash-aliases/).
 
@@ -249,8 +251,8 @@ See [Stack Manager](/using-deployrr/stack-manager/) for every option.
 
 ## Related
 
-- [Reinstall an app and keep its data](/apps/reinstall-app/): the reinstall routes and what they keep.
+- [Reinstall an app and keep its data](/using-deployrr/reinstall-app/): the reinstall routes and what they keep.
 - [Stack Manager](/using-deployrr/stack-manager/): start, stop, recreate, disable and delete apps.
 - [A container keeps restarting, is unhealthy or has exited](/docker/container-keeps-restarting/): find out why an app fails.
 - [Licenses](/getting-started/licenses/): what each license lets you install.
-- [Requirements Not Met](/using-deployrr/requirements-not-met/): finish what an app or menu needs first.
+- [Requirements Not Met](/getting-started/requirements-not-met/): finish what an app or menu needs first.

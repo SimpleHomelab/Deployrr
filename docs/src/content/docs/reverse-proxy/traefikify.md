@@ -33,6 +33,8 @@ last_reviewed: 2026-11-10
 status: current
 old_paths: []
 sources: []
+sidebar:
+  order: 3
 ---
 
 Traefikify puts an app behind your Traefik. The app can run on the same server, on another machine, or on a device such as a NAS. You get an address like `https://SUBDOMAIN.YOUR_DOMAIN` and a login method of your choice. Un-Traefikify removes the app from Traefik again.

@@ -1,6 +1,7 @@
 ---
 title: Move your media or Docker data to another disk
 sidebar:
+  order: 5
   label: Move data to another disk
 description: Move your media and downloads, or Docker's own storage, to a bigger disk without breaking your apps, and check that everything still works.
 type: how-to
@@ -10,9 +11,9 @@ tags:
   - media
 applies_to: v6.0+
 related:
-  - using-deployrr/folders
+  - storage/folders
   - docker/free-disk-space
-  - host/smb-nfs-mounts
+  - storage/smb-nfs-mounts
   - using-deployrr/stack-manager
   - using-deployrr/backups
 further_reading:
@@ -25,7 +26,7 @@ videos:
     note: "Shows Deployrr v5. Menus and steps differ in v6."
 last_reviewed: 2026-11-12
 status: current
-old_paths: []
+old_paths: ["/host/move-data-to-another-disk"]
 sources: []
 ---
 
@@ -65,14 +66,14 @@ sudo du -sh YOUR_FOLDER
 - You made a [backup](/using-deployrr/backups/) of your Docker folder. **Tools** > **Backups** needs a Pro license and stops all your apps while it runs. At the end it asks whether to restart the Docker stack. If you answer no, start your apps later with **Tools** > **Stack Manager** > **Up**. A backup holds only the Docker folder. It does not hold your media or Docker's images.
 - The new disk has more free space than the data you move.
 - For **Stack Manager**, you have a Basic, Plus or Pro license and all **Prerequisites** steps are done. To set a folder in **System** > **Folders** you need the same. See [Licenses](/getting-started/licenses/).
-- If your media is on a NAS, you do not need a local disk. Mount the share with [SMB or NFS Mount](/host/smb-nfs-mounts/) or [Rclone](/host/rclone-smb-setup/), then go to [Move your media and downloads](#move-your-media-and-downloads).
+- If your media is on a NAS, you do not need a local disk. Mount the share with [SMB or NFS Mount](/storage/smb-nfs-mounts/) or [Rclone](/storage/rclone-smb-setup/), then go to [Move your media and downloads](#move-your-media-and-downloads).
 
 ## Mount the new disk for good
 
 A disk you mount by hand is gone after a reboot. Add it to `/etc/fstab`, the file Linux reads at boot. This example uses a disk with an `ext4` filesystem. Replace the values in capitals where the steps say so.
 
 :::caution
-A broken line in `/etc/fstab` can stop your server from booting normally. Copy the file first. Test your change with `sudo mount -a` before you reboot. Do not reboot until the test shows no errors. If your server already won't boot, see [Server won't boot after an /etc/fstab change](/host/fstab-boot-recovery/).
+A broken line in `/etc/fstab` can stop your server from booting normally. Copy the file first. Test your change with `sudo mount -a` before you reboot. Do not reboot until the test shows no errors. If your server already won't boot, see [Server won't boot after an /etc/fstab change](/storage/fstab-boot-recovery/).
 :::
 
 1. Find your disk and its UUID:
@@ -168,13 +169,13 @@ Sonarr, Radarr and Lidarr can save space by linking a finished download to your 
 
 6. In Deployrr, go to **System** > **Folders**.
 7. Select the folder you moved, such as **Media Folder 1** or **Downloads Folder**.
-8. Pick the new folder in the directory browser, choose **Select**, then **Confirm**. See [Set a folder](/using-deployrr/folders/#set-a-folder) for each prompt. To see the folder prompts, watch [Deployrr 5 walkthrough: Setup Folders at 21:36](https://youtu.be/rdqbAr0TFnQ?t=1296) (shows Deployrr v5; menus and steps differ in v6).
+8. Pick the new folder in the directory browser, choose **Select**, then **Confirm**. See [Set a folder](/storage/folders/#set-a-folder) for each prompt. To see the folder prompts, watch [Deployrr 5 walkthrough: Setup Folders at 21:36](https://youtu.be/rdqbAr0TFnQ?t=1296) (shows Deployrr v5; menus and steps differ in v6).
 9. Repeat steps 7 and 8 for every folder you moved.
 10. Go to **Tools** > **Stack Manager** > **Recreate**.
 11. At "Select an app to recreate:", type the number of one app that uses the folder, or the number next to `all`. Wait for "APP recreated" or "All containers recreated".
 
 :::note
-Recreate is enough when an app already had that folder. If you move to a folder that an app never had, such as Media Folder 2 or 3, you must reinstall the app instead. See [Apps you installed before you set a media folder](/using-deployrr/folders/#apps-you-installed-before-you-set-a-media-folder) and [Reinstall an app and keep its data](/apps/reinstall-app/).
+Recreate is enough when an app already had that folder. If you move to a folder that an app never had, such as Media Folder 2 or 3, you must reinstall the app instead. See [Apps you installed before you set a media folder](/storage/folders/#apps-you-installed-before-you-set-a-media-folder) and [Reinstall an app and keep its data](/using-deployrr/reinstall-app/).
 :::
 
 Check that it worked (see [Check it worked](#check-it-worked)). Keep the old copy until you are sure.
@@ -339,13 +340,13 @@ sudo rm -rf /var/lib/docker.old
 
 - If an app shows `Restarting` or `Exited`, see [A container keeps restarting, is unhealthy or has exited](/docker/container-keeps-restarting/).
 - If a media app shows an empty library, the disk is probably not mounted, or your user does not own the folder. See [Media app shows an empty library](/apps/media-library-empty/).
-- If an app cannot write to the new folder, make your user the owner. See [The app cannot read or write the folder](/using-deployrr/folders/#the-app-cannot-read-or-write-the-folder).
+- If an app cannot write to the new folder, make your user the owner. See [The app cannot read or write the folder](/storage/folders/#the-app-cannot-read-or-write-the-folder).
 - If you see `no space left on device`, the wrong disk is still full. Run `df -h` and see [Free up disk space used by Docker](/docker/free-disk-space/).
 
 ## Related
 
-- [Set your media, downloads and other folders](/using-deployrr/folders/): every folder entry and how to apply a change.
+- [Set your media, downloads and other folders](/storage/folders/): every folder entry and how to apply a change.
 - [Free up disk space used by Docker](/docker/free-disk-space/): clean up before you move anything.
-- [Mount an SMB or NFS share without Rclone](/host/smb-nfs-mounts/): put your media on a NAS instead of a local disk.
+- [Mount an SMB or NFS share without Rclone](/storage/smb-nfs-mounts/): put your media on a NAS instead of a local disk.
 - [Stack Manager](/using-deployrr/stack-manager/): stop, start and recreate your apps.
 - [Back up and restore your Docker folder](/using-deployrr/backups/): make a backup before you move anything.

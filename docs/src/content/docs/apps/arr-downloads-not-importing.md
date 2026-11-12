@@ -22,7 +22,7 @@ symptoms:
   - Arr import fails with permission denied
 related:
   - apps/media-library-empty
-  - using-deployrr/folders
+  - storage/folders
   - using-deployrr/connecting-apps
   - apps/qbittorrent-vpn
   - apps/qbittorrent-webui-troubleshooting
@@ -187,7 +187,7 @@ All these apps run as the same Linux user. A file created by `root` or another u
    `-R` changes every file inside the path. A wrong path changes the wrong files. Never run it on `/` or on your Docker folder.
    :::
 
-For more on folder owners, see [The app cannot read or write the folder](/using-deployrr/folders/#the-app-cannot-read-or-write-the-folder).
+For more on folder owners, see [The app cannot read or write the folder](/storage/folders/#the-app-cannot-read-or-write-the-folder).
 
 ### 7. Check the mount
 
@@ -199,7 +199,7 @@ If your downloads folder is on a NAS, the share may be down. The folder then loo
    ls YOUR_DOWNLOADS_FOLDER
    ```
 
-2. If the list is empty and should not be, mount the share again. See [Mount a NAS share with Rclone](/host/rclone-smb-setup/) or [Mount an SMB or NFS share without Rclone](/host/smb-nfs-mounts/).
+2. If the list is empty and should not be, mount the share again. See [Mount a NAS share with Rclone](/storage/rclone-smb-setup/) or [Mount an SMB or NFS share without Rclone](/storage/smb-nfs-mounts/).
 
 If you edit a compose file or `.env` file to change a path, recreate the app afterwards. See [Stack Manager](/using-deployrr/stack-manager/).
 
@@ -219,7 +219,7 @@ Remove the torrent once it has seeded enough. Or open the download client entry 
 ## Related
 
 - [Media app shows an empty library](/apps/media-library-empty/): check that the Arr app has your media folders.
-- [Set your media, downloads and other folders](/using-deployrr/folders/): how the Downloads Folder is set and used.
+- [Set your media, downloads and other folders](/storage/folders/): how the Downloads Folder is set and used.
 - [Connect your apps to each other](/using-deployrr/connecting-apps/): host names and ports for download clients.
 - [Install qBittorrent VPN](/apps/qbittorrent-vpn/): connect the Arr apps to a client behind Gluetun.
 - [qBittorrent web UI says Unauthorized or won't open](/apps/qbittorrent-webui-troubleshooting/): get back into the client to check its paths.

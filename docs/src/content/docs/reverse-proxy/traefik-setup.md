@@ -36,6 +36,8 @@ last_reviewed: 2026-11-09
 status: current
 old_paths: []
 sources: []
+sidebar:
+  order: 1
 ---
 
 Traefik is the reverse proxy that gives your apps their own web addresses, such as `https://traefik.YOUR_DOMAIN`, with HTTPS. This page walks you through the Deployrr setup: pick Traefik, run **Preparation**, **Staging** and **Production**, then decide what to do next.
@@ -45,7 +47,7 @@ Traefik is the reverse proxy that gives your apps their own web addresses, such 
 - Finish the steps in the [Quick start](/getting-started/quick-start/): **Prerequisites**, Setup Mode set to **Hybrid** (see [Setup Mode: Local or Hybrid](/getting-started/setup-mode/)), and Domain Checks.
 - You need a Deployrr Plus or Pro license.
 - Your domain uses Cloudflare as its DNS provider. The domain can come from any registrar that lets you change the DNS servers to Cloudflare.
-- The DNS records for your domain point to your public IP. That means an A record for the domain and a wildcard record (`*.YOUR_DOMAIN`, often a CNAME). Set both to DNS only (grey cloud) in Cloudflare. With the Cloudflare proxy (orange cloud) on, Domain Checks sees a different IP and fails with "Cloudflare proxy is probably enabled/orange-clouded". If **Domain Checks** does not show `DONE`, see [Domain Checks failed](/networking/domain-checks-failed/). If your home IP changes now and then, [DDNS Updater](/apps/ddns-updater/) can keep the A record up to date.
+- The DNS records for your domain point to your public IP. That means an A record for the domain and a wildcard record (`*.YOUR_DOMAIN`, often a CNAME). Set both to DNS only (grey cloud) in Cloudflare. With the Cloudflare proxy (orange cloud) on, Domain Checks sees a different IP and fails with "Cloudflare proxy is probably enabled/orange-clouded". If **Domain Checks** does not show `DONE`, see [Domain Checks failed](/getting-started/domain-checks-failed/). If your home IP changes now and then, [DDNS Updater](/apps/ddns-updater/) can keep the A record up to date.
 - Make a Cloudflare DNS API token. In Cloudflare, go to **My Profile** > **API Tokens**. Use a user token, not an Account API Token. Give it these two permissions:
   - Zone / Zone / Read
   - Zone / DNS / Edit
@@ -94,7 +96,7 @@ In Advanced mode, local traffic can count as external if your router has no hair
 1. Open **Proxy** > **Traefik** > **Preparation** ("Traefik Preparation"). After it finishes, this entry shows "- DONE".
 2. Read the first box. It lists what you need: the Cloudflare token, its permissions, Cloudflare as your DNS provider, and a valid domain.
 3. Select **Yes** to continue. It is the button on the right. Enter picks **No** by default, so move to **Yes** first.
-4. If a **Requirements Not Met** box appears (with the number of missing items), it lists what is missing. Fix those items and start again. [Deployrr shows "Requirements Not Met"](/using-deployrr/requirements-not-met/) explains each line. The requirements are:
+4. If a **Requirements Not Met** box appears (with the number of missing items), it lists what is missing. Fix those items and start again. [Deployrr shows "Requirements Not Met"](/getting-started/requirements-not-met/) explains each line. The requirements are:
    - All **Prerequisites** done
    - Setup Mode **Hybrid**
    - Socket Proxy running

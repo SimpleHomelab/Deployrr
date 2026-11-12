@@ -22,7 +22,7 @@ if (appIds.length === 0) throw new Error('No app folders found under apps/');
 
 const slug = z
 	.string()
-	.regex(/^[a-z0-9-]+(\/[a-z0-9-]+)*$/, 'Use a page slug like "using-deployrr/forgot-pin", no leading slash');
+	.regex(/^[a-z0-9-]+(\/[a-z0-9-]+)*$/, 'Use a page slug like "support/forgot-pin", no leading slash');
 
 const docsExtension = z.object({
 	// Optional here so pages that aren't articles (homepage, tag pages) render through

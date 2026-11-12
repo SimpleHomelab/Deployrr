@@ -1,6 +1,7 @@
 ---
 title: Apps are stopped or show empty folders after a reboot
 sidebar:
+  order: 4
   label: Apps not starting after reboot
 description: Start Jellyfin, Sonarr, Radarr and other media apps that stay Exited after a reboot, and check your disk or share is mounted first.
 type: troubleshooting
@@ -26,8 +27,8 @@ symptoms:
   - My NAS share or disk is not mounted after a reboot
 related:
   - using-deployrr/stack-manager
-  - host/rclone-smb-setup
-  - host/smb-nfs-mounts
+  - storage/rclone-smb-setup
+  - storage/smb-nfs-mounts
   - apps/media-library-empty
   - using-deployrr/bash-aliases
 further_reading:
@@ -117,7 +118,7 @@ If it is not active, start it from Deployrr:
 3. At "Service Not Active", choose **Yes** to "Would you like to start it now?".
 4. Look for "Rclone service started successfully". If you see "Failed to start service", the message names the log file to read.
 
-If you see "An automount is already defined and active for this remote.", the service is running. If the folder is still empty, see [Rclone mount folder is not empty](/host/rclone-mount-not-empty/). Part 3 of [Mount a NAS share with Rclone](/host/rclone-smb-setup/) has the full setup.
+If you see "An automount is already defined and active for this remote.", the service is running. If the folder is still empty, see [Rclone mount folder is not empty](/storage/rclone-mount-not-empty/). Part 3 of [Mount a NAS share with Rclone](/storage/rclone-smb-setup/) has the full setup.
 
 ### 3. SMB, NFS or disk entry in /etc/fstab is not mounted
 
@@ -134,10 +135,10 @@ To understand how the `/etc/fstab` test works, read [UDMS part 07: Test fstab Co
 If the share or disk is mounted after `sudo mount -a` but was not mounted at boot, the NAS may not have been ready when your server booted. Next time, make sure the NAS is on before you start the server.
 
 :::caution
-A wrong line in `/etc/fstab` can stop your server from booting normally. Before you change it, copy it with `sudo cp /etc/fstab /etc/fstab.before-edit`. After you change it, run `sudo mount -a` and fix every error before you reboot. Deployrr also keeps copies as `/etc/fstab_` followed by the date and time. See [If the mount fails](/host/smb-nfs-mounts/#if-the-mount-fails) for the steps. For a local disk, see [Move data to another disk](/host/move-data-to-another-disk/). If the server doesn't boot at all, see [Server won't boot after an /etc/fstab change](/host/fstab-boot-recovery/).
+A wrong line in `/etc/fstab` can stop your server from booting normally. Before you change it, copy it with `sudo cp /etc/fstab /etc/fstab.before-edit`. After you change it, run `sudo mount -a` and fix every error before you reboot. Deployrr also keeps copies as `/etc/fstab_` followed by the date and time. See [If the mount fails](/storage/smb-nfs-mounts/#if-the-mount-fails) for the steps. For a local disk, see [Move data to another disk](/storage/move-data-to-another-disk/). If the server doesn't boot at all, see [Server won't boot after an /etc/fstab change](/storage/fstab-boot-recovery/).
 :::
 
-The lines that **SMB Mount** and **NFS Mount** add do not tell Linux to skip a share it cannot reach. A local disk line can use the `nofail` option, so the server still boots if the disk is missing. [Move data to another disk](/host/move-data-to-another-disk/) shows a line with it.
+The lines that **SMB Mount** and **NFS Mount** add do not tell Linux to skip a share it cannot reach. A local disk line can use the `nofail` option, so the server still boots if the disk is missing. [Move data to another disk](/storage/move-data-to-another-disk/) shows a line with it.
 
 ### 4. Start your apps
 
@@ -173,7 +174,7 @@ This needs completed Prerequisites, a Basic, Plus or Pro license, Rclone install
 
 To see this set up, watch [Deployrr 5 walkthrough: Rclone Delay Media Apps at 19:36](https://youtu.be/rdqbAr0TFnQ?t=1176) (shows Deployrr v5; menus differ in v6).
 
-After the next reboot, Deployrr waits for the Rclone mount and then starts your media apps. It checks every 5 seconds and gives up after about 15 minutes. If the mount never appears, it stops and removes the media app containers. This also removes Audiobookshelf and Lollypop, which otherwise start on their own. Your app data stays in the Docker folder. Fix the mount (step 2), then start the apps with **Stack Manager** > **Up** (step 4). **Start Container** can't help here, because the containers are gone. See part 5 of [Mount a NAS share with Rclone](/host/rclone-smb-setup/) for the log files.
+After the next reboot, Deployrr waits for the Rclone mount and then starts your media apps. It checks every 5 seconds and gives up after about 15 minutes. If the mount never appears, it stops and removes the media app containers. This also removes Audiobookshelf and Lollypop, which otherwise start on their own. Your app data stays in the Docker folder. Fix the mount (step 2), then start the apps with **Stack Manager** > **Up** (step 4). **Start Container** can't help here, because the containers are gone. See part 5 of [Mount a NAS share with Rclone](/storage/rclone-smb-setup/) for the log files.
 
 :::note
 **Delay Media Apps** only watches the Rclone mount. It does not wait for an SMB or NFS mount in `/etc/fstab`, or for a local disk. It does not start Kasm, Resilio Sync or MQTTX Web either. After a reboot, start those with step 4.
@@ -197,7 +198,7 @@ If the app runs but the library is empty, restart the app and see [Media app sho
 ## Related
 
 - [Stack Manager](/using-deployrr/stack-manager/): **Up**, **Start Container** and every other option.
-- [Mount a NAS share with Rclone](/host/rclone-smb-setup/): set up the share and **Delay Media Apps**.
-- [Mount an SMB or NFS share without Rclone](/host/smb-nfs-mounts/): the `/etc/fstab` entries and how to fix them.
+- [Mount a NAS share with Rclone](/storage/rclone-smb-setup/): set up the share and **Delay Media Apps**.
+- [Mount an SMB or NFS share without Rclone](/storage/smb-nfs-mounts/): the `/etc/fstab` entries and how to fix them.
 - [Media app shows an empty library or no folders](/apps/media-library-empty/): when the app runs but shows nothing.
 - [Bash aliases](/using-deployrr/bash-aliases/): `dcup`, `dcstart` and `dps`.

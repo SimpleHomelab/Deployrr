@@ -15,7 +15,7 @@ apps:
 applies_to: v6.0+
 related:
   - reverse-proxy/traefik-setup
-  - apps/authentik-removal
+  - reverse-proxy/authentik-removal
   - reverse-proxy/setup-auth-bypass-using-file-provider
   - reverse-proxy/restrict-access-using-ip-allowlist
   - apps/jellyfin-client-on-lg-webos
@@ -43,6 +43,8 @@ last_reviewed: 2026-11-09
 status: current
 old_paths: []
 sources: []
+sidebar:
+  order: 4
 ---
 
 Apps behind Traefik can ask visitors to log in before they see anything. This guide helps you pick a login method, install it from the **Security** menu, and switch your apps to it. It is for anyone who finished [Set up Traefik](/reverse-proxy/traefik-setup/).
@@ -118,7 +120,7 @@ To see the same install and device registration, watch [Deployrr 5 walkthrough: 
 3. Open `https://authentik.YOUR_DOMAIN/if/flow/initial-setup/` in your browser.
 4. Create your admin account.
 
-Authentik asks you for nothing during install. Its database password and secret key are created for you. To remove Authentik later, see [Remove Authentik](/apps/authentik-removal/).
+Authentik asks you for nothing during install. Its database password and secret key are created for you. To remove Authentik later, see [Remove Authentik](/reverse-proxy/authentik-removal/).
 
 ### Google OAuth
 
@@ -264,7 +266,7 @@ If an app shows an error or doesn't load, its chain probably names a method that
 - TV and mobile apps often can't show a login page. For those, switch the app to No Authentication if it has its own login (see [Jellyfin app on LG webOS TV or Xbox shows error -27](/apps/jellyfin-client-on-lg-webos/)), or use [Auth Bypass](/reverse-proxy/setup-auth-bypass-using-file-provider/).
 - To limit an app to your home network or VPN, add [an IP allowlist](/reverse-proxy/restrict-access-using-ip-allowlist/). Manage Auth replaces the chain name, so check the chain after you run it on such an app.
 - To change a password, add a user, or register a new two-factor device later, see [Change login passwords and add users](/reverse-proxy/manage-login-users/). Running a method's install again can remove the users you added.
-- To stop using Authentik, move your apps to another method first. See [Remove Authentik](/apps/authentik-removal/).
+- To stop using Authentik, move your apps to another method first. See [Remove Authentik](/reverse-proxy/authentik-removal/).
 
 ## Next steps
 
@@ -274,7 +276,7 @@ If an app shows an error or doesn't load, its chain probably names a method that
 ## Related
 
 - [Set up Traefik](/reverse-proxy/traefik-setup/): the setup this guide builds on.
-- [Remove Authentik](/apps/authentik-removal/): switch apps away from Authentik and delete it.
+- [Remove Authentik](/reverse-proxy/authentik-removal/): switch apps away from Authentik and delete it.
 - [Let mobile apps skip the login page](/reverse-proxy/setup-auth-bypass-using-file-provider/): let apps that can't show a login page get through.
 - [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/): limit an app to chosen addresses.
 - [Jellyfin app on LG webOS TV or Xbox shows error -27](/apps/jellyfin-client-on-lg-webos/): TV apps and login pages.

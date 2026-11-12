@@ -14,7 +14,7 @@ related:
   - docker/socket-proxy
   - docker/container-keeps-restarting
   - using-deployrr/restart-recreate-reinstall
-  - apps/manage-apps
+  - using-deployrr/manage-apps
 further_reading: []
 videos:
   - id: oY1U_Htes9A
@@ -59,7 +59,7 @@ To see the idea in a manual setup, watch [DeUnhealth video: health check and aut
 
 DeUnhealth asks no other questions.
 
-If you see `Required app not running` with `[REQUIRED] socket-proxy must be installed and running first`, install or start Socket Proxy first, then run the install again. See [Requirements Not Met](/using-deployrr/requirements-not-met/) for other boxes.
+If you see `Required app not running` with `[REQUIRED] socket-proxy must be installed and running first`, install or start Socket Proxy first, then run the install again. See [Requirements Not Met](/getting-started/requirements-not-met/) for other boxes.
 
 ## Check it worked
 
@@ -78,7 +78,7 @@ If you see `Required app not running` with `[REQUIRED] socket-proxy must be inst
    sudo docker logs deunhealth
    ```
 
-   With the aliases: `dlogs deunhealth`. It keeps following the log. Press Ctrl+C to stop. You can also go to **Apps** > **Manage Apps**, select **DeUnhealth**, press **Manage**, then choose **Logs**. See [Install and manage apps from the Apps menu](/apps/manage-apps/).
+   With the aliases: `dlogs deunhealth`. It keeps following the log. Press Ctrl+C to stop. You can also go to **Apps** > **Manage Apps**, select **DeUnhealth**, press **Manage**, then choose **Logs**. See [Install and manage apps from the Apps menu](/using-deployrr/manage-apps/).
 
 ## Add DeUnhealth to another app
 
@@ -167,4 +167,4 @@ If Docker or Compose reports an error after your edit, copy the backup back over
 - [Socket Proxy](/docker/socket-proxy/): DeUnhealth needs it running.
 - [A container keeps restarting, is unhealthy or has exited](/docker/container-keeps-restarting/): find the cause of an unhealthy app.
 - [Restart, Recreate or Reinstall](/using-deployrr/restart-recreate-reinstall/): why a label edit needs Recreate.
-- [Install and manage apps from the Apps menu](/apps/manage-apps/): status, logs and restart.
+- [Install and manage apps from the Apps menu](/using-deployrr/manage-apps/): status, logs and restart.

@@ -11,7 +11,7 @@ related:
   - using-deployrr/custom-yml
   - reverse-proxy/check-traefik-logs
   - docker/waiting-for-container
-  - using-deployrr/change-hostname
+  - host/change-hostname
 videos:
   - id: rdqbAr0TFnQ
     start: 1468
@@ -29,7 +29,7 @@ status: current
 old_paths: ["/operating-system/bash-aliases-explained"]
 sources: []
 sidebar:
-  order: 3
+  order: 15
 ---
 
 Deployrr can add a set of short commands (aliases) to your terminal. For example, `dps` lists your containers and `dclogs` follows the logs of your Compose apps. This page shows how to turn them on and lists every alias.
@@ -108,7 +108,7 @@ These aliases remove data. `drm`, `ddelimages`, `derase` and `dprune` act on all
 
 ## Docker Compose
 
-These aliases work on the Compose file Deployrr keeps in your Docker folder for this machine. It is named `docker-compose-HOSTNAME.yml`, where `HOSTNAME` is your hostname. They act on all apps in that file. If you rename your server, see [Change the hostname](/using-deployrr/change-hostname/). Services you add yourself in [custom.yml](/using-deployrr/custom-yml/) are in that file too, so these aliases work on them.
+These aliases work on the Compose file Deployrr keeps in your Docker folder for this machine. It is named `docker-compose-HOSTNAME.yml`, where `HOSTNAME` is your hostname. They act on all apps in that file. If you rename your server, see [Change the hostname](/host/change-hostname/). Services you add yourself in [custom.yml](/using-deployrr/custom-yml/) are in that file too, so these aliases work on them.
 
 | Alias | What it does |
 | --- | --- |

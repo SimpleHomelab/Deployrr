@@ -14,12 +14,12 @@ related:
 further_reading: []
 last_reviewed: 2026-11-08
 status: current
-old_paths: ["/deployrr/change-hostname"]
+old_paths: ["/deployrr/change-hostname", "/using-deployrr/change-hostname"]
 sources:
   - type: discord
     ref: https://discord.com/channels/974306760171073556/1380986201879609515
 sidebar:
-  order: 2
+  order: 5
 ---
 
 Use this page after you rename the server that runs Deployrr, or after you [move Deployrr to a new server](/using-deployrr/move-to-new-server/) with a different hostname. Deployrr keeps using the old hostname in your Docker folder until you update it.

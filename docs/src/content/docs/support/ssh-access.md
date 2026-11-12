@@ -9,7 +9,7 @@ related:
   - support/discord
   - getting-started/quick-start
   - reverse-proxy/check-traefik-logs
-  - using-deployrr/forgot-pin
+  - support/forgot-pin
 videos:
   - id: Nuo83uzTWco
     start: 532
@@ -18,6 +18,8 @@ further_reading: []
 last_reviewed: 2026-11-09
 status: current
 old_paths: ["/deployrr/get-support-via-ssh"]
+sidebar:
+  order: 4
 ---
 
 Some problems are easier to fix with someone looking at your system. Remote Assist lets the support team connect to your host for a short session. You start it and stop it from the Deployrr **Help** menu. For a short look at the feature, watch [Deployrr 6 overview: Remote Assistance with Tmate at 8:52](https://youtu.be/Nuo83uzTWco?t=532).
@@ -76,7 +78,7 @@ Send the details only in a direct message. Do not post them in a channel, a foru
 
 If you select **No**, Deployrr reminds you to run `passwd` yourself later. Do that soon, because the temporary password stays active until you change it.
 
-You can also stop Remote Assist from **Tools** > **Diagnostics**. While a session is on, the Remote Assist row there reads "Status - ACTIVE - Security Warning!" and the overall health shows "Unhealthy - Issues detected". Diagnostics can only stop a session. To start one, use **Help** > **Remote Assist**. See [Deployrr shows "Unhealthy - Issues detected"](/using-deployrr/diagnostics/) for the other Diagnostics checks.
+You can also stop Remote Assist from **Tools** > **Diagnostics**. While a session is on, the Remote Assist row there reads "Status - ACTIVE - Security Warning!" and the overall health shows "Unhealthy - Issues detected". Diagnostics can only stop a session. To start one, use **Help** > **Remote Assist**. See [Deployrr shows "Unhealthy - Issues detected"](/support/diagnostics/) for the other Diagnostics checks.
 
 If your host restarts while Remote Assist is on, open **Help** and check the status. If it still shows **ACTIVE**, select **Remote Assist** to stop it. That cleans up the details file and lets you restore your password.
 
@@ -108,4 +110,4 @@ Do not open SSH on your router to the internet so someone can log in with a pass
 - [Get help on Discord](/support/discord/): ask for help first and what to include.
 - [Quick start](/getting-started/quick-start/): the first-run steps in order.
 - [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): find log detail yourself before you ask for a session.
-- [I forgot my Deployrr PIN](/using-deployrr/forgot-pin/): the other support tools in the **Help** menu.
+- [I forgot my Deployrr PIN](/support/forgot-pin/): the other support tools in the **Help** menu.

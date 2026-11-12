@@ -10,8 +10,8 @@ related:
   - using-deployrr/move-to-new-server
   - docker/compose-malformed
   - using-deployrr/custom-yml
-  - using-deployrr/change-hostname
-  - using-deployrr/reset-or-remove-deployrr
+  - host/change-hostname
+  - getting-started/reset-or-remove-deployrr
 further_reading: []
 videos:
   - id: Nuo83uzTWco
@@ -29,6 +29,8 @@ last_reviewed: 2026-11-09
 status: current
 old_paths: []
 sources: []
+sidebar:
+  order: 13
 ---
 
 Use **Tools** > **Backups** to save a copy of your Docker folder, bring an old copy back, and clean up backups you no longer need. Make a backup before you change something big, such as setting up the Docker folder again.
@@ -159,5 +161,5 @@ A backup on the same disk does not help if that disk fails. Copy the backups you
 - [Move Deployrr to a new server](/using-deployrr/move-to-new-server/): use a migration package to move everything to another machine.
 - [Docker environment setup fails: docker-compose file is malformed](/docker/compose-malformed/): rebuild your setup, and back up first.
 - [Add your own containers with custom.yml](/using-deployrr/custom-yml/): your `custom.yml` is part of the Docker folder, so it is in every backup.
-- [Change the hostname](/using-deployrr/change-hostname/): another change worth backing up before you start.
-- [Refresh, Reset or Remove Deployrr](/using-deployrr/reset-or-remove-deployrr/): back up first, because Reset currently stops your apps and deletes their images.
+- [Change the hostname](/host/change-hostname/): another change worth backing up before you start.
+- [Refresh, Reset or Remove Deployrr](/getting-started/reset-or-remove-deployrr/): back up first, because Reset currently stops your apps and deletes their images.

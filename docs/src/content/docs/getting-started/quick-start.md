@@ -10,7 +10,7 @@ related:
   - getting-started/prerequisites
   - getting-started/install-errors
   - getting-started/updating-deployrr
-  - using-deployrr/forgot-pin
+  - support/forgot-pin
   - getting-started/videos-and-guides
 further_reading:
   - title: "UDMS part 05: Create a regular user and prepare Ubuntu or Debian"
@@ -136,7 +136,7 @@ See [Setup Mode: Local or Hybrid](/getting-started/setup-mode/) for the full Hyb
 4. Select **Proceed** to confirm.
 5. The first time, Deployrr asks you to create a 6-digit PIN. Write it down somewhere safe.
 
-The next time you verify, Deployrr asks for the same PIN. If you lose it, see [I forgot my Deployrr PIN](/using-deployrr/forgot-pin/).
+The next time you verify, Deployrr asks for the same PIN. If you lose it, see [I forgot my Deployrr PIN](/support/forgot-pin/).
 
 The **Verify** line in the menu shows your current license, for example `Verify - Your Deployrr License: Free`.
 

@@ -1,6 +1,7 @@
 ---
 title: Deployrr times out waiting for a container to start
 sidebar:
+  order: 3
   label: Timed out waiting for a container
 description: Fix Deployrr timing out while it waits for an app or Traefik to start. Check logs, ports and dependencies, then replace an old snap or distro Docker.
 type: troubleshooting
@@ -130,7 +131,7 @@ These are general Docker commands.
    sudo docker logs --tail 100 CONTAINER
    ```
 
-   The last lines usually say what is wrong. Typical causes are a wrong setting, a missing file or a permission error. If Docker says `failed to create shim task` and you run in a Proxmox LXC container, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/). If the app uses an Rclone mount for your NAS and the files are missing, see [Rclone mount fails because the folder is not empty](/host/rclone-mount-not-empty/).
+   The last lines usually say what is wrong. Typical causes are a wrong setting, a missing file or a permission error. If Docker says `failed to create shim task` and you run in a Proxmox LXC container, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/). If the app uses an Rclone mount for your NAS and the files are missing, see [Rclone mount fails because the folder is not empty](/storage/rclone-mount-not-empty/).
 
    With the aliases: `dlogs CONTAINER`. It shows the last 50 lines and follows the log; press Ctrl+C to stop. `dclogs` follows the logs of all your apps. See [Bash aliases](/using-deployrr/bash-aliases/). To see `docker logs` used on a container, watch [Bash aliases video: reading container logs at 3:56](https://youtu.be/Ux9khKhqhcg?t=236) (manual Docker Compose setup). For Traefik, see [Read the Traefik logs](/reverse-proxy/check-traefik-logs/).
 
@@ -144,7 +145,7 @@ These are general Docker commands.
 
    If another program uses the port, stop that program or change the port. For port 53 and Pi-hole, see [Pi-hole will not start because port 53 is already in use](/apps/pi-hole-port-53-conflict/).
 
-6. If the problem is not clear, run **Tools** > **Diagnostics** ("Run System Health Checks") for a general check of your server. It needs a Basic, Plus or Pro license. See [Deployrr shows "Unhealthy - Issues detected"](/using-deployrr/diagnostics/) for what each line means. Then generate a log to share when you ask for help. In Deployrr, open **Settings** > **Logs**. The menu describes it as "Generate Sanitized Deployrr Log". See [Get help on Discord](/support/discord/) for what else to include.
+6. If the problem is not clear, run **Tools** > **Diagnostics** ("Run System Health Checks") for a general check of your server. It needs a Basic, Plus or Pro license. See [Deployrr shows "Unhealthy - Issues detected"](/support/diagnostics/) for what each line means. Then generate a log to share when you ask for help. In Deployrr, open **Settings** > **Logs**. The menu describes it as "Generate Sanitized Deployrr Log". See [Get help on Discord](/support/discord/) for what else to include.
 
 If the log shows image pull errors, see [Docker image pulls fail](/docker/rate-limit/).
 
@@ -233,7 +234,7 @@ Removing Docker data deletes all containers, images, volumes and app data on thi
 You don't need **Settings** > **Reset** for this. Each Prerequisites step lets you redo it. Use Reset only as a last resort.
 
 :::caution
-**Settings** > **Reset** takes your stack down, which stops and removes your containers. Then it removes all unused Docker data, which now includes the images and volumes your apps used. Then it deletes Deployrr's own files, including the Deployrr program, and exits. You must run the installer again. Back up first. See [Refresh, Reset or Remove Deployrr](/using-deployrr/reset-or-remove-deployrr/).
+**Settings** > **Reset** takes your stack down, which stops and removes your containers. Then it removes all unused Docker data, which now includes the images and volumes your apps used. Then it deletes Deployrr's own files, including the Deployrr program, and exits. You must run the installer again. Back up first. See [Refresh, Reset or Remove Deployrr](/getting-started/reset-or-remove-deployrr/).
 :::
 
 :::note

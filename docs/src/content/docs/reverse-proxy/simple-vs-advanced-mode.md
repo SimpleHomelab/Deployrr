@@ -32,6 +32,8 @@ last_reviewed: 2026-11-10
 status: current
 old_paths: []
 sources: []
+sidebar:
+  order: 2
 ---
 
 Deployrr has two Traefik modes, Simple and Advanced. The mode decides which router ports you forward and whether you can limit an app to your home network. This guide explains both modes, helps you pick one, and shows how to set each app to Internal, External or Both.
@@ -78,7 +80,7 @@ If you see **Proxy Type Required**, first pick Traefik under **Proxy** > **Proxy
 Change the mode and the router forwards together. If your router still forwards 80 and 443 to 80 and 443 after you switch to Advanced, or to 81 and 444 after you switch to Simple, your apps can stop opening. Deployrr does not change your router. Have your router's admin page open before you switch.
 :::
 
-**Domain Checks** accepts either pair of forwards. If it fails on port 80 or 443, see [Domain Checks failed](/networking/domain-checks-failed/).
+**Domain Checks** accepts either pair of forwards. If it fails on port 80 or 443, see [Domain Checks failed](/getting-started/domain-checks-failed/).
 
 ### What Simple mode does
 

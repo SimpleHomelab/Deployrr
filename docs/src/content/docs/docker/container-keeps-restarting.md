@@ -1,6 +1,7 @@
 ---
 title: A container keeps restarting, is unhealthy or has exited
 sidebar:
+  order: 2
   label: Container keeps restarting
 description: Find out why an app that ran before now shows Restarting, unhealthy or Exited. Read its log, match the cause to a fix, then start or recreate it.
 type: troubleshooting
@@ -20,8 +21,8 @@ related:
   - docker/waiting-for-container
   - using-deployrr/stack-manager
   - using-deployrr/bash-aliases
-  - using-deployrr/diagnostics
-  - apps/reinstall-app
+  - support/diagnostics
+  - using-deployrr/reinstall-app
 further_reading:
   - title: "UDMS part 13: Scenario 1, troubleshooting a container issue"
     url: https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/#Scenario_1_Troubleshooting_a_Container_Issue
@@ -60,7 +61,7 @@ You may also notice that the app's web page does not open, or that it opens and 
 
 Most Deployrr apps are set up so Docker starts them again if they stop. If such an app crashes right after it starts, Docker starts it again, it crashes again, and you see `Restarting`. This is called a crash loop.
 
-Some apps are set up not to start on their own. These are mostly media apps, such as Plex, Jellyfin, Emby, Sonarr, Radarr, Lidarr, Bazarr, Tautulli, Kavita, Komga, Navidrome and Calibre. They often use files from a NAS, so Deployrr does not start them before the share is mounted. After a crash or a server reboot, they show `Exited` instead of `Restarting`. To start them after a reboot once your Rclone mount is up, see **Delay Media Apps** in [Mount a NAS share with Rclone](/host/rclone-smb-setup/). For every way to start them after a reboot, see [Apps are stopped or show empty folders after a reboot](/docker/apps-not-starting-after-reboot/).
+Some apps are set up not to start on their own. These are mostly media apps, such as Plex, Jellyfin, Emby, Sonarr, Radarr, Lidarr, Bazarr, Tautulli, Kavita, Komga, Navidrome and Calibre. They often use files from a NAS, so Deployrr does not start them before the share is mounted. After a crash or a server reboot, they show `Exited` instead of `Restarting`. To start them after a reboot once your Rclone mount is up, see **Delay Media Apps** in [Mount a NAS share with Rclone](/storage/rclone-smb-setup/). For every way to start them after a reboot, see [Apps are stopped or show empty folders after a reboot](/docker/apps-not-starting-after-reboot/).
 
 `Up ... (unhealthy)` means the container runs but its own health check fails. `Exited` means the container stopped.
 
@@ -92,7 +93,7 @@ You can also go to **Tools** > **Stack Manager** > **Containers Status** in Depl
 
 A container that restarts every few seconds fills its log and can use a lot of CPU. Stop it first.
 
-1. In Deployrr, go to **Apps** > **Manage Apps** and pick the app. A restarting app usually shows "Status: Running" here. See [Install and manage apps from the Apps menu](/apps/manage-apps/) for the markers.
+1. In Deployrr, go to **Apps** > **Manage Apps** and pick the app. A restarting app usually shows "Status: Running" here. See [Install and manage apps from the Apps menu](/using-deployrr/manage-apps/) for the markers.
 2. Choose **Stop**.
 3. Look for "APP stopped successfully".
 
@@ -150,9 +151,9 @@ The output lists the last health check runs and what each one printed. Read the 
 
 | The log or status shows | What to do |
 | --- | --- |
-| `address already in use` or `port is already allocated` | Another program holds the port. See [Port already in use](/apps/port-already-in-use/). |
-| `permission denied`, or a missing folder or file | Check the folder paths the app uses. See [Set your media, downloads and other folders](/using-deployrr/folders/). |
-| The app needs files from your NAS and they are missing | Check that the share is mounted. See [Mount a NAS share with Rclone](/host/rclone-smb-setup/) and [Rclone mount fails because the folder is not empty](/host/rclone-mount-not-empty/). |
+| `address already in use` or `port is already allocated` | Another program holds the port. See [Port already in use](/docker/port-already-in-use/). |
+| `permission denied`, or a missing folder or file | Check the folder paths the app uses. See [Set your media, downloads and other folders](/storage/folders/). |
+| The app needs files from your NAS and they are missing | Check that the share is mounted. See [Mount a NAS share with Rclone](/storage/rclone-smb-setup/) and [Rclone mount fails because the folder is not empty](/storage/rclone-mount-not-empty/). |
 | A helper container, such as a database, is unhealthy or not running | Repeat steps 1 to 4 for the helper. Fix it first. The app depends on it. |
 | The app talks to Docker and cannot reach it | Socket Proxy may be stopped. See [Socket Proxy](/docker/socket-proxy/). |
 | The page does not open and the app itself looks fine | Traefik may be the problem. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/) and [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/). |
@@ -163,7 +164,7 @@ The output lists the last health check runs and what each one printed. Read the 
 | `failed to create shim task` in a Proxmox LXC container | See [Docker fails with "failed to create shim task"](/host/shim-task-debian/). |
 | qBittorrent VPN is unhealthy or its web UI will not open | See [qBittorrent web UI says Unauthorized or won't open](/apps/qbittorrent-webui-troubleshooting/). |
 
-For a general check of your server, run **Tools** > **Diagnostics**. It needs a Basic, Plus or Pro license. See [Deployrr shows "Unhealthy - Issues detected"](/using-deployrr/diagnostics/).
+For a general check of your server, run **Tools** > **Diagnostics**. It needs a Basic, Plus or Pro license. See [Deployrr shows "Unhealthy - Issues detected"](/support/diagnostics/).
 
 ### 6. Start or recreate the app
 
@@ -185,7 +186,7 @@ With the aliases: `dcstart APP` and `dcrec APP`. Unlike the menu option, `dcrec`
 
 ### 7. Reinstall as a last resort
 
-If the app still fails, reinstall it. See [Reinstall an app and keep its data](/apps/reinstall-app/).
+If the app still fails, reinstall it. See [Reinstall an app and keep its data](/using-deployrr/reinstall-app/).
 
 :::caution
 Do not choose a **Full** delete unless you accept losing the app's data and settings. Back up your Docker folder first. See [Back up and restore your Docker folder](/using-deployrr/backups/).
@@ -215,5 +216,5 @@ If you still need help, go to **Settings** > **Logs** ("Generate Sanitized Deplo
 - [Deployrr times out waiting for a container to start](/docker/waiting-for-container/): the same problem during an install.
 - [Stack Manager](/using-deployrr/stack-manager/): every option for starting, stopping, recreating and disabling apps.
 - [Bash aliases](/using-deployrr/bash-aliases/): `dps`, `dpss`, `dlogs`, `dcstart`, `dcstop` and `dcrec`.
-- [Deployrr shows "Unhealthy - Issues detected"](/using-deployrr/diagnostics/): a health check of your server.
-- [Reinstall an app and keep its data](/apps/reinstall-app/): the last resort.
+- [Deployrr shows "Unhealthy - Issues detected"](/support/diagnostics/): a health check of your server.
+- [Reinstall an app and keep its data](/using-deployrr/reinstall-app/): the last resort.

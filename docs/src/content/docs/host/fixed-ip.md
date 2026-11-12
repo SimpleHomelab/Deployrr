@@ -8,7 +8,7 @@ tags:
   - ports
 applies_to: v6.0+
 related:
-  - using-deployrr/change-server-ip
+  - host/change-server-ip
   - getting-started/prerequisites
   - reverse-proxy/multi-server-same-domain
   - host/proxmox-lxc
@@ -22,6 +22,8 @@ last_reviewed: 2026-11-12
 status: current
 old_paths: []
 sources: []
+sidebar:
+  order: 3
 ---
 
 Give your server an IP address that never changes. Do this before you set **Server IP** in Deployrr, and ideally before you install apps.
@@ -329,13 +331,13 @@ If the address changed, pick the case that fits you.
 
 The tool then updates the Deployrr Dashboard and the Traefik app rules files on this server. It does not recreate your apps. Recreate them afterwards. See [Restart, recreate and reinstall apps](/using-deployrr/restart-recreate-reinstall/).
 
-**Apps already installed, without Pro.** Open **Prerequisites** > **Server IP** and enter the new address. Then do the manual fixes in [Change the server IP](/using-deployrr/change-server-ip/).
+**Apps already installed, without Pro.** Open **Prerequisites** > **Server IP** and enter the new address. Then do the manual fixes in [Change the server IP](/host/change-server-ip/).
 
 Also update your router's port forwards so they point to the new address. See [Simple vs Advanced mode](/reverse-proxy/simple-vs-advanced-mode/) for the ports you forward. If another server's Traefik points at this server by IP, change the IP in that rules file too. See [Multiple servers on one domain](/reverse-proxy/multi-server-same-domain/).
 
 ## Related
 
-- [Change the server IP](/using-deployrr/change-server-ip/): update Deployrr and your apps after the address changes.
+- [Change the server IP](/host/change-server-ip/): update Deployrr and your apps after the address changes.
 - [Prerequisites](/getting-started/prerequisites/): where you enter the server IP.
 - [Multiple servers on one domain](/reverse-proxy/multi-server-same-domain/): remote apps that hold this server's IP.
 - [Run Deployrr in a Proxmox LXC](/host/proxmox-lxc/): set the address in Proxmox.

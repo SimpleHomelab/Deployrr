@@ -26,10 +26,10 @@ symptoms:
   - Sonarr or Radarr root folder is empty or does not list /data/media1
   - Media is on my NAS but the app cannot see it
 related:
-  - using-deployrr/folders
-  - apps/reinstall-app
-  - host/rclone-smb-setup
-  - host/smb-nfs-mounts
+  - storage/folders
+  - using-deployrr/reinstall-app
+  - storage/rclone-smb-setup
+  - storage/smb-nfs-mounts
   - using-deployrr/stack-manager
 further_reading:
   - title: "UDMS part 07: Permission denied errors on SMB mounts"
@@ -91,7 +91,7 @@ Work through the checks below in order. Stop when your library fills.
 
 ### 1. Check the files on the server
 
-1. In Deployrr, go to **System** > **Folders**. Note the path next to **Media Folder 1**. If it says `NOT SET`, set it as shown in [Set a folder](/using-deployrr/folders/#set-a-folder), then go to check 2.
+1. In Deployrr, go to **System** > **Folders**. Note the path next to **Media Folder 1**. If it says `NOT SET`, set it as shown in [Set a folder](/storage/folders/#set-a-folder), then go to check 2.
 2. List the folder on the server. Replace `YOUR_MEDIA_FOLDER` with the path from step 1:
 
    ```bash
@@ -102,11 +102,11 @@ Work through the checks below in order. Stop when your library fills.
 
 If your media is on a NAS and the list is empty, the share is not mounted:
 
-- Mount it again with [Rclone](/host/rclone-smb-setup/) or with [SMB and NFS mounts](/host/smb-nfs-mounts/).
-- If Rclone says the mount folder is not empty, see [Rclone mount folder is not empty](/host/rclone-mount-not-empty/).
-- If the files are there after a reboot but the app was empty at start, the NAS was not ready when the app started. Use **System** > **Mounts** > **Rclone** > **Delay Media Apps**. See part 5 of [Mount a NAS share with Rclone](/host/rclone-smb-setup/). For SMB, NFS or a local disk, see [Apps are stopped or show empty folders after a reboot](/docker/apps-not-starting-after-reboot/).
+- Mount it again with [Rclone](/storage/rclone-smb-setup/) or with [SMB and NFS mounts](/storage/smb-nfs-mounts/).
+- If Rclone says the mount folder is not empty, see [Rclone mount folder is not empty](/storage/rclone-mount-not-empty/).
+- If the files are there after a reboot but the app was empty at start, the NAS was not ready when the app started. Use **System** > **Mounts** > **Rclone** > **Delay Media Apps**. See part 5 of [Mount a NAS share with Rclone](/storage/rclone-smb-setup/). For SMB, NFS or a local disk, see [Apps are stopped or show empty folders after a reboot](/docker/apps-not-starting-after-reboot/).
 
-When the files show on the server again, restart the app from **Apps** > **Manage Apps**: pick the app and choose **Restart**, or **Start** if it is stopped. See [Install and manage apps from the Apps menu](/apps/manage-apps/).
+When the files show on the server again, restart the app from **Apps** > **Manage Apps**: pick the app and choose **Restart**, or **Start** if it is stopped. See [Install and manage apps from the Apps menu](/using-deployrr/manage-apps/).
 
 ### 2. Check that the app has the folder
 
@@ -129,10 +129,10 @@ An app only gets the media folders that were set when you installed it. To see w
 
    A line that starts with `#` is off. For example, `# - $MEDIADIR1:/data/media1` means the app has no Media Folder 1.
 
-4. If the lines are off, but you set the folder in **System** > **Folders**, [reinstall the app](/apps/reinstall-app/). Reinstalling keeps the app's data but replaces its compose file, so make the backups on that page first. For a running app, start the reinstall from **Apps** > **Browse Apps**. **Manage Apps** shows **Reinstall** only for a stopped app.
+4. If the lines are off, but you set the folder in **System** > **Folders**, [reinstall the app](/using-deployrr/reinstall-app/). Reinstalling keeps the app's data but replaces its compose file, so make the backups on that page first. For a running app, start the reinstall from **Apps** > **Browse Apps**. **Manage Apps** shows **Reinstall** only for a stopped app.
 5. If the lines are on and the path in `.env` changed, recreate the app. Go to **Tools** > **Stack Manager** > **Recreate** and pick the app. See [Stack Manager](/using-deployrr/stack-manager/). With the Deployrr bash aliases: `dcrec APP`.
 
-Recreating does not turn on a media folder that was off. Only a reinstall does. To pick the right action for other changes, see [Restart, Recreate or Reinstall an app](/using-deployrr/restart-recreate-reinstall/). For the full explanation, see [Apps you installed before you set a media folder](/using-deployrr/folders/#apps-you-installed-before-you-set-a-media-folder).
+Recreating does not turn on a media folder that was off. Only a reinstall does. To pick the right action for other changes, see [Restart, Recreate or Reinstall an app](/using-deployrr/restart-recreate-reinstall/). For the full explanation, see [Apps you installed before you set a media folder](/storage/folders/#apps-you-installed-before-you-set-a-media-folder).
 
 ### 3. Use the path inside the app
 
@@ -170,7 +170,7 @@ Apps run as your Linux user and its main group. Deployrr makes your user the own
 
 To see a root-owned mount folder fixed by hand, watch [Rclone SMB mount on Ubuntu/LXC: folder owner at 11:09](https://youtu.be/D-XS0biLP14?t=669) (manual setup).
 
-On a NAS mount, the NAS decides who can read. Check the share permissions on the NAS, and that the account you mount with can read the share. See [UDMS part 07: Permission Denied Errors](https://www.simplehomelab.com/udms-07-mount-remote-shares-smb/#Permission_Denied_Errors) (manual setup). For more, see [The app cannot read or write the folder](/using-deployrr/folders/#the-app-cannot-read-or-write-the-folder).
+On a NAS mount, the NAS decides who can read. Check the share permissions on the NAS, and that the account you mount with can read the share. See [UDMS part 07: Permission Denied Errors](https://www.simplehomelab.com/udms-07-mount-remote-shares-smb/#Permission_Denied_Errors) (manual setup). For more, see [The app cannot read or write the folder](/storage/folders/#the-app-cannot-read-or-write-the-folder).
 
 ### 5. Scan the library
 
@@ -188,8 +188,8 @@ A new library can take a while to fill. Media servers scan in the background, an
 
 ## Related
 
-- [Set your media, downloads and other folders](/using-deployrr/folders/): every folder entry, which apps use it, and what to do after a change.
-- [Reinstall an app and keep its data](/apps/reinstall-app/): add a media folder to an app you installed earlier.
-- [Mount a NAS share with Rclone](/host/rclone-smb-setup/): mount your NAS and delay media apps until it is ready.
-- [Mount an SMB or NFS share without Rclone](/host/smb-nfs-mounts/): the other way to mount a NAS.
+- [Set your media, downloads and other folders](/storage/folders/): every folder entry, which apps use it, and what to do after a change.
+- [Reinstall an app and keep its data](/using-deployrr/reinstall-app/): add a media folder to an app you installed earlier.
+- [Mount a NAS share with Rclone](/storage/rclone-smb-setup/): mount your NAS and delay media apps until it is ready.
+- [Mount an SMB or NFS share without Rclone](/storage/smb-nfs-mounts/): the other way to mount a NAS.
 - [Stack Manager](/using-deployrr/stack-manager/): recreate an app after a folder path change.

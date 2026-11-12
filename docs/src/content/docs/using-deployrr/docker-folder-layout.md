@@ -1,6 +1,7 @@
 ---
 title: What is in your Docker folder
 sidebar:
+  order: 10
   label: Docker folder layout
 description: See what each file and folder in your Docker folder does, which ones you can edit, how to apply a change, and why one backup covers your app data.
 type: guide
@@ -14,7 +15,7 @@ related:
   - using-deployrr/custom-yml
   - using-deployrr/edit-env-and-secrets
   - using-deployrr/backups
-  - using-deployrr/folders
+  - storage/folders
 further_reading:
   - title: "UDMS part 14: folders, files and permissions for a Docker server"
     url: https://www.simplehomelab.com/udms-14-docker-media-server/
@@ -41,7 +42,7 @@ Deployrr keeps everything it sets up for your apps in one folder, called the Doc
 
 You pick the Docker folder in **Prerequisites** > **Docker Folder**. The box suggests `/home/YOUR_USER/docker`. You can choose another path. The **Environment** step then fills the folder.
 
-In this page, `HOSTNAME` is the hostname of your server. The folder names below use your real hostname. For example, if your server is called `homelab`, you have `compose/homelab`. If you rename the server later, see [Change the hostname](/using-deployrr/change-hostname/). **Tools** > **Change Hostname** does not update `scripts/HOSTNAME`. If you use **Delay Media Apps**, run it again afterwards.
+In this page, `HOSTNAME` is the hostname of your server. The folder names below use your real hostname. For example, if your server is called `homelab`, you have `compose/homelab`. If you rename the server later, see [Change the hostname](/host/change-hostname/). **Tools** > **Change Hostname** does not update `scripts/HOSTNAME`. If you use **Delay Media Apps**, run it again afterwards.
 
 Your backups are not in this folder. **Prerequisites** has a separate **Backups Folder** step. It suggests `/home/YOUR_USER/docker_backups`.
 
@@ -98,7 +99,7 @@ To see a similar folder layout built by hand, watch [Ultimate Docker Server in 5
 | `scripts/HOSTNAME/` | The script that starts your media apps after a reboot (`start-media-after-boot.sh`). |
 | `secrets/` | Secret files, such as passwords and keys, one file each. |
 
-`.env` and `secrets/` belong to root. Use `sudo` to read them in a terminal. See [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/). **Tools** > **Diagnostics** checks that `.env` has the permissions it should (600) and can fix them. See [Diagnostics](/using-deployrr/diagnostics/).
+`.env` and `secrets/` belong to root. Use `sudo` to read them in a terminal. See [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/). **Tools** > **Diagnostics** checks that `.env` has the permissions it should (600) and can fix them. See [Diagnostics](/support/diagnostics/).
 
 ## What you can edit and what Deployrr writes
 
@@ -201,7 +202,7 @@ This means:
 
 Some things sit outside the Docker folder, so a backup does not cover them:
 
-- Your media, downloads and other folders from **System** > **Folders**. See [Set your media, downloads and other folders](/using-deployrr/folders/).
+- Your media, downloads and other folders from **System** > **Folders**. See [Set your media, downloads and other folders](/storage/folders/).
 - Any container you added yourself in `custom.yml` that stores its data somewhere else.
 - Docker's own images and volumes.
 
@@ -234,4 +235,4 @@ Some things sit outside the Docker folder, so a backup does not cover them:
 - [Add your own containers with custom.yml](/using-deployrr/custom-yml/): the place for your own services.
 - [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/): change a value with the .env Editor or Secrets Editor.
 - [Back up and restore your Docker folder](/using-deployrr/backups/): copy the whole folder, including app data.
-- [Set your media, downloads and other folders](/using-deployrr/folders/): the folders that sit outside the Docker folder.
+- [Set your media, downloads and other folders](/storage/folders/): the folders that sit outside the Docker folder.
