@@ -25,11 +25,11 @@ videos:
     title: "Deployrr 5 walkthrough: Deployrr Dashboard setup"
     note: Shows Deployrr v5. Menus and steps differ in v6.
   - id: OnoKy73b-w4
-    start: 369
+    start: 364
     title: "Deployrr 5 intro: the auto-populating Deployrr Dashboard"
     note: Shows Deployrr v5. Menus and steps differ in v6.
   - id: rdqbAr0TFnQ
-    start: 4002
+    start: 4001
     title: "Deployrr 5 walkthrough: editing services.yaml by hand"
     note: Shows Deployrr v5. Menus and steps differ in v6.
 last_reviewed: 2026-11-10
@@ -42,7 +42,7 @@ The Deployrr Dashboard is one web page with a link to each of your apps. Deployr
 
 The dashboard is based on Homepage. The install box says "Based on Homepage". In general, Homepage is an open source dashboard.
 
-To see what the dashboard does, watch [Deployrr 5 intro: the auto-populating Deployrr Dashboard at 6:09](https://youtu.be/OnoKy73b-w4?t=369) (shows Deployrr v5; menus differ in v6).
+To see what the dashboard does, watch [Deployrr 5 intro: the auto-populating Deployrr Dashboard at 6:04](https://youtu.be/OnoKy73b-w4?t=364) (shows Deployrr v5; menus and steps differ in v6).
 
 ## Before you start
 
@@ -70,7 +70,7 @@ Deployrr adds Socket Proxy and Traefik (if Traefik runs) to the new dashboard. I
 Deployrr only adds apps that you install after the dashboard exists. The **Docker** menu says "not retroactive!" for this reason. Use **ReDash** below to add the apps you installed earlier.
 :::
 
-To see the install and first start, watch [Deployrr 5 walkthrough: Deployrr Dashboard setup at 30:19](https://youtu.be/rdqbAr0TFnQ?t=1819) (shows Deployrr v5; menus differ in v6).
+To see the install and first start, watch [Deployrr 5 walkthrough: Deployrr Dashboard setup at 30:19](https://youtu.be/rdqbAr0TFnQ?t=1819) (shows Deployrr v5; menus and steps differ in v6).
 
 ## Open the dashboard
 

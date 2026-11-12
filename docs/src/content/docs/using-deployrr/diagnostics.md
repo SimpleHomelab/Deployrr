@@ -88,7 +88,7 @@ Deployrr flags your system as Unhealthy when any of these is true:
 
 Permissions `600` mean only the owner can read and write the file. These files hold passwords and keys, so Deployrr wants them locked down. Remote Assist counts as a problem because it gives the support team access to your server.
 
-To see why `acme.json` needs `600`, watch [Traefik 3 guide: creating acme.json and setting permission 600 at 26:13](https://youtu.be/KMZIyoZ3jWM?t=1573) (manual Docker Compose setup, so Deployrr does these steps for you).
+To see why `acme.json` needs `600`, watch [Traefik 3 guide: creating acme.json and setting permission 600 at 26:13](https://youtu.be/KMZIyoZ3jWM?t=1573) (manual Docker Compose setup). With Deployrr, don't create `acme.json` by hand. If it is missing, see [The line says `File not found`](#the-line-says-file-not-found-or-unhealthy-) below.
 
 The other main menu messages mean something different:
 
@@ -140,7 +140,7 @@ Deployrr fixes these for you.
 
 The menu does not update its lines right after a fix. Leaving and opening **Diagnostics** again shows the new state.
 
-To see Deployrr catch a wrong `.env` permission and fix it with one click, watch [Deployrr 5 walkthrough: Tools menu permission fix at 1:21:31](https://youtu.be/rdqbAr0TFnQ?t=4891) (shows Deployrr v5; menus and steps differ in v6).
+To see Deployrr catch a wrong `.env` permission and fix it with one click, watch [Deployrr 5 walkthrough: Tools menu detects a wrong .env permission and fixes it at 1:21:31](https://youtu.be/rdqbAr0TFnQ?t=4891) (shows Deployrr v5; menus and steps differ in v6).
 
 If you prefer to do it yourself, run the command for the file that is flagged. Replace `YOUR_DOCKER_FOLDER` with the path of your Docker folder. This is a value you fill in. The path is the one Deployrr shows on the fix screen. A common path is `/home/USERNAME/docker`.
 
