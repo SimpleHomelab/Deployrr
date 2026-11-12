@@ -92,6 +92,8 @@ Make a backup first. A deleted file or folder is gone. A rewritten file loses yo
 - **Google OAuth:** a rerun writes `secrets/oauth_secrets` again. Lines you added by hand are lost. Emails you entered in earlier runs come back.
 - **CrowdSec:** a rerun also rewrites `acquis.yaml` and `custom-whitelists.yaml`. Copy them if you edited them.
 
+To keep your own Traefik middleware safe from a Preparation rerun, put it in a file with your own name. See [Edit Traefik rules files safely](/reverse-proxy/edit-traefik-rules-files/#add-your-own-middleware).
+
 To avoid most of this, add users by hand. See [Change passwords and add users](/reverse-proxy/manage-login-users/).
 
 ### Stopped apps after a cleanup

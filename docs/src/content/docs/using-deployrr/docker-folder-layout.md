@@ -147,7 +147,7 @@ If the app can't reach its database after the reinstall, ask for help on [Discor
 
 ### Traefik rules files
 
-Each `app-APP.yml` file tells Traefik where to find one app. If an app behind Traefik shows a 404 or 502, check the address on the `url:` line in this file. See [One app behind Traefik shows 404, 502 or Gateway Timeout](/reverse-proxy/app-404-or-502/).
+Each `app-APP.yml` file tells Traefik where to find one app. If an app behind Traefik shows a 404 or 502, check the address on the `url:` line in this file. See [One app behind Traefik shows 404, 502 or Gateway Timeout](/reverse-proxy/app-404-or-502/). To edit a file, add your own middleware or restore a copy, see [Edit Traefik rules files safely](/reverse-proxy/edit-traefik-rules-files/).
 
 To make a file again from the menu, run **Traefikify** with the same name. Deployrr shows **File Provider Exists** and asks if you want to overwrite it. See [Put any app behind Traefik with Traefikify](/reverse-proxy/traefikify/).
 
