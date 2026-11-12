@@ -1,6 +1,7 @@
 ---
 title: Server won't boot after an /etc/fstab change
 sidebar:
+  order: 6
   label: Server won't boot after fstab change
 description: Get your server booting again after a bad /etc/fstab line, using a console and a saved copy of the file, then stop it from happening again.
 type: troubleshooting
@@ -16,8 +17,8 @@ symptoms:
   - Server does not come back after a reboot and SSH does not work
   - Server hangs at boot after I edited /etc/fstab
 related:
-  - host/smb-nfs-mounts
-  - host/move-data-to-another-disk
+  - storage/smb-nfs-mounts
+  - storage/move-data-to-another-disk
   - docker/apps-not-starting-after-reboot
   - using-deployrr/stack-manager
 further_reading:
@@ -28,7 +29,7 @@ further_reading:
 videos: []
 last_reviewed: 2026-11-12
 status: current
-old_paths: []
+old_paths: ["/host/fstab-boot-recovery"]
 sources: []
 ---
 
@@ -60,7 +61,7 @@ Linux reads `/etc/fstab` at every boot. It mounts each line in it.
 - A line for a local disk that is missing, for example a wrong UUID or an unplugged disk, usually stops the boot in emergency mode. A typo in the file can do the same. A line without `nofail` has no way to skip the disk.
 - A network share (`cifs` or `nfs`) that Linux can't reach usually only delays the boot. The share stays unmounted and the server then boots. Behaviour can differ between distros. If your server booted but your apps or folders are empty, see [Apps are stopped or show empty folders after a reboot](/docker/apps-not-starting-after-reboot/) instead.
 
-In **System** > **Mounts**, the lines that **SMB Mount** and **NFS Mount** add to `/etc/fstab` do not have `nofail`. Each one sits under a `# SMB mount added by Deployrr` or `# NFS mount added by Deployrr` line. If the run ended with "Failed to mount SMB share" (or NFS), the line is still in the file at the next reboot. Before each run, Deployrr saves a copy of the file as `/etc/fstab_` followed by the date and time, such as `/etc/fstab_20261112_143005`, so you may have several copies. See [Mount an SMB or NFS share without Rclone](/host/smb-nfs-mounts/).
+In **System** > **Mounts**, the lines that **SMB Mount** and **NFS Mount** add to `/etc/fstab` do not have `nofail`. Each one sits under a `# SMB mount added by Deployrr` or `# NFS mount added by Deployrr` line. If the run ended with "Failed to mount SMB share" (or NFS), the line is still in the file at the next reboot. Before each run, Deployrr saves a copy of the file as `/etc/fstab_` followed by the date and time, such as `/etc/fstab_20261112_143005`, so you may have several copies. See [Mount an SMB or NFS share without Rclone](/storage/smb-nfs-mounts/).
 
 ## Fix
 
@@ -213,7 +214,7 @@ On a VPS you may not get the GRUB menu. Use your provider's rescue mode instead.
 
 3. Many apps don't start on their own after a reboot. In Deployrr, go to **Tools** > **Stack Manager** > **Up**. Wait for "Docker stack is up". See [Apps are stopped or show empty folders after a reboot](/docker/apps-not-starting-after-reboot/).
 
-If you turned off a line with `#`, the disk or share it mounted is not mounted now. Fix that line properly before you turn it on again. For an SMB or NFS line, see [If the mount fails](/host/smb-nfs-mounts/#if-the-mount-fails). For a local disk, see [Mount the new disk for good](/host/move-data-to-another-disk/#mount-the-new-disk-for-good).
+If you turned off a line with `#`, the disk or share it mounted is not mounted now. Fix that line properly before you turn it on again. For an SMB or NFS line, see [If the mount fails](/storage/smb-nfs-mounts/#if-the-mount-fails). For a local disk, see [Mount the new disk for good](/storage/move-data-to-another-disk/#mount-the-new-disk-for-good).
 
 ## Keep it from happening again
 
@@ -241,7 +242,7 @@ Do these every time you edit `/etc/fstab`:
 
 To see how a manual setup tests an fstab entry, read [UDMS part 07: Test fstab Configuration](https://www.simplehomelab.com/udms-07-mount-remote-shares-smb/#Test_fstab_Configuration) for SMB or [UDMS part 08: Test the fstab Entry](https://www.simplehomelab.com/udms-08-mount-remote-folders-using-nfs/#Test_the_fstab_Entry) for NFS (manual setup, background only).
 
-Add `nofail` to the options of a data disk. It means the boot goes on when that mount fails. The disk line in [Move data to another disk](/host/move-data-to-another-disk/) already has it:
+Add `nofail` to the options of a data disk. It means the boot goes on when that mount fails. The disk line in [Move data to another disk](/storage/move-data-to-another-disk/) already has it:
 
 ```txt
 UUID=YOUR_UUID  /mnt/data  ext4  defaults,nofail  0  2
@@ -251,7 +252,7 @@ You can do the same for a share that Deployrr added. In the mount line, the opti
 
 ## Related
 
-- [Mount an SMB or NFS share without Rclone](/host/smb-nfs-mounts/): what Deployrr adds to `/etc/fstab` and how to fix or remove it.
-- [Move your media or Docker data to another disk](/host/move-data-to-another-disk/): a disk line with `nofail`.
+- [Mount an SMB or NFS share without Rclone](/storage/smb-nfs-mounts/): what Deployrr adds to `/etc/fstab` and how to fix or remove it.
+- [Move your media or Docker data to another disk](/storage/move-data-to-another-disk/): a disk line with `nofail`.
 - [Apps are stopped or show empty folders after a reboot](/docker/apps-not-starting-after-reboot/): when the server boots but apps or folders are empty.
 - [Stack Manager](/using-deployrr/stack-manager/): **Up** and the other options.

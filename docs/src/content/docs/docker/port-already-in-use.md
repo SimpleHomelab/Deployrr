@@ -1,6 +1,7 @@
 ---
 title: "Port already in use: find what uses it and pick another port"
 sidebar:
+  order: 5
   label: Port already in use
 description: Fix the Port In Use box and Docker's "address already in use" error by finding what holds the port, then picking another port for your app.
 type: troubleshooting
@@ -26,7 +27,7 @@ related:
   - reverse-proxy/nginx-proxy-manager
 last_reviewed: 2026-11-11
 status: current
-old_paths: []
+old_paths: ["/apps/port-already-in-use"]
 sources: []
 further_reading:
   - title: "UDMS part 14: Connecting the Apps and Docker networking"
@@ -198,7 +199,7 @@ If the edit goes wrong, put the backup back and recreate the app again:
 sudo cp ~/docker/.env.bak ~/docker/.env
 ```
 
-You can also [reinstall the app](/apps/reinstall-app/) and answer the port question again.
+You can also [reinstall the app](/using-deployrr/reinstall-app/) and answer the port question again.
 
 ## What to update after a port change
 

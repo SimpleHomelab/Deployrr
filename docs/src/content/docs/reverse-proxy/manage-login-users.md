@@ -1,6 +1,7 @@
 ---
 title: Change login passwords and add users for Basic Auth, TinyAuth, Authelia and Google OAuth
 sidebar:
+  order: 5
   label: Change passwords and add users
 description: Change a password, add or remove a user, and recover two-factor login for Basic Auth, TinyAuth, Authelia, Authentik and Google OAuth.
 type: guide

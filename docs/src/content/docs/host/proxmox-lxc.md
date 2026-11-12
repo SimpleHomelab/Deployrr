@@ -1,6 +1,7 @@
 ---
 title: Run Deployrr in a Proxmox LXC container
 sidebar:
+  order: 1
   label: Run Deployrr in a Proxmox LXC
 description: Pick the right System Type, pass /dev/net/tun into your LXC, add NAS storage with bind mounts, and know what Kasm and a VM change.
 type: guide
@@ -9,8 +10,8 @@ tags:
   - install
 applies_to: v6.0+
 related:
-  - host/smb-nfs-mounts
-  - host/rclone-smb-setup
+  - storage/smb-nfs-mounts
+  - storage/rclone-smb-setup
   - host/shim-task-debian
   - apps/gpu-transcoding
   - apps/qbittorrent-vpn
@@ -153,7 +154,7 @@ In an LXC container, open **System** > **Mounts** > **SMB Mount** or **NFS Mount
 
 You have two choices:
 
-- **Rclone.** Deployrr does not block it in an LXC. See [Mount a NAS share with Rclone](/host/rclone-smb-setup/).
+- **Rclone.** Deployrr does not block it in an LXC. See [Mount a NAS share with Rclone](/storage/rclone-smb-setup/).
 - **A Proxmox bind mount.** Mount the NAS on the Proxmox host, then share that folder with the container. The steps below are general Proxmox knowledge.
 
 To see the Proxmox LXC changes needed for Rclone, watch [Rclone SMB mount on Ubuntu/LXC: Proxmox LXC modifications at 3:29](https://youtu.be/D-XS0biLP14?t=209) (manual Docker Compose setup; Deployrr does these steps for you). To understand bind mounts and ID mapping, read [UDMS part 9](https://www.simplehomelab.com/udms-part-9-bind-mount-remote-storage-in-proxmox-lxc-containers/) (manual setup).
@@ -194,7 +195,7 @@ This works for a NAS share mounted on the Proxmox host, or for a local disk. Rep
 
    You should see your files.
 
-5. In Deployrr, open **System** > **Folders** and set your media or downloads folder to `/mnt/media`. See [Set your media, downloads and other folders](/using-deployrr/folders/).
+5. In Deployrr, open **System** > **Folders** and set your media or downloads folder to `/mnt/media`. See [Set your media, downloads and other folders](/storage/folders/).
 
 ### Files show as nobody in an unprivileged LXC
 
@@ -258,8 +259,8 @@ An LXC shares the Proxmox host's kernel. That makes it light, but you work aroun
 
 ## Related
 
-- [Mount SMB and NFS shares](/host/smb-nfs-mounts/): the mounts that work on a VPS, bare metal or VM.
-- [Mount a NAS share with Rclone](/host/rclone-smb-setup/): the NAS option that works in an LXC.
+- [Mount SMB and NFS shares](/storage/smb-nfs-mounts/): the mounts that work on a VPS, bare metal or VM.
+- [Mount a NAS share with Rclone](/storage/rclone-smb-setup/): the NAS option that works in an LXC.
 - [Docker fails with "failed to create shim task"](/host/shim-task-debian/): Docker problems in an LXC.
 - [GPU hardware transcoding](/apps/gpu-transcoding/): GPU steps for media apps.
 - [qBittorrent VPN](/apps/qbittorrent-vpn/): the VPN app that needs `/dev/net/tun`.

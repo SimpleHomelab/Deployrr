@@ -1,6 +1,7 @@
 ---
 title: "Fix the UFW firewall on a VPS: apps can't reach the internet or show certificate errors"
 sidebar:
+  order: 6
   label: UFW firewall on a VPS
 description: Fix apps on a VPS or dedicated server that cannot reach the internet or show self-signed certificate errors, by cleaning up UFW and using Simple mode.
 type: troubleshooting
@@ -43,7 +44,7 @@ old_paths: ["/networking/ufw-firewall-vps-dedi"]
 sources: []
 ---
 
-You run Deployrr on a rented VPS or a dedicated server. Your apps cannot reach the internet, or you see certificate errors you cannot explain. This page helps you clean up the firewall on the server and get back to a working state. If **Domain Checks** reports that port 80 or 443 is not reachable, see [Domain Checks failed](/networking/domain-checks-failed/).
+You run Deployrr on a rented VPS or a dedicated server. Your apps cannot reach the internet, or you see certificate errors you cannot explain. This page helps you clean up the firewall on the server and get back to a working state. If **Domain Checks** reports that port 80 or 443 is not reachable, see [Domain Checks failed](/getting-started/domain-checks-failed/).
 
 ## Symptoms
 
@@ -139,7 +140,7 @@ Steps 1, 2 and 5 are general Linux and UFW advice. They are not part of Deployrr
 
    On a VPS in Simple mode, enter the server's public IP address. Deployrr then shows "Server IP set to" and your address. You can run this again at any time.
 
-   If you change the IP later, use **Tools** > **Change Server IP** (needs a Pro license). It asks for the new IP, then the previous IP. It then asks you to confirm. It updates the IP for services on the Deployrr Dashboard and in the Traefik file providers. [Change the server IP](/using-deployrr/change-server-ip/) walks through it.
+   If you change the IP later, use **Tools** > **Change Server IP** (needs a Pro license). It asks for the new IP, then the previous IP. It then asks you to confirm. It updates the IP for services on the Deployrr Dashboard and in the Traefik file providers. [Change the server IP](/host/change-server-ip/) walks through it.
 
 ### Set a basic UFW rule set
 

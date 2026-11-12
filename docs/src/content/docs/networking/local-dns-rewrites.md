@@ -1,6 +1,7 @@
 ---
 title: Set up local DNS rewrites so Internal apps open at home
 sidebar:
+  order: 5
   label: Local DNS rewrites
 description: Point *.YOUR_DOMAIN at your server's LAN IP with Pi-hole or AdGuard Home so Internal apps open by name from devices on your home network.
 type: how-to
@@ -14,7 +15,7 @@ apps: [pihole]
 related:
   - reverse-proxy/simple-vs-advanced-mode
   - apps/pi-hole-port-53-conflict
-  - networking/domain-checks-failed
+  - getting-started/domain-checks-failed
   - host/fixed-ip
   - reverse-proxy/restrict-access-using-ip-allowlist
 last_reviewed: 2026-11-12
@@ -153,7 +154,7 @@ Keep these in mind:
 - **The old answer is cached.** Restart the browser. If that does not help, restart the device or clear its DNS cache.
 - **The browser ignores your DNS server.** Browsers can use their own secure DNS, also called DNS over HTTPS. That skips Pi-hole. Turn it off in the browser's privacy or security settings.
 - **The device does not use the new DNS server.** Run `nslookup app.YOUR_DOMAIN` with no server on the device. If the answer is your public IP, the device still uses another DNS server.
-- **Domain Checks now fail with an IP mismatch.** The server uses your rewrite. See [Do the rewrite after Domain Checks](#do-the-rewrite-after-domain-checks) and [Domain Checks failed](/networking/domain-checks-failed/).
+- **Domain Checks now fail with an IP mismatch.** The server uses your rewrite. See [Do the rewrite after Domain Checks](#do-the-rewrite-after-domain-checks) and [Domain Checks failed](/getting-started/domain-checks-failed/).
 - **Pi-hole will not start.** See [Pi-hole will not start because port 53 is already in use](/apps/pi-hole-port-53-conflict/).
 
 ## Related

@@ -8,7 +8,7 @@ tags:
   - domain
 applies_to: v6.0+
 related:
-  - using-deployrr/requirements-not-met
+  - getting-started/requirements-not-met
   - getting-started/setup-mode
   - getting-started/licenses
   - docker/no-internet-in-containers
@@ -37,7 +37,7 @@ last_reviewed: 2026-11-11
 status: current
 old_paths: []
 sidebar:
-  order: 6
+  order: 3
 sources: []
 ---
 
@@ -47,7 +47,7 @@ This guide walks through every item in the **Prerequisites** menu, in menu order
 
 **Prerequisites** has 15 items. Each line ends with its status. You finish a step when its status changes from a red word to `DONE` or to a value. The Docker and Backups folder lines show `SET - /path` or `NOT SET`. The **Verify** line shows your license.
 
-Other menus need every Prerequisites item done. If any one is missing, including a `Build Cache` that shows `EXPIRED`, they show `Prerequisites - All steps must be completed`. See [Requirements Not Met](/using-deployrr/requirements-not-met/).
+Other menus need every Prerequisites item done. If any one is missing, including a `Build Cache` that shows `EXPIRED`, they show `Prerequisites - All steps must be completed`. See [Requirements Not Met](/getting-started/requirements-not-met/).
 
 Some steps change your server: they install packages, create folders, install Docker or write DNS settings. Read the caution under a step before you rerun it.
 
@@ -71,7 +71,7 @@ Before you start, and before you rerun any step marked with a caution, take a ba
 
 **Setup Mode** always shows `Local` or `Hybrid`. **Verify** shows your license, for example `Your Deployrr License: Free`. Neither one shows a red word.
 
-If a menu item shows a **Requirements Not Met** box, an earlier step is missing. See [Requirements Not Met](/using-deployrr/requirements-not-met/).
+If a menu item shows a **Requirements Not Met** box, an earlier step is missing. See [Requirements Not Met](/getting-started/requirements-not-met/).
 
 ## The safe order
 
@@ -102,7 +102,7 @@ Here is what each step needs first:
 - **Domain Checks** also needs **Username**, **Domain 1** and **System Checks**.
 - **Verify** also needs **Docker Folder**.
 
-The full table is in [Requirements Not Met](/using-deployrr/requirements-not-met/#which-prerequisites-steps-need-another-step-first).
+The full table is in [Requirements Not Met](/getting-started/requirements-not-met/#which-prerequisites-steps-need-another-step-first).
 
 ## 1. Disclaimers
 
@@ -151,7 +151,7 @@ On Debian only, the step also changes your DNS settings. It does these things:
 If you rerun **Packages** on Debian, the new copy overwrites `resolved.conf.bak`. Your original settings are gone after the second run. If you set your own DNS servers, copy the file to a safe place first.
 :::
 
-**If the internet check fails.** You see **Internet Connectivity Check Failed**. On Debian 12, the box adds a note that some users lose internet after this step. See [No internet on the server or in containers after setup](/docker/no-internet-in-containers/). The box also says you can turn on [EXPERT mode](/using-deployrr/expert-mode/) in **Settings** > **Mode** to override the check. Only do that if you are sure the server has internet.
+**If the internet check fails.** You see **Internet Connectivity Check Failed**. On Debian 12, the box adds a note that some users lose internet after this step. See [No internet on the server or in containers after setup](/docker/no-internet-in-containers/). The box also says you can turn on [EXPERT mode](/getting-started/expert-mode/) in **Settings** > **Mode** to override the check. Only do that if you are sure the server has internet.
 
 **Done status.** `DONE`.
 
@@ -205,7 +205,7 @@ Select **Skip** to leave without a choice.
 
 **What it changes.** The choice does not change files. It changes what Deployrr lets you do later:
 
-- In **System** > **Mounts**, **SMB Mount** and **NFS Mount** only work on **VPS**, **Barebones** and **Virtual Machine**. On an LXC you see `SMB mounting is only supported on VPS, Barebones, or Virtual Machine systems.` **NFS Mount** shows the same message for NFS. Use bind mounts or Rclone instead. See [Mount SMB and NFS shares](/host/smb-nfs-mounts/) and [Mount a NAS share with Rclone](/host/rclone-smb-setup/).
+- In **System** > **Mounts**, **SMB Mount** and **NFS Mount** only work on **VPS**, **Barebones** and **Virtual Machine**. On an LXC you see `SMB mounting is only supported on VPS, Barebones, or Virtual Machine systems.` **NFS Mount** shows the same message for NFS. Use bind mounts or Rclone instead. See [Mount SMB and NFS shares](/storage/smb-nfs-mounts/) and [Mount a NAS share with Rclone](/storage/rclone-smb-setup/).
 - Some apps only install on certain system types. If yours does not match, the install stops with `System type not compatible` and shows the types the app needs and your type.
 
 Running in a Proxmox LXC? See [Run Deployrr in a Proxmox LXC container](/host/proxmox-lxc/) for what each LXC choice changes.
@@ -293,7 +293,7 @@ To understand how the folders, permissions and `.env` file fit together, read [U
 
 **What it changes.** It saves the address in your `.env` file. Your compose files use it.
 
-**Done status.** Your IP in green. You can rerun it any time. The final box says so. If the server's IP changes after you installed apps, also follow [Change the server IP](/using-deployrr/change-server-ip/).
+**Done status.** Your IP in green. You can rerun it any time. The final box says so. If the server's IP changes after you installed apps, also follow [Change the server IP](/host/change-server-ip/).
 
 ## 11. Domain 1
 
@@ -323,7 +323,7 @@ The system update can also update Docker. On a Proxmox LXC, that can stop contai
 
 To see this step run and install Docker, watch [Deployrr 5 walkthrough: System Checks at 11:17](https://youtu.be/rdqbAr0TFnQ?t=677) (shows Deployrr v5; menus and steps differ in v6). To understand what the Docker install does, read [UDMS part 12: Install Docker on Ubuntu 24.04 or Debian 12](https://www.simplehomelab.com/udms-12-install-docker-and-docker-compose/#Install_Docker_on_Ubuntu_2404_or_Debian_12) (manual setup).
 
-**Done status.** `DONE` after the message `All System and Docker checks passed`. If a check fails, see [System Checks failed](/host/system-checks-failed/).
+**Done status.** `DONE` after the message `All System and Docker checks passed`. If a check fails, see [System Checks failed](/getting-started/system-checks-failed/).
 
 If it is already `DONE`, you see `It appears that System Checks were already completed.` Press `y` to run it again. Any other key goes back. A rerun that fails sets the status back to `NOT DONE`.
 
@@ -342,9 +342,9 @@ If it is already `DONE`, you see `It appears that System Checks were already com
 7. The A record in Cloudflare is not proxied (gray cloud).
 8. The wildcard CNAME record in Cloudflare is not proxied (gray cloud).
 
-When a check fails, the terminal lists the likely causes. They include a blocked or unforwarded port, an ISP that blocks port 80, an ISP that shares one IP between customers, a wrong DNS record and an orange-cloud Cloudflare record. If you just changed a Cloudflare record to gray cloud, the terminal suggests setting your router's DNS to 1.1.1.1. Fix the cause and run **Domain Checks** again. New DNS records can take time to spread. See [Domain Checks failed](/networking/domain-checks-failed/) for each check and its fix.
+When a check fails, the terminal lists the likely causes. They include a blocked or unforwarded port, an ISP that blocks port 80, an ISP that shares one IP between customers, a wrong DNS record and an orange-cloud Cloudflare record. If you just changed a Cloudflare record to gray cloud, the terminal suggests setting your router's DNS to 1.1.1.1. Fix the cause and run **Domain Checks** again. New DNS records can take time to spread. See [Domain Checks failed](/getting-started/domain-checks-failed/) for each check and its fix.
 
-If you turned on [EXPERT mode](/using-deployrr/expert-mode/) in **Settings** > **Mode**, each failed check asks if you want to override it. Only do that if you know the check is wrong.
+If you turned on [EXPERT mode](/getting-started/expert-mode/) in **Settings** > **Mode**, each failed check asks if you want to override it. Only do that if you know the check is wrong.
 
 **Done status.** `DONE` after all eight checks pass (`Domain Checks Passed: 8 / 8`). A failed run sets it back to `NOT DONE`. In Local mode it shows `NOT-REQUIRED`.
 
@@ -354,7 +354,7 @@ If you turned on [EXPERT mode](/using-deployrr/expert-mode/) in **Settings** > *
 
 **What it changes.** It saves the domain you enter in your `.env` file and your email in Deployrr's settings, so run it after **Environment**. Later runs ask `Enter your 6-digit pin for verification`.
 
-**Done status.** The line shows your license, such as `Free` or `Pro`. For the steps, plans and PIN, see [Licenses](/getting-started/licenses/). If you lose the PIN, see [I forgot my Deployrr PIN](/using-deployrr/forgot-pin/).
+**Done status.** The line shows your license, such as `Free` or `Pro`. For the steps, plans and PIN, see [Licenses](/getting-started/licenses/). If you lose the PIN, see [I forgot my Deployrr PIN](/support/forgot-pin/).
 
 ## 15. Telemetry
 
@@ -390,13 +390,13 @@ After you change a value that other steps used, rerun those steps if their statu
 
 - If you chose Hybrid, go to [Set up Traefik](/reverse-proxy/traefik-setup/).
 - Install your first app from **Apps** in the main menu.
-- Want to change your hostname later? See [Change your hostname](/using-deployrr/change-hostname/).
+- Want to change your hostname later? See [Change your hostname](/host/change-hostname/).
 - Moving to new hardware? See [Move Deployrr to a new server](/using-deployrr/move-to-new-server/).
 - Want shorter commands? See [Bash aliases](/using-deployrr/bash-aliases/).
 
 ## Related
 
-- [Requirements Not Met](/using-deployrr/requirements-not-met/): what each line in the box means and which menu clears it.
+- [Requirements Not Met](/getting-started/requirements-not-met/): what each line in the box means and which menu clears it.
 - [Setup Mode: Local or Hybrid](/getting-started/setup-mode/): what Hybrid needs and how to switch.
 - [Licenses](/getting-started/licenses/): what each license unlocks and how to verify.
 - [No internet on the server or in containers after setup](/docker/no-internet-in-containers/): fix DNS after the Packages step on Debian.

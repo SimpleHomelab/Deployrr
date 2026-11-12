@@ -1,6 +1,7 @@
 ---
 title: Set up Tailscale to reach your apps from anywhere
 sidebar:
+  order: 3
   label: Set up Tailscale
 description: Install Tailscale from Deployrr and open your apps from anywhere at TAILSCALE-IP:PORT, with no port forwarding and no domain name.
 type: how-to
@@ -15,7 +16,7 @@ related:
   - using-deployrr/connecting-apps
   - using-deployrr/restart-recreate-reinstall
   - apps/qbittorrent-vpn
-  - using-deployrr/requirements-not-met
+  - getting-started/requirements-not-met
 further_reading:
   - title: "UDMS part 16: reaching your homelab services through Tailscale"
     url: "https://www.simplehomelab.com/udms-part-16-tailscale-homelab-remote-access/#Accessing_Your_Homelab_Services_Through_Tailscale"
@@ -232,4 +233,4 @@ If the server loses internet after you install Tailscale, MagicDNS is a likely c
 - [Connect your apps to each other](/using-deployrr/connecting-apps/): how apps on host networking are reached.
 - [Restart, Recreate or Reinstall](/using-deployrr/restart-recreate-reinstall/): apply a new auth key.
 - [Install qBittorrent VPN](/apps/qbittorrent-vpn/): the network adapter step and the Proxmox LXC fix.
-- [Requirements Not Met](/using-deployrr/requirements-not-met/): what the Network Adapter line means.
+- [Requirements Not Met](/getting-started/requirements-not-met/): what the Network Adapter line means.

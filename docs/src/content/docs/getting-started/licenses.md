@@ -9,7 +9,7 @@ tags:
 applies_to: v6.0+
 related:
   - getting-started/quick-start
-  - using-deployrr/forgot-pin
+  - support/forgot-pin
   - reverse-proxy/traefik-setup
   - using-deployrr/backups
   - support/discord
@@ -27,7 +27,7 @@ last_reviewed: 2026-11-10
 status: current
 old_paths: []
 sidebar:
-  order: 4
+  order: 7
 ---
 
 Deployrr has four license levels: Free, Basic, Plus and Pro. This page shows what each one unlocks, what to do when Deployrr says a license is required, and how to verify your license.
@@ -64,7 +64,7 @@ This table shows the menus and features each level unlocks.
 | **Tools** > **Preferred Editor**, **Proxy** > **Proxy Type** and **Proxy** > **Traefik** > **Traefik Mode** | Yes | Yes | Yes | Yes |
 | **Apps** > **Browse Apps** (installing an app) | No | Yes | Yes | Yes |
 | **Docker** > **Socket Proxy** and **Deployrr Dashboard** | No | Yes | Yes | Yes |
-| **System** menu: **Mounts** (SMB, NFS and Rclone), **GPU**, **Network**, **Bash Aliases**, [**SMTP** and **Mail Relay**](/host/smtp-mail-relay/), and setting a folder in [**Folders**](/using-deployrr/folders/) (Free can open the menu only) | No | Yes | Yes | Yes |
+| **System** menu: **Mounts** (SMB, NFS and Rclone), **GPU**, **Network**, **Bash Aliases**, [**SMTP** and **Mail Relay**](/host/smtp-mail-relay/), and setting a folder in [**Folders**](/storage/folders/) (Free can open the menu only) | No | Yes | Yes | Yes |
 | **Tools** > **Stack Manager**, **Diagnostics**, **Dashify**, **ReDash**, **Lazydocker** | No | Yes | Yes | Yes |
 | **Proxy** > **Traefik** > **Preparation**, **Staging** and **Production** | No | No | Yes | Yes |
 | **Proxy** > **Traefik** > **Manage Exposure**, **Traefikify**, **Un-Traefikify**, **Domain Passthrough**, **Auth Bypass** | No | No | Yes | Yes |
@@ -77,7 +77,7 @@ This table shows the menus and features each level unlocks.
 | **Help** > **Remote Assist** | No | No | No | Yes |
 
 :::note
-Some items also need other steps, such as Traefik running or Hybrid mode on. A missing step shows a **Requirements Not Met** box. See [Deployrr shows "Requirements Not Met"](/using-deployrr/requirements-not-met/) for every line it can list.
+Some items also need other steps, such as Traefik running or Hybrid mode on. A missing step shows a **Requirements Not Met** box. See [Deployrr shows "Requirements Not Met"](/getting-started/requirements-not-met/) for every line it can list.
 :::
 
 **Help** > **Remote Assist** appears only with a Pro license. It starts and stops a support session. With Basic or Plus, **Tools** > **Diagnostics** > **Remote Assist** shows whether a session is running and can only stop it.
@@ -157,7 +157,7 @@ You run **Verify** the first time, after you upgrade, and on every new or reinst
 - **Disclaimers** and **Docker Folder** in **Prerequisites** are done. If not, Deployrr lists them in a **Requirements Not Met** box.
 - Your server has internet access.
 - You know the email address of your SimpleHomelab.com account.
-- If you set a PIN before, you know it. If not, see [I forgot my Deployrr PIN](/using-deployrr/forgot-pin/).
+- If you set a PIN before, you know it. If not, see [I forgot my Deployrr PIN](/support/forgot-pin/).
 
 ### Steps
 
@@ -192,7 +192,7 @@ It names your level: Basic, Plus or Pro. The main menu title and the **Verify** 
 
 With no paid license found, the box says `WARNING! No access found. You can continue to use the Free version.` Check that the email is the one on your SimpleHomelab.com account, then run **Verify** again. If it still says Free, ask on [Discord](/support/discord/).
 
-If you enter a wrong PIN, you see an **Invalid Pin** box with `Incorrect pin.` You don't see a license result. Run **Verify** again with the right PIN. If you don't know it, see [I forgot my Deployrr PIN](/using-deployrr/forgot-pin/).
+If you enter a wrong PIN, you see an **Invalid Pin** box with `Incorrect pin.` You don't see a license result. Run **Verify** again with the right PIN. If you don't know it, see [I forgot my Deployrr PIN](/support/forgot-pin/).
 
 ### After you upgrade
 
@@ -223,5 +223,5 @@ Pro features such as **MP Restore** don't work until the new server shows Pro. S
 ## Related
 
 - [Quick start](/getting-started/quick-start/): the full first-run steps, including Verify.
-- [I forgot my Deployrr PIN](/using-deployrr/forgot-pin/): view, email or reset your PIN.
+- [I forgot my Deployrr PIN](/support/forgot-pin/): view, email or reset your PIN.
 - [Get help on Discord](/support/discord/): ask when Verify does not show your license.

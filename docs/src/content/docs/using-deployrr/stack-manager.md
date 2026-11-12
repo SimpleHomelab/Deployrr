@@ -1,6 +1,7 @@
 ---
 title: Stack Manager
 sidebar:
+  order: 5
   label: Stack Manager
 description: Look up every option in Tools > Stack Manager, what it does, and when to use it to start, stop, update, recreate, disable or delete your apps.
 type: reference
@@ -215,11 +216,11 @@ You can't delete a helper on its own. Deployrr says "Cannot delete dependency di
 A **Full** delete removes the app's data and settings for good. Back up first.
 :::
 
-For a full walk-through with two real apps, see [Pi-hole will not start because port 53 is already in use](/apps/pi-hole-port-53-conflict/) and [Remove Authentik](/apps/authentik-removal/). The Authentik page also lists what **Safe** and **Full** remove.
+For a full walk-through with two real apps, see [Pi-hole will not start because port 53 is already in use](/apps/pi-hole-port-53-conflict/) and [Remove Authentik](/reverse-proxy/authentik-removal/). The Authentik page also lists what **Safe** and **Full** remove.
 
-To bring an app back after a **Safe** delete and reuse its data, see [Reinstall an app and keep its data](/apps/reinstall-app/).
+To bring an app back after a **Safe** delete and reuse its data, see [Reinstall an app and keep its data](/using-deployrr/reinstall-app/).
 
-**Apps** > **Manage Apps** > **Remove** is a different path with different questions. See [Install and manage apps from the Apps menu](/apps/manage-apps/) for how the two compare.
+**Apps** > **Manage Apps** > **Remove** is a different path with different questions. See [Install and manage apps from the Apps menu](/using-deployrr/manage-apps/) for how the two compare.
 
 ## Your own compose files
 

@@ -16,7 +16,7 @@ applies_to: v6.0+
 related:
   - using-deployrr/bash-aliases
   - apps/home-assistant-behind-traefik
-  - using-deployrr/change-hostname
+  - host/change-hostname
   - apps/theme-park-configuration
   - support/discord
 further_reading:
@@ -35,6 +35,8 @@ last_reviewed: 2026-11-08
 status: current
 old_paths: ["/traefik/check-traefik-logs"]
 sources: []
+sidebar:
+  order: 8
 ---
 
 Traefik is the reverse proxy that sends web traffic to your apps. When an app does not load, or a certificate fails, the Traefik logs usually say why. This page shows where the logs are, how to read them, and how to make them more or less detailed.
@@ -207,7 +209,7 @@ When an install finishes, Deployrr shows `Traefik Error Logs should now be avail
 
 ## Common problems
 
-- **The folder or files are missing.** Check that you used your own hostname and Docker folder. If you changed the hostname, see [Change the hostname](/using-deployrr/change-hostname/).
+- **The folder or files are missing.** Check that you used your own hostname and Docker folder. If you changed the hostname, see [Change the hostname](/host/change-hostname/).
 - **`traefiklogs` says `command not found`.** Turn on the aliases, then open a new terminal. See [Bash aliases](/using-deployrr/bash-aliases/).
 - **The log is too big to read.** Lower the log level, or search with `grep` as shown above.
 - **The log shows a certificate error.** See [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/) for the fix for each error. For `unable to obtain ACME certificate` behind a firewall that filters DNS, also see [Traefik staging fails on OPNsense](/networking/opnsense-conflict/).
@@ -217,4 +219,4 @@ When an install finishes, Deployrr shows `Traefik Error Logs should now be avail
 
 - [Bash aliases](/using-deployrr/bash-aliases/): every shortcut, including `traefiklogs`, `dcrec` and `dpss`.
 - [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/): put an app that runs elsewhere behind Traefik and fix a 400 error.
-- [Change the hostname](/using-deployrr/change-hostname/): what to do when your hostname, and so your log folder, changes.
+- [Change the hostname](/host/change-hostname/): what to do when your hostname, and so your log folder, changes.

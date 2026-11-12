@@ -1,6 +1,7 @@
 ---
 title: Set your media, downloads and other folders
 sidebar:
+  order: 1
   label: Media and app folders
 description: Set the System > Folders entries for media, downloads, books, photos, Immich and Nextcloud, see which apps need each one, and apply a change.
 type: guide
@@ -10,11 +11,11 @@ tags:
   - compose
 applies_to: v6.0+
 related:
-  - host/rclone-smb-setup
-  - using-deployrr/requirements-not-met
+  - storage/rclone-smb-setup
+  - getting-started/requirements-not-met
   - using-deployrr/stack-manager
-  - apps/reinstall-app
-  - host/smb-nfs-mounts
+  - using-deployrr/reinstall-app
+  - storage/smb-nfs-mounts
 further_reading:
   - title: "UDMS part 07: SMB mount permission denied errors"
     url: https://www.simplehomelab.com/udms-07-mount-remote-shares-smb/#Permission_Denied_Errors
@@ -25,7 +26,7 @@ videos:
     note: "Manual Docker Compose setup. It sets permissions on the Docker folder; the same Linux steps apply to a media folder."
 last_reviewed: 2026-11-11
 status: current
-old_paths: []
+old_paths: ["/using-deployrr/folders"]
 sources: []
 ---
 
@@ -51,11 +52,11 @@ Setting a folder needs a Basic, Plus or Pro license. You can open the menu on a 
 ## Do it in this order
 
 1. Finish **Prerequisites**.
-2. If your media is on a NAS, mount it first. Use [Rclone](/host/rclone-smb-setup/) or [SMB and NFS mounts](/host/smb-nfs-mounts/) in **System** > **Mounts**. Check that the files show up on the server.
+2. If your media is on a NAS, mount it first. Use [Rclone](/storage/rclone-smb-setup/) or [SMB and NFS mounts](/storage/smb-nfs-mounts/) in **System** > **Mounts**. Check that the files show up on the server.
 3. Set the folders in **System** > **Folders**.
 4. Install your apps from **Apps** > **Browse Apps**.
 
-Set the folders before you install the apps. When an app installs, Deployrr checks that the folders it needs are set. If one is not set, you see a **Requirements Not Met** box and the install does not start. Set the folder, then start the install again. See [Requirements Not Met](/using-deployrr/requirements-not-met/#folder-lines).
+Set the folders before you install the apps. When an app installs, Deployrr checks that the folders it needs are set. If one is not set, you see a **Requirements Not Met** box and the install does not start. Set the folder, then start the install again. See [Requirements Not Met](/getting-started/requirements-not-met/#folder-lines).
 
 For media folders, the order matters more. See [Apps you installed before you set a media folder](#apps-you-installed-before-you-set-a-media-folder).
 
@@ -182,7 +183,7 @@ Where the value lives: Deployrr saves each path in the `.env` file in your Docke
 Change the path in **System** > **Folders**. Do not edit the `.env` file by hand or with **Tools** > **.env Editor** unless you know why.
 
 :::caution
-Changing a folder does not move any files. The files stay at the old path. Move them yourself, or point the folder at the place where they already are. To copy them to a new disk safely, see [Move your media or Docker data to another disk](/host/move-data-to-another-disk/). For Immich and Nextcloud, a new path that does not hold the old uploads makes the app look empty.
+Changing a folder does not move any files. The files stay at the old path. Move them yourself, or point the folder at the place where they already are. To copy them to a new disk safely, see [Move your media or Docker data to another disk](/storage/move-data-to-another-disk/). For Immich and Nextcloud, a new path that does not hold the old uploads makes the app look empty.
 :::
 
 1. Back up your `.env` file. Replace `YOUR_DOCKER_FOLDER` with the path to your Docker folder:
@@ -222,7 +223,7 @@ sudo docker compose --profile all -f DOCKER_FOLDER/docker-compose-HOSTNAME.yml u
 
 When you install an app, Deployrr adds the media folders you have set at that time. If you set a media folder after the app is installed, the app does not get it. This is true for all three, for example Media Folder 2 or 3, or Media Folder 1 if you only had Media Folder 2 set. Recreating the app does not add it, even though the **IMPORTANT!** note on the screen only mentions recreating.
 
-To add it, [reinstall the app](/apps/reinstall-app/). Reinstalling keeps the app's data but replaces its compose file, so back up first as that page says.
+To add it, [reinstall the app](/using-deployrr/reinstall-app/). Reinstalling keeps the app's data but replaces its compose file, so back up first as that page says.
 
 If you only change the path of a media folder an app already uses, recreating is enough.
 
@@ -244,7 +245,7 @@ Deployrr creates a folder you pick. If a path later goes missing, the app may st
 ls YOUR_FOLDER
 ```
 
-If it is empty and should not be, the mount is down. See [Mount a NAS share with Rclone](/host/rclone-smb-setup/) or [Mount an SMB or NFS share without Rclone](/host/smb-nfs-mounts/).
+If it is empty and should not be, the mount is down. See [Mount a NAS share with Rclone](/storage/rclone-smb-setup/) or [Mount an SMB or NFS share without Rclone](/storage/smb-nfs-mounts/).
 
 ### The app cannot read or write the folder
 
@@ -266,7 +267,7 @@ To see how folder owners and permissions are set by hand, watch [Ultimate Docker
 
 ### The NAS was not ready when the server started
 
-If apps start before the share mounts, they see an empty folder. With Rclone, use **Delay Media Apps**. Part 5 of [Mount a NAS share with Rclone](/host/rclone-smb-setup/) shows how. For a share with a mount folder that is not empty, see [Rclone mount folder is not empty](/host/rclone-mount-not-empty/).
+If apps start before the share mounts, they see an empty folder. With Rclone, use **Delay Media Apps**. Part 5 of [Mount a NAS share with Rclone](/storage/rclone-smb-setup/) shows how. For a share with a mount folder that is not empty, see [Rclone mount folder is not empty](/storage/rclone-mount-not-empty/).
 
 ### Requirements Not Met when you install an app
 
@@ -283,8 +284,8 @@ The menu has no option to clear a folder. You can only pick a new path.
 
 ## Related
 
-- [Mount a NAS share with Rclone](/host/rclone-smb-setup/): mount your NAS before you set a folder on it.
-- [Requirements Not Met](/using-deployrr/requirements-not-met/): find the folder line that blocked your install.
+- [Mount a NAS share with Rclone](/storage/rclone-smb-setup/): mount your NAS before you set a folder on it.
+- [Requirements Not Met](/getting-started/requirements-not-met/): find the folder line that blocked your install.
 - [Stack Manager](/using-deployrr/stack-manager/): recreate an app after a folder change.
-- [Reinstall an app and keep its data](/apps/reinstall-app/): add a media folder to an app you installed earlier.
-- [Mount an SMB or NFS share without Rclone](/host/smb-nfs-mounts/): the other way to mount a NAS.
+- [Reinstall an app and keep its data](/using-deployrr/reinstall-app/): add a media folder to an app you installed earlier.
+- [Mount an SMB or NFS share without Rclone](/storage/smb-nfs-mounts/): the other way to mount a NAS.

@@ -1,6 +1,7 @@
 ---
 title: Protect a custom.yml app with Traefik and a login
 sidebar:
+  order: 11
   label: Custom app behind Traefik
 description: Give a container from your own custom.yml an HTTPS address and a login page, either with Traefikify or with Traefik labels you add yourself.
 type: how-to

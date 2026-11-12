@@ -10,7 +10,7 @@ related:
   - using-deployrr/second-app-instances
   - using-deployrr/connecting-apps
   - docker/compose-malformed
-  - using-deployrr/change-hostname
+  - host/change-hostname
 videos:
   - id: rdqbAr0TFnQ
     start: 5139
@@ -28,7 +28,7 @@ status: current
 old_paths: ["/docker/custom.yml-usage"]
 sources: []
 sidebar:
-  order: 4
+  order: 6
 ---
 
 Use `custom.yml` to run containers that are not in the Deployrr apps library, or to run your own version of an app. You write the Compose code. Deployrr starts it together with your other apps.
@@ -52,7 +52,7 @@ All paths are inside your Docker folder. Deployrr recommends `/home/YOUR_USER/do
 | `docker-compose-HOSTNAME.yml` | The main Compose file for this machine. `HOSTNAME` is your hostname. |
 | `compose/HOSTNAME/custom.yml` | Your file. It starts with only comments. |
 
-If you rename your server, see [Change the hostname](/using-deployrr/change-hostname/).
+If you rename your server, see [Change the hostname](/host/change-hostname/).
 
 ## Steps
 
@@ -195,5 +195,5 @@ Deployrr lists these extra files as apps in **Tools** > **Stack Manager** (see [
 ## Related
 
 - [Bash aliases](/using-deployrr/bash-aliases/): every `dc` shortcut for starting, recreating and reading logs.
-- [Change the hostname](/using-deployrr/change-hostname/): what happens to these files when your hostname changes.
+- [Change the hostname](/host/change-hostname/): what happens to these files when your hostname changes.
 - [Quick start](/getting-started/quick-start/): set up the Docker folder and install your first app.

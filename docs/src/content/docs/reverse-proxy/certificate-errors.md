@@ -28,8 +28,8 @@ related:
   - reverse-proxy/check-traefik-logs
   - networking/opnsense-conflict
   - reverse-proxy/traefik-setup
-  - networking/domain-checks-failed
-  - using-deployrr/diagnostics
+  - getting-started/domain-checks-failed
+  - support/diagnostics
 further_reading:
   - title: "UDMS part 18: Cloudflare DNS API token for Traefik (manual setup)"
     url: "https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Create_Cloudflare_DNS_API_Token_Secret"
@@ -50,6 +50,8 @@ last_reviewed: 2026-11-11
 status: current
 old_paths: []
 sources: []
+sidebar:
+  order: 6
 ---
 
 You run **Proxy** > **Traefik** > **Staging** or **Production**. Deployrr stops with a red error and your apps get no working HTTPS certificate. This page lists each error, what causes it and how to fix it.
@@ -57,7 +59,7 @@ You run **Proxy** > **Traefik** > **Staging** or **Production**. Deployrr stops 
 For the normal Staging and Production steps, see [Set up Traefik](/reverse-proxy/traefik-setup/).
 
 :::note
-Staging and Production need these first: **Prerequisites** done, the Socket Proxy app running, Setup Mode set to Hybrid, **Preparation** done and a Plus or Pro license. Production also needs Staging done and Traefik running. If one is missing, you see a **Requirements Not Met** box instead. See [Requirements Not Met](/using-deployrr/requirements-not-met/), [Licenses](/getting-started/licenses/), [Setup Mode](/getting-started/setup-mode/) and [Socket Proxy](/docker/socket-proxy/).
+Staging and Production need these first: **Prerequisites** done, the Socket Proxy app running, Setup Mode set to Hybrid, **Preparation** done and a Plus or Pro license. Production also needs Staging done and Traefik running. If one is missing, you see a **Requirements Not Met** box instead. See [Requirements Not Met](/getting-started/requirements-not-met/), [Licenses](/getting-started/licenses/), [Setup Mode](/getting-started/setup-mode/) and [Socket Proxy](/docker/socket-proxy/).
 :::
 
 ## Symptoms
@@ -247,7 +249,7 @@ Traefik also waits about 2 minutes before it checks DNS. A long wait with no err
 4. If the server lost DNS or internet after Prerequisites, see [No internet on the server or in containers after setup](/docker/no-internet-in-containers/).
 5. Go to [Run Staging again](#run-staging-again).
 
-Deployrr says you can override this error by turning on [EXPERT mode](/using-deployrr/expert-mode/) in **Settings** > **Mode**. The box then reads "Expert mode ENABLED". The override does not fix DNS. Deployrr checks the log about every 20 seconds, so while the same line is in the log, the override question (`Expert mode enabled. Do you want to override (Y/y)?:`) can come back again and again. Fix DNS instead.
+Deployrr says you can override this error by turning on [EXPERT mode](/getting-started/expert-mode/) in **Settings** > **Mode**. The box then reads "Expert mode ENABLED". The override does not fix DNS. Deployrr checks the log about every 20 seconds, so while the same line is in the log, the override question (`Expert mode enabled. Do you want to override (Y/y)?:`) can come back again and again. Fix DNS instead.
 
 ### Wait out a rate limit
 
@@ -361,5 +363,5 @@ Running Staging after a Production run also marks Production as not done. Produc
 - [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): where `traefik.log` is and how to read it.
 - [Traefik staging fails on OPNsense](/networking/opnsense-conflict/): fix certificate errors caused by a DNS redirect.
 - [Set up Traefik](/reverse-proxy/traefik-setup/): the normal Preparation, Staging and Production steps.
-- [Domain Checks failed](/networking/domain-checks-failed/): fix the DNS records and ports that Traefik needs.
-- [Deployrr shows "Unhealthy - Issues detected"](/using-deployrr/diagnostics/): fix `acme.json` permission warnings.
+- [Domain Checks failed](/getting-started/domain-checks-failed/): fix the DNS records and ports that Traefik needs.
+- [Deployrr shows "Unhealthy - Issues detected"](/support/diagnostics/): fix `acme.json` permission warnings.

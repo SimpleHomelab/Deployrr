@@ -8,7 +8,7 @@ tags:
   - updates
 applies_to: v6.0+
 related:
-  - using-deployrr/forgot-pin
+  - support/forgot-pin
   - getting-started/licenses
   - getting-started/updating-deployrr
   - support/discord
@@ -23,8 +23,10 @@ videos:
     title: "Deployrr 6 overview: The new Free plan"
 last_reviewed: 2026-11-12
 status: current
-old_paths: []
+old_paths: ["/using-deployrr/help-menu"]
 sources: []
+sidebar:
+  order: 5
 ---
 
 The **Help** menu ("Help, Support & Information") shows which Deployrr version you run and gives you quick access to your PIN, license info and support. This page lists what each item does.
@@ -81,7 +83,7 @@ To switch modes, see [Setup mode](/getting-started/setup-mode/).
 - **Request Pin** asks for `SimpleHomelab.com Account Email:`. If an account exists with that email, the PIN arrives by email within about 2 minutes.
 - **Reset Pin** warns that it clears your current PIN from this system and that you must set a new one in **Prerequisites** > **Verify**. If you continue, it asks for your account email. The reset takes about 2 minutes. Then set a new PIN in **Prerequisites** > **Verify**.
 
-**Request Pin** and **Reset Pin** need **Prerequisites** > **Disclaimers** done first: read the box and choose **Yes**. Otherwise a **Requirements Not Met** box appears. For the full steps, see [I forgot my Deployrr PIN](/using-deployrr/forgot-pin/).
+**Request Pin** and **Reset Pin** need **Prerequisites** > **Disclaimers** done first: read the box and choose **Yes**. Otherwise a **Requirements Not Met** box appears. For the full steps, see [I forgot my Deployrr PIN](/support/forgot-pin/).
 
 ### Deployrr and Membership
 
@@ -106,7 +108,7 @@ Shows where to get help:
 - Discord support.
 - A `#deployrr` channel for paid supporters.
 
-It also reminds you to generate a sanitized log from **Settings** and share it when you ask for help. To see the exclusive Discord channels, connect your Discord account on your SimpleHomelab.com profile. See [Get help on Discord](/support/discord/).
+It also reminds you to [generate a sanitized log](/support/generate-support-log/) from **Settings** and share it when you ask for help. To see the exclusive Discord channels, connect your Discord account on your SimpleHomelab.com profile. See [Get help on Discord](/support/discord/).
 
 ### Feedback
 
@@ -121,12 +123,7 @@ Before you give feedback, **Feedback** ("Submit a Review/Feedback") is on the ma
 
 ## Generate a log for support
 
-1. From the main menu, select **Settings**.
-2. Select **Logs** ("Generate Sanitized Deployrr Log").
-3. Read the warnings, then press `y` to continue.
-4. Note the log file path shown at the end. Deployrr saves the file in the folder you started Deployrr from.
-5. Open the log and check it before you share it. Deployrr tries to replace private details such as your Linux username, domain name and WAN IP, but only IPv4 addresses are replaced, not IPv6. Deployrr warns that you must check the log yourself.
-6. Share the log when you ask for help. See [Get help on Discord](/support/discord/).
+To make a log you can share when you ask for help, see [Generate a sanitized log for support](/support/generate-support-log/).
 
 ## Hide the main menu notes
 
@@ -144,7 +141,7 @@ The item shows `ON` or `OFF`. Each time you select it, it switches.
 
 ## Related
 
-- [I forgot my Deployrr PIN](/using-deployrr/forgot-pin/): view, email or reset your PIN step by step.
+- [I forgot my Deployrr PIN](/support/forgot-pin/): view, email or reset your PIN step by step.
 - [Deployrr licenses](/getting-started/licenses/): what Free, Basic, Plus and Pro include.
 - [Updating Deployrr](/getting-started/updating-deployrr/): update when your version is behind.
 - [Get help on Discord](/support/discord/): share a sanitized log and ask for help.

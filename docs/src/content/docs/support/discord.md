@@ -8,7 +8,7 @@ tags:
 applies_to: v6.0+
 related:
   - support/ssh-access
-  - using-deployrr/forgot-pin
+  - support/forgot-pin
   - getting-started/quick-start
   - reverse-proxy/check-traefik-logs
   - docker/waiting-for-container
@@ -16,6 +16,8 @@ further_reading: []
 last_reviewed: 2026-11-09
 status: current
 old_paths: ["/deployrr/get-support-on-discord"]
+sidebar:
+  order: 1
 ---
 
 Discord is the place to ask for help with Deployrr, whatever license you have. You can also ask general homelab questions and talk with other users. This page shows how to join, where to post and what to include so people can help you quickly.
@@ -61,20 +63,18 @@ A good request saves everyone time. Gather these items first.
 4. Write down what you did, step by step, and which menu option you were in.
 5. Copy the exact error text from the screen. Do not retype it from memory.
 6. Generate a sanitized log:
-   1. In Deployrr, open **Settings**.
-   2. Select **Logs**. The description reads "Generate Sanitized Deployrr Log".
-   3. Read the warnings. Press `Y` to continue. Any other key goes back.
-   4. When Deployrr finishes, it shows `Location:` followed by the path of the log file. The file is saved in the folder you started Deployrr from, with a name like `deployrr-log-sanitized-` plus the date and time. Note the path down before you leave the screen.
-   5. Open the file and read it. Remove anything private before you share it.
+   1. In Deployrr, open **Settings** > **Logs** and press `Y` to continue.
+   2. Write down the path after `Location:` before you leave the screen.
+   3. Open the file and remove anything private before you share it.
 
-   The log holds the Deployrr log and, if you have one, the Traefik log. If Deployrr says `Complete required information in main menu`, finish the first setup steps first. See [Quick start](/getting-started/quick-start/).
+   For what Deployrr replaces, how to check the file and what an `[ERROR]` line means, see [Generate a sanitized log for support](/support/generate-support-log/).
 
 :::caution
 Deployrr tries to replace your Linux username, your domain name and your WAN IP (IPv4) in the log. It does not replace IPv6 addresses. Deployrr says that you must check the log yourself before you share it publicly.
 :::
 
 :::caution
-Never post passwords, tokens, API keys or your Deployrr PIN. This applies to messages, screenshots and log files. If you lose your PIN, see [I forgot my Deployrr PIN](/using-deployrr/forgot-pin/).
+Never post passwords, tokens, API keys or your Deployrr PIN. This applies to messages, screenshots and log files. If you lose your PIN, see [I forgot my Deployrr PIN](/support/forgot-pin/).
 :::
 
 ### Post your request
@@ -100,7 +100,7 @@ Deployrr has a **Support** entry in the **Help** menu. It is described as "How a
 ## Related
 
 - [Get remote help with Remote Assist](/support/ssh-access/): let support look at your system (Pro).
-- [I forgot my Deployrr PIN](/using-deployrr/forgot-pin/): view, email or reset your PIN without asking on Discord.
+- [I forgot my Deployrr PIN](/support/forgot-pin/): view, email or reset your PIN without asking on Discord.
 - [Quick start](/getting-started/quick-start/): the first-run steps in order.
 - [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): find more log detail for routing and certificate problems.
 - [Deployrr times out waiting for a container to start](/docker/waiting-for-container/): read container logs when an app does not start.

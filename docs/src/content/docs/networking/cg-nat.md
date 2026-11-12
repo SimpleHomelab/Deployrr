@@ -1,6 +1,7 @@
 ---
 title: "Behind CG-NAT: your apps can't be reached from the internet"
 sidebar:
+  order: 4
   label: Behind CG-NAT
 description: "Find out if your ISP uses CG-NAT, then pick a fix: ask for a public IP, use Local mode with Tailscale, or run Deployrr on a VPS."
 type: troubleshooting
@@ -18,7 +19,7 @@ symptoms:
   - Router WAN IP is different from the IP a "what is my IP" site shows
   - Apps open at home but not from mobile data
 related:
-  - networking/domain-checks-failed
+  - getting-started/domain-checks-failed
   - apps/ddns-updater
   - networking/tailscale
   - getting-started/setup-mode
@@ -85,7 +86,7 @@ Double NAT looks similar. A second router or an ISP modem sits in front of your 
 
 | Router WAN address | What it means |
 | --- | --- |
-| Same as your public IP | No CG-NAT. Go back to [Domain Checks failed](/networking/domain-checks-failed/#fix-ports-80-and-443) and check the other causes. |
+| Same as your public IP | No CG-NAT. Go back to [Domain Checks failed](/getting-started/domain-checks-failed/#fix-ports-80-and-443) and check the other causes. |
 | Starts with `100.64` to `100.127` (100.64.0.0 to 100.127.255.255) | CG-NAT. |
 | Starts with `10.`, `192.168.` or `172.16` to `172.31` | Double NAT. Another router or modem is in front of yours. |
 | Different from your public IP, in another range | Treat it like CG-NAT. Ask your ISP. |
@@ -130,11 +131,11 @@ Some ISPs give you IPv6 even when IPv4 is behind CG-NAT. This page doesn't cover
 ## After you get a public IP
 
 1. Check that your router forwards the right ports to the Docker host. Simple mode needs 80 to 80 and 443 to 443. Advanced mode needs 80 to 81 and 443 to 444. See [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/).
-2. Check that your Cloudflare A record has your new public IP. See [DNS records Deployrr expects](/networking/domain-checks-failed/#dns-records-deployrr-expects).
+2. Check that your Cloudflare A record has your new public IP. See [DNS records Deployrr expects](/getting-started/domain-checks-failed/#dns-records-deployrr-expects).
 3. If **Domain Checks** doesn't show `DONE`, run it again from **Prerequisites** > **Domain Checks**.
 
 :::caution
-Don't rerun **Domain Checks** once it shows `DONE` and Traefik is running. It fails at port 80 because Traefik uses that port. See [Rerunning Domain Checks after Traefik is running](/networking/domain-checks-failed/#rerunning-domain-checks-after-traefik-is-running).
+Don't rerun **Domain Checks** once it shows `DONE` and Traefik is running. It fails at port 80 because Traefik uses that port. See [Rerunning Domain Checks after Traefik is running](/getting-started/domain-checks-failed/#rerunning-domain-checks-after-traefik-is-running).
 :::
 
 ## Check it worked
@@ -145,7 +146,7 @@ Don't rerun **Domain Checks** once it shows `DONE` and Traefik is running. It fa
 
 ## Related
 
-- [Domain Checks failed in Prerequisites](/networking/domain-checks-failed/): every check, its message and its fix.
+- [Domain Checks failed in Prerequisites](/getting-started/domain-checks-failed/): every check, its message and its fix.
 - [Keep your Cloudflare A record up to date with DDNS Updater](/apps/ddns-updater/): for changing home IPs, not CG-NAT.
 - [Set up Tailscale](/networking/tailscale/): reach your apps from anywhere with no port forwarding.
 - [Setup Mode: Local or Hybrid](/getting-started/setup-mode/): what Local mode needs and allows.

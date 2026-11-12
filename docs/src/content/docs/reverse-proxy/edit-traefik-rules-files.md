@@ -30,6 +30,8 @@ last_reviewed: 2026-11-12
 status: current
 old_paths: []
 sources: []
+sidebar:
+  order: 10
 ---
 
 Traefik reads two kinds of settings for your apps: rules files and Docker labels. This page shows which one an app uses, how to edit it, how to add your own middleware and how to go back after a bad edit.

@@ -37,6 +37,8 @@ status: current
 old_paths: ["/traefik/multi-server-same-domain"]
 sources:
   - { type: discord, ref: "https://discord.com/channels/974306760171073556/974314326494171226/1344756299841146984" }
+sidebar:
+  order: 17
 ---
 
 You can run Deployrr on several machines and still reach all their apps on one domain, for example `jellyfin.example.com` and `sonarr.example.com`. One server runs Traefik. The others run apps. This guide is for you if you have, say, a storage server and a second server for other apps.

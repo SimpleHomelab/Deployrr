@@ -1,6 +1,7 @@
 ---
 title: "Refresh, Reset or Remove Deployrr (Settings menu)"
 sidebar:
+  order: 12
   label: Refresh, Reset or Remove
 description: Learn what Refresh, Reset and Remove do in the Deployrr Settings menu, which one to pick, and what each leaves behind on your server.
 type: guide
@@ -15,7 +16,7 @@ related:
   - getting-started/prerequisites
   - using-deployrr/stack-manager
   - getting-started/updating-deployrr
-  - apps/manage-apps
+  - using-deployrr/manage-apps
 further_reading:
   - title: "UDMS part 13: Docker Compose commands and Bash aliases to stop and start a stack"
     url: https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/
@@ -30,7 +31,7 @@ videos:
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 last_reviewed: 2026-11-11
 status: current
-old_paths: []
+old_paths: ["/using-deployrr/reset-or-remove-deployrr"]
 sources: []
 ---
 
@@ -62,17 +63,17 @@ Reset currently stops and removes your app containers. Read [Reset](#reset-deplo
 - **You want a clean start for Deployrr, and you accept that your apps stop.** Use [Reset](#reset-deployrr-status). Try Refresh first.
 - **You want Deployrr gone but your apps to keep running.** Use [Remove](#remove-deployrr).
 - **You want to update Deployrr.** None of these. See [Updating Deployrr](/getting-started/updating-deployrr/).
-- **You want to refresh the list of apps.** That is a different command. See [Apps > Refresh Cache](/apps/manage-apps/).
+- **You want to refresh the list of apps.** That is a different command. See [Apps > Refresh Cache](/using-deployrr/manage-apps/).
 
 ## Other items in Settings
 
 The **Settings** menu is titled **Deployrr Settings**. You do not need a license to open it or to use Refresh, Reset or Remove. It holds these items:
 
 - **Intro**: turns the intro messages on the main menu on or off.
-- **Mode**: switches between NORMAL and EXPERT. See [EXPERT mode](/using-deployrr/expert-mode/).
+- **Mode**: switches between NORMAL and EXPERT. See [EXPERT mode](/getting-started/expert-mode/).
 - **Version Pins**: edits Docker image version pins. It needs a Pro license.
 - **Status**: shows the Deployrr status.
-- **Logs**: makes a sanitized log you can share. Type `Y` and press Enter to start. The log is saved in the folder you ran Deployrr from, and the screen ends with "Sanitized log ready for sharing". Read the log before you share it.
+- **Logs**: makes a [sanitized log](/support/generate-support-log/) you can share. Type `Y` and press Enter to start. The log is saved in the folder you ran Deployrr from, and the screen ends with "Sanitized log ready for sharing". Read the log before you share it.
 - **Refresh**, **Reset** and **Remove**: covered below.
 
 To see these three items on screen, watch [Deployrr 5 walkthrough: Settings menu at 1:24:19](https://youtu.be/rdqbAr0TFnQ?t=5059) (shows Deployrr v5; menus and steps differ in v6). It says Reset leaves your Docker apps alone. In v6, Reset currently stops your apps, so follow this page for Reset.
@@ -192,7 +193,7 @@ You see `1/3 Removing Deployrr configuration`, `2/3 Clearing cache files`, `3/3 
 - The lines Deployrr added to `~/.bashrc` and `~/.bash_profile`. They sit in blocks marked `Bash Aliases added by Deployrr` and `Sourcing .bashrc (added by Deployrr)`.
 - Possibly the `/usr/local/bin/deployrr` link, which now points to nothing. Check with `ls -l /usr/local/bin/deployrr`.
 - Docker itself and the packages Deployrr installed.
-- Mounts you added. To remove them, see [SMB and NFS mounts](/host/smb-nfs-mounts/) or [Rclone SMB setup](/host/rclone-smb-setup/).
+- Mounts you added. To remove them, see [SMB and NFS mounts](/storage/smb-nfs-mounts/) or [Rclone SMB setup](/storage/rclone-smb-setup/).
 
 You can still manage your apps with `docker compose` or the [Bash aliases](/using-deployrr/bash-aliases/). To understand what these commands do, read [UDMS part 13: Docker Compose commands and Bash aliases](https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/) (manual setup).
 
@@ -245,4 +246,4 @@ Run the [install command](/getting-started/updating-deployrr/#run-the-installer-
 - [Prerequisites, step by step](/getting-started/prerequisites/): the steps you redo after a Reset.
 - [Stack Manager](/using-deployrr/stack-manager/): bring your apps back up after a Reset.
 - [Updating Deployrr](/getting-started/updating-deployrr/): update instead of resetting.
-- [Install and manage apps](/apps/manage-apps/): the Apps menu, including Refresh Cache for the app list.
+- [Install and manage apps](/using-deployrr/manage-apps/): the Apps menu, including Refresh Cache for the app list.

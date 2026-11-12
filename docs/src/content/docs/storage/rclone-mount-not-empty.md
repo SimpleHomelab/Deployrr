@@ -1,6 +1,7 @@
 ---
 title: Rclone mount fails with "is not empty, use --allow-non-empty to mount anyway"
 sidebar:
+  order: 4
   label: Rclone mount folder is not empty
 description: Fix the Rclone "failed to mount FUSE fs" error when the mount folder is not empty. Check it, move the stray files aside and mount your share again.
 type: troubleshooting
@@ -33,7 +34,7 @@ videos:
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 last_reviewed: 2026-11-09
 status: current
-old_paths: ["/operating-system/rclone-mount-point-not-empty-error"]
+old_paths: ["/operating-system/rclone-mount-point-not-empty-error", "/host/rclone-mount-not-empty"]
 sources:
   - { type: discord, ref: "https://discord.com/channels/974306760171073556/1350240462593589278" }
 ---
@@ -184,7 +185,7 @@ sudo tail -n 30 YOUR_DOCKER_FOLDER/logs/YOUR_HOSTNAME/rclone-NAME.log
 
 Apps that use the mount can start before the mount is ready. They then write into the empty folder. Deployrr warns about this: "Typically, Docker containers that rely on Rclone mounts start before the mount is active. This can cause crashes."
 
-In **System** > **Mounts** > **Rclone**, choose **Delay Media Apps** ("Set Media apps to Start after Rclone"). Run it after Automount works, because it needs a mounted share. It stops your media apps from starting on their own at boot. Instead, they start once the Rclone mount is ready. The menu shows "DONE" next to it when it is set up. To see why it matters, watch [Deployrr 5 walkthrough: Delay Media Apps at 19:36](https://youtu.be/rdqbAr0TFnQ?t=1176) (shows Deployrr v5; menus differ in v6). [Mount a NAS share with Rclone](/host/rclone-smb-setup/) covers the whole Rclone setup.
+In **System** > **Mounts** > **Rclone**, choose **Delay Media Apps** ("Set Media apps to Start after Rclone"). Run it after Automount works, because it needs a mounted share. It stops your media apps from starting on their own at boot. Instead, they start once the Rclone mount is ready. The menu shows "DONE" next to it when it is set up. To see why it matters, watch [Deployrr 5 walkthrough: Delay Media Apps at 19:36](https://youtu.be/rdqbAr0TFnQ?t=1176) (shows Deployrr v5; menus differ in v6). [Mount a NAS share with Rclone](/storage/rclone-smb-setup/) covers the whole Rclone setup.
 
 If the mount is still not ready after about 15 minutes, the media apps stay stopped. Check the timer logs `rclone-NAME-timer.log` and `rclone-NAME-timer.err` in the same logs folder as the Rclone log.
 

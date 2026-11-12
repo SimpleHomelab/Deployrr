@@ -21,8 +21,10 @@ videos:
     note: "Shows Deployrr v5. Menus and steps differ in v6."
 last_reviewed: 2026-11-11
 status: current
-old_paths: []
+old_paths: ["/apps/reinstall-app"]
 sources: []
+sidebar:
+  order: 4
 ---
 
 Reinstalling puts an app back with Deployrr's default settings and keeps the app's data folder. This guide shows the ways to do it, what is kept, what is reset, and how to back up first.
@@ -102,7 +104,7 @@ Choosing **Yes** stops and removes the app's container if it is running, then in
 
 **Reinstall** is only in the menu when the app is stopped. This route skips the **Already Installed** box.
 
-For context, the other actions in this box are below. See [Install and manage apps from the Apps menu](/apps/manage-apps/) for each one.
+For context, the other actions in this box are below. See [Install and manage apps from the Apps menu](/using-deployrr/manage-apps/) for each one.
 
 | App status | Actions |
 | --- | --- |

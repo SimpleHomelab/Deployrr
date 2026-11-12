@@ -11,8 +11,8 @@ applies_to: v6.0+
 related:
   - reverse-proxy/choose-login-method
   - reverse-proxy/traefikify
-  - using-deployrr/requirements-not-met
-  - apps/manage-apps
+  - getting-started/requirements-not-met
+  - using-deployrr/manage-apps
   - getting-started/licenses
 further_reading: []
 videos: []
@@ -46,7 +46,7 @@ If something is missing, Deployrr shows a **Requirements Not Met** box after you
 - Advanced Authentication: "Authelia, Authentik, OAuth, or TinyAuth must be running (Security menu)"
 - License: "Basic, Plus, or Pro required. Current: ..." with your current license
 
-Fix the lines, then start again. See [Requirements Not Met](/using-deployrr/requirements-not-met/) for what each line means.
+Fix the lines, then start again. See [Requirements Not Met](/getting-started/requirements-not-met/) for what each line means.
 
 ## Steps
 
@@ -166,6 +166,6 @@ Un-Traefikify removes the rules file `app-shellinabox.yml` from `appdata/traefik
 
 - [Choose a login method](/reverse-proxy/choose-login-method/): set up the login that must sit in front of ShellInABox.
 - [Put any app behind Traefik with Traefikify](/reverse-proxy/traefikify/): how Un-Traefikify removes the rules file.
-- [Requirements Not Met](/using-deployrr/requirements-not-met/): what each missing line means.
-- [Manage Apps](/apps/manage-apps/): the Apps menu, for Docker apps.
+- [Requirements Not Met](/getting-started/requirements-not-met/): what each missing line means.
+- [Manage Apps](/using-deployrr/manage-apps/): the Apps menu, for Docker apps.
 - [Licenses](/getting-started/licenses/): which license you need.

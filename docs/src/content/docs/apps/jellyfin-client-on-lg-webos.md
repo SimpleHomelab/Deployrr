@@ -16,7 +16,7 @@ symptoms:
   - "Jellyfin works in a web browser but not in the LG webOS app"
   - "The TV app fails before it shows the login page"
 related:
-  - apps/authentik-removal
+  - reverse-proxy/authentik-removal
   - reverse-proxy/setup-auth-bypass-using-file-provider
   - reverse-proxy/check-traefik-logs
   - reverse-proxy/restrict-access-using-ip-allowlist
@@ -99,7 +99,7 @@ The TV app may get past the connection and then stop at a login step from Authel
 
 First check which chain Jellyfin uses. If Traefik was running when you installed Jellyfin, Deployrr asked you to **Pick an Authentication Method** and created `app-jellyfin.yml` in `appdata/traefik3/rules/HOSTNAME/`. Open that file and look for a chain name such as `chain-authelia`. If you skipped the question, Jellyfin uses `chain-no-auth` already.
 
-To switch Jellyfin to `chain-no-auth`, use **Security** > **Manage Auth** (Pro license) or edit the file. [Remove Authentik](/apps/authentik-removal/) has the steps for both and a table of chains. Use `chain-no-auth` instead of the chain it suggests.
+To switch Jellyfin to `chain-no-auth`, use **Security** > **Manage Auth** (Pro license) or edit the file. [Remove Authentik](/reverse-proxy/authentik-removal/) has the steps for both and a table of chains. Use `chain-no-auth` instead of the chain it suggests.
 
 :::caution
 `chain-no-auth` leaves Jellyfin open to anyone who can reach your domain, except for Jellyfin's own login. Use a strong password on every Jellyfin account.
@@ -113,5 +113,5 @@ To switch Jellyfin to `chain-no-auth`, use **Security** > **Manage Auth** (Pro l
 
 ## Related
 
-- [Remove Authentik](/apps/authentik-removal/): how to change an app's login chain, with a table of chains.
+- [Remove Authentik](/reverse-proxy/authentik-removal/): how to change an app's login chain, with a table of chains.
 - [Set up GPU hardware transcoding](/apps/gpu-transcoding/): let Jellyfin use your graphics card when it converts video for a TV or phone.

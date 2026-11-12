@@ -11,8 +11,8 @@ apps: [qbittorrent-vpn, gluetun, deunhealth]
 related:
   - apps/qbittorrent-webui-troubleshooting
   - using-deployrr/connecting-apps
-  - using-deployrr/requirements-not-met
-  - using-deployrr/folders
+  - getting-started/requirements-not-met
+  - storage/folders
   - docker/container-keeps-restarting
 further_reading:
   - title: "UDMS part 10: pass the TUN network device into a Proxmox LXC"
@@ -104,7 +104,7 @@ At the end, Deployrr tells you that you can route other containers through Gluet
 
 ### 3. Set your Downloads Folder
 
-qBittorrent VPN saves its files in your Downloads Folder. If it isn't set, the install shows `Downloads Folder - Must be set (System > Folders menu)`. Set it in **System** > **Folders**. See [Set your media, downloads and other folders](/using-deployrr/folders/).
+qBittorrent VPN saves its files in your Downloads Folder. If it isn't set, the install shows `Downloads Folder - Must be set (System > Folders menu)`. Set it in **System** > **Folders**. See [Set your media, downloads and other folders](/storage/folders/).
 
 The install creates a `torrents` folder inside your Downloads Folder. It has the subfolders `movies`, `tv`, `others` and `indexes`.
 
@@ -113,11 +113,11 @@ The install creates a `torrents` folder inside your Downloads Folder. It has the
 1. Go to **Apps** > **Browse Apps**.
 2. Select **qBittorrent VPN** and choose **Install**.
 3. Read the **qBittorrent VPN Setup** box. It says Gluetun must be running and connected to your VPN, and that you reach the web page through Gluetun's port. Select **OK**. Deployrr checks the requirements after this box.
-4. At **Port Configuration**, enter the port for the web page. The default is `8082`. Deployrr suggests the first free port from there. If the port is taken, see [Port is already in use](/apps/port-already-in-use/).
+4. At **Port Configuration**, enter the port for the web page. The default is `8082`. Deployrr suggests the first free port from there. If the port is taken, see [Port is already in use](/docker/port-already-in-use/).
 5. Wait for the four steps to finish: configuring the Gluetun port, stopping qBittorrent VPN, restarting Gluetun and starting qBittorrent VPN.
 6. Read the **qBittorrent VPN - Installation Notes** box at the end. It has two notes. One gives the default login. The other tells you how to connect Arr apps.
 
-If you see `Required app not running` with `gluetun must be installed and running first` or `deunhealth must be installed and running first`, go back to step 2. Deployrr only checks that the container is running, not that the VPN is connected. Installing DeUnhealth without Socket Proxy shows `socket-proxy must be installed and running first`. See also [Requirements Not Met](/using-deployrr/requirements-not-met/).
+If you see `Required app not running` with `gluetun must be installed and running first` or `deunhealth must be installed and running first`, go back to step 2. Deployrr only checks that the container is running, not that the VPN is connected. Installing DeUnhealth without Socket Proxy shows `socket-proxy must be installed and running first`. See also [Requirements Not Met](/getting-started/requirements-not-met/).
 
 ### 5. Open qBittorrent and change the login
 
@@ -199,6 +199,6 @@ To see how the device is passed into an LXC, watch [Proxmox LXC network device p
 
 - [qBittorrent web UI says Unauthorized or won't open](/apps/qbittorrent-webui-troubleshooting/): the web page won't load, the login fails or Gluetun can't connect.
 - [Connect your apps to each other](/using-deployrr/connecting-apps/): the host and port for every app, including `gluetun:8080`.
-- [Requirements Not Met](/using-deployrr/requirements-not-met/): every line of the requirements box and the menu that clears it.
-- [Reinstall an app and keep its data](/apps/reinstall-app/): what a reinstall of qBittorrent VPN resets.
-- [Install and manage apps from the Apps menu](/apps/manage-apps/): start, stop, restart and read logs.
+- [Requirements Not Met](/getting-started/requirements-not-met/): every line of the requirements box and the menu that clears it.
+- [Reinstall an app and keep its data](/using-deployrr/reinstall-app/): what a reinstall of qBittorrent VPN resets.
+- [Install and manage apps from the Apps menu](/using-deployrr/manage-apps/): start, stop, restart and read logs.

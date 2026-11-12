@@ -14,7 +14,7 @@ related:
   - reverse-proxy/check-traefik-logs
   - using-deployrr/second-app-instances
   - apps/home-assistant-behind-traefik
-  - using-deployrr/change-hostname
+  - host/change-hostname
   - reverse-proxy/restrict-access-using-ip-allowlist
 further_reading:
   - title: "UDMS part 18: Homepage behind Traefik (manual setup)"
@@ -30,6 +30,8 @@ old_paths: ["/traefik/point-root-domain-to-a-dashboard"]
 sources:
   - type: discord
     ref: "https://discord.com/channels/974306760171073556/1345068762029887579"
+sidebar:
+  order: 16
 ---
 
 By default, a dashboard opens at a subdomain such as `homepage.example.com`. Deployrr suggests the app name as the subdomain at install, but you may have picked another one. You can make it open at your root domain, `example.com`, and at `www.example.com`. You do this by changing the address rule in the app's Traefik file.
@@ -167,5 +169,5 @@ If the dashboard loads on your home network but not from outside, check your DNS
 - [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): find out why a route returns a 404 or 502.
 - [Run a second copy of an app](/using-deployrr/second-app-instances/): run a second copy of an app at its own address.
 - [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/): another example of an app's Traefik file.
-- [Change the hostname](/using-deployrr/change-hostname/): what happens to the rules folder if your hostname changes.
+- [Change the hostname](/host/change-hostname/): what happens to the rules folder if your hostname changes.
 - [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/): keep the dashboard to your home network.

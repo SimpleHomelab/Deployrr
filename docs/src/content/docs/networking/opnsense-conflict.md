@@ -1,6 +1,7 @@
 ---
 title: "Traefik staging fails with unable to obtain ACME certificate on OPNsense"
 sidebar:
+  order: 7
   label: Certificate fails behind OPNsense
 description: Traefik staging stops with "Unable to obtain ACME certificate" behind OPNsense. Exempt your Docker host from the DNS redirect rule and try again.
 type: troubleshooting

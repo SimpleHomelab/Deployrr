@@ -10,7 +10,7 @@ tags:
 applies_to: v6.0+
 apps: [socket-proxy]
 related:
-  - using-deployrr/requirements-not-met
+  - getting-started/requirements-not-met
   - getting-started/licenses
   - reverse-proxy/traefik-setup
   - using-deployrr/stack-manager
@@ -31,6 +31,8 @@ last_reviewed: 2026-11-11
 status: current
 old_paths: []
 sources: []
+sidebar:
+  order: 1
 ---
 
 Socket Proxy is a small helper app that Deployrr installs from the **Docker** menu. Traefik, the Deployrr Dashboard and many other apps need it. This guide shows what it does, how to install it, which apps need it and what to do when it is not running.
@@ -87,7 +89,7 @@ The main menu also shows a status next to **Docker**. It reads `DONE` when both 
 ### If Deployrr stops with a box
 
 - **License Required**: you see `This app requires a Basic, Plus, or Pro license.` Upgrade, run **Prerequisites** > **Verify**, then try again. See [Licenses](/getting-started/licenses/).
-- **Requirements Not Met**: finish what the box lists, then try again. See [Deployrr shows "Requirements Not Met"](/using-deployrr/requirements-not-met/).
+- **Requirements Not Met**: finish what the box lists, then try again. See [Deployrr shows "Requirements Not Met"](/getting-started/requirements-not-met/).
 - `Socket Proxy deployment failed`: the install did not finish. Read the messages above it in the terminal. For a timeout, see [Deployrr times out waiting for a container to start](/docker/waiting-for-container/).
 - `is malformed (missing placeholders)`: your main compose file is damaged. See [Docker environment setup fails with: docker-compose file is malformed](/docker/compose-malformed/).
 
@@ -191,7 +193,7 @@ You do not need to edit it. [Stack Manager](/using-deployrr/stack-manager/) can 
 
 ## Related
 
-- [Deployrr shows "Requirements Not Met"](/using-deployrr/requirements-not-met/): every line the box can show and where to clear it.
+- [Deployrr shows "Requirements Not Met"](/getting-started/requirements-not-met/): every line the box can show and where to clear it.
 - [Licenses](/getting-started/licenses/): which license you need for Socket Proxy.
 - [Set up Traefik](/reverse-proxy/traefik-setup/): Traefik needs Socket Proxy first.
 - [Stack Manager](/using-deployrr/stack-manager/): start, stop and recreate Socket Proxy.

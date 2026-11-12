@@ -1,6 +1,7 @@
 ---
 title: Deployrr shows "Unhealthy - Issues detected"
 sidebar:
+  order: 3
   label: System Health and Diagnostics
 description: "Run Tools > Diagnostics, read each line of the health check, and fix the permission, YAML and Remote Assist problems that make Deployrr show Unhealthy."
 type: troubleshooting
@@ -49,7 +50,7 @@ further_reading:
     url: "https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Prepare_Traefik_Folders"
 last_reviewed: 2026-11-10
 status: current
-old_paths: []
+old_paths: ["/using-deployrr/diagnostics"]
 sources: []
 ---
 
@@ -92,18 +93,18 @@ To see why `acme.json` needs `600`, watch [Traefik 3 guide: creating acme.json a
 
 The other main menu messages mean something different:
 
-- **Error - Hostname Mismatch** means your server's name changed. See [Change the hostname](/using-deployrr/change-hostname/). The main menu shows this instead of the other results, but **Tools** > **Diagnostics** still runs all the checks.
+- **Error - Hostname Mismatch** means your server's name changed. See [Change the hostname](/host/change-hostname/). The main menu shows this instead of the other results, but **Tools** > **Diagnostics** still runs all the checks.
 - **Not Applicable** means you have not finished the Prerequisites yet. See [Quick start](/getting-started/quick-start/).
 
 ## Fix
 
 ### 1. Open Diagnostics
 
-You need all Prerequisites done and a Basic, Plus or Pro license. Without them, Deployrr shows a box titled **Requirements Not Met** with the number of missing items, such as "Requirements Not Met (1)", and lists them. For unfinished Prerequisites it says "Prerequisites - All steps must be completed". For a missing license it says "License - Basic, Plus, or Pro required", followed by your current license and a hint to **Prerequisites** > **Verify**. See [Deployrr shows "Requirements Not Met"](/using-deployrr/requirements-not-met/) for what each line means.
+You need all Prerequisites done and a Basic, Plus or Pro license. Without them, Deployrr shows a box titled **Requirements Not Met** with the number of missing items, such as "Requirements Not Met (1)", and lists them. For unfinished Prerequisites it says "Prerequisites - All steps must be completed". For a missing license it says "License - Basic, Plus, or Pro required", followed by your current license and a hint to **Prerequisites** > **Verify**. See [Deployrr shows "Requirements Not Met"](/getting-started/requirements-not-met/) for what each line means.
 
 1. In Deployrr, open **Tools**.
 2. Select **Diagnostics**.
-3. Read the five lines. Each line is one check. Deployrr runs the checks when you open the screen. To share results, generate a log from **Settings** > **Logs**.
+3. Read the five lines. Each line is one check. Deployrr runs the checks when you open the screen. To share results, [generate a log](/support/generate-support-log/) from **Settings** > **Logs**.
 
 The lines are:
 

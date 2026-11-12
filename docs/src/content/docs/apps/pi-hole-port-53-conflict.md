@@ -15,7 +15,7 @@ symptoms:
   - Pi-hole install fails and the pihole container does not start
   - Something else is already listening on port 53
 related:
-  - apps/port-already-in-use
+  - docker/port-already-in-use
   - using-deployrr/bash-aliases
   - docker/no-internet-in-containers
   - networking/opnsense-conflict
@@ -128,13 +128,13 @@ On Debian, **Prerequisites** > **Packages** rewrites `/etc/systemd/resolved.conf
 
 3. Open the Pi-hole web interface. The address is shown at the end of the install. It looks like `http://SERVER_IP:83/admin/` with the web port you chose.
 
-If something other than `systemd-resolved` is on port 53, the `ports` and `showlistening` shortcuts on the [bash aliases page](/using-deployrr/bash-aliases/) can help you find it. Stop that program, or move it to another port (see [Port already in use](/apps/port-already-in-use/) if it is one of your apps), then repeat steps 6 to 11.
+If something other than `systemd-resolved` is on port 53, the `ports` and `showlistening` shortcuts on the [bash aliases page](/using-deployrr/bash-aliases/) can help you find it. Stop that program, or move it to another port (see [Port already in use](/docker/port-already-in-use/) if it is one of your apps), then repeat steps 6 to 11.
 
 Pi-hole also uses port 67/udp for DHCP. If a DHCP server runs on the same machine, it can clash in the same way.
 
 ## Related
 
-- [Port already in use](/apps/port-already-in-use/): the same kind of clash on an app's web port, and how to move an app to a free port.
+- [Port already in use](/docker/port-already-in-use/): the same kind of clash on an app's web port, and how to move an app to a free port.
 - [Bash aliases](/using-deployrr/bash-aliases/): the `ports` and `showlistening` shortcuts show which program holds a port.
 - [Quick start](/getting-started/quick-start/): the Prerequisites steps, including Packages.
 - [No internet on the server or in containers after setup](/docker/no-internet-in-containers/): when DNS breaks after the Debian Packages step.

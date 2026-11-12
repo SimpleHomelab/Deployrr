@@ -8,7 +8,7 @@ tags:
 applies_to: v6.0+
 related:
   - using-deployrr/backups
-  - using-deployrr/change-hostname
+  - host/change-hostname
   - getting-started/quick-start
   - support/discord
 further_reading: []
@@ -21,6 +21,8 @@ last_reviewed: 2026-11-09
 status: current
 old_paths: []
 sources: []
+sidebar:
+  order: 14
 ---
 
 Use a Migration Package to move your whole setup to a new server. The package holds your Deployrr settings and your full Docker folder. You create it on the old server, copy it over and restore it on the new one.
@@ -36,7 +38,7 @@ Use a Migration Package to move your whole setup to a new server. The package ho
 
 A [backup](/using-deployrr/backups/) holds only the Docker folder and is meant to be restored on the same server. A Migration Package also holds your Deployrr settings and is meant for a new machine.
 
-Neither holds anything else. For example, media on a mounted share is not in the package. Move it or mount it again on the new server yourself, for example with [Rclone](/host/rclone-smb-setup/) or [SMB or NFS Mount](/host/smb-nfs-mounts/).
+Neither holds anything else. For example, media on a mounted share is not in the package. Move it or mount it again on the new server yourself, for example with [Rclone](/storage/rclone-smb-setup/) or [SMB or NFS Mount](/storage/smb-nfs-mounts/).
 
 ## Steps
 
@@ -108,7 +110,7 @@ Replace `FILE` with the path of your `.tar.gz` file. Replace `USER` with your Li
 
 #### If the new server has a different IP address
 
-These steps are the short version. For a backup step, the full output and what the tool leaves alone, see [Change the server IP](/using-deployrr/change-server-ip/).
+These steps are the short version. For a backup step, the full output and what the tool leaves alone, see [Change the server IP](/host/change-server-ip/).
 
 1. Go to **Tools** > **Change Server IP** ("Adapt Deployrr to a new server IP"). This needs Pro and finished Prerequisites.
 2. At "Enter the new Docker Host IP (LAN IP or WAN IP for VPS):", type the IP of the new server.
@@ -122,7 +124,7 @@ These steps are the short version. For a backup step, the full output and what t
 
 #### If the new server has a different hostname
 
-Once Prerequisites are done, the System Health line on the main menu shows "Error - Hostname Mismatch (Run Tools->Change Hostname)". Follow [Change the hostname](/using-deployrr/change-hostname/) to fix it. The Change Hostname tool stops all running containers, so run **Stack Manager** > **Up** afterwards.
+Once Prerequisites are done, the System Health line on the main menu shows "Error - Hostname Mismatch (Run Tools->Change Hostname)". Follow [Change the hostname](/host/change-hostname/) to fix it. The Change Hostname tool stops all running containers, so run **Stack Manager** > **Up** afterwards.
 
 You can also avoid the error. Before you restore, give the new server the old hostname. This is a standard Linux command, not a Deployrr option. Replace `OLDNAME` with the hostname of the old server.
 
@@ -140,6 +142,6 @@ sudo hostnamectl set-hostname OLDNAME
 ## Related
 
 - [Back up and restore your Docker folder](/using-deployrr/backups/): the normal backup, for the same server.
-- [Change the hostname](/using-deployrr/change-hostname/): fix a hostname mismatch on the new server.
+- [Change the hostname](/host/change-hostname/): fix a hostname mismatch on the new server.
 - [Quick start](/getting-started/quick-start/): install Deployrr on the new server.
 - [Get help on Discord](/support/discord/): ask the community if the restore fails.

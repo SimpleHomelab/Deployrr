@@ -1,6 +1,7 @@
 ---
 title: "Domain Checks failed in Prerequisites (ports 80 and 443, DNS records, orange cloud)"
 sidebar:
+  order: 5
   label: Domain Checks failed
 description: Fix each failed Domain Check in Deployrr v6, from ports 80 and 443 to the A record, wildcard CNAME and orange-cloud records, using the messages you see.
 type: troubleshooting
@@ -31,7 +32,7 @@ related:
   - getting-started/setup-mode
 last_reviewed: 2026-11-11
 status: current
-old_paths: []
+old_paths: ["/networking/domain-checks-failed"]
 sources: []
 further_reading:
   - title: "UDMS part 18: Setting up port forwarding"
@@ -108,7 +109,7 @@ Hybrid mode needs your domain to point at your public IP, and the internet must 
 
 Domain Checks only runs in Hybrid mode. In Local mode the menu row shows `NOT-REQUIRED` and you see **Domain Checks Not Required**. There is nothing to fix. To switch, see [Setup Mode: Local or Hybrid](/getting-started/setup-mode/).
 
-If you see **Requirements Not Met** instead of the checks, finish **Disclaimers**, **Username**, **Domain 1** (listed as `Domain Name` in the box) and **System Checks** first. See [Requirements Not Met](/using-deployrr/requirements-not-met/).
+If you see **Requirements Not Met** instead of the checks, finish **Disclaimers**, **Username**, **Domain 1** (listed as `Domain Name` in the box) and **System Checks** first. See [Requirements Not Met](/getting-started/requirements-not-met/).
 
 ## Find your failed check
 
@@ -279,7 +280,7 @@ Do not rerun **Domain Checks** once it shows `DONE` and Traefik is running. Pres
 
 ## Override a check with EXPERT mode
 
-If you know a failed check is wrong, you can override it. Turn on [EXPERT mode](/using-deployrr/expert-mode/) first.
+If you know a failed check is wrong, you can override it. Turn on [EXPERT mode](/getting-started/expert-mode/) first.
 
 1. In Deployrr, open **Settings**.
 2. Select **Mode**. Its description reads `Toggle Deployrr Mode - NORMAL`.

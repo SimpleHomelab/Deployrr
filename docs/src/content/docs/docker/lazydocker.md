@@ -1,6 +1,7 @@
 ---
 title: 'Lazydocker shows "client version 1.25 is too old"'
 sidebar:
+  order: 10
   label: Lazydocker on Docker v29
 description: Open Lazydocker from Tools, see why it fails on Docker v29, and fix it by lowering Docker's minimum API version or installing Lazydocker on the host.
 type: troubleshooting
@@ -16,7 +17,7 @@ symptoms:
   - Lazydocker does not start or shows no containers
 related:
   - docker/container-keeps-restarting
-  - using-deployrr/requirements-not-met
+  - getting-started/requirements-not-met
   - docker/apps-not-starting-after-reboot
   - using-deployrr/bash-aliases
   - using-deployrr/stack-manager
@@ -39,7 +40,7 @@ sources:
 
 Lazydocker is a terminal app that lists your containers and their logs. You open it from **Tools** > **Lazydocker** ("Terminal UI for Docker Management"). On Docker v29 and newer, it can fail with an error about the client version. This page shows why, and two ways to make Lazydocker work.
 
-Lazydocker needs completed Prerequisites and a Basic, Plus or Pro license. If you see "Requirements Not Met" instead, see [Requirements Not Met](/using-deployrr/requirements-not-met/).
+Lazydocker needs completed Prerequisites and a Basic, Plus or Pro license. If you see "Requirements Not Met" instead, see [Requirements Not Met](/getting-started/requirements-not-met/).
 
 ## Symptoms
 
@@ -172,7 +173,7 @@ See [A container keeps restarting, is unhealthy or has exited](/docker/container
 ## Related
 
 - [A container keeps restarting, is unhealthy or has exited](/docker/container-keeps-restarting/): other ways to read logs.
-- [Requirements Not Met](/using-deployrr/requirements-not-met/): what the Tools menu needs.
+- [Requirements Not Met](/getting-started/requirements-not-met/): what the Tools menu needs.
 - [Apps are stopped or show empty folders after a reboot](/docker/apps-not-starting-after-reboot/): start apps that stay down after a Docker restart.
 - [Bash aliases](/using-deployrr/bash-aliases/): `dlogs` and other short commands.
 - [Stack Manager](/using-deployrr/stack-manager/): start apps that are stopped.
