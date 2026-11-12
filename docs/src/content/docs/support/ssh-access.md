@@ -10,13 +10,17 @@ related:
   - getting-started/quick-start
   - reverse-proxy/check-traefik-logs
   - using-deployrr/forgot-pin
+videos:
+  - id: Nuo83uzTWco
+    start: 532
+    title: "Deployrr 6 overview: Remote Assistance with Tmate"
 further_reading: []
 last_reviewed: 2026-11-09
 status: current
 old_paths: ["/deployrr/get-support-via-ssh"]
 ---
 
-Some problems are easier to fix with someone looking at your system. Remote Assist lets the support team connect to your host for a short session. You start it and stop it from the Deployrr **Help** menu.
+Some problems are easier to fix with someone looking at your system. Remote Assist lets the support team connect to your host for a short session. You start it and stop it from the Deployrr **Help** menu. For a short look at the feature, watch [Deployrr 6 overview: Remote Assistance with Tmate at 8:52](https://youtu.be/Nuo83uzTWco?t=532).
 
 :::caution[Remote Assist may not work right now]
 Remote Assist has a known problem and may fail to start a session. If it does not work, ask for help on [Discord](/support/discord/) instead.
