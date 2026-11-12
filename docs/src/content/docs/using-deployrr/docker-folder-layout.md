@@ -139,7 +139,7 @@ Some apps get passwords and keys that Deployrr makes for you, such as the databa
 sudo cp YOUR_DOCKER_FOLDER/secrets/n8n_postgresql_password ~/n8n_postgresql_password.bak
 ```
 
-If the app can't reach its database after the reinstall, ask for help on [Discord](/support/discord/) and keep that copy.
+If the app can't reach its database after the reinstall, ask for help on [Discord](/support/discord/) and keep that copy. To change a database password on purpose, see [Change a database password safely](/apps/change-database-password/).
 :::
 
 ### The main compose file
