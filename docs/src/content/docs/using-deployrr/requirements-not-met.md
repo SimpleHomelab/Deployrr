@@ -217,7 +217,7 @@ This table shows which lines each item can list. Prerequisites means the `Prereq
 | **Security** > **CrowdSec** | Prerequisites, Pro license |
 | **Security** > **Firewall Bouncer** | Prerequisites, CrowdSec running, Pro license |
 | **Security** > **Traefik Bouncer** | Prerequisites, CrowdSec running, Traefik running, Pro license |
-| **Apps** > **ShellInABox** | Prerequisites, Traefik Production, Advanced Authentication, Basic, Plus or Pro license |
+| **Apps** > [**ShellInABox**](/apps/shellinabox/) | Prerequisites, Traefik Production, Advanced Authentication, Basic, Plus or Pro license |
 | **Help** > **Request Pin**, **Reset Pin** | Disclaimers |
 | **Feedback** | Disclaimers, Basic, Plus or Pro license |
 

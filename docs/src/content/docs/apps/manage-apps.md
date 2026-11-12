@@ -51,7 +51,7 @@ Core apps such as Traefik are in neither list. They have their own menus.
 
 You need a Basic, Plus or Pro license to install or reinstall an app. Without one you see "License Required" and "Official apps require a paid license." Start, Stop, Restart, Logs and Remove in **Manage Apps** have no license or requirements check. See [Licenses](/getting-started/licenses/).
 
-The **Apps Menu** also lists **ShellInABox** under SYSTEM APPS. It is a web-based SSH terminal. It needs Traefik in production, a login method and a paid license. This page doesn't cover it.
+The **Apps Menu** also lists **ShellInABox** under SYSTEM APPS. It is a web-based SSH terminal. It needs Traefik in production, a login method and a paid license. This page doesn't cover it. See [Install ShellInABox](/apps/shellinabox/).
 
 ## Install an app with Browse Apps
 
