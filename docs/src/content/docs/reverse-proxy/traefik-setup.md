@@ -16,7 +16,22 @@ related:
   - networking/opnsense-conflict
   - reverse-proxy/restrict-access-using-ip-allowlist
   - networking/ufw-firewall-vps
-further_reading: []
+further_reading:
+  - title: "UDMS part 18: how Traefik, port forwarding and Let's Encrypt certificates work (manual setup)"
+    url: https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/
+videos:
+  - id: rdqbAr0TFnQ
+    start: 2538
+    title: "Deployrr 5 walkthrough: Traefik Preparation, Staging and Production"
+    note: Shows Deployrr v5. Menus and steps differ in v6.
+  - id: rdqbAr0TFnQ
+    start: 2162
+    title: "Deployrr 5 walkthrough: Traefik exposure mode (Simple and Advanced)"
+    note: Shows Deployrr v5. Menus and steps differ in v6.
+  - id: KMZIyoZ3jWM
+    start: 533
+    title: "Traefik 3 guide: create the Cloudflare DNS API token"
+    note: Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens.
 last_reviewed: 2026-11-09
 status: current
 old_paths: []
@@ -34,6 +49,8 @@ Traefik is the reverse proxy that gives your apps their own web addresses, such 
 - Make a Cloudflare DNS API token. In Cloudflare, go to **My Profile** > **API Tokens**. Use a user token, not an Account API Token. Give it these two permissions:
   - Zone / Zone / Read
   - Zone / DNS / Edit
+
+  To see the token made step by step, watch [Traefik 3 guide: create the Cloudflare DNS API token at 8:53](https://youtu.be/KMZIyoZ3jWM?t=533) (manual Docker Compose setup; Deployrr does the rest for you).
 - The **Socket Proxy** app is running. You can check it in the **Docker** menu. See [Socket Proxy](/docker/socket-proxy/).
 - Ports 80, 81, 443 and 444 are free on your server.
 - If you use Nginx Proxy Manager (NPM), Deployrr will offer to stop it. It stops it and does not remove it. NPM and Traefik both need ports 80 and 443. To use NPM instead of Traefik, see [Use Nginx Proxy Manager instead of Traefik](/reverse-proxy/nginx-proxy-manager/).
@@ -93,6 +110,8 @@ In Advanced mode, local traffic can count as external if your router has no hair
 
 The basic auth username and password become the login for basic auth protection, until you set up a stronger login.
 
+To see Preparation, Staging and Production run one after the other, watch [Deployrr 5 walkthrough: Traefik Preparation at 42:18](https://youtu.be/rdqbAr0TFnQ?t=2538) (shows Deployrr v5; menus and steps differ in v6).
+
 If Preparation stops with an error, use this table.
 
 | Message | What to do |
@@ -107,7 +126,7 @@ If Preparation stops with an error, use this table.
 
 ### Run Staging
 
-Staging gets test certificates from the Let's Encrypt staging server. This keeps you away from the real rate limit while you check that everything works.
+Staging gets test certificates from the Let's Encrypt staging server. This keeps you away from the real rate limit while you check that everything works. To understand how Traefik gets certificates, see [UDMS part 18: Traefik Docker Compose guide](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/) (manual setup; its folders and Docker labels differ from Deployrr v6, so use it as background only).
 
 1. Open **Proxy** > **Traefik** > **Staging** ("Setup Traefik Staging"). It needs the same things as Preparation, and Preparation done.
 2. If you ran Staging or Production before and certificates exist, you see a warning that it was already done. Press `Y` to continue.
