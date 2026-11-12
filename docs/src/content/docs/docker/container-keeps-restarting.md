@@ -158,6 +158,7 @@ The output lists the last health check runs and what each one printed. Read the 
 | The page does not open and the app itself looks fine | Traefik may be the problem. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/) and [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/). |
 | You edited a compose file or `.env` and then it broke | Undo your edit. For the main compose file, see [Docker environment setup fails with: docker-compose file is malformed](/docker/compose-malformed/). |
 | `no such host`, `temporary failure in name resolution` or other lookup errors | The container has no DNS or internet. See [No internet on the server or in containers after setup](/docker/no-internet-in-containers/). |
+| `no space left on device` | The disk is full. See [When the disk is full](/docker/free-disk-space/#when-the-disk-is-full). |
 | `toomanyrequests` or `TLS handshake timeout` | The image did not download. See [Docker image pulls fail](/docker/rate-limit/). |
 | `failed to create shim task` in a Proxmox LXC container | See [Docker fails with "failed to create shim task"](/host/shim-task-debian/). |
 | qBittorrent VPN is unhealthy or its web UI will not open | See [qBittorrent web UI says Unauthorized or won't open](/apps/qbittorrent-webui-troubleshooting/). |
