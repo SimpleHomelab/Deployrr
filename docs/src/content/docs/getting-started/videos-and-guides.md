@@ -20,6 +20,10 @@ further_reading:
     url: https://youtube.com/playlist?list=PL1Hno7tIbSWUGrZSqeB9aCsdAuoeVwvgh
   - title: UDMS guide series
     url: https://www.simplehomelab.com/tag/ultimate-docker-server/
+videos:
+  - id: Nuo83uzTWco
+    start: 0
+    title: "Deployrr 6 intro: Introduction"
 last_reviewed: 2026-11-08
 status: current
 old_paths: ["/deployrr/references"]

@@ -173,7 +173,7 @@ This needs completed Prerequisites, a Basic, Plus or Pro license, Rclone install
 
 To see this set up, watch [Deployrr 5 walkthrough: Rclone Delay Media Apps at 19:36](https://youtu.be/rdqbAr0TFnQ?t=1176) (shows Deployrr v5; menus differ in v6).
 
-After the next reboot, Deployrr waits for the Rclone mount and then starts your media apps. It checks every 5 seconds and gives up after about 15 minutes. If the mount never appears, it stops and removes the media app containers. Your app data stays in the Docker folder. Fix the mount (step 2), then start the apps with **Stack Manager** > **Up** (step 4). **Start Container** can't help here, because the containers are gone. See part 5 of [Mount a NAS share with Rclone](/host/rclone-smb-setup/) for the log files.
+After the next reboot, Deployrr waits for the Rclone mount and then starts your media apps. It checks every 5 seconds and gives up after about 15 minutes. If the mount never appears, it stops and removes the media app containers. This also removes Audiobookshelf and Lollypop, which otherwise start on their own. Your app data stays in the Docker folder. Fix the mount (step 2), then start the apps with **Stack Manager** > **Up** (step 4). **Start Container** can't help here, because the containers are gone. See part 5 of [Mount a NAS share with Rclone](/host/rclone-smb-setup/) for the log files.
 
 :::note
 **Delay Media Apps** only watches the Rclone mount. It does not wait for an SMB or NFS mount in `/etc/fstab`, or for a local disk. It does not start Kasm, Resilio Sync or MQTTX Web either. After a reboot, start those with step 4.

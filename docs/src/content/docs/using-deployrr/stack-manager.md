@@ -91,7 +91,9 @@ With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dcup`. Unlike 
 
 With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dcdown`.
 
-To see a whole stack brought down and up with aliases, watch [Bash aliases: bring a whole Docker Compose stack down and back up at 8:43](https://youtu.be/Ux9khKhqhcg?t=523) (manual Docker Compose setup; Deployrr does these steps for you, and some of its alias names differ from the video). For the matching commands, see [UDMS part 13: Starting and stopping services with Docker Compose](https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/#Starting_and_Stopping_Services) (manual setup, to understand how it works).
+To see a whole stack brought down and up with aliases, watch [Bash aliases: bring a whole Docker Compose stack down and back up at 8:43](https://youtu.be/Ux9khKhqhcg?t=523) (manual Docker Compose setup; Deployrr does these steps for you, and some of its alias names differ from the video).
+
+For the matching commands, see [UDMS part 13: Starting and stopping services with Docker Compose](https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/#Starting_and_Stopping_Services) (manual setup, to understand how it works).
 
 ### Update Stack
 
@@ -149,7 +151,7 @@ Shows "Status of services in docker-compose-HOSTNAME.yml..." and a table with **
 
 ### Recreate
 
-"Force recreate an app". Use it after you edit an app's compose file or its `.env` values, so the app picks up the change.
+"Force recreate an app". Use it after you edit an app's compose file or its `.env` values, so the app picks up the change. To change a value or a secret first, see [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/).
 
 1. Choose **Recreate**.
 2. At "Select an app to recreate:", type the number of the app and press Enter. The list shows all your containers. Type `all` to recreate every one of them, or `exit` to leave.
