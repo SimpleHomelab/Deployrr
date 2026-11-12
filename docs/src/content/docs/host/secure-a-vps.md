@@ -47,9 +47,9 @@ A new VPS or dedicated server is on the public internet from the first minute. B
 :::caution
 Several steps below can lock you out of the server. For each one, keep your current session open and test in a second terminal before you close anything. If you do get locked out, use the provider's web console.
 
-Deployrr does not manage SSH and does not turn UFW on. It does add firewall rules when you set up some apps. When you set up Traefik, it allows ports 80, 81, 443 and 444 (TCP, and UDP for 443 and 444). Socket Proxy adds a rule that allows its Docker network, `192.168.91.0/24`. On Fedora and RHEL-type systems, the same rules go to firewalld. The rules are added even if UFW is off. Run `sudo ufw status` before you turn UFW on, so you know what it will allow. Prerequisites > Packages installs UFW on Debian, Ubuntu and Arch.
+Deployrr does not manage SSH and does not turn UFW on. It does add firewall rules when you set up some apps. When you set up Traefik, it allows ports 80, 81, 443 and 444 (TCP, and UDP for 443 and 444). Socket Proxy adds a rule that allows its Docker network, `192.168.91.0/24`. If UFW is not installed but firewalld is, the same rules go to firewalld. The rules are added even if UFW is off. Run `sudo ufw status` before you turn UFW on, so you know what it will allow. Prerequisites > Packages installs UFW on Debian, Ubuntu and Arch.
 
-The one Deployrr feature that uses SSH is Remote Assist (Help > Remote Assist, Pro). It sets a temporary password for a support session and asks you to restore your settings afterwards. See [SSH access for support](/support/ssh-access/).
+The one Deployrr feature that uses SSH is Remote Assist (Help > Remote Assist, Pro). It sets a temporary password for a support session and asks you to restore your settings afterwards. See [Get remote help with Remote Assist](/support/ssh-access/).
 :::
 
 ## Steps
@@ -216,13 +216,6 @@ sudo rm /etc/ssh/sshd_config.d/00-hardening.conf
 sudo systemctl restart ssh
 ```
 
-If you also changed the port on Ubuntu 24.04 or newer, run these too:
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl restart ssh.socket
-```
-
 ### Optional: change the SSH port
 
 A new port cuts down the log noise from bots. It does not stop a targeted attack, so treat it as a small extra. Skip this section if you want fewer things that can go wrong. To see the idea, watch [Docker on Proxmox LXC: SSH configuration at 12:03](https://youtu.be/-ZSQdJ62r-Q?t=723). It edits `sshd_config` directly and does not cover the `ssh.socket` step below.
@@ -268,6 +261,18 @@ Open the new port in every firewall first. Your provider's firewall panel (next 
     ```
 
 28. When it works, remove the old port 22 rule from your firewalls.
+
+If the new port does not work, restore the backup in a session you kept open and restart SSH. On Ubuntu 24.04 and newer, also reload systemd and restart the socket:
+
+```bash
+sudo cp /etc/ssh/sshd_config.bak /etc/ssh/sshd_config
+sudo sed -i '/^Port 2222$/d' /etc/ssh/sshd_config.d/00-hardening.conf
+sudo systemctl daemon-reload
+sudo systemctl restart ssh.socket
+sudo systemctl restart ssh
+```
+
+Ubuntu 22.04 and Debian do not use `ssh.socket`. On those, skip the two middle commands.
 
 ### Set the provider firewall
 
@@ -319,8 +324,8 @@ If you do not want an app reachable from the internet, reach it over Tailscale i
 38. Log in as `NAME`, not root.
 39. Run the install command from [Quick start](/getting-started/quick-start/#install-deployrr) with `sudo`, as it shows.
 40. Start Deployrr as your regular user. Type `deployrr` with no `sudo`.
-41. In **Prerequisites** > **System Type**, pick **VPS - Virtual Private Server in the cloud**.
-42. If Traefik Preparation stops with "Port N is occupied. This is needed for Traefik.", a web server that came with your VPS image is using port 80 or 443. Stop that web server, then run Traefik Preparation again.
+41. In **Prerequisites** > **System Type**, pick **VPS** ("Virtual Private Server in the cloud").
+42. If Traefik Preparation stops with "Port N is occupied. This is needed for Traefik.", another program is using one of the ports Traefik needs (80, 81, 443 or 444). Often it is a web server that came with your VPS image. Stop that web server, then run Traefik Preparation again.
 43. Go to **Proxy** > **Traefik** and look at the **Traefik Mode** line ("Toggle how apps are exposed"). If it says **NOT SET** or **Simple**, leave it. NOT SET works as Simple. If it says **Advanced**, select **Traefik Mode** once. Each press flips the mode.
 
     Use Simple on a VPS. A VPS has no router to forward port 80 to 81 and 443 to 444, which Advanced mode needs. See [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/).

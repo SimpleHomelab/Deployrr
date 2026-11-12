@@ -110,7 +110,7 @@ It also reminds you to generate a sanitized log from **Settings** and share it w
 
 ### Feedback
 
-Before you give feedback, **Submit a Review/Feedback** is on the main menu. After you give it, the item moves to the Help menu as **Feedback** ("Submit a review/feedback"), so you can send it again.
+Before you give feedback, **Feedback** ("Submit a Review/Feedback") is on the main menu. After you give it, it moves to the Help menu, so you can send it again.
 
 ## View Deployrr status
 

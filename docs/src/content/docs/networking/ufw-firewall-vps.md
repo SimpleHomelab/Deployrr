@@ -177,7 +177,7 @@ Steps 1, 2 and 5 are general Linux and UFW advice. They are not part of Deployrr
    - **Traefik**: ports 80, 81, 443 and 444 over TCP, and 443 and 444 over UDP.
    - **Socket Proxy**: allows traffic from `192.168.91.0/24`, the Socket Proxy's Docker network.
 
-   Other apps add no firewall rules. Deployrr uses UFW if it is installed, otherwise firewalld on Fedora and RHEL-type systems. If neither is there, it skips this step. If you open an app's port to the internet without Traefik, add that rule yourself.
+   Other apps add no firewall rules. Deployrr uses UFW if it is installed, otherwise firewalld, if it is installed. If neither is there, it skips this step. If you open an app's port to the internet without Traefik, add that rule yourself.
 
 ### Reach private apps with Tailscale
 

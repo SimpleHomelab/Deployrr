@@ -59,13 +59,7 @@ Docker 29.0 raised the oldest API version it accepts to 1.44. Docker 29.3 lowere
 
 The Lazydocker project fixed this in its own releases (v0.24.2 and v0.24.4). The menu item runs the `lazyteam/lazydocker` image from Docker Hub. That image was last updated in May 2022 and has no newer versions. A Lazydocker contributor wrote that the image is not maintained. Pulling the image again does not help.
 
-When you press **OK** in the box, Deployrr runs this command. Lazydocker runs as a temporary container and is removed when you quit. Its settings are kept in `DOCKER_FOLDER/appdata/lazydocker`.
-
-```bash
-sudo docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v "DOCKER_FOLDER/appdata/lazydocker:/.config/jesseduffield/lazydocker" lazyteam/lazydocker
-```
-
-`DOCKER_FOLDER` stands for your Docker folder. You do not type this command yourself.
+When you press **OK** in the box, Lazydocker runs as a temporary container and is removed when you quit. Its settings are kept in `appdata/lazydocker` inside your Docker folder.
 
 ## Fix
 
