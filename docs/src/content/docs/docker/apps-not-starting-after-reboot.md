@@ -134,7 +134,7 @@ To understand how the `/etc/fstab` test works, read [UDMS part 07: Test fstab Co
 If the share or disk is mounted after `sudo mount -a` but was not mounted at boot, the NAS may not have been ready when your server booted. Next time, make sure the NAS is on before you start the server.
 
 :::caution
-A wrong line in `/etc/fstab` can stop your server from booting normally. Before you change it, copy it with `sudo cp /etc/fstab /etc/fstab.before-edit`. After you change it, run `sudo mount -a` and fix every error before you reboot. Deployrr also keeps copies as `/etc/fstab_` followed by the date and time. See [If the mount fails](/host/smb-nfs-mounts/#if-the-mount-fails) for the steps. For a local disk, see [Move data to another disk](/host/move-data-to-another-disk/).
+A wrong line in `/etc/fstab` can stop your server from booting normally. Before you change it, copy it with `sudo cp /etc/fstab /etc/fstab.before-edit`. After you change it, run `sudo mount -a` and fix every error before you reboot. Deployrr also keeps copies as `/etc/fstab_` followed by the date and time. See [If the mount fails](/host/smb-nfs-mounts/#if-the-mount-fails) for the steps. For a local disk, see [Move data to another disk](/host/move-data-to-another-disk/). If the server doesn't boot at all, see [Server won't boot after an /etc/fstab change](/host/fstab-boot-recovery/).
 :::
 
 The lines that **SMB Mount** and **NFS Mount** add do not tell Linux to skip a share it cannot reach. A local disk line can use the `nofail` option, so the server still boots if the disk is missing. [Move data to another disk](/host/move-data-to-another-disk/) shows a line with it.

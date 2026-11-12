@@ -196,7 +196,7 @@ If you see "Failed to add SMB mount entry to /etc/fstab. Please check permission
 Deployrr keeps the entry in `/etc/fstab` even when the mount fails. Running the option again adds a second entry. Fix the entry first.
 
 :::caution
-Linux reads `/etc/fstab` at every boot. A broken line in it can stop your server from booting normally, and the lines Deployrr adds don't tell Linux to skip a share it can't reach. Copy the file before you edit it, change only the Deployrr lines, and test your change with `sudo mount -a` before you reboot.
+Linux reads `/etc/fstab` at every boot. A broken line in it can stop your server from booting normally, and the lines Deployrr adds don't tell Linux to skip a share it can't reach. Copy the file before you edit it, change only the Deployrr lines, and test your change with `sudo mount -a` before you reboot. If your server already won't boot, see [Server won't boot after an /etc/fstab change](/host/fstab-boot-recovery/).
 :::
 
 1. Make a copy of the file:
