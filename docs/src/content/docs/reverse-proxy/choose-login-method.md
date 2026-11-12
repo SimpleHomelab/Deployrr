@@ -155,7 +155,7 @@ You need an authenticator app on your phone, such as Google Authenticator, Duo, 
 10. Wait for "All done with TinyAuth setup!".
 11. Open `https://tinyauth.YOUR_DOMAIN` to check it.
 
-To add more users later, edit the `users_file` in `appdata/tinyauth/` in your Docker folder.
+To add more users later, edit the `users_file` in `appdata/tinyauth/` in your Docker folder. The steps are in [Change login passwords and add users](/reverse-proxy/manage-login-users/#tinyauth).
 
 ## Switch your apps to the new method
 
@@ -263,6 +263,7 @@ If an app shows an error or doesn't load, its chain probably names a method that
 
 - TV and mobile apps often can't show a login page. For those, switch the app to No Authentication if it has its own login (see [Jellyfin app on LG webOS TV or Xbox shows error -27](/apps/jellyfin-client-on-lg-webos/)), or use [Auth Bypass](/reverse-proxy/setup-auth-bypass-using-file-provider/).
 - To limit an app to your home network or VPN, add [an IP allowlist](/reverse-proxy/restrict-access-using-ip-allowlist/). Manage Auth replaces the chain name, so check the chain after you run it on such an app.
+- To change a password, add a user, or register a new two-factor device later, see [Change login passwords and add users](/reverse-proxy/manage-login-users/). Running a method's install again can remove the users you added.
 - To stop using Authentik, move your apps to another method first. See [Remove Authentik](/apps/authentik-removal/).
 
 ## Next steps

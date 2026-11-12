@@ -104,7 +104,7 @@ If your media is on a NAS and the list is empty, the share is not mounted:
 
 - Mount it again with [Rclone](/host/rclone-smb-setup/) or with [SMB and NFS mounts](/host/smb-nfs-mounts/).
 - If Rclone says the mount folder is not empty, see [Rclone mount folder is not empty](/host/rclone-mount-not-empty/).
-- If the files are there after a reboot but the app was empty at start, the NAS was not ready when the app started. Use **System** > **Mounts** > **Rclone** > **Delay Media Apps**. See part 5 of [Mount a NAS share with Rclone](/host/rclone-smb-setup/).
+- If the files are there after a reboot but the app was empty at start, the NAS was not ready when the app started. Use **System** > **Mounts** > **Rclone** > **Delay Media Apps**. See part 5 of [Mount a NAS share with Rclone](/host/rclone-smb-setup/). For SMB, NFS or a local disk, see [Apps are stopped or show empty folders after a reboot](/docker/apps-not-starting-after-reboot/).
 
 When the files show on the server again, restart the app from **Apps** > **Manage Apps**: pick the app and choose **Restart**, or **Start** if it is stopped. See [Install and manage apps from the Apps menu](/apps/manage-apps/).
 

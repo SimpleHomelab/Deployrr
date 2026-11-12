@@ -60,7 +60,7 @@ You may also notice that the app's web page does not open, or that it opens and 
 
 Most Deployrr apps are set up so Docker starts them again if they stop. If such an app crashes right after it starts, Docker starts it again, it crashes again, and you see `Restarting`. This is called a crash loop.
 
-Some apps are set up not to start on their own. These are mostly media apps, such as Plex, Jellyfin, Emby, Sonarr, Radarr, Lidarr, Bazarr, Tautulli, Kavita, Komga, Navidrome and Calibre. They often use files from a NAS, so Deployrr does not start them before the share is mounted. After a crash or a server reboot, they show `Exited` instead of `Restarting`. To start them after a reboot once your Rclone mount is up, see **Delay Media Apps** in [Mount a NAS share with Rclone](/host/rclone-smb-setup/).
+Some apps are set up not to start on their own. These are mostly media apps, such as Plex, Jellyfin, Emby, Sonarr, Radarr, Lidarr, Bazarr, Tautulli, Kavita, Komga, Navidrome and Calibre. They often use files from a NAS, so Deployrr does not start them before the share is mounted. After a crash or a server reboot, they show `Exited` instead of `Restarting`. To start them after a reboot once your Rclone mount is up, see **Delay Media Apps** in [Mount a NAS share with Rclone](/host/rclone-smb-setup/). For every way to start them after a reboot, see [Apps are stopped or show empty folders after a reboot](/docker/apps-not-starting-after-reboot/).
 
 `Up ... (unhealthy)` means the container runs but its own health check fails. `Exited` means the container stopped.
 
@@ -158,6 +158,7 @@ The output lists the last health check runs and what each one printed. Read the 
 | The page does not open and the app itself looks fine | Traefik may be the problem. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/) and [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/). |
 | You edited a compose file or `.env` and then it broke | Undo your edit. For the main compose file, see [Docker environment setup fails with: docker-compose file is malformed](/docker/compose-malformed/). |
 | `no such host`, `temporary failure in name resolution` or other lookup errors | The container has no DNS or internet. See [No internet on the server or in containers after setup](/docker/no-internet-in-containers/). |
+| `no space left on device` | The disk is full. See [When the disk is full](/docker/free-disk-space/#when-the-disk-is-full). |
 | `toomanyrequests` or `TLS handshake timeout` | The image did not download. See [Docker image pulls fail](/docker/rate-limit/). |
 | `failed to create shim task` in a Proxmox LXC container | See [Docker fails with "failed to create shim task"](/host/shim-task-debian/). |
 | qBittorrent VPN is unhealthy or its web UI will not open | See [qBittorrent web UI says Unauthorized or won't open](/apps/qbittorrent-webui-troubleshooting/). |

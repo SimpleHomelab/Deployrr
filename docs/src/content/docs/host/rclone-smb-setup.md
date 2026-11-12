@@ -184,7 +184,7 @@ Your server can start Docker before the NAS share is mounted. Then media apps wr
 2. Read the **PROBLEM** and **SOLUTION** text. As in Automount, **Cancel** is selected first. Press Tab to move to **Proceed**, then press Enter.
 3. Wait for "Delayed media start script installed successfully".
 
-From the next boot, your media apps, such as Plex, Jellyfin, Radarr and Sonarr, do not start by themselves. They start once the mount is ready. Deployrr checks every 5 seconds. If the mount is not ready after about 15 minutes, the media apps stay stopped.
+From the next boot, your media apps, such as Plex, Jellyfin, Radarr and Sonarr, do not start by themselves. They start once the mount is ready. Deployrr checks every 5 seconds. If the mount is not ready after about 15 minutes, Deployrr stops and removes the media app containers. Your app data stays. Fix the mount, then start them with **Tools** > **Stack Manager** > **Up**. See [Apps are stopped or show empty folders after a reboot](/docker/apps-not-starting-after-reboot/).
 
 To understand how a start script waits for the mount, watch [Rclone SMB mount: the script that starts media apps at 12:14](https://youtu.be/D-XS0biLP14?t=734) (manual setup; Deployrr does these steps for you).
 

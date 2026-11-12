@@ -182,7 +182,7 @@ Where the value lives: Deployrr saves each path in the `.env` file in your Docke
 Change the path in **System** > **Folders**. Do not edit the `.env` file by hand or with **Tools** > **.env Editor** unless you know why.
 
 :::caution
-Changing a folder does not move any files. The files stay at the old path. Move them yourself, or point the folder at the place where they already are. For Immich and Nextcloud, a new path that does not hold the old uploads makes the app look empty.
+Changing a folder does not move any files. The files stay at the old path. Move them yourself, or point the folder at the place where they already are. To copy them to a new disk safely, see [Move your media or Docker data to another disk](/host/move-data-to-another-disk/). For Immich and Nextcloud, a new path that does not hold the old uploads makes the app look empty.
 :::
 
 1. Back up your `.env` file. Replace `YOUR_DOCKER_FOLDER` with the path to your Docker folder:

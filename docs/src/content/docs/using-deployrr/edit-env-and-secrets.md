@@ -112,6 +112,8 @@ Secret files belong to root, so Deployrr opens them with root rights. When you c
 
 Like `.env`, a change to a secret has no effect until you recreate the app. To understand how a secret file reaches the app, read [UDMS part 18: Docker secrets for Traefik](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Docker_Secrets_for_Traefik) (manual setup, background only).
 
+To change a login password for Basic HTTP Auth, TinyAuth, Authelia or Google OAuth, see [Change login passwords and add users](/reverse-proxy/manage-login-users/). Those logins live in their own files, not only in one secret.
+
 ### Delete a secret
 
 :::caution
