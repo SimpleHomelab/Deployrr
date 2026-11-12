@@ -174,7 +174,7 @@ Production switches Traefik to real Let's Encrypt certificates. Browsers trust t
 7. Read the last message: "IMPORTANT: Enable a strong authentication system from the 'Security' menu."
 
 :::note
-If port 8080 was already in use during Preparation, Deployrr assigned another port ("Port N assigned for Traefik dashboard"). Use that port in the LAN address and in the Traefik local entry on the Deployrr Dashboard. You also find it as `TRAEFIK_PORT` in your `.env` file. The LAN address has no login, so only use it inside your home network.
+If port 8080 was already in use during Preparation, Deployrr assigned another port ("Port N assigned for Traefik dashboard"). The LAN address that Production shows and the Traefik local entry on the Deployrr Dashboard still use 8080, so put your assigned port in their place. You also find it as `TRAEFIK_PORT` in your `.env` file. The LAN address has no login, so only use it inside your home network.
 :::
 
 Staging starts with an empty `traefik.log`. Production keeps the staging log as `traefik_staging.log` and starts a fresh `traefik.log`. The next Production run overwrites `traefik_staging.log`.
@@ -210,7 +210,7 @@ Production shows the same errors as Staging, plus these:
 You may need to redo a step, for example to change the basic auth password or the Cloudflare token (Preparation), or after a certificate problem (Staging and Production). Keep these points in mind:
 
 - **Preparation fails while Traefik runs.** Traefik uses ports 80, 81, 443 and 444, so the port check stops with "Port 443 is occupied. This is needed for Traefik." Stop Traefik first with `sudo docker stop traefik`, then run Preparation.
-- **Preparation saves your entries first.** It saves the username, password and token before it checks them. If a later step fails, the new values are still saved.
+- **Preparation saves your entries first.** It checks that the fields are filled in and the passwords match, then saves the username, password and token before it checks the token and the ports. If a later step fails, the new values are still saved.
 - **A step is not DONE until it finishes again.** After you press `Y` at the "already done" warning, the step loses its `- DONE` mark. If you cancel or hit an error, run it again until it finishes.
 - **Staging resets Production.** After a Staging run, **Production** no longer shows `- DONE`. **Manage Exposure**, **Traefikify**, **Un-Traefikify**, **Domain Passthrough** and **Auth Bypass** then show "Traefik Production - Must be completed (Proxy menu)". Run Production again.
 

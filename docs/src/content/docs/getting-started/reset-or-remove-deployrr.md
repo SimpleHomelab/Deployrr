@@ -133,7 +133,7 @@ Reset also deletes the Deployrr program. The `deployrr` command (`/usr/local/bin
 ### After a reset
 
 1. Run the install command again. See [Run the installer again](/getting-started/updating-deployrr/#run-the-installer-again) for the command and [Install errors](/getting-started/install-errors/) if you see `command not found`.
-2. Start Deployrr and open **Prerequisites**. Your saved settings (Docker folder, username, server IP, domain, setup mode) are still set. **Environment** shows DONE again if your Docker folder is intact, so you don't need to redo it. Redo **Disclaimers**, **Packages**, **Build Cache** and **System Checks**. In Hybrid or Remote mode, also redo **Domain Checks** (in Local mode it shows NOT-REQUIRED). Your license normally still works. If it shows as Free, run **Prerequisites** > **Verify**. See [Prerequisites](/getting-started/prerequisites/).
+2. Start Deployrr and open **Prerequisites**. Your saved settings (Docker folder, username, server IP, domain, setup mode) are still set. **Environment** shows DONE again if your Docker folder is intact, so you don't need to redo it. Redo **Disclaimers**, **Packages**, **Build Cache** and **System Checks**. In Hybrid mode, also redo **Domain Checks** (in Local mode it shows NOT-REQUIRED). Your license normally still works. If it shows as Free, run **Prerequisites** > **Verify**. See [Prerequisites](/getting-started/prerequisites/).
 3. **System** > **Bash Aliases** shows DONE again if the Deployrr block is still in `~/.bashrc` and the alias file is still in your Docker folder.
 4. Bring your apps back. **Tools** > **Stack Manager** > **Up** works once every Prerequisite is DONE and needs a Basic, Plus or Pro license. See [Stack Manager](/using-deployrr/stack-manager/). Or, with the [Bash aliases](/using-deployrr/bash-aliases/), run:
 
@@ -222,7 +222,7 @@ Run the [install command](/getting-started/updating-deployrr/#run-the-installer-
 ## Check it worked
 
 - After **Refresh**: Deployrr exited with `Refresh complete`. Start it again and the main menu opens.
-- After **Reset**: `Reset complete` appeared. After you reinstall and start Deployrr, your saved settings and **Environment** still show, and Disclaimers, Packages, Build Cache and System Checks show as not done (Domain Checks too, in Hybrid or Remote mode).
+- After **Reset**: `Reset complete` appeared. After you reinstall and start Deployrr, your saved settings and **Environment** still show, and Disclaimers, Packages, Build Cache and System Checks show as not done (Domain Checks too, in Hybrid mode).
 - After **Remove**: `Deployrr removal complete` appeared. Running `deployrr` fails, and `sudo docker ps` still lists your apps.
 
 ## Next steps
