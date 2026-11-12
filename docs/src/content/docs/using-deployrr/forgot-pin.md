@@ -17,6 +17,11 @@ related:
   - support/discord
   - getting-started/updating-deployrr
 further_reading: []
+videos:
+  - id: rdqbAr0TFnQ
+    start: 906
+    title: "Deployrr 5 walkthrough: License verification and creating a PIN"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
 last_reviewed: 2026-11-09
 status: current
 old_paths: ["/deployrr/forgot-pin"]
@@ -101,6 +106,8 @@ Use this if the email doesn't arrive or you would rather pick a new PIN. As with
 10. At `Create a personalized 6-digit numerical PIN to protect your account (note it down or remember it):`, enter a new 6-digit number.
 
 Write the new PIN down somewhere safe.
+
+To see a PIN created and then entered at the next verification, watch [Deployrr 5 walkthrough: License verification and creating a PIN at 15:06](https://youtu.be/rdqbAr0TFnQ?t=906) (shows Deployrr v5; menus and steps differ in v6).
 
 :::note
 Use the email address of your SimpleHomelab.com account. The message does not tell you whether an account exists for the email you typed. If you mistype it, nothing may arrive.
