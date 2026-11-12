@@ -167,7 +167,7 @@ You edit your `.env` file, which holds the settings of all your apps. A typo can
 3. Pick a free port. Check it with the command from [Find what uses a port](#find-what-uses-a-port). No line should print.
 4. Edit the value. Use one of these two ways.
 
-   **Option 1: the .env Editor.** This needs a Pro license.
+   **Option 1: the .env Editor.** This needs a Pro license. See [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/).
 
    1. In Deployrr, go to **Tools** > **.env Editor**.
    2. Select the port setting, for example `SONARR_PORT`.

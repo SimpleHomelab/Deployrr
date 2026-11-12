@@ -287,11 +287,11 @@ The alias file also defines `csbrestart`, but in the current version it fails wi
 | Alias | What it does |
 | --- | --- |
 | `reload` | Reloads `~/.bashrc` so changes take effect. |
-| `bashrc` | Opens `~/.bashrc` in your editor. |
-| `hosts` | Opens `/etc/hosts` in your editor. Asks for your `sudo` password. |
-| `aliases` | Opens `~/.bash_aliases` in your editor. This is a different file from the Deployrr alias file. |
+| `bashrc` | Opens `~/.bashrc` in nano. |
+| `hosts` | Opens `/etc/hosts` in nano. Asks for your `sudo` password. |
+| `aliases` | Opens `~/.bash_aliases` in nano. This is a different file from the Deployrr alias file. |
 
-These open a text editor, nano by default. Inside Deployrr, you can pick nano, vim or vi under **Tools** > **Preferred Editor**.
+These open nano. The **Tools** > **Preferred Editor** setting (nano, vim or vi) applies inside Deployrr, for example in the Secrets Editor, not to these aliases. See [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/).
 
 ## Next steps
 
