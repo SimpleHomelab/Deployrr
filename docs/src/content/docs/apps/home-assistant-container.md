@@ -126,7 +126,7 @@ Use the `by-id` path, not `/dev/ttyUSB0`. The `ttyUSB0` number can change after 
 Home Assistant's own Compose example adds `privileged: true`. It gives the container access to every device on the server. Leave it out unless something does not work without it.
 :::
 
-If Deployrr runs in a Proxmox LXC, the stick must reach the LXC first, or the path won't exist. See [Run Deployrr in a Proxmox LXC](/host/proxmox-lxc/).
+If Deployrr runs in a Proxmox LXC, the stick must reach the LXC first, or the path won't exist. See [Pass a USB stick into the container](/host/proxmox-lxc/#pass-a-usb-stick-into-the-container).
 
 ## Put it behind Traefik
 
