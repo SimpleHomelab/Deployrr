@@ -289,7 +289,7 @@ To understand how the folders, permissions and `.env` file fit together, read [U
 
 **What it asks.** `Enter the Docker Host IP (LAN IP or WAN IP for VPS):` Deployrr fills in the IP it detects.
 
-**What to pick.** The IP address other devices use to reach this server. On a home network, use the LAN IP. On a VPS, use the public IP. Give the server a fixed address first, so it does not change.
+**What to pick.** The IP address other devices use to reach this server. On a home network, use the LAN IP. On a VPS, use the public IP. [Give the server a fixed address](/host/fixed-ip/) first, so it does not change.
 
 **What it changes.** It saves the address in your `.env` file. Your compose files use it.
 
