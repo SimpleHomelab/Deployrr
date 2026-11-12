@@ -164,7 +164,7 @@ Try these in order. The router and DNS steps are general guidance, not Deployrr 
 
 1. Check your router forwards. Port 80 must go to 81 and port 443 to 444 on the Docker host.
 2. Look in your router settings for NAT loopback, NAT reflection or hairpin NAT, and turn it on.
-3. If your router has no such option, use local DNS. In Pi-hole or AdGuard Home, add a DNS rewrite that points `app.YOUR_DOMAIN` to your server's LAN IP address. A rewrite for `*.YOUR_DOMAIN` covers every app.
+3. If your router has no such option, use local DNS. In Pi-hole or AdGuard Home, add a DNS rewrite that points `app.YOUR_DOMAIN` to your server's LAN IP address. A rewrite for `*.YOUR_DOMAIN` covers every app. See [Set up local DNS rewrites](/networking/local-dns-rewrites/) for the steps.
 4. Make sure the devices on your network use that DNS server.
 5. Open the address again. Clear the browser's DNS cache or restart the browser if it still fails.
 

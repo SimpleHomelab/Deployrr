@@ -204,6 +204,8 @@ or the same for port 443. Deployrr got an answer it does not recognise.
 2. **Cloudflare DNS record is orange-clouded (proxied).** Turn the cloud gray. See [Fix orange cloud records](#fix-orange-cloud-records).
 3. **You just gray-clouded the records.** See [DNS cache and waiting](#dns-cache-and-waiting).
 
+If the IP after `resolves to` is your server's LAN IP, the server uses a local DNS server with a rewrite for your domain, such as Pi-hole. See [Do the rewrite after Domain Checks](/networking/local-dns-rewrites/#do-the-rewrite-after-domain-checks).
+
 ## Fix the wildcard record (checks 5 and 6)
 
 **Check 5** fails with `Subdomain resolution failed (empty IP returned)`. The terminal adds `Possible cause: Missing wildcard (*) DNS CNAME record or propagation pending.` Deployrr tries a random name, such as `abcdefgh.YOUR_DOMAIN`. It only works if the wildcard record exists.
