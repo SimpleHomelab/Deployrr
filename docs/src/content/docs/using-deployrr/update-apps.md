@@ -103,6 +103,8 @@ Check Pins does not change anything. If it lists apps to update or to check, it 
 - Create a backup first.
 - Read the [release notes](https://github.com/SimpleHomelab/Deployrr/tree/main/releases).
 
+To see when a change needs a restart, a recreate or a reinstall, see [Restart, Recreate or Reinstall an app after a change](/using-deployrr/restart-recreate-reinstall/).
+
 ## Pin or unpin an app version
 
 A pin keeps an app on one version. This keeps core apps stable. If an app uses a `latest` tag, it may update unexpectedly.
@@ -116,9 +118,9 @@ A pin keeps an app on one version. This keeps core apps stable. If an app uses a
 
 If you leave the box empty or unchanged, nothing changes. Choose **Back** to leave the screen.
 
-Version pinning comes up in [Deployrr 6 intro: local images, backup locations and version pinning at 9:08](https://youtu.be/Nuo83uzTWco?t=548).
-
 There is no separate unpin option. To let an app always take the newest image, set its pin to `latest`, if the image offers that tag. Some apps already ship with `latest` as the recommended pin. To go back to a pinned version, type that version number again.
+
+Version pinning comes up in [Deployrr 6 intro: local images, backup locations and version pinning at 9:08](https://youtu.be/Nuo83uzTWco?t=548).
 
 :::caution
 A `latest` tag may update an app unexpectedly. Test upgrades before you update a pinned version. You can also use the default versions Deployrr sets. Deployrr updates these periodically after testing.
@@ -152,7 +154,7 @@ To understand how pulling and restarting works with plain Docker Compose, read [
 - Open the app. It loads and works.
 - Run **Check Pins** again. It lists no older pins.
 - Look at the app's logs for errors. The `dclogs` alias shows the last 50 lines of your app logs and follows them.
-- If an app is stopped after the update, start it with **Stack Manager** > **Start Container**. For Traefik, see [Read the Traefik logs](/reverse-proxy/check-traefik-logs/).
+- If an app is stopped after the update, start it with [Stack Manager](/using-deployrr/stack-manager/) > **Start Container**. For Traefik, see [Read the Traefik logs](/reverse-proxy/check-traefik-logs/).
 - Old images can stay on disk after updates. To clear them, see [Free up disk space used by Docker](/docker/free-disk-space/).
 
 ## Related
