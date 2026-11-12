@@ -57,7 +57,7 @@ To understand how container names and the Docker host IP work together, read [UD
 
 ## Steps
 
-1. Look up the container name and internal port of the app you want to reach. Use the table below.
+1. Look up the container name and internal port of the app you want to reach. Use the table below for the common media apps, or the [App reference](/apps/app-reference/) for every app.
 
    | App | Enter this | Container name | Internal port |
    | --- | --- | --- | --- |

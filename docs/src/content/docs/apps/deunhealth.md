@@ -82,7 +82,7 @@ If you see `Required app not running` with `[REQUIRED] socket-proxy must be inst
 
 ## Add DeUnhealth to another app
 
-Do this only if the app has a health check. DeUnhealth can't tell that a container is unhealthy without one.
+Do this only if the app has a health check. DeUnhealth can't tell that a container is unhealthy without one. The [App reference](/apps/app-reference/#which-apps-have-a-health-check) lists which apps have one by default.
 
 :::caution
 This is an advanced edit. A reinstall of the app replaces its compose file with the default one, and your label is lost. Stack Manager **Delete** removes the file too. Add the label again after either one.
