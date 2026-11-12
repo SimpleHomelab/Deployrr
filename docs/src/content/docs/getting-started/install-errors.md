@@ -123,6 +123,8 @@ You are logged in as root, or you started Deployrr with `sudo`. You need a regul
 
 ### Create a regular user with sudo rights
 
+On a new VPS, also set up SSH keys and a firewall for this user. See [Secure a fresh VPS before you install Deployrr](/host/secure-a-vps/).
+
 Use `NAME` as the user name you want. Replace `NAME` in every command. If you are logged in as root, you can leave out `sudo`.
 
 To see this done on Ubuntu, watch [Docker on Proxmox LXC: creating a non-root user with sudo at 10:20](https://youtu.be/-ZSQdJ62r-Q?t=620). For the written steps, read [UDMS part 05: create a new user](https://www.simplehomelab.com/udms-05-installing-ubuntu-on-proxmox/#1_Create_a_New_User) (manual setup).
