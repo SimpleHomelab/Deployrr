@@ -66,7 +66,7 @@ If the menu line still reads **Not Set/Found**, see [If the adapter is not found
 
 ### 2. Install the apps qBittorrent VPN needs
 
-qBittorrent VPN won't install unless Gluetun and DeUnhealth are running. DeUnhealth restarts a container when it turns unhealthy. It needs Socket Proxy to be running first.
+qBittorrent VPN won't install unless Gluetun and DeUnhealth are running. [DeUnhealth](/apps/deunhealth/) restarts a container when it turns unhealthy. It needs Socket Proxy to be running first.
 
 1. Go to **Docker** > **Socket Proxy** and install it if it isn't running. See [Socket Proxy](/docker/socket-proxy/).
 2. Go to **Apps** > **Browse Apps**, select **DeUnhealth** and choose **Install**. It asks no questions.
