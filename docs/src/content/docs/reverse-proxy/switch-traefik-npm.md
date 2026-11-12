@@ -60,7 +60,7 @@ NPM also asks whoever opens the admin page first to create the admin account. Do
 5. Start NPM. If you never installed it, open **Proxy** > **NPM** > **Install**. If you used it before, see [Start a proxy you used before](#start-a-proxy-you-used-before).
 6. In NPM, add a proxy host for each app. Use the container name and internal port. See [Add a proxy host for an app](/reverse-proxy/nginx-proxy-manager/#add-a-proxy-host-for-an-app) and [Connect your apps to each other](/using-deployrr/connecting-apps/). [App reference](/apps/app-reference/) lists app ports.
 
-"Port Conflict - Cannot Install" at **NPM** > **Install** means Traefik was started again after the switch (for example by Stack Manager **Up** or a Traefik setup step). Run `sudo docker stop traefik`, then try again.
+"Port Conflict - Cannot Install" at **NPM** > **Install** means Traefik was started again after the switch, for example with `sudo docker start traefik`. Run `sudo docker stop traefik`, then try again.
 
 Apps behind a Traefik login chain have no login in NPM, and the login apps, **Manage Exposure** and **Traefikify** need Traefik. See [What you give up compared to Traefik](/reverse-proxy/nginx-proxy-manager/#what-you-give-up-compared-to-traefik).
 

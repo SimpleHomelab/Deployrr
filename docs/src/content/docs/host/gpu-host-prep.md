@@ -114,7 +114,7 @@ You need two things: the NVIDIA driver, and the NVIDIA Container Toolkit so Dock
    The line must include `nvidia`.
 
 :::caution
-Restarting Docker stops your running containers. Deployrr installs the media apps (Jellyfin, Plex, Emby, the Arr apps and others) so they don't start again on their own ([why](/docker/apps-not-starting-after-reboot/)). After the restart, open **Tools** > **Stack Manager** and choose **Up**.
+Restarting Docker stops your running containers. Deployrr installs the media apps (Jellyfin, Plex, Emby, the Arr apps and others) so they don't start again on their own ([why](/docker/apps-not-starting-after-reboot/)). After the restart, open **Tools** > **Stack Manager** and choose **Up** (needs a Basic, Plus or Pro license).
 :::
 
 ### 3. Proxmox LXC
