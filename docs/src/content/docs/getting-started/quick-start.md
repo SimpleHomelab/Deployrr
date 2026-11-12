@@ -12,7 +12,16 @@ related:
   - getting-started/updating-deployrr
   - using-deployrr/forgot-pin
   - getting-started/videos-and-guides
-further_reading: []
+further_reading:
+  - title: "UDMS part 05: Create a regular user and prepare Ubuntu or Debian"
+    url: https://www.simplehomelab.com/udms-05-installing-ubuntu-on-proxmox/
+videos:
+  - id: Nuo83uzTWco
+    start: 721
+    title: "Deployrr 6 intro: Getting started"
+  - id: Nuo83uzTWco
+    start: 674
+    title: "Deployrr 6 intro: The new free plan"
 last_reviewed: 2026-11-09
 status: current
 old_paths: ["/deployrr/quick-start-guide"]
@@ -41,6 +50,8 @@ Check these before you install.
 - Only if you want to reach your apps from the internet: a domain name, Cloudflare managing the DNS for that domain, and ports 80 and 443 forwarded to your server. You can register the domain anywhere.
 
 You do not need a domain if you only use your apps on your home network.
+
+If you need to create the regular user or prepare a fresh Ubuntu or Debian server first, see [UDMS part 05: Installing and Prepping Ubuntu/Debian](https://www.simplehomelab.com/udms-05-installing-ubuntu-on-proxmox/) (manual setup, for background).
 
 ### Limitations
 
