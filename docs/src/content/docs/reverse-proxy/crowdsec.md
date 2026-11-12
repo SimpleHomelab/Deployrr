@@ -16,7 +16,20 @@ related:
   - using-deployrr/bash-aliases
   - reverse-proxy/choose-login-method
   - reverse-proxy/restrict-access-using-ip-allowlist
-further_reading: []
+further_reading:
+  - title: "UDMS part 22: understanding CrowdSec (manual setup)"
+    url: https://www.simplehomelab.com/udms-22-crowdsec-docker-compose/#Understanding_CrowdSec
+  - title: "UDMS part 25: the CrowdSec bouncer Traefik plugin (manual setup)"
+    url: https://www.simplehomelab.com/udms-25-traefik-plugins/
+videos:
+  - id: cUZ6kkum1pc
+    start: 1100
+    title: "Traefik middlewares and chains: adding more middlewares, such as CrowdSec, to a chain"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
+  - id: KMZIyoZ3jWM
+    start: 3101
+    title: "Traefik 3 guide: why CrowdSec helps against bad visitors"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 last_reviewed: 2026-11-10
 status: current
 old_paths: []
@@ -24,6 +37,8 @@ sources: []
 ---
 
 CrowdSec reads your logs and spots bad visitors, such as password guessers and scanners. It decides which IP addresses to ban. Two add-ons enforce the bans: the **Firewall Bouncer** blocks the address on your server, and the **Traefik Bouncer** makes Traefik refuse it. This page shows how to install all three, check they work, and get yourself unblocked.
+
+To see why CrowdSec is worth running, watch [Traefik 3 guide: why CrowdSec helps at 51:41](https://youtu.be/KMZIyoZ3jWM?t=3101) (manual setup). To understand how it works, read [UDMS part 22: Understanding CrowdSec](https://www.simplehomelab.com/udms-22-crowdsec-docker-compose/#Understanding_CrowdSec) (manual setup, background only).
 
 ## Before you start
 
@@ -122,6 +137,8 @@ The Traefik Bouncer makes Traefik check every visitor against CrowdSec before it
 Expect your apps to be unreachable for a short moment while Traefik restarts. Deployrr does not show a message about this. A banned visitor now gets a `403 Forbidden` from Traefik.
 
 By default, `middlewares-crowdsec-bouncer.yml` trusts `10.0.0.0/8`, `172.16.0.0/12` and `192.168.0.0/16`. The plugin does not check visitors from trusted addresses, so your own network is not checked.
+
+To see how a middleware chain takes extra middlewares such as CrowdSec, watch [Traefik middlewares and chains at 18:20](https://youtu.be/cUZ6kkum1pc?t=1100) (manual setup). To understand how the Traefik plugin works, read [UDMS part 25: Traefik plugins](https://www.simplehomelab.com/udms-25-traefik-plugins/) (manual setup, background only).
 
 For how the chain names relate to login methods, see [Choose a login method](/reverse-proxy/choose-login-method/). To allow only some addresses in the first place, see [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/).
 

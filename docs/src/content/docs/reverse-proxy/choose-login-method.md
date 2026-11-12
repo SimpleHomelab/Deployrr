@@ -19,7 +19,22 @@ related:
   - reverse-proxy/setup-auth-bypass-using-file-provider
   - reverse-proxy/restrict-access-using-ip-allowlist
   - apps/jellyfin-client-on-lg-webos
+videos:
+  - id: rdqbAr0TFnQ
+    start: 2799
+    title: "Deployrr 5 walkthrough: Authelia setup and device registration"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
+  - id: rdqbAr0TFnQ
+    start: 3172
+    title: "Deployrr 5 walkthrough: Manage Authentication"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
+  - id: cUZ6kkum1pc
+    start: 924
+    title: "Traefik middlewares and chains: chain-no-auth and chain-basic-auth"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 further_reading:
+  - title: "UDMS part 19: how Authelia compares with Google OAuth, Authentik and TinyAuth (manual setup)"
+    url: https://www.simplehomelab.com/udms-19-authelia-docker-compose/#Authelia_Alternatives
   - title: "Google OAuth with Traefik forward auth: creating the client ID and secret (manual setup)"
     url: https://www.simplehomelab.com/google-oauth-traefik-forward-auth-2024/
   - title: "UDMS part 21: Authentik with Docker Compose (manual setup)"
@@ -52,6 +67,8 @@ In the list you pick from, the four apps you install show as "Recommended". They
 :::note
 Not sure which one to pick? TinyAuth ("Self-Hosted SSO with 2-FA") sets up two-factor during its install and asks only for one user. Authelia also asks for one user.
 :::
+
+To understand how the options differ, read [UDMS part 19: how Authelia compares with Google OAuth, Authentik and TinyAuth](https://www.simplehomelab.com/udms-19-authelia-docker-compose/#Authelia_Alternatives) (manual setup, background only).
 
 ## Before you start
 
@@ -92,6 +109,8 @@ Open **Security** from the main menu. Then follow the part below for your method
 
 If an Authelia configuration already existed, Deployrr keeps the old file next to the new one with a date in its name.
 
+To see the same install and device registration, watch [Deployrr 5 walkthrough: Authelia setup at 46:39](https://youtu.be/rdqbAr0TFnQ?t=2799) (shows Deployrr v5; menus and steps differ in v6).
+
 ### Authentik
 
 1. Select **Authentik** ("Open-source Access/Identity Provider").
@@ -118,7 +137,7 @@ Create the client ID and secret in Google first. Deployrr's **Google OAuth Requi
 By default Google OAuth lets any Google account log in. Deployrr warns about this. Add at least one allowed address in step 5, so only those accounts get in.
 :::
 
-If you leave the first email box empty, or press Cancel there, no address is added and any Google account can log in. Deployrr still ends with "Only whitelisted Google accounts can authenticate", so don't rely on that message. Enter at least one address.
+If you leave the first email box empty, or press Cancel there, no address is added and any Google account can log in. Enter at least one address.
 
 ### TinyAuth
 
@@ -191,6 +210,8 @@ Each method is a login chain. You can set it by hand if you don't have a Pro lic
 | `chain-tinyauth` | TinyAuth | After you install TinyAuth |
 
 Use a chain only for a method you installed. Otherwise the app stops loading.
+
+To see how chains are built and assigned, watch [Traefik middlewares and chains at 15:24](https://youtu.be/cUZ6kkum1pc?t=924) (manual Docker Compose setup; Deployrr creates the chains for you).
 
 1. Open the app's file in `appdata/traefik3/rules/HOSTNAME/` inside your Docker folder. Replace `HOSTNAME` with your server's hostname and `NAME` with the app name:
 
