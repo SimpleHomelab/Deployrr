@@ -162,4 +162,4 @@ A backup on the same disk does not help if that disk fails. Copy the backups you
 - [Docker environment setup fails: docker-compose file is malformed](/docker/compose-malformed/): rebuild your setup, and back up first.
 - [Add your own containers with custom.yml](/using-deployrr/custom-yml/): your `custom.yml` is part of the Docker folder, so it is in every backup.
 - [Change the hostname](/host/change-hostname/): another change worth backing up before you start.
-- [Refresh, Reset or Remove Deployrr](/getting-started/reset-or-remove-deployrr/): back up first, because Reset currently stops your apps and deletes their images.
+- [Refresh, Reset or Remove Deployrr](/getting-started/reset-or-remove-deployrr/): back up first, because Reset stops your apps and deletes their images.
