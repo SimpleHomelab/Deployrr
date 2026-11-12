@@ -32,6 +32,7 @@ This page updates Deployrr itself. To update your apps, see [Update your apps](/
 - Your server is online.
 - `sudo` is installed and your user can use it. Deployrr needs it to start and to update. See [Create a regular user with sudo rights](/getting-started/install-errors/#create-a-regular-user-with-sudo-rights).
 - `wget` is installed. Deployrr needs it to start and to check for updates. See [Deployrr needs wget](#deployrr-needs-wget).
+- To see which version you run, open **Help** from the main menu and read **Your Version**. See [Help menu](/using-deployrr/help-menu/#check-your-version).
 
 :::caution
 A new version can include changes that need you to reinstall an app or edit your setup. Read the [changelog](https://github.com/SimpleHomelab/Deployrr/blob/main/CHANGELOG.md) before you update.
