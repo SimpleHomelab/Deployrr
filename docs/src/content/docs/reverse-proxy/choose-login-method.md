@@ -236,7 +236,7 @@ If you run **Traefikify** again for an app and choose to overwrite its file, the
 3. You should land on the login page of your method. With Basic HTTP Auth, the browser asks for a username and password. With No Authentication, the app loads straight away.
 4. Log in. The app should open.
 
-If an app shows an error or doesn't load, its chain probably names a method that isn't installed. [Read the Traefik logs](/reverse-proxy/check-traefik-logs/) to see which one Traefik can't find.
+If an app shows an error or doesn't load, its chain probably names a method that isn't installed. [Read the Traefik logs](/reverse-proxy/check-traefik-logs/) to see which one Traefik can't find. The steps are in [One app behind Traefik shows 404, 502 or Gateway Timeout](/reverse-proxy/app-404-or-502/#5-fix-a-login-method-that-is-not-installed).
 
 ## Things to know
 

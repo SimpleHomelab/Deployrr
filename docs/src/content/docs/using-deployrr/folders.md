@@ -138,7 +138,7 @@ The box shows this example:
   youtube
 ```
 
-Your download clients keep their own folders inside it.
+Your download clients keep their own folders inside it. If finished downloads stay in the queue, see [Sonarr, Radarr or Lidarr don't import finished downloads](/apps/arr-downloads-not-importing/).
 
 ## Which apps use which folder
 
@@ -233,6 +233,8 @@ If you only change the path of a media folder an app already uses, recreating is
 3. If the app still shows the old files, recreate it again.
 
 ## Common problems
+
+If a media app shows an empty library, follow the checks in [Media app shows an empty library](/apps/media-library-empty/).
 
 ### The folder does not exist
 
