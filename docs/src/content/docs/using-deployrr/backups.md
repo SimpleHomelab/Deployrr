@@ -13,6 +13,18 @@ related:
   - using-deployrr/change-hostname
   - using-deployrr/reset-or-remove-deployrr
 further_reading: []
+videos:
+  - id: Nuo83uzTWco
+    start: 548
+    title: "Deployrr 6 overview: backup locations and other new options"
+  - id: rdqbAr0TFnQ
+    start: 4680
+    title: "Deployrr 5 walkthrough: Backups menu and making a backup"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
+  - id: rdqbAr0TFnQ
+    start: 4808
+    title: "Deployrr 5 walkthrough: Restore Backups"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
 last_reviewed: 2026-11-09
 status: current
 old_paths: []
@@ -49,6 +61,8 @@ A backup folder inside the Docker folder gets packed into every new backup. A re
 
 If you change the backups folder path, move your existing backups to the new place yourself. Deployrr does not move them.
 
+For a short look at the backup location options in v6, watch [Deployrr 6 overview: backup locations and other new options at 9:08](https://youtu.be/Nuo83uzTWco?t=548).
+
 ## The Backups screen
 
 The top of the screen shows **Backup Folder**, **Number of Backups** and **Size of Backups** (in MB). These numbers cover only the default backups folder. The size is for everything in that folder, not only backups.
@@ -65,6 +79,8 @@ Under **BACKUPS** you get these options:
 Under **MIGRATION** you get **MP Create** and **MP Restore**. They create and restore a migration package, which is for moving to a new server. See [Move Deployrr to a new server](/using-deployrr/move-to-new-server/).
 
 ## Back up the Docker folder
+
+To see a backup made on screen, watch [Deployrr 5 walkthrough: Backups menu and making a backup at 1:18:00](https://youtu.be/rdqbAr0TFnQ?t=4680) (shows Deployrr v5; menus and steps differ in v6).
 
 1. In Deployrr, go to **Tools** > **Backups**.
 2. Choose **Backup**.
