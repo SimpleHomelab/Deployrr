@@ -154,7 +154,7 @@ dcrec SERVICE_NAME
 
 If Compose prints an error about the file, check the indentation in `custom.yml`. Compose is strict about spaces.
 
-To let your service talk to other apps, see [Connect your apps to each other](/using-deployrr/connecting-apps/).
+To let your service talk to other apps, see [Connect your apps to each other](/using-deployrr/connecting-apps/). To give it an HTTPS address and a login page, see [Protect a custom.yml app with Traefik and a login](/reverse-proxy/custom-app-behind-traefik/).
 
 ## What Deployrr changes and what it leaves alone
 

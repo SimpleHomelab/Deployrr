@@ -43,7 +43,7 @@ Use **Tools** > **Backups** to save a copy of your Docker folder, bring an old c
 
 A backup holds your whole Docker folder: the compose files, the `.env` file and the app data.
 
-It does not hold anything outside the Docker folder. For example, media on a mounted share is not in the backup.
+It does not hold anything outside the Docker folder. For example, media on a mounted share is not in the backup. For what the Docker folder holds, see [What is in your Docker folder](/using-deployrr/docker-folder-layout/).
 
 Each backup is one file named after the date and time it was made, like `20261109_143000.tar.gz`.
 
@@ -155,6 +155,7 @@ A backup on the same disk does not help if that disk fails. Copy the backups you
 
 ## Related
 
+- [What can overwrite or delete your changes](/using-deployrr/what-overwrites-your-changes/): the actions to back up before.
 - [Move Deployrr to a new server](/using-deployrr/move-to-new-server/): use a migration package to move everything to another machine.
 - [Docker environment setup fails: docker-compose file is malformed](/docker/compose-malformed/): rebuild your setup, and back up first.
 - [Add your own containers with custom.yml](/using-deployrr/custom-yml/): your `custom.yml` is part of the Docker folder, so it is in every backup.

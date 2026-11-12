@@ -29,7 +29,7 @@ videos:
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 ---
 
-You changed a port, a folder or a setting, and the app still behaves the old way. This page tells you which action applies your change: Restart, Recreate or Reinstall.
+You changed a port, a folder or a setting, and the app still behaves the old way. This page tells you which action applies your change: Restart, Recreate or Reinstall. To see where each file lives, see [What is in your Docker folder](/using-deployrr/docker-folder-layout/).
 
 ## Before you start
 

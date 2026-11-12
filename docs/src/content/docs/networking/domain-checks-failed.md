@@ -127,7 +127,7 @@ Before check 3, the terminal prints `Current WAN IP:` followed by your public IP
 
 ## DNS records Deployrr expects
 
-Create these two records in Cloudflare for your domain. Both must be **DNS only** (gray cloud). Replace `YOUR_DOMAIN` with your domain.
+Create these two records in Cloudflare for your domain. Both must be **DNS only** (gray cloud). Replace `YOUR_DOMAIN` with your domain. For the Cloudflare token and what orange and gray cloud mean, see [Cloudflare for Deployrr](/networking/cloudflare/).
 
 | Type | Name | Content | Proxy status |
 | --- | --- | --- | --- |

@@ -37,6 +37,8 @@ sources: []
 
 Traefikify puts an app behind your Traefik. The app can run on the same server, on another machine, or on a device such as a NAS. You get an address like `https://SUBDOMAIN.YOUR_DOMAIN` and a login method of your choice. Un-Traefikify removes the app from Traefik again.
 
+For a container you added in `custom.yml`, see [Protect a custom.yml app with Traefik and a login](/reverse-proxy/custom-app-behind-traefik/).
+
 ## Before you start
 
 - You have a Plus or Pro license. See [Licenses](/getting-started/licenses/).

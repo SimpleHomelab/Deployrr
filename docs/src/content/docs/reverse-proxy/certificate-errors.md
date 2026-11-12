@@ -187,6 +187,8 @@ Traefik asks Let's Encrypt for a certificate that covers your domain and all its
 Preparation shows "Cloudflare API token is valid" when Cloudflare says the token is active. It does not check the permissions or the zone. A token with too few permissions passes Preparation and fails later in Staging.
 
 If Preparation shows `Invalid Cloudflare token. Please check token permissions.`, Cloudflare says the token is not active. Check that you pasted the whole token, and that it is not expired or deleted.
+
+To swap the token on a setup that already works, see [Change or rotate the token](/networking/cloudflare/#change-or-rotate-the-token).
 :::
 
 To understand how Traefik uses the token, read [UDMS part 18: Cloudflare DNS API token for Traefik](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Create_Cloudflare_DNS_API_Token_Secret) (manual setup; for background only, not as steps to follow in Deployrr).
