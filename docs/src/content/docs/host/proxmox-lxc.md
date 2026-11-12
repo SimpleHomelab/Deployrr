@@ -239,7 +239,7 @@ Don't do this on an **Unprivileged LXC**. Kasm can't run there.
 
 ## GPU and Docker problems
 
-- The **System** > **GPU** box says "LXC/Docker environments require the host to pass through the GPU device and toolkits." Do the pass-through on the Proxmox host first. Then see [GPU hardware transcoding](/apps/gpu-transcoding/).
+- The **System** > **GPU** box says "LXC/Docker environments require the host to pass through the GPU device and toolkits." Do the pass-through on the Proxmox host first. See [Prepare your server's GPU](/host/gpu-host-prep/#3-proxmox-lxc). Then see [GPU hardware transcoding](/apps/gpu-transcoding/).
 - If Docker stops starting containers after an update with "failed to create shim task", see [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
 
 ## When a VM is the better choice
@@ -262,5 +262,6 @@ An LXC shares the Proxmox host's kernel. That makes it light, but you work aroun
 - [Mount SMB and NFS shares](/storage/smb-nfs-mounts/): the mounts that work on a VPS, bare metal or VM.
 - [Mount a NAS share with Rclone](/storage/rclone-smb-setup/): the NAS option that works in an LXC.
 - [Docker fails with "failed to create shim task"](/host/shim-task-debian/): Docker problems in an LXC.
+- [Prepare your server's GPU](/host/gpu-host-prep/): pass the GPU into the container so the scan shows it as Ready.
 - [GPU hardware transcoding](/apps/gpu-transcoding/): GPU steps for media apps.
 - [qBittorrent VPN](/apps/qbittorrent-vpn/): the VPN app that needs `/dev/net/tun`.
