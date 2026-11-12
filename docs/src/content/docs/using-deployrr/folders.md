@@ -138,7 +138,7 @@ The box shows this example:
   youtube
 ```
 
-Your download clients keep their own folders inside it.
+Your download clients keep their own folders inside it. If finished downloads stay in the queue, see [Sonarr, Radarr or Lidarr don't import finished downloads](/apps/arr-downloads-not-importing/).
 
 ## Which apps use which folder
 

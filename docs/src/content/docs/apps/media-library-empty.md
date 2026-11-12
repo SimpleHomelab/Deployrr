@@ -75,7 +75,7 @@ The app runs in a container and sees your files at a different path than your se
 | Media Folder 3 | `/data/media3` |
 | Downloads Folder | `/data/downloads` |
 
-Navidrome gets the media folders but not the Downloads Folder.
+Navidrome gets the media folders but not the Downloads Folder. If your library is fine but finished downloads never reach it, see [Sonarr, Radarr or Lidarr don't import finished downloads](/apps/arr-downloads-not-importing/).
 
 The library is empty when one of these is true:
 
