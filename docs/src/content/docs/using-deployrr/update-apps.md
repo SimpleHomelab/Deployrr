@@ -77,6 +77,8 @@ If the app is one Deployrr builds locally from source, it rebuilds the app inste
    - "Docker stack updated (hub images)"
    - "Docker stack updated (custom apps only)"
 
+**Update Stack** only pulls images for apps that Deployrr installed. Services you added in `custom.yml` start again on the image they already have. To update them, see [Update your custom.yml services](/using-deployrr/custom-yml/#update-your-services-to-a-newer-image).
+
 :::caution
 The success message shows even when a pull failed, for example because of a Docker Hub rate limit. Read the Docker output above the message and look for `Error`. If pulls failed, see [Docker image pulls fail](/docker/rate-limit/).
 :::
