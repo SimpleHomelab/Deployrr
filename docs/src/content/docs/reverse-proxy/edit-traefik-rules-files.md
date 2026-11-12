@@ -100,7 +100,7 @@ An `app-NAME.yml` file normally has one router and one service. Their names end 
 | `middlewares:` | The login method, as one chain: `chain-authelia`, `chain-authentik`, `chain-oauth`, `chain-tinyauth`, `chain-basic-auth` or `chain-no-auth`. | Another chain. Or use **Security** > **Manage Auth**. For a rules file app it needs no restart. For a labels app it recreates the container. See [Choose a login method](/reverse-proxy/choose-login-method/). |
 | `url:` | Where Traefik sends the request: `http://IP:PORT`. It starts with `https://` if you chose https in Traefikify. | A new IP or port. |
 
-To see these lines edited by hand, watch [Traefik guide: external app behind Traefik at 11:33](https://youtu.be/6S9PwhAlZUs?t=693) (manual Docker Compose setup; Deployrr writes this file for you).
+To see these lines edited by hand, watch [Traefik 3 guide: edit an app's rules file at 11:33](https://youtu.be/6S9PwhAlZUs?t=693) (manual Docker Compose setup; Deployrr writes this file for you).
 
 ### Add your own middleware
 
@@ -145,7 +145,7 @@ Then go to **Tools** > **Stack Manager** > **Recreate** and pick the app from th
 
 Traefik runs middlewares in the order you list them.
 
-To see a middleware file added to the rules folder and picked up without a restart, watch [Traefik 3 middlewares and chains at 5:48](https://youtu.be/cUZ6kkum1pc?t=348) (manual setup; the video starts file names with `middlewares-`, which you should avoid here).
+To see a middleware file added to the rules folder and picked up without a restart, watch [Traefik 3 guide: add a middleware file to the rules folder at 5:48](https://youtu.be/cUZ6kkum1pc?t=348) (manual setup; the video starts file names with `middlewares-`, which you should avoid here).
 
 ### Edit labels in a compose file
 

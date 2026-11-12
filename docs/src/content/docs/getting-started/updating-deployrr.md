@@ -100,7 +100,7 @@ If you installed with curl:
 sudo bash -c "$(curl -fsSL https://files.deployrr.app/install.sh)"
 ```
 
-You also need this after **Settings** > **Reset**, which currently deletes the Deployrr program. See [Refresh, Reset or Remove Deployrr](/getting-started/reset-or-remove-deployrr/).
+You also need this after **Settings** > **Reset**, which deletes the Deployrr program. See [Refresh, Reset or Remove Deployrr](/getting-started/reset-or-remove-deployrr/).
 
 ## If the update fails
 

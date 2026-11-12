@@ -44,7 +44,7 @@ sources: []
 Deployrr does not put a container from your own `custom.yml` behind Traefik for you. You do it yourself, with a rules file or with labels. This page shows both ways and when to pick each.
 
 - **Option 1: Traefikify.** Deployrr asks a few questions and writes a rules file. The container publishes a port on your server. Pick this if you have a Plus or Pro license and want menus to manage the login later.
-- **Option 2: Labels.** You add Traefik labels to the service in `custom.yml`. The container does not need to publish a port. It needs no license. You edit the labels by hand when you change something later.
+- **Option 2: Labels.** You add Traefik labels to the service in `custom.yml`. The container does not need to publish a port. It needs no license beyond the one for Traefik setup. You edit the labels by hand when you change something later.
 
 ## Before you start
 

@@ -21,7 +21,7 @@ further_reading:
     url: "https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#CG-NAT"
 videos:
   - id: rdqbAr0TFnQ
-    start: 2481
+    start: 2504
     title: "Deployrr 5 walkthrough: Domain Checks and gray-cloud records"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
   - id: KMZIyoZ3jWM
@@ -121,7 +121,7 @@ If the file has a typo, copy the `.bak` file back over it and restart again.
 
 ## Set the record to gray cloud
 
-The config Deployrr writes has `"proxied": true`. DDNS Updater then turns the root A record orange (proxied) in Cloudflare. Domain Checks wants the record gray (DNS only). See [Fix orange cloud records](/getting-started/domain-checks-failed/#fix-orange-cloud-records). To see why a proxied record fails the checks, watch [Deployrr 5 walkthrough: Domain Checks at 41:21](https://youtu.be/rdqbAr0TFnQ?t=2481) (shows Deployrr v5; menus and steps differ in v6).
+The config Deployrr writes has `"proxied": true`. DDNS Updater then turns the root A record orange (proxied) in Cloudflare. Domain Checks wants the record gray (DNS only). See [Fix orange cloud records](/getting-started/domain-checks-failed/#fix-orange-cloud-records). To see why a proxied record fails the checks, watch [Deployrr 5 walkthrough: Domain Checks and gray-cloud records at 41:44](https://youtu.be/rdqbAr0TFnQ?t=2504) (shows Deployrr v5; menus and steps differ in v6).
 
 If you follow the gray-cloud setup, change that setting to `false`.
 

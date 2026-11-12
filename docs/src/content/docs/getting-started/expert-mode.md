@@ -27,7 +27,7 @@ videos:
     title: "Deployrr 5 walkthrough: Settings menu, Mode and EXPERT mode"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
   - id: rdqbAr0TFnQ
-    start: 2481
+    start: 2494
     title: "Deployrr 5 walkthrough: Domain Checks in Hybrid mode"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
 ---

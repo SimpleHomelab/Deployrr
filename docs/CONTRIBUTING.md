@@ -39,7 +39,7 @@ If the answer fits in about two sentences, add it to an existing page instead. S
    | `getting-started` | Getting started | Installing, Prerequisites, System Checks and Domain Checks, setup mode, licenses, updating Deployrr, moving from v5 |
    | `using-deployrr` | Managing apps | Installing, updating, restarting and reinstalling apps, Stack Manager, custom.yml, .env and secrets, the Dashboard, backups, moving to a new server |
    | `apps` | Apps | Tips and fixes for one app |
-   | `reverse-proxy` | Traefik and logins | Traefik, certificates and login methods |
+   | `reverse-proxy` | Proxy and logins | Traefik, Nginx Proxy Manager, certificates and login methods |
    | `networking` | Remote access and networking | Cloudflare, port forwarding, Tailscale, CG-NAT, local DNS, firewalls |
    | `storage` | Storage | Media folders, network shares, Rclone, moving data, fstab |
    | `docker` | Docker | Docker and container problems |

@@ -35,7 +35,7 @@ videos:
     start: 1028
     title: "Deployrr 5 walkthrough: Rclone install, SMB remote and automount"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
-last_reviewed: 2026-11-11
+last_reviewed: 2026-11-12
 status: current
 old_paths: ["/using-deployrr/requirements-not-met"]
 sources: []
@@ -150,7 +150,7 @@ See [Setup Mode: Local or Hybrid](/getting-started/setup-mode/) for what Hybrid 
 | `Socket Proxy - Must be running (Docker menu)` | Socket Proxy is not installed or not running. | **Docker** > **Socket Proxy**. The menu line shows `RUNNING` when it is ready. See [Socket Proxy](/docker/socket-proxy/). |
 | `Traefik Preparation - Must be completed (Proxy menu)` | Preparation has not finished. | **Proxy** > **Traefik** > **Preparation**. |
 | `Traefik Staging - Must be completed (Proxy menu)` | Staging has not finished. | **Proxy** > **Traefik** > **Staging**. |
-| `Traefik Production - Must be completed (Proxy menu)` | Production has not finished. | **Proxy** > **Traefik** > **Production**. |
+| `Traefik Production - Must be completed (Proxy menu)` | Production has not finished. You also see this after you run **Staging** again, or after a Production rerun that did not finish: both clear the Production `- DONE` mark. | **Proxy** > **Traefik** > **Production**. See [Run the steps again](/reverse-proxy/traefik-setup/#run-the-steps-again). |
 | `Traefik - Must be running (Proxy menu)` | The Traefik container is not running. | Finish **Production**. If it was done before and Traefik stopped, see [Read the Traefik logs](/reverse-proxy/check-traefik-logs/). |
 
 The full Traefik order is in [Set up Traefik](/reverse-proxy/traefik-setup/).
