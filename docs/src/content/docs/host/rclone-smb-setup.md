@@ -216,6 +216,8 @@ sudo docker compose --profile all -f DOCKER_FOLDER/docker-compose-HOSTNAME.yml u
 
    Without the aliases, run `sudo docker ps -a`. Your media apps show a status that starts with "Up".
 
+If the apps run but their library is empty, see [Media app shows an empty library](/apps/media-library-empty/).
+
 If the apps do not come back, read the timer logs in the same folder as the Rclone log. Replace the two values as before:
 
 ```bash

@@ -234,6 +234,8 @@ If you only change the path of a media folder an app already uses, recreating is
 
 ## Common problems
 
+If a media app shows an empty library, follow the checks in [Media app shows an empty library](/apps/media-library-empty/).
+
 ### The folder does not exist
 
 Deployrr creates a folder you pick. If a path later goes missing, the app may start with an empty folder, or not start. For a folder on a NAS, check the mount first. Run `ls` on the path. Replace `YOUR_FOLDER` with your path:
