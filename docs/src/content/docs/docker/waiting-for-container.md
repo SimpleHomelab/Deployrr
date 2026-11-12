@@ -27,6 +27,20 @@ related:
   - apps/pi-hole-port-53-conflict
   - docker/rate-limit
   - getting-started/quick-start
+further_reading:
+  - title: "UDMS part 13: Viewing running containers"
+    url: https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/#Viewing_Running_Containers
+  - title: "UDMS part 12: Install Docker and Docker Compose"
+    url: https://www.simplehomelab.com/udms-12-install-docker-and-docker-compose/
+videos:
+  - id: Ux9khKhqhcg
+    start: 236
+    title: "Bash aliases video: reading container logs with docker logs"
+    note: Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens.
+  - id: rdqbAr0TFnQ
+    start: 699
+    title: "Deployrr 5 walkthrough: System Checks installs Docker"
+    note: Shows Deployrr v5. Menus and steps differ in v6.
 last_reviewed: 2026-11-09
 status: current
 old_paths: ["/docker/waiting-for-container-to-start"]
@@ -103,7 +117,7 @@ These are general Docker commands.
    sudo docker ps -a
    ```
 
-   With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dps`.
+   With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dps`. To understand what the list shows, read [UDMS part 13: Viewing running containers](https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/#Viewing_Running_Containers) (manual setup).
 
 2. Find your container in the list. Look at the `STATUS` column.
    - `Exited` or `Restarting` means the container crashed. Go to step 3.
@@ -118,7 +132,7 @@ These are general Docker commands.
 
    The last lines usually say what is wrong. Typical causes are a wrong setting, a missing file or a permission error. If Docker says `failed to create shim task` and you run in a Proxmox LXC container, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/). If the app uses an Rclone mount for your NAS and the files are missing, see [Rclone mount fails because the folder is not empty](/host/rclone-mount-not-empty/).
 
-   With the aliases: `dlogs CONTAINER`. It shows the last 50 lines and follows the log; press Ctrl+C to stop. `dclogs` follows the logs of all your apps. See [Bash aliases](/using-deployrr/bash-aliases/). For Traefik, see [Read the Traefik logs](/reverse-proxy/check-traefik-logs/).
+   With the aliases: `dlogs CONTAINER`. It shows the last 50 lines and follows the log; press Ctrl+C to stop. `dclogs` follows the logs of all your apps. See [Bash aliases](/using-deployrr/bash-aliases/). To see `docker logs` used on a container, watch [Bash aliases video: reading container logs at 3:56](https://youtu.be/Ux9khKhqhcg?t=236) (manual Docker Compose setup). For Traefik, see [Read the Traefik logs](/reverse-proxy/check-traefik-logs/).
 
 4. If the app uses a helper container, such as a database, check that container too. Repeat steps 2 and 3 for it. If the helper is `unhealthy` or not running, fix it first. The app waits for it.
 
@@ -210,7 +224,7 @@ Removing Docker data deletes all containers, images, volumes and app data on thi
 
 5. Start Deployrr again.
 6. Open **Prerequisites** > **System Checks**. The menu describes it as "System and Docker Checks". If Deployrr says "It appears that System Checks were already completed. If you want to redo it, press Y/y to resume or any other key to go back:", press `Y`.
-7. Watch the output. Deployrr shows `Docker not installed. Installing now...` and installs Docker. At the end it shows `Docker is installed and running`.
+7. Watch the output. Deployrr shows `Docker not installed. Installing now...` and installs Docker. At the end it shows `Docker is installed and running`. To see System Checks install Docker, watch [Deployrr 5 walkthrough: System Checks at 11:39](https://youtu.be/rdqbAr0TFnQ?t=699) (shows Deployrr v5; menus differ in v6).
 
    If it shows `Docker installed but not running` or `Docker installation failed`, run `sudo systemctl status docker` and read the message.
 
@@ -219,11 +233,11 @@ Removing Docker data deletes all containers, images, volumes and app data on thi
 You don't need **Settings** > **Reset** for this. Each Prerequisites step lets you redo it. Use Reset only as a last resort.
 
 :::caution
-**Settings** > **Reset** takes your stack down, which stops and removes your containers. Then it removes all unused Docker data, which now includes the images and volumes your apps used. Then it deletes Deployrr's own configuration and cache and exits. You must start Deployrr again. The Reset screen says containers keep running and app data is not deleted. Don't rely on that. Back up first.
+**Settings** > **Reset** takes your stack down, which stops and removes your containers. Then it removes all unused Docker data, which now includes the images and volumes your apps used. Then it deletes Deployrr's own files, including the Deployrr program, and exits. You must run the installer again. Back up first. See [Refresh, Reset or Remove Deployrr](/using-deployrr/reset-or-remove-deployrr/).
 :::
 
 :::note
-Our advice: don't install Docker yourself before you use Deployrr. Let the Prerequisites step do it.
+Our advice: don't install Docker yourself before you use Deployrr. Let the Prerequisites step do it. To understand how Docker is installed from Docker's own repository, read [UDMS part 12: Install Docker and Docker Compose](https://www.simplehomelab.com/udms-12-install-docker-and-docker-compose/) (manual setup).
 :::
 
 ## Check it worked

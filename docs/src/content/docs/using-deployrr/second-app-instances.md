@@ -13,7 +13,18 @@ related:
   - using-deployrr/connecting-apps
   - reverse-proxy/check-traefik-logs
   - docker/compose-malformed
-further_reading: []
+further_reading:
+  - title: "UDMS part 18: Portainer behind Traefik with the file provider"
+    url: "https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Portainer_Behind_Traefik_using_File_Provider"
+videos:
+  - id: rdqbAr0TFnQ
+    start: 3879
+    title: "Deployrr 5 walkthrough: Traefikify an app"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
+  - id: 6S9PwhAlZUs
+    start: 581
+    title: "Traefik guide: put an app behind Traefik with a file provider"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
 last_reviewed: 2026-11-08
 status: current
 old_paths: ["/docker/second-instances-of-apps"]
@@ -159,11 +170,13 @@ Use any names and port you like. The port must be free on your server. The numbe
 
 Skip this part if you only use the app on your local network, or if **Setup Mode** is **Local**. Local mode doesn't use Traefik.
 
-Traefik reaches each app through a small file in `appdata/traefik3/rules/HOSTNAME/`. If Traefik was running when you installed the first copy, that copy has `app-sonarr.yml` there. The second copy needs its own file. You can create it with the menu or by copying the first file.
+Traefik reaches each app through a small file in `appdata/traefik3/rules/HOSTNAME/`. If Traefik was running when you installed the first copy, that copy has `app-sonarr.yml` there. The second copy needs its own file. You can create it with the menu or by copying the first file. To understand how these files work, read [UDMS part 18: Portainer behind Traefik with the file provider](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Portainer_Behind_Traefik_using_File_Provider) (manual setup).
 
 ### Option A: use Traefikify
 
 This needs a Plus or Pro license, with Socket Proxy and Traefik Production set up and Traefik running.
+
+To see Traefikify used on an app, watch [Deployrr 5 walkthrough: Traefikify an app at 1:04:39](https://youtu.be/rdqbAr0TFnQ?t=3879) (shows Deployrr v5; menus and steps differ in v6).
 
 1. In Deployrr, go to **Proxy** > **Traefik** > **Traefikify**.
 2. Read the **Traefikify** box and confirm that you want to proceed.
@@ -181,6 +194,8 @@ Traefikify also works for apps on other machines. For an example, see [Home Assi
 Deployrr creates `app-sonarr-4k.yml` and shows `File provider created for sonarr4k.` Traefik picks up the new file on its own, so you don't need to restart it. If the Deployrr Dashboard is running, Deployrr also offers to add the app to it.
 
 ### Option B: copy the file
+
+To see an app file built by hand, watch [Traefik guide: put an app behind Traefik with a file provider at 9:41](https://youtu.be/6S9PwhAlZUs?t=581) (manual Docker Compose setup; Deployrr does this for you).
 
 1. Go to the rules folder.
 
