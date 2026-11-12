@@ -12,7 +12,13 @@ related:
   - using-deployrr/bash-aliases
   - getting-started/updating-deployrr
   - support/discord
-further_reading: []
+further_reading:
+  - title: "UDMS part 13: Updating services with Docker Compose"
+    url: https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/#Updating_Services
+videos:
+  - id: Nuo83uzTWco
+    start: 548
+    title: "Deployrr 6 intro: local images, backup locations and version pinning"
 last_reviewed: 2026-11-09
 status: current
 old_paths: []
@@ -110,6 +116,8 @@ A pin keeps an app on one version. This keeps core apps stable. If an app uses a
 
 If you leave the box empty or unchanged, nothing changes. Choose **Back** to leave the screen.
 
+Version pinning comes up in [Deployrr 6 intro: local images, backup locations and version pinning at 9:08](https://youtu.be/Nuo83uzTWco?t=548).
+
 There is no separate unpin option. To let an app always take the newest image, set its pin to `latest`, if the image offers that tag. Some apps already ship with `latest` as the recommended pin. To go back to a pinned version, type that version number again.
 
 :::caution
@@ -135,6 +143,8 @@ Any license can use the Bash aliases `dcpull` and `dcup`.
    ```
 
 The aliases exist only after you turn on Deployrr's Bash aliases in **Prerequisites** > **Bash Aliases**. See [Bash aliases](/using-deployrr/bash-aliases/).
+
+To understand how pulling and restarting works with plain Docker Compose, read [UDMS part 13: Updating services with Docker Compose](https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/#Updating_Services) (manual setup; it uses its own alias file, not Deployrr's).
 
 ## Check it worked
 
