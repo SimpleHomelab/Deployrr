@@ -32,6 +32,21 @@ related:
   - support/discord
   - reverse-proxy/check-traefik-logs
   - docker/waiting-for-container
+videos:
+  - id: rdqbAr0TFnQ
+    start: 4891
+    title: "Deployrr 5 walkthrough: Tools menu detects a wrong .env permission and fixes it"
+    note: "Shows Deployrr v5. Menus and steps differ in v6."
+  - id: Nuo83uzTWco
+    start: 532
+    title: "Deployrr 6 overview: Remote Assistance with Tmate"
+  - id: KMZIyoZ3jWM
+    start: 1573
+    title: "Traefik 3 guide: creating acme.json and setting permission 600"
+    note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
+further_reading:
+  - title: "UDMS part 18: Prepare Traefik folders (acme.json and its permissions)"
+    url: "https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Prepare_Traefik_Folders"
 last_reviewed: 2026-11-10
 status: current
 old_paths: []
@@ -72,6 +87,8 @@ Deployrr flags your system as Unhealthy when any of these is true:
 - One or more compose files have a YAML syntax error.
 
 Permissions `600` mean only the owner can read and write the file. These files hold passwords and keys, so Deployrr wants them locked down. Remote Assist counts as a problem because it gives the support team access to your server.
+
+To see why `acme.json` needs `600`, watch [Traefik 3 guide: creating acme.json and setting permission 600 at 26:13](https://youtu.be/KMZIyoZ3jWM?t=1573) (manual Docker Compose setup, so Deployrr does these steps for you).
 
 The other main menu messages mean something different:
 
@@ -123,6 +140,8 @@ Deployrr fixes these for you.
 
 The menu does not update its lines right after a fix. Leaving and opening **Diagnostics** again shows the new state.
 
+To see Deployrr catch a wrong `.env` permission and fix it with one click, watch [Deployrr 5 walkthrough: Tools menu permission fix at 1:21:31](https://youtu.be/rdqbAr0TFnQ?t=4891) (shows Deployrr v5; menus and steps differ in v6).
+
 If you prefer to do it yourself, run the command for the file that is flagged. Replace `YOUR_DOCKER_FOLDER` with the path of your Docker folder. This is a value you fill in. The path is the one Deployrr shows on the fix screen. A common path is `/home/USERNAME/docker`.
 
 ```bash
@@ -155,7 +174,7 @@ If Traefik is not running, selecting `acme.json` shows a box titled **acme.json 
 
 If the `Remote Assist` line says `ACTIVE`, a remote support session is running on your server, even one Deployrr did not start. If a support member is still helping you, wait until they finish. If you did not start a session, we suggest you treat it as a security problem.
 
-Stopping needs a Pro license.
+Stopping needs a Pro license. For a short look at what the feature is, watch [Deployrr 6 overview: Remote Assistance with Tmate at 8:52](https://youtu.be/Nuo83uzTWco?t=532).
 
 1. In **Diagnostics**, select **Remote Assist**.
 2. In the **Remote Assist - Confirm Stop** box, select **Yes**. Stopping also ends any other remote terminal-sharing session on the server.
