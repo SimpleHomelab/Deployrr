@@ -35,18 +35,18 @@ further_reading:
     url: "https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Create_Cloudflare_DNS_API_Token_Secret"
 videos:
   - id: KMZIyoZ3jWM
-    start: 441
+    start: 533
     title: "Traefik 3 guide: Cloudflare DNS records and scoped API token"
     note: "Manual Docker Compose setup. You create the Cloudflare token the same way in Deployrr v6."
   - id: rdqbAr0TFnQ
-    start: 2594
+    start: 2657
     title: "Deployrr 5 walkthrough: Traefik Staging and the Not Secure warning"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
   - id: KMZIyoZ3jWM
-    start: 2632
+    start: 2664
     title: "Traefik 3 guide: Staging first, then Production, and Let's Encrypt rate limits"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
-last_reviewed: 2026-11-11
+last_reviewed: 2026-11-12
 status: current
 old_paths: []
 sources: []
@@ -167,7 +167,7 @@ Traefik asks Let's Encrypt for a certificate that covers your domain and all its
    - Zone / Zone / Read
    - Zone / DNS / Edit
 3. Check that the token can reach your domain's zone. This is general Cloudflare advice, and the wording of the setting depends on your Cloudflare dashboard. In the token's zone resources, include your domain or all zones.
-4. If you need a new token, create it and copy it. To see the token made in Cloudflare, watch [Traefik 3 guide: Cloudflare DNS records and scoped API token at 7:21](https://youtu.be/KMZIyoZ3jWM?t=441) (manual Docker Compose setup; the Cloudflare steps are the same in v6).
+4. If you need a new token, create it and copy it. To see the token made in Cloudflare, watch [Traefik 3 guide: Cloudflare DNS records and scoped API token at 8:53](https://youtu.be/KMZIyoZ3jWM?t=533) (manual Docker Compose setup; the Cloudflare steps are the same in v6).
 5. Stop Traefik:
 
    ```bash
@@ -181,7 +181,7 @@ Traefik asks Let's Encrypt for a certificate that covers your domain and all its
 6. In Deployrr, open **Proxy** > **Traefik** > **Preparation**.
 7. Select **Yes** in the first box.
 8. If you see "It appears that Traefik preparation was already done. If you proceed, previous setup may be overwritten.", press `Y`.
-9. In the **Traefik Secrets** form, paste the token into **Cloudflare DNS API Token**. Leave the **Basic Auth Username** as it is. Leave the **Basic Auth Password** blank to keep the old one. If you type a new password, Deployrr asks for **Confirm Basic Auth Password:**.
+9. In the **Traefik Secrets** form, replace the old value in **Cloudflare DNS API Token** with the new token. Leave the **Basic Auth Username** as it is. If the form says "(Leave password blank to keep existing)", you can leave **Basic Auth Password** blank to keep the old one. Without that line, there is no saved password, so type one. Blank stops with "Password cannot be empty." If you type a new password, Deployrr asks for **Confirm Basic Auth Password:**.
 10. Wait for "Traefik Preparation completed successfully".
 11. Go to [Run Staging again](#run-staging-again).
 
@@ -212,8 +212,6 @@ You see:
 ```txt
 Could not find DNS validation TXT record
 ```
-
-Deployrr's hint says to delete `_acme_challenge` records. The real record name has a hyphen: `_acme-challenge`.
 
 Two causes are common:
 
@@ -294,7 +292,7 @@ This is general Linux advice. Deployrr does not check it. If the server's date a
 
 ### Fix the browser warning
 
-After **Staging**, your browser shows "Not Secure". Deployrr says this is normal, because Staging gets a test certificate. Browsers do not trust it. To see this happen, watch [Deployrr 5 walkthrough: Traefik Staging and the Not Secure warning at 43:14](https://youtu.be/rdqbAr0TFnQ?t=2594) (shows Deployrr v5; menus differ in v6).
+After **Staging**, your browser shows "Not Secure". Deployrr says this is normal, because Staging gets a test certificate. Browsers do not trust it. To see this happen, watch [Deployrr 5 walkthrough: Traefik Staging and the Not Secure warning at 44:17](https://youtu.be/rdqbAr0TFnQ?t=2657) (shows Deployrr v5; menus differ in v6).
 
 1. Run **Proxy** > **Traefik** > **Production**.
 2. Wait for "Traefik Production Setup completed successfully".
@@ -304,9 +302,7 @@ If Production fails, use the table in [Find the error](#1-find-the-error).
 
 ### If the progress never ends
 
-Deployrr stops on the errors in the table. For anything else, it keeps waiting. It has no time-out at this step. The message says "up to 15 min", but it does not stop on its own.
-
-If it runs well past 15 minutes, read the log yourself.
+Deployrr stops on the errors in the table. For anything else, it keeps waiting. It has no time-out at this step. If it is still running after 15 minutes, stop waiting and read the log yourself.
 
 1. Open a second terminal on your server.
 2. Follow the log:
