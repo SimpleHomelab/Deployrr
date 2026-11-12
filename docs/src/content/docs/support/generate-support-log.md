@@ -69,7 +69,7 @@ The screen can end with "Sanitized log ready for sharing" even when a step in 3/
 
 Only IPv4 addresses are replaced. IPv6 addresses stay as they are.
 
-The username swap is a plain text swap. Other words that contain your username change too. This is cosmetic.
+Every match is replaced, even inside other words. For example, other words that contain your username change too. This is cosmetic.
 
 :::caution
 Deployrr does not replace everything. It leaves Domain 2 and any other domains, local network IPs, your hostname, email addresses, tokens, passwords and API keys. You must check the log yourself before you share it.
@@ -111,7 +111,7 @@ The file is owned by root. To edit or delete it, use `sudo`. If you can't open i
 6. Search again until nothing private is left.
 
 :::note
-IPv4 addresses shown as `CIP` or `RIP` may be Cloudflare addresses, which are not private. Your own public IP is the one to remove.
+`CIP` stands for your own public IP and `RIP` for the IP Domain 1 points to. Both are already replaced. When the Cloudflare proxy is on, `RIP` was a Cloudflare address, which is not private. IPv6 addresses are not replaced. Remove your own if you find one.
 :::
 
 ## Share the log
