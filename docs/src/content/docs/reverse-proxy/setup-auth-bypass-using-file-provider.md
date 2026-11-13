@@ -1,6 +1,6 @@
 ---
 title: Let mobile apps skip the login page (Auth Bypass)
-description: Set an Auth Bypass key in Deployrr and add a bypass route, so apps like LunaSea and NZB360 skip your login page when they send the key.
+description: Set or change an Auth Bypass key in Deployrr and add a bypass route, so apps like LunaSea and NZB360 skip your login page when they send the key.
 type: how-to
 tags:
   - auth
@@ -17,7 +17,7 @@ related:
 further_reading:
   - title: "UDMS part 28: Why and how to conditionally bypass Traefik auth with a key"
     url: "https://www.simplehomelab.com/udms-28-traefik-auth-bypass/"
-last_reviewed: 2026-11-08
+last_reviewed: 2026-11-13
 status: current
 old_paths: ["/traefik/setup-auth-bypass-using-file-provider"]
 sources:
@@ -52,7 +52,7 @@ Anyone who has the key can open the app without logging in. Use a long, random k
 5. Wait for the **Auth Bypass Key - Set** box and close it.
 6. Check that **Auth Bypass** now shows **Set** in the menu. The success box can show even if you cancelled the key box.
 
-If you run **Auth Bypass** again, the box shows your current key. Change it there to replace it.
+To replace the key later, see [Change the key](#change-the-key).
 
 ### Let Traefik read the key
 
@@ -164,6 +164,28 @@ If both requests show the login redirect, check these:
 - The key in your request is the one you set in **Auth Bypass**.
 
 [Read the Traefik logs](/reverse-proxy/check-traefik-logs/) if the app does not load at all.
+
+## Change the key
+
+Change the key if it may have leaked: it showed in a screenshot or chat, a phone with the key was lost, or someone who had it should no longer get in. The old key keeps working until Traefik is recreated.
+
+1. Make a new random key on the server:
+
+   ```bash
+   tr -cd '[:alnum:]' </dev/urandom | head -c 24; echo
+   ```
+
+2. In Deployrr, go to **Proxy** > **Traefik** > **Auth Bypass** and confirm.
+3. The **Docker Environment Variables** box shows your current key. Replace it with the new one and confirm. Don't leave the box empty. If you cancel the box, the old key stays.
+4. Recreate Traefik so it uses the new key:
+
+   ```bash
+   dcrec traefik
+   ```
+
+   Your rules files don't change. They read the key from Traefik.
+5. In each mobile app, change the `traefik-auth-bypass-key` header to the new key.
+6. Run the checks in [Check it worked](#check-it-worked) with the new key. Then run the second check with the old key. It should now show the login redirect.
 
 :::note
 The **Auth Bypass Key - Set** box tells you to use a `-bypass` template with **Traefikify** and to send an `X-Auth-Bypass` header. Follow this page instead. **Traefikify** has no bypass option, and the route on this page checks for the `traefik-auth-bypass-key` header.
