@@ -31,7 +31,7 @@ videos:
     start: 523
     title: "Bash aliases: bring a whole Docker Compose stack down and back up"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
-last_reviewed: 2026-11-09
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -82,7 +82,7 @@ These options act on all your apps at once.
 
 ### Up
 
-"Docker Stack Up". Starts every app in your stack. You see "Bringing up Docker stack..." and then "Docker stack is up". Use it after **Down**, or after you enable an app.
+"Docker Stack Up". Starts every app in your stack. You see "Bringing up Docker stack..." and then "Docker stack is up". Use it after **Down**, or after you enable an app. It also removes the containers of apps you disabled (see [What happens to a disabled app's container](#what-happens-to-a-disabled-apps-container)).
 
 With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dcup`. Unlike **Up**, it also rebuilds apps that are built locally.
 
@@ -180,6 +180,14 @@ Some apps have helper containers, such as a database. For these you see "Multico
 
 You can't disable a helper on its own. Deployrr says "Cannot disable dependency directly" and tells you to disable the parent app.
 
+#### What happens to a disabled app's container
+
+Disable only turns off the app's line in your main compose file. The container stays, stopped or running, until the next time your stack is started as a whole. **Up**, **Update Stack** (Full or Standard) and the `dcup` alias remove containers of apps that are no longer in the compose file. Installing an app and the "restart the Docker stack" question after a backup or restore can do the same. So after one of them runs, a disabled app's container is gone, even one you left running at step 3. Its `appdata` folder, `.env` values and compose file stay.
+
+This is also what happens to the proxy you switch away from in **Proxy** > **Proxy Type**: its line is disabled, and the next **Up** removes its stopped container. See [Switch between Traefik and Nginx Proxy Manager](/reverse-proxy/switch-traefik-npm/).
+
+Nothing is lost. When you enable the app again, **Up** creates a new container from the same settings and data.
+
 ### Enable
 
 "N disabled apps". The reverse of **Disable**. The app starts with the stack again.
@@ -191,6 +199,8 @@ You can't disable a helper on its own. Deployrr says "Cannot disable dependency 
 5. Look for "APP enabled successfully".
 
 If no app is disabled, you see "No disabled services found in" followed by your compose file name.
+
+Step 4 can only start a container that still exists. If **Up** or **Update Stack** ran while the app was disabled, its container was removed, and answering `Y` does not bring it back. Run **Up** after **Enable** instead, or `dcup APP` with the [bash aliases](/using-deployrr/bash-aliases/). Then check **Containers Status**.
 
 You can't enable a helper on its own. Deployrr says "Cannot enable dependency directly". Enable the parent app instead.
 
