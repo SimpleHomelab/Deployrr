@@ -18,7 +18,7 @@ videos:
     start: 904
     title: "Deployrr 5 walkthrough: Generate a sanitized log in Settings"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -83,16 +83,17 @@ If Domain 1 is not set (Local mode) or does not resolve, Deployrr does not repla
 
 The file is owned by root. To edit or delete it, use `sudo`. If you can't open it as your normal user, use `sudo` for that too.
 
-1. Find your public IP:
+1. Find your public IP and your server's hostname:
 
    ```bash
    curl -4 ifconfig.me
+   hostname
    ```
 
-2. Search the log for your private details. Replace `YOUR_LOG_FILE` with the path you noted. Replace `YOUR_DOMAIN` and `YOUR_PUBLIC_IP` with your own values. The `@` finds email addresses.
+2. Search the log for your private details. Replace `YOUR_LOG_FILE` with the path you noted. Replace `YOUR_DOMAIN`, `YOUR_PUBLIC_IP` and `YOUR_HOSTNAME` with your own values. The `@` finds email addresses.
 
    ```bash
-   grep -n -i -E "YOUR_DOMAIN|YOUR_PUBLIC_IP|@" YOUR_LOG_FILE
+   grep -n -i -E "YOUR_DOMAIN|YOUR_PUBLIC_IP|YOUR_HOSTNAME|@" YOUR_LOG_FILE
    ```
 
 3. Search for other secrets:
@@ -101,17 +102,31 @@ The file is owned by root. To edit or delete it, use `sudo`. If you can't open i
    grep -n -i -E "token|password|secret|api[_-]?key" YOUR_LOG_FILE
    ```
 
-4. Also look for Domain 2 and any other domain you use.
-5. If you find anything private, open the file and edit it:
+4. Check for your public IPv6 address. Deployrr doesn't replace IPv6 addresses. This prints your public IPv6, or an error if your server has none:
+
+   ```bash
+   curl -6 ifconfig.me
+   ```
+
+   If it prints an address, search the log for its first three groups (the parts between the colons), for example `2001:db8:1234`:
+
+   ```bash
+   grep -n -i "YOUR_IPV6_START" YOUR_LOG_FILE
+   ```
+
+5. Also look for Domain 2 and any other domain you use.
+6. If you find anything private, open the file and edit it:
 
    ```bash
    sudo nano YOUR_LOG_FILE
    ```
 
-6. Search again until nothing private is left.
+   To search inside nano, press `Ctrl+W`. To save and exit, press `Ctrl+X`, then `Y`, then `Enter`.
+
+7. Search again until nothing private is left.
 
 :::note
-`CIP` stands for your own public IP and `RIP` for the IP Domain 1 points to. Both are already replaced. When the Cloudflare proxy is on, `RIP` was a Cloudflare address, which is not private. IPv6 addresses are not replaced. Remove your own if you find one.
+`CIP` stands for your own public IP and `RIP` for the IP Domain 1 points to. Both are already replaced. When the Cloudflare proxy is on, `RIP` is a Cloudflare address, which is not private. Other IPv6 addresses in the log, such as Cloudflare's, are not private either. Only your own needs removing.
 :::
 
 ## Share the log
@@ -128,7 +143,7 @@ The file is owned by root. To edit or delete it, use `sudo`. If you can't open i
 - The screen showed "Sanitized log ready for sharing".
 - The file exists at the path after `Location:`.
 - Your domain shows as `example.com` and your username as `USERNAME`.
-- Searching for your public IP finds nothing.
+- Searching for your public IP, your hostname and the start of your IPv6 address finds nothing.
 
 :::note
 **Settings** > **Reset** and **Settings** > **Remove** delete Deployrr's logs. If you may need help, generate a log first. See [Refresh, Reset or Remove Deployrr](/getting-started/reset-or-remove-deployrr/).
