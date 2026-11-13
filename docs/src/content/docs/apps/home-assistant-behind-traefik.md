@@ -131,8 +131,3 @@ Do not enable SSL in Home Assistant when you use it behind Traefik. Traefik ends
 3. Log in. The dashboard should load.
 
 If you still get the error, look at the Home Assistant log again. The address in the new `A request from a reverse proxy was received from` line may differ from the one you trusted. Add that address to the trusted proxies and save again. If the page does not load at all, [read the Traefik logs](/reverse-proxy/check-traefik-logs/).
-
-## Related
-
-- [Run a second copy of an app](/using-deployrr/second-app-instances/): the Traefikify prompts and the rules file explained.
-- [Add your own containers with custom.yml](/using-deployrr/custom-yml/): run Home Assistant as a container next to your Deployrr apps.

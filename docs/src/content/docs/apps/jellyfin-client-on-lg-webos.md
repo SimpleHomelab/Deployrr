@@ -110,8 +110,3 @@ To switch Jellyfin to `chain-no-auth`, use **Security** > **Manage Auth** (Pro l
 1. Open the Jellyfin app on the TV or Xbox.
 2. Enter your server address.
 3. The app should show the Jellyfin login page, with no `-27` error.
-
-## Related
-
-- [Remove Authentik](/reverse-proxy/authentik-removal/): how to change an app's login chain, with a table of chains.
-- [Set up GPU hardware transcoding](/apps/gpu-transcoding/): let Jellyfin use your graphics card when it converts video for a TV or phone.

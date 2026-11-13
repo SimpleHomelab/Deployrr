@@ -76,8 +76,3 @@ Do not follow install or update steps from v5 videos on a v6 setup. Use the [qui
 
 - Install Deployrr with the [quick start](/getting-started/quick-start/).
 - Stuck? Ask in the Discord community.
-
-## Related
-
-- [Quick start](/getting-started/quick-start/): Install Deployrr for the first time.
-- [Updating Deployrr](/getting-started/updating-deployrr/): Move to the latest version.

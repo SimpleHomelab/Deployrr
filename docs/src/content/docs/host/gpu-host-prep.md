@@ -253,10 +253,3 @@ If an app container won't start and the error mentions `unsatisfied condition: c
 1. Open **System** > **GPU** in Deployrr and run the scan again. It does not refresh on its own.
 2. You want "Intel Iris: Ready", "AMD ROCm: Ready" or "NVIDIA Container Toolkit: Ready". [GPU hardware transcoding](/apps/gpu-transcoding/#1-scan-for-your-gpu) explains every line. To see the scan, watch [Deployrr 6 overview: Intelligent GPU Detection at 5:37](https://youtu.be/Nuo83uzTWco?t=337).
 3. Install the app with the GPU. To add the GPU to an app you installed earlier, reinstall it. See [If the app is already installed](/apps/gpu-transcoding/#3-if-the-app-is-already-installed).
-
-## Related
-
-- [GPU hardware transcoding](/apps/gpu-transcoding/): the scan, installing apps with the GPU and in-app settings.
-- [Run Deployrr in a Proxmox LXC](/host/proxmox-lxc/): System Type, devices and storage in an LXC.
-- [Docker fails with "failed to create shim task"](/host/shim-task-debian/): Docker problems inside an LXC.
-- [Stack Manager](/using-deployrr/stack-manager/): start your apps again after a Docker restart.

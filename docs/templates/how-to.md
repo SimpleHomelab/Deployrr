@@ -38,7 +38,3 @@ One or two sentences on what this page helps you do and when you need it.
 ## Check it worked
 
 How the reader can confirm it worked.
-
-## Related
-
-- [Another page](/section/another-page/): why the reader might want it.

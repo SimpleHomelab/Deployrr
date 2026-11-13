@@ -281,11 +281,3 @@ The menu has no option to clear a folder. You can only pick a new path.
 
 - Install the apps that use your folders from **Apps** > **Browse Apps**.
 - To link your apps together, see [Connect your apps to each other](/using-deployrr/connecting-apps/).
-
-## Related
-
-- [Mount a NAS share with Rclone](/storage/rclone-smb-setup/): mount your NAS before you set a folder on it.
-- [Requirements Not Met](/getting-started/requirements-not-met/): find the folder line that blocked your install.
-- [Stack Manager](/using-deployrr/stack-manager/): recreate an app after a folder change.
-- [Reinstall an app and keep its data](/using-deployrr/reinstall-app/): add a media folder to an app you installed earlier.
-- [Mount an SMB or NFS share without Rclone](/storage/smb-nfs-mounts/): the other way to mount a NAS.

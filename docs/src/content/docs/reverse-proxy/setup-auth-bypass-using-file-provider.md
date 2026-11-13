@@ -28,7 +28,7 @@ sidebar:
 
 Some mobile apps cannot show your login page. LunaSea and NZB360 are two examples. Auth Bypass lets such an app skip the login when it sends a secret key with each request. Everyone else still sees your login page.
 
-This page shows how to set the key, add a bypass route to an app, and set up the mobile app.
+This page shows how to set the key, add a bypass route to an app, and set up the mobile app. To limit an app to your LAN or VPN instead of skipping the login, see [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/).
 
 :::caution
 Anyone who has the key can open the app without logging in. Use a long, random key. Keep it secret. Don't post it in screenshots, chats or forum threads.
@@ -168,11 +168,3 @@ If both requests show the login redirect, check these:
 :::note
 The **Auth Bypass Key - Set** box tells you to use a `-bypass` template with **Traefikify** and to send an `X-Auth-Bypass` header. Follow this page instead. **Traefikify** has no bypass option, and the route on this page checks for the `traefik-auth-bypass-key` header.
 :::
-
-## Related
-
-- [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): find out why a route does not match.
-- [Bash aliases](/using-deployrr/bash-aliases/): what `dcrec` and the other shortcuts do.
-- [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/): Traefikify for apps on other machines.
-- [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/): another app set up with a rules file.
-- [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/): limit an app to your LAN or VPN instead of skipping the login.

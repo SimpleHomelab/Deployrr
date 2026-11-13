@@ -272,11 +272,3 @@ If an app shows an error or doesn't load, its chain probably names a method that
 
 - Move every app that has no login to a method from this page.
 - Try one app from a phone on mobile data to check the login from outside your network.
-
-## Related
-
-- [Set up Traefik](/reverse-proxy/traefik-setup/): the setup this guide builds on.
-- [Remove Authentik](/reverse-proxy/authentik-removal/): switch apps away from Authentik and delete it.
-- [Let mobile apps skip the login page](/reverse-proxy/setup-auth-bypass-using-file-provider/): let apps that can't show a login page get through.
-- [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/): limit an app to chosen addresses.
-- [Jellyfin app on LG webOS TV or Xbox shows error -27](/apps/jellyfin-client-on-lg-webos/): TV apps and login pages.

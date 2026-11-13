@@ -241,11 +241,3 @@ Remove the torrent once it has seeded enough. Or open the download client entry 
 2. The item leaves the queue.
 3. The file shows in your library under `/data/media1`, `/data/media2` or `/data/media3`.
 4. In **System** > **Status**, the Remote Path Mappings warning is gone.
-
-## Related
-
-- [Media app shows an empty library](/apps/media-library-empty/): check that the Arr app has your media folders.
-- [Set your media, downloads and other folders](/storage/folders/): how the Downloads Folder is set and used.
-- [Connect your apps to each other](/using-deployrr/connecting-apps/): host names and ports for download clients.
-- [Install qBittorrent VPN](/apps/qbittorrent-vpn/): connect the Arr apps to a client behind Gluetun.
-- [qBittorrent web UI says Unauthorized or won't open](/apps/qbittorrent-webui-troubleshooting/): get back into the client to check its paths.

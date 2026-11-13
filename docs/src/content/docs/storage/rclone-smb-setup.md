@@ -249,11 +249,3 @@ The `.log` file says "Media containers started" with a date. The `.err` file say
 
 - **Refresh Cache** ("Clear/refresh Rclone Cache") makes Rclone read the files on your NAS again. Use it when new files do not show up. It needs the share to be mounted. Deployrr asks "Clear cache for remote: NAME?" first. It ends with "Cache refresh operation completed". If you see "No active mount found for NAME" before that, the refresh did nothing because the mount is not running.
 - **Uninstall** ("Remove everything (Rclone and Startup Scripts, etc.)") warns that it will uninstall Rclone, unmount all remotes and remove startup scripts. **Uninstall** is selected first, so pressing Enter starts it. Use Tab to move to **Cancel** if you don't mean it. It removes Rclone, fuse3, the `rclone-NAME` service and the delayed media start, then shows "Rclone uninstalled successfully". It keeps `rclone.conf` and your mount folder.
-
-## Related
-
-- [Rclone mount folder is not empty](/storage/rclone-mount-not-empty/): fix "Mount verification failed" caused by files in the mount folder.
-- [Mount an SMB or NFS share without Rclone](/storage/smb-nfs-mounts/): the SMB Mount and NFS Mount options.
-- [Docker fails with "failed to create shim task"](/host/shim-task-debian/): Docker problems in a Proxmox LXC container.
-- [Deployrr times out waiting for a container to start](/docker/waiting-for-container/): what to do when an app will not start.
-- [Bash aliases](/using-deployrr/bash-aliases/): what `dcup`, `dcrec` and `dps` do.

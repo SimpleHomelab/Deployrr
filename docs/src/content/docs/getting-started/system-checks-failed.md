@@ -422,11 +422,3 @@ All System and Docker checks passed
 ```
 
 In the **Prerequisites** menu, the row now reads `System and Docker Checks - DONE`. In Hybrid mode you can continue with **Domain Checks**. If that step fails, see [Domain Checks failed](/getting-started/domain-checks-failed/). In Local mode, Domain Checks is not needed.
-
-## Related
-
-- [Prerequisites, step by step](/getting-started/prerequisites/#12-system-checks): where System Checks sits in the menu.
-- [Requirements Not Met](/getting-started/requirements-not-met/): what to do when System Checks won't start.
-- [Docker fails with "failed to create shim task" in a Proxmox LXC container](/host/shim-task-debian/): pin `containerd.io` after a Docker reinstall.
-- [No internet on the server or in containers after setup](/docker/no-internet-in-containers/): fix the internet if the time check or the Docker install can't reach out.
-- [Domain Checks failed](/getting-started/domain-checks-failed/): the next step, which needs System Checks to show `DONE`.

@@ -153,11 +153,3 @@ To undo, run step 3 again with the old password, put the old value back in the f
 :::note
 A later **Reinstall** of the app can write new secret values. Back up first. See [Reinstall an app and keep its data](/using-deployrr/reinstall-app/).
 :::
-
-## Related
-
-- [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/): the editors and how to write values safely.
-- [Restart, Recreate or Reinstall an app after a change](/using-deployrr/restart-recreate-reinstall/): which action applies a change.
-- [Back up and restore your Docker folder](/using-deployrr/backups/): a full backup before a risky change.
-- [Docker folder layout](/using-deployrr/docker-folder-layout/): where `.env`, `secrets` and `compose` live.
-- [App reference](/apps/app-reference/): what each app needs.

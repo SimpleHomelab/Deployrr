@@ -169,11 +169,3 @@ You do not need Lazydocker to read logs.
 - Run `sudo docker logs --tail 100 CONTAINER` and replace `CONTAINER` with the container name. With the [bash aliases](/using-deployrr/bash-aliases/), run `dlogs CONTAINER`. It shows the last 50 lines and keeps following new ones. Press Ctrl+C to stop.
 
 See [A container keeps restarting, is unhealthy or has exited](/docker/container-keeps-restarting/) for how to read a log. For more log commands, see [UDMS part 13: Container Logs](https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/#Container_Logs) (manual setup).
-
-## Related
-
-- [A container keeps restarting, is unhealthy or has exited](/docker/container-keeps-restarting/): other ways to read logs.
-- [Requirements Not Met](/getting-started/requirements-not-met/): what the Tools menu needs.
-- [Apps are stopped or show empty folders after a reboot](/docker/apps-not-starting-after-reboot/): start apps that stay down after a Docker restart.
-- [Bash aliases](/using-deployrr/bash-aliases/): `dlogs` and other short commands.
-- [Stack Manager](/using-deployrr/stack-manager/): start apps that are stopped.

@@ -249,10 +249,3 @@ UUID=YOUR_UUID  /mnt/data  ext4  defaults,nofail  0  2
 ```
 
 You can do the same for a share that Deployrr added. In the mount line, the options are the fourth column, just before the two numbers `0 0`. Add `,nofail` at the end of them. Keep the commas and don't add spaces. The mount still fails when the share is not reachable, but the boot goes on. Run `sudo findmnt --verify` and `sudo mount -a` after you save.
-
-## Related
-
-- [Mount an SMB or NFS share without Rclone](/storage/smb-nfs-mounts/): what Deployrr adds to `/etc/fstab` and how to fix or remove it.
-- [Move your media or Docker data to another disk](/storage/move-data-to-another-disk/): a disk line with `nofail`.
-- [Apps are stopped or show empty folders after a reboot](/docker/apps-not-starting-after-reboot/): when the server boots but apps or folders are empty.
-- [Stack Manager](/using-deployrr/stack-manager/): **Up** and the other options.

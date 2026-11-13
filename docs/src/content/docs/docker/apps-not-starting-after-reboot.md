@@ -270,11 +270,3 @@ Keep these in mind:
 3. The app's web page opens and the library shows your titles.
 
 If the app runs but the library is empty, restart the app and see [Media app shows an empty library](/apps/media-library-empty/). If the app starts and then stops or restarts again, see [A container keeps restarting, is unhealthy or has exited](/docker/container-keeps-restarting/).
-
-## Related
-
-- [Stack Manager](/using-deployrr/stack-manager/): **Up**, **Start Container** and every other option.
-- [Mount a NAS share with Rclone](/storage/rclone-smb-setup/): set up the share and **Delay Media Apps**.
-- [Mount an SMB or NFS share without Rclone](/storage/smb-nfs-mounts/): the `/etc/fstab` entries and how to fix them.
-- [Media app shows an empty library or no folders](/apps/media-library-empty/): when the app runs but shows nothing.
-- [Bash aliases](/using-deployrr/bash-aliases/): `dcup`, `dcstart` and `dps`.

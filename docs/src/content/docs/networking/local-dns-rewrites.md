@@ -207,9 +207,3 @@ Turn it off on each device where Internal apps fail. Menu names and places chang
 - **Android** (affects all apps on the phone): **Settings** > **Network & internet** > **Private DNS**. Choose **Off** or **Automatic**. If a provider hostname is set here, the phone skips Pi-hole for every lookup.
 
 Close and reopen the browser, then open `https://app.YOUR_DOMAIN` again.
-
-## Related
-
-- [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/): what Internal and External mean.
-- [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/): limit an app to chosen addresses.
-- [Give your server a fixed IP address](/host/fixed-ip/): keep `SERVER_LAN_IP` from changing.

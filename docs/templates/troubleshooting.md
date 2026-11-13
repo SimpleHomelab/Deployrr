@@ -47,7 +47,3 @@ One or two short paragraphs on why this happens, from the user's point of view.
 ## Check it worked
 
 How the user can tell the problem is gone.
-
-## Related
-
-- [Another page](/section/another-page/): why the reader might want it.

@@ -33,7 +33,7 @@ sidebar:
   order: 13
 ---
 
-Use **Tools** > **Backups** to save a copy of your Docker folder, bring an old copy back, and clean up backups you no longer need. Make a backup before you change something big, such as setting up the Docker folder again.
+Use **Tools** > **Backups** to save a copy of your Docker folder, bring an old copy back, and clean up backups you no longer need. Make a backup before you change something big, such as setting up the Docker folder again. [What can overwrite or delete your changes](/using-deployrr/what-overwrites-your-changes/) lists the actions to back up before.
 
 ## Before you start
 
@@ -222,12 +222,3 @@ For Immich, use the folder copy. Its database has extensions that need extra res
 ## Keep a copy elsewhere
 
 A backup on the same disk does not help if that disk fails. Copy the backups you care about to another disk or another machine.
-
-## Related
-
-- [What can overwrite or delete your changes](/using-deployrr/what-overwrites-your-changes/): the actions to back up before.
-- [Move Deployrr to a new server](/using-deployrr/move-to-new-server/): use a migration package to move everything to another machine.
-- [Docker environment setup fails: docker-compose file is malformed](/docker/compose-malformed/): rebuild your setup, and back up first.
-- [Add your own containers with custom.yml](/using-deployrr/custom-yml/): your `custom.yml` is part of the Docker folder, so it is in every backup.
-- [Change the hostname](/host/change-hostname/): another change worth backing up before you start.
-- [Refresh, Reset or Remove Deployrr](/getting-started/reset-or-remove-deployrr/): back up first, because Reset stops your apps and deletes their images.

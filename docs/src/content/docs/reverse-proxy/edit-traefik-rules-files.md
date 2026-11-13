@@ -286,11 +286,3 @@ A CrowdSec line you added to a chain is lost. Your `app-NAME.yml` files and file
 3. The log shows no new error for the app. Run `traefiklogs` and press `Ctrl+C` to stop.
 
 If you see a 404, 502 or Gateway Timeout, see [One app behind Traefik shows 404, 502 or Gateway Timeout](/reverse-proxy/app-404-or-502/).
-
-## Related
-
-- [One app behind Traefik shows 404, 502 or Gateway Timeout](/reverse-proxy/app-404-or-502/): fix an app that fails after an edit.
-- [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): find YAML errors.
-- [What can overwrite or delete your changes](/using-deployrr/what-overwrites-your-changes/): every action that rewrites files.
-- [Change the subdomain of an app you already installed](/reverse-proxy/change-app-subdomain/): edit the `rule:` line.
-- [Put any app behind Traefik with Traefikify](/reverse-proxy/traefikify/): make or remove an app's rules file.

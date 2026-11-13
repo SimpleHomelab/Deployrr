@@ -294,11 +294,3 @@ For the license box and how to upgrade, see [Licenses](/getting-started/licenses
 3. The item starts, or asks its first question.
 
 If you see a different box, such as **Proxy Type Required** or **License Required**, fix what it says. Then try again.
-
-## Related
-
-- [Licenses](/getting-started/licenses/): what each license unlocks and how to run Verify.
-- [Setup Mode: Local or Hybrid](/getting-started/setup-mode/): switch to Hybrid and see what it needs.
-- [Quick start](/getting-started/quick-start/): finish Prerequisites in order.
-- [Set up Traefik](/reverse-proxy/traefik-setup/): Preparation, Staging and Production.
-- [Choose a login method](/reverse-proxy/choose-login-method/): pick Authelia, Authentik, Google OAuth or TinyAuth.

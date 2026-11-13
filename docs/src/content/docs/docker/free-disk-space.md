@@ -375,13 +375,3 @@ To hear why access logs grow fast, watch [Traefik 3 guide: Traefik log settings 
    ```
 
    With a Basic, Plus or Pro license you can use **Tools** > **Stack Manager** > **Containers Status** instead.
-
-## Related
-
-- [Back up and restore your Docker folder](/using-deployrr/backups/): make a backup before you remove volumes, and delete old backups.
-- [Bash aliases](/using-deployrr/bash-aliases/): the full alias list.
-- [Read Traefik logs](/reverse-proxy/check-traefik-logs/): where the Traefik logs are.
-- [Update your apps](/using-deployrr/update-apps/): updates leave old images behind.
-- [Stack Manager](/using-deployrr/stack-manager/): use **Up** to create the containers of stopped apps again after a cleanup.
-- [Socket Proxy](/docker/socket-proxy/): Docker GC needs it running.
-- [System checks failed](/getting-started/system-checks-failed/): what to do if Docker won't start after a `daemon.json` change.

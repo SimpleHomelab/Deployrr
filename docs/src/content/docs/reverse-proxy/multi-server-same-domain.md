@@ -149,11 +149,3 @@ Your router can send ports 80 and 443 to one machine only. If another server run
 
 - Put a Home Assistant that runs elsewhere behind Traefik: [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/).
 - Add more apps and link them: [Connect your apps to each other](/using-deployrr/connecting-apps/).
-
-## Related
-
-- [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/): a worked Traefikify example for an app on another machine.
-- [Run a second copy of an app](/using-deployrr/second-app-instances/): the Traefikify prompts and the rules file in more detail.
-- [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): find out why a subdomain does not load.
-- [Open a dashboard at your root domain](/reverse-proxy/point-root-domain-to-a-dashboard/): change the address in a rules file.
-- [Quick start](/getting-started/quick-start/): set up Hybrid mode and Traefik.

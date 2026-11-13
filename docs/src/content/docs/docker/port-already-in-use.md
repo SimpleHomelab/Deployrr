@@ -281,11 +281,3 @@ NPM's ports 80 and 443 are fixed. Only its admin port can change. See [Nginx Pro
    The app shows `Up` and its new port.
 
 2. Open `http://YOUR_SERVER_IP:PORT` in a browser. You should see the app.
-
-## Related
-
-- [Pi-hole will not start because port 53 is already in use](/apps/pi-hole-port-53-conflict/): the port 53 case, which Deployrr does not check for you.
-- [Run a second copy of an app](/using-deployrr/second-app-instances/): a second copy needs its own free port.
-- [Stack Manager](/using-deployrr/stack-manager/): **Recreate** applies a changed port.
-- [Connect your apps to each other](/using-deployrr/connecting-apps/): which port to use between apps.
-- [Nginx Proxy Manager](/reverse-proxy/nginx-proxy-manager/): the admin port and fixed ports 80 and 443.

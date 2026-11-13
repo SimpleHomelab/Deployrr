@@ -229,11 +229,3 @@ Run the [install command](/getting-started/updating-deployrr/#run-the-installer-
 
 - If you reset, reinstall with the [Quick start](/getting-started/quick-start/) and redo [Prerequisites](/getting-started/prerequisites/).
 - If you are not sure a backup is current, read [Back up and restore](/using-deployrr/backups/).
-
-## Related
-
-- [Back up and restore](/using-deployrr/backups/): make a copy of your Docker folder before Reset or Remove.
-- [Prerequisites, step by step](/getting-started/prerequisites/): the steps you redo after a Reset.
-- [Stack Manager](/using-deployrr/stack-manager/): bring your apps back up after a Reset.
-- [What overwrites or deletes your changes](/using-deployrr/what-overwrites-your-changes/): every Deployrr action that rewrites or removes files, Reset and Remove included.
-- [Updating Deployrr](/getting-started/updating-deployrr/): update instead of resetting.

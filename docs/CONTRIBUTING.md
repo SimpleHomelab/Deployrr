@@ -53,8 +53,8 @@ If the answer fits in about two sentences, add it to an existing page instead. S
 
    | Template | Use it for |
    |---|---|
-   | `templates/troubleshooting.md` | Something is broken and the reader wants it fixed. Sections: Symptoms, Cause, Fix, Check it worked, Related. |
-   | `templates/how-to.md` | The reader wants to get one task done. Sections: Before you start, Steps, Check it worked, Related. |
+   | `templates/troubleshooting.md` | Something is broken and the reader wants it fixed. Sections: Symptoms, Cause, Fix, Check it worked. |
+   | `templates/how-to.md` | The reader wants to get one task done. Sections: Before you start, Steps, Check it worked. |
    | `templates/guide.md` | A longer walk-through of a topic. |
 
 3. Fill in the frontmatter (see below) and write the page.
@@ -74,7 +74,7 @@ If the answer fits in about two sentences, add it to an existing page instead. S
 | `applies_to` | Yes | The Deployrr versions the page covers, for example `v6.0+`. |
 | `apps` | No | App names the page is about. Each must match a folder name under the repo's `apps/` folder, for example `traefik`. |
 | `symptoms` | For troubleshooting | Error messages or what you see, in the words you would search for. |
-| `related` | Yes | 2 to 5 other pages, as slugs like `docker/rate-limit`, most useful first. They show in the "Related articles" box. |
+| `related` | Yes | 2 to 5 other pages, as slugs like `docker/rate-limit`, most useful first. They show in the "Related articles" box at the end of the page, so don't add a Related section to the body. |
 | `further_reading` | No | Outside links, as `{ title, url }`. At most 3 SimpleHomelab posts (for example UDMS guide parts). Link a section with its `#Heading_Anchor` where it helps. |
 | `videos` | No | Up to 3 video chapters, as `{ id, start, title, note }`. `id` is the YouTube video id, `start` the moment in seconds where the topic begins (see [Videos and guides](#videos-and-guides)), `title` what the chapter shows. Add `note` when the video shows an older Deployrr or a manual setup. They show in the "Watch" box. |
 | `last_reviewed` | Yes | The date you last checked the page against Deployrr, like `2026-01-31`. |

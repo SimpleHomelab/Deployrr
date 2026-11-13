@@ -178,11 +178,3 @@ You can also run more than one server on one domain. The main server runs Hybrid
 
 - Picked Hybrid? [Set up Traefik](/reverse-proxy/traefik-setup/).
 - Check what your license unlocks in [Licenses](/getting-started/licenses/).
-
-## Related
-
-- [Licenses](/getting-started/licenses/): what each license unlocks.
-- [Set up Traefik](/reverse-proxy/traefik-setup/): the next step after you choose Hybrid.
-- [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/): the Traefik Mode setting.
-- [Use Nginx Proxy Manager instead of Traefik](/reverse-proxy/nginx-proxy-manager/): the other proxy option.
-- [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/): one Hybrid server, others Local.

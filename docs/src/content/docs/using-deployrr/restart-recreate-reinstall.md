@@ -136,11 +136,3 @@ The subdomain, login and exposure questions appear only when Traefik is running 
 
 4. For a Traefik rules file edit, open the app's `https://` address.
 5. If the app shows `Restarting` or `Exited`, see [A container keeps restarting, is unhealthy or has exited](/docker/container-keeps-restarting/).
-
-## Related
-
-- [Stack Manager](/using-deployrr/stack-manager/): every option, including **Recreate** and **Up**.
-- [Reinstall an app and keep its data](/using-deployrr/reinstall-app/): back up first, then reinstall.
-- [Set your media, downloads and other folders](/storage/folders/): what to do after a folder change.
-- [Install and manage apps from the Apps menu](/using-deployrr/manage-apps/): Start, Stop, Restart and Reinstall in Manage Apps.
-- [Bash aliases](/using-deployrr/bash-aliases/): `dcrec`, `dcrestart`, `dcup` and more.

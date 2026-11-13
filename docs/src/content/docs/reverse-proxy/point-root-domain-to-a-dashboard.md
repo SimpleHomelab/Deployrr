@@ -163,11 +163,3 @@ If the dashboard loads on your home network but not from outside, check your DNS
 
 - **Another app already uses the root domain.** Only one router should answer for an address. Remove the root domain from the other app's rule.
 - **The change is gone.** Changing an app's login method or exposure in Deployrr leaves your `rule:` line alone. But if you run **Traefikify** again for the same app and choose to overwrite the file, or remove the app from Traefik and add it back, the rule goes back to the default. Restore it from your backup.
-
-## Related
-
-- [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): find out why a route returns a 404 or 502.
-- [Run a second copy of an app](/using-deployrr/second-app-instances/): run a second copy of an app at its own address.
-- [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/): another example of an app's Traefik file.
-- [Change the hostname](/host/change-hostname/): what happens to the rules folder if your hostname changes.
-- [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/): keep the dashboard to your home network.

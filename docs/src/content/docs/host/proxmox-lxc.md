@@ -293,12 +293,3 @@ An LXC shares the Proxmox host's kernel. That makes it light, but you work aroun
 
 - Install qBittorrent VPN: [qBittorrent VPN](/apps/qbittorrent-vpn/).
 - Set up Tailscale: [Tailscale](/networking/tailscale/).
-
-## Related
-
-- [Mount SMB and NFS shares](/storage/smb-nfs-mounts/): the mounts that work on a VPS, bare metal or VM.
-- [Mount a NAS share with Rclone](/storage/rclone-smb-setup/): the NAS option that works in an LXC.
-- [Docker fails with "failed to create shim task"](/host/shim-task-debian/): Docker problems in an LXC.
-- [Prepare your server's GPU](/host/gpu-host-prep/): pass the GPU into the container so the scan shows it as Ready.
-- [GPU hardware transcoding](/apps/gpu-transcoding/): GPU steps for media apps.
-- [qBittorrent VPN](/apps/qbittorrent-vpn/): the VPN app that needs `/dev/net/tun`.

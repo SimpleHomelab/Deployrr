@@ -212,11 +212,3 @@ A new library can take a while to fill. Media servers scan in the background, an
 1. Run `sudo docker exec APP ls /data/media1` with your app name. You see your media type folders.
 2. Open the app. The library shows your titles.
 3. In Sonarr, Radarr or Lidarr, the root folder list shows a path under `/data/media1`.
-
-## Related
-
-- [Set your media, downloads and other folders](/storage/folders/): every folder entry, which apps use it, and what to do after a change.
-- [Reinstall an app and keep its data](/using-deployrr/reinstall-app/): add a media folder to an app you installed earlier.
-- [Mount a NAS share with Rclone](/storage/rclone-smb-setup/): mount your NAS and delay media apps until it is ready.
-- [Mount an SMB or NFS share without Rclone](/storage/smb-nfs-mounts/): the other way to mount a NAS.
-- [Stack Manager](/using-deployrr/stack-manager/): recreate an app after a folder path change.

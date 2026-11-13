@@ -384,11 +384,3 @@ sudo docker compose --profile all -f DOCKER_FOLDER/docker-compose-HOSTNAME.yml e
 :::caution
 `csbrestart` is meant to restart both bouncers. Its first part fails with `command not found`, then `csfbrestart` still runs. So it restarts only the Firewall Bouncer. To restart Traefik, which loads the Traefik Bouncer, run `sudo docker restart traefik`. That workaround is general Docker, not a Deployrr alias.
 :::
-
-## Related
-
-- [Set up Traefik](/reverse-proxy/traefik-setup/): the Traefik Bouncer needs it running.
-- [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): see blocked requests and bouncer errors.
-- [Bash aliases](/using-deployrr/bash-aliases/): the full alias list.
-- [Choose a login method](/reverse-proxy/choose-login-method/): the chains the Traefik Bouncer joins.
-- [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/): limit an app to chosen addresses.

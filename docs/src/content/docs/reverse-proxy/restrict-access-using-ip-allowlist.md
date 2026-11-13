@@ -186,10 +186,3 @@ If an allowed device gets `403`, check these:
 - The file names and the names inside them match. `chain-no-auth-internal-only` in the chain file is the same name you put in `app-NAME.yml`.
 
 [Read the Traefik logs](/reverse-proxy/check-traefik-logs/) for errors about the middleware or chain.
-
-## Related
-
-- [Let mobile apps skip the login page](/reverse-proxy/setup-auth-bypass-using-file-provider/): another change you make in `app-NAME.yml`.
-- [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): find out why a request was blocked or a file did not load.
-- [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/): Traefikify for apps on other machines.
-- [Open a dashboard at your root domain](/reverse-proxy/point-root-domain-to-a-dashboard/): another change you make in `app-NAME.yml`.

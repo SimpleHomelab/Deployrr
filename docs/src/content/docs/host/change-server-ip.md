@@ -12,7 +12,7 @@ related:
   - using-deployrr/dashboard
   - reverse-proxy/traefikify
   - using-deployrr/stack-manager
-  - networking/ufw-firewall-vps
+  - host/change-hostname
 further_reading: []
 videos:
   - id: rdqbAr0TFnQ
@@ -158,11 +158,3 @@ A running container keeps the old value until you recreate it. For each of these
 - Your apps open in the browser at their usual addresses.
 - The links on your [Dashboard](/using-deployrr/dashboard/) work. If a link does not change, refresh the page.
 - If an app does not load, [check the Traefik logs](/reverse-proxy/check-traefik-logs/).
-
-## Related
-
-- [Move Deployrr to a new server](/using-deployrr/move-to-new-server/): the full move, where a new IP is one of the fix-ups.
-- [Dashboard](/using-deployrr/dashboard/): the services file this tool edits.
-- [Traefikify](/reverse-proxy/traefikify/): the file providers this tool edits, and remote apps.
-- [Stack Manager](/using-deployrr/stack-manager/): recreate apps after the IP change.
-- [Change the hostname](/host/change-hostname/): the matching tool for a renamed server.

@@ -189,11 +189,3 @@ sudo apt remove ssmtp mailutils
 ```
 
 The `/etc/ssmtp` folder may stay behind. Once ssmtp is uninstalled, the **DONE** label goes away.
-
-## Related
-
-- [Prerequisites](/getting-started/prerequisites/): set Domain 1, which Mail Relay needs.
-- [Edit .env and secrets](/using-deployrr/edit-env-and-secrets/): change values and secret files in your Docker folder.
-- [Choose a login method](/reverse-proxy/choose-login-method/): Authelia does not use your SMTP details.
-- [Licenses](/getting-started/licenses/): SMTP and Mail Relay need a Basic, Plus or Pro license.
-- [Requirements not met](/getting-started/requirements-not-met/): what to do if the menu blocks you.

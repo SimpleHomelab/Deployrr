@@ -318,9 +318,3 @@ When an install finishes, Deployrr shows `Traefik Error Logs should now be avail
 - **The logs fill your disk.** See [Keep the log files small](#keep-the-log-files-small).
 - **The log shows a certificate error.** See [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/) for the fix for each error. For `unable to obtain ACME certificate` behind a firewall that filters DNS, also see [Traefik staging fails on OPNsense](/networking/opnsense-conflict/).
 - **Traefik never starts and Deployrr says `Timed out. Could not verify if Traefik is running.`** The log file may not exist yet. See [Deployrr times out waiting for a container to start](/docker/waiting-for-container/).
-
-## Related
-
-- [Bash aliases](/using-deployrr/bash-aliases/): every shortcut, including `traefiklogs`, `dcrec` and `dpss`.
-- [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/): put an app that runs elsewhere behind Traefik and fix a 400 error.
-- [Change the hostname](/host/change-hostname/): what to do when your hostname, and so your log folder, changes.

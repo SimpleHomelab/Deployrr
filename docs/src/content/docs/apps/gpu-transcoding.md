@@ -232,11 +232,3 @@ Without the aliases, run this. Replace `DOCKER_FOLDER` with your Docker folder p
 ```bash
 sudo docker compose --profile all -f DOCKER_FOLDER/docker-compose-HOSTNAME.yml up -d --force-recreate APP
 ```
-
-## Related
-
-- [Prepare your server's GPU so Deployrr can use it](/host/gpu-host-prep/): install drivers and pass the GPU into an LXC or VM.
-- [Stack Manager](/using-deployrr/stack-manager/): recreate an app after you edit its compose file.
-- [Update your apps](/using-deployrr/update-apps/): keep Jellyfin, Plex and Emby current.
-- [Docker fails with "failed to create shim task"](/host/shim-task-debian/): Docker problems inside a Proxmox LXC container.
-- [Bash aliases](/using-deployrr/bash-aliases/): what `dcrec` and `dps` do.

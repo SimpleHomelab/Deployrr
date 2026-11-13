@@ -257,11 +257,3 @@ Check the IP address, share name or export path, and (for SMB) the user name and
    No output means the file is fine. If you see an error, put your copy back with `sudo cp /etc/fstab.before-edit /etc/fstab`.
 
 5. In **System** > **Folders**, point any folder that used the mount to a new place, then recreate your apps.
-
-## Related
-
-- [Mount a NAS share with Rclone](/storage/rclone-smb-setup/): the Rclone way, which Deployrr does not block in a Proxmox LXC container.
-- [Rclone mount folder is not empty](/storage/rclone-mount-not-empty/): the Rclone version of the not-empty problem.
-- [Docker fails with "failed to create shim task"](/host/shim-task-debian/): Docker problems in a Proxmox LXC container.
-- [Move Deployrr to a new server](/using-deployrr/move-to-new-server/): mounts are not part of the move, so mount your share again on the new server.
-- [Bash aliases](/using-deployrr/bash-aliases/): what `dcup` and `dcdown` do.

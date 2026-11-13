@@ -161,11 +161,3 @@ Un-Traefikify removes the rules file `app-shellinabox.yml` from `appdata/traefik
 2. Open `https://SUBDOMAIN.YOUR_DOMAIN`. You see your login method, then the ShellInABox page.
 3. Log in with your Linux user name and password. You get a shell prompt.
 4. If the Traefik address shows 404, 502 or Gateway Timeout, see [One app behind Traefik shows 404, 502 or Gateway Timeout](/reverse-proxy/app-404-or-502/).
-
-## Related
-
-- [Choose a login method](/reverse-proxy/choose-login-method/): set up the login that must sit in front of ShellInABox.
-- [Put any app behind Traefik with Traefikify](/reverse-proxy/traefikify/): how Un-Traefikify removes the rules file.
-- [Requirements Not Met](/getting-started/requirements-not-met/): what each missing line means.
-- [Manage Apps](/using-deployrr/manage-apps/): the Apps menu, for Docker apps.
-- [Licenses](/getting-started/licenses/): which license you need.

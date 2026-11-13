@@ -298,12 +298,3 @@ Leave the comment lines in `services.yaml` alone, such as the ones ending in `PL
 | A hand edit disappeared | ReDash saved the old file as `services.DATE_TIME.yaml`. See [Get your hand edits back](#get-your-hand-edits-back). |
 | Entries show an old server IP address | Run **Tools** > **Change Server IP** (needs a Pro license). See [Change the server IP](/host/change-server-ip/). For Dashify entries after a ReDash, see [An entry shows the wrong address or port](#an-entry-shows-the-wrong-address-or-port). |
 | A link has the wrong port or subdomain, or sits in the wrong section | See [An entry shows the wrong address or port](#an-entry-shows-the-wrong-address-or-port). |
-
-## Related
-
-- [Set up Traefik](/reverse-proxy/traefik-setup/): Traefik Production adds Traefik and the dashboard to the dashboard.
-- [Stack Manager](/using-deployrr/stack-manager/): delete an app and its dashboard entry, or restart the dashboard.
-- [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/): the Traefikify steps for remote apps.
-- [Open a dashboard at your root domain](/reverse-proxy/point-root-domain-to-a-dashboard/): show the dashboard at `example.com`.
-- [Change the subdomain of an app you already installed](/reverse-proxy/change-app-subdomain/): change the app first, then its dashboard entry.
-- [Move from v5](/getting-started/move-from-v5/): the dashboard is one of the core setup steps.
