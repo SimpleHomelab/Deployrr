@@ -23,7 +23,7 @@ videos:
     start: 985
     title: "Deployrr 5 intro: License types"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
-last_reviewed: 2026-11-10
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sidebar:
@@ -41,13 +41,24 @@ Your license decides which menus and apps you can use. You see your current lice
 
 Each level adds to the one below it.
 
+## Which license do I need?
+
+Start from what you want to do. Pick the first line that fits:
+
+- Prepare a server and check it first: **Free**. You can run every **Prerequisites** step, including **Verify**.
+- Install apps and reach them on your home network only: **Basic**. This is **Local** setup mode.
+- Reach your apps at your own domain with SSL certificates, through Traefik or Nginx Proxy Manager: **Plus**. This is **Hybrid** setup mode, which also needs a domain on Cloudflare and a few other steps (see [Setup Mode](/getting-started/setup-mode/)).
+- Protect apps with a login app that Deployrr installs for you (Authelia, Authentik, Google OAuth, TinyAuth), add CrowdSec, or use **Backups**: **Pro**.
+
+For the full list by menu, see the table in the next section. For the current plans and prices, see [plans and pricing](https://www.simplehomelab.com/geek-army/join/).
+
 ## What each license unlocks
 
 Deployrr describes the levels in **Help** > **Licenses** like this:
 
 - **Free**: everything in the **Prerequisites** menu, including **Docker Environment Setup** and **Reverse Proxy Checks**. No registration needed.
 - **Basic**: all Free features, plus local-only setup for Docker apps, without reverse proxy support.
-- **Plus**: all Basic features, plus reverse proxy (Traefik) so your services get a domain name and Let's Encrypt SSL certificates. You add and manage login apps such as Authelia or Google OAuth yourself.
+- **Plus**: all Basic features, plus reverse proxy (Traefik) so your services get a domain name and Let's Encrypt SSL certificates. You add and manage login apps such as Authelia or Google OAuth yourself, outside Deployrr's menus.
 - **Pro**: all Plus features, plus authentication, Backups and more.
 
 In Deployrr itself, the **Security** menu items for Authelia, Authentik, Google OAuth and TinyAuth need Pro.
@@ -144,7 +155,7 @@ License - Pro required. Current: Plus (Prerequisites->Verify)
 
 1. Read the box. It names the license you need and the license Deployrr sees on this server.
 2. If you already have the license, go to the next section and run **Verify**. Deployrr may still show an older license.
-3. If you need a higher license, upgrade. The boxes point to `https://deployrr.app` or `https://www.simplehomelab.com/deployrr/`. For a membership, see `https://www.simplehomelab.com/membership/`.
+3. If you need a higher license, upgrade. The boxes point to `https://deployrr.app` or `https://www.simplehomelab.com/deployrr/`. For the current plans and prices, see [plans and pricing](https://www.simplehomelab.com/geek-army/join/).
 4. After you upgrade, run **Prerequisites** > **Verify** again.
 5. Try the menu again.
 
@@ -213,6 +224,26 @@ A fresh Deployrr shows the Free license until you verify.
 :::note
 Pro features such as **MP Restore** don't work until the new server shows Pro. See [Move Deployrr to a new server](/using-deployrr/move-to-new-server/).
 :::
+
+## If your license shows Free again
+
+Your apps don't stop when Deployrr shows Free. Containers you installed keep running, and your Compose files and app data stay in your Docker folder. Only the menus change: items your license no longer covers show a **License Required** or **Requirements Not Met** box.
+
+That includes the **Up** and **Down** actions in **Tools** > **Stack Manager**, which need Basic, Plus or Pro. To start your apps without them, use Docker Compose in the terminal. If you set up the [Bash aliases](/using-deployrr/bash-aliases/) earlier (setting them up needs Basic or higher), they keep working. Run:
+
+```bash
+dcup
+```
+
+If your Docker folder is not `/home/YOUR_USER/docker`, the aliases look in the wrong place. See [Your Docker folder is somewhere else](/using-deployrr/bash-aliases/#your-docker-folder-is-somewhere-else), or use the full command below.
+
+Without the aliases, run this. Replace `YOUR_DOCKER_FOLDER` and `HOSTNAME` with your Docker folder and your server's hostname:
+
+```bash
+sudo docker compose --profile all -f YOUR_DOCKER_FOLDER/docker-compose-HOSTNAME.yml up -d
+```
+
+If you still have a paid license, run **Prerequisites** > **Verify** again. See [Verify your license](#verify-your-license).
 
 ## Next steps
 

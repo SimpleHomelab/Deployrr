@@ -32,7 +32,7 @@ videos:
     start: 4242
     title: "Deployrr 5 walkthrough: Domain Passthrough"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
-last_reviewed: 2026-11-08
+last_reviewed: 2026-11-13
 status: current
 old_paths: ["/traefik/multi-server-same-domain"]
 sources:
@@ -143,7 +143,51 @@ If the page does not load, [read the Traefik logs](/reverse-proxy/check-traefik-
 
 ## If the other server runs its own Traefik
 
-Your router can send ports 80 and 443 to one machine only. If another server runs its own Traefik for a different domain, use **Domain Passthrough** on the main server instead of **Traefikify**. It is in **Proxy** > **Traefik**, with the description "To Another Traefik Instance". Deployrr asks for a name for the host, the other server's IP address and the domain to pass through. All requests for that domain and its subdomains then go to the other server. This has the same requirements as **Traefikify**, including a Plus or Pro license. To see it in use, watch [Deployrr 5 walkthrough: Domain Passthrough at 1:10:42](https://youtu.be/rdqbAr0TFnQ?t=4242) (shows Deployrr v5; menus differ in v6). To understand how it works underneath, read [UDMS part 27: handling multiple domains on multiple Traefik hosts](https://www.simplehomelab.com/udms-27-traefik-domain-passthrough/) (manual setup).
+Your router can usually send ports 80 and 443 to one machine only. If another server runs its own Traefik for a different domain, use **Domain Passthrough** on the main server instead of **Traefikify**. The main server then hands every request for that domain to the other server.
+
+It needs the same things as **Traefikify**: Prerequisites done, Socket Proxy running, Traefik Production done and Traefik running, and a Plus or Pro license.
+
+### Prepare the other server
+
+1. Set the server up with its own domain, Cloudflare and Traefik Production. Follow the [Quick start](/getting-started/quick-start/).
+2. In Cloudflare, point that domain's `A` record and `*` CNAME record to the same public IP address as your main server. Your router sends ports 80 and 443 to the main server, so traffic for both domains arrives there.
+3. Do not forward any ports to the other server. It gets its certificates through Cloudflare, so it needs none for that.
+
+**Prerequisites** > **Domain Checks** on the other server tests ports 80 and 443 on your public IP address, and your router sends those to the main server. The first run, before the other server's Traefik is running, passes. If you run it again later, it stops with `Port 80 is reachable but something is already listening on it`. Then turn on Expert mode in **Settings** and answer `Y` when Deployrr asks to override.
+
+### Add the passthrough
+
+Do this on the main server.
+
+1. Go to **Proxy** > **Traefik** > **Domain Passthrough** and confirm the box.
+2. Enter a name for the host, for example `synology`. Deployrr makes it lowercase.
+3. Enter the other server's IP address on your network, for example `192.168.1.100`.
+4. Enter the domain to pass through, for example `example.net`.
+
+All three answers are required. Deployrr saves `domain-DOMAIN.yml` in `appdata/traefik3/rules/HOSTNAME/` in your Docker folder. `HOSTNAME` is the main server's hostname. Traefik picks it up on its own, with no restart. If the file exists, Deployrr asks if you want to overwrite it.
+
+To remove a passthrough, move that file out of the rules folder. Traefik drops the rule. Keep the file as a backup. There is no menu item for this.
+
+:::caution
+The passthrough always goes to port 443 on the other server. That port is the Internal entrypoint of its Traefik. In Advanced Traefik mode, Internal apps listen only on 443 and External apps only on 444. If the other server uses Advanced mode, its Internal apps become reachable from the internet and its External-only apps don't load. Keep the other server in Simple mode (**Proxy** > **Traefik** > **Traefik Mode**), where new apps are always Both. Switching modes doesn't change apps you already set to Internal or External. Set those back to Both under **Manage Exposure** before you switch to Simple. If you need Internal-only apps there, protect them with a [login](/reverse-proxy/choose-login-method/) or an [IP allowlist](/reverse-proxy/restrict-access-using-ip-allowlist/).
+
+The passthrough file matches any address that contains the domain's text, not only that domain and its subdomains. Pick a passthrough domain that your main domain does not contain. For example, passing through `lab.net` when your main domain is `mylab.net` also catches `mylab.net`. If your main domain's apps stop loading after you add a passthrough, move the file out of the rules folder. See [Domain Passthrough is not for this](/reverse-proxy/point-root-domain-to-a-dashboard/#domain-passthrough-is-not-for-this).
+:::
+
+### Check it worked
+
+1. Turn off Wi-Fi on your phone.
+2. Open an app on the other domain, for example `https://APP.example.net`. Replace the placeholders with your own app and domain.
+3. You should see the app, served with the other server's certificate.
+
+If it fails, [read the Traefik logs](/reverse-proxy/check-traefik-logs/) on both servers.
+
+### Things to know
+
+- The passthrough does not forward the visitor's address. This is how a plain TCP passthrough works. The other server's Traefik sees connections from the main server, so IP allowlists and CrowdSec there see the main server's address.
+- Port 80 is not passed through. The main server redirects `http` requests to `https`, and the browser then connects again on 443, which is passed through.
+
+To see it in use, watch [Deployrr 5 walkthrough: Domain Passthrough at 1:10:42](https://youtu.be/rdqbAr0TFnQ?t=4242) (shows Deployrr v5; menus differ in v6). For how it works with a manual setup, read [UDMS part 27](https://www.simplehomelab.com/udms-27-traefik-domain-passthrough/).
 
 ## Next steps
 

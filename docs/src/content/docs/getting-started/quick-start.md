@@ -22,7 +22,7 @@ videos:
   - id: Nuo83uzTWco
     start: 674
     title: "Deployrr 6 intro: The new free plan"
-last_reviewed: 2026-11-09
+last_reviewed: 2026-11-13
 status: current
 old_paths: ["/deployrr/quick-start-guide"]
 sidebar:
@@ -124,7 +124,7 @@ For what each step asks, what to pick and what it changes on your server, see [P
 **Setup Mode** switches between two modes each time you select it. The screen then shows what the chosen mode needs.
 
 - **Local** (the default): apps are only reachable on your home network. You need no reverse proxy, domain name, port forwarding or Cloudflare.
-- **Hybrid**: apps can also be reached from the internet through Traefik. You need a domain, Cloudflare for DNS, DNS records for your domain, and ports 80 and 443 forwarded. Hybrid needs a Plus or Pro license. The box also lists Cloudflare SSL mode set to FULL. That setting only matters for proxied (orange cloud) records, and Deployrr's setup uses gray cloud. See [Orange cloud or gray cloud](/networking/cloudflare/#orange-cloud-or-gray-cloud).
+- **Hybrid**: apps can also be reached from the internet through Traefik. You need a domain, Cloudflare for DNS, DNS records for your domain, and ports 80 and 443 forwarded. Hybrid needs a Plus or Pro license and Cloudflare SSL mode set to **Full**. See [Cloudflare](/networking/cloudflare/).
 
 See [Setup Mode: Local or Hybrid](/getting-started/setup-mode/) for the full Hybrid checklist and how to switch later.
 
@@ -146,7 +146,7 @@ You can install Deployrr and complete Prerequisites with the free version. Insta
 
 If you pick an app or feature your license does not cover, Deployrr shows a `License Required` message with the license you need and the one you have. After you upgrade, run **Prerequisites** > **Verify** again.
 
-See [Licenses](/getting-started/licenses/) for what each license unlocks and how to verify it on a new server. For plans and prices, see [plans and pricing](https://www.simplehomelab.com/deployrr/pricing/) on the Deployrr website.
+See [Licenses](/getting-started/licenses/) for what each license unlocks and how to verify it on a new server. For the current plans and prices, see [plans and pricing](https://www.simplehomelab.com/geek-army/join/).
 
 ## Update Deployrr
 
@@ -156,7 +156,7 @@ To update to the latest version, run:
 deployrr update
 ```
 
-See [Update Deployrr](/getting-started/updating-deployrr/) for the details and what to do if it fails.
+Running your install command again also downloads the latest program files and installs them over the old ones. See [Update Deployrr](/getting-started/updating-deployrr/) for the details and what to do if it fails.
 
 ## Next steps
 

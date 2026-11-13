@@ -35,7 +35,7 @@ videos:
     start: 2504
     title: "Deployrr 5 walkthrough: Domain Checks and gray-cloud records"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -190,6 +190,24 @@ You can paste a new token into **Proxy** > **Traefik** > **Preparation**. The fo
 Use this only when Traefik has not got a working certificate yet, as in [Fix the Cloudflare token](/reverse-proxy/certificate-errors/#fix-the-cloudflare-token). Preparation stops if Traefik or any other program uses ports 80, 81, 443 or 444. By then it has already saved the new token and login details, and the menu shows Preparation as not done. Preparation does not restart Traefik; Staging starts it. It also writes seven Traefik rules files again and drops a CrowdSec line you added to a chain. See [What can overwrite or delete your changes](/using-deployrr/what-overwrites-your-changes/). It does not update DDNS Updater.
 
 DDNS Updater's reinstall writes a fresh `config.json` and loses your `"proxied": false` edit. Edit the file instead. See [After a reinstall](/apps/ddns-updater/#after-a-reinstall).
+
+## Add a second domain to the token
+
+Traefik has one Cloudflare token. It is in `secrets/cf_dns_api_token`, and Traefik uses it for every certificate it requests. When you serve a second domain on the same server, that token must cover both zones. How to route the second domain is on [Add a second domain](/reverse-proxy/point-root-domain-to-a-dashboard/#add-a-second-domain).
+
+Edit the token you already have. Don't swap it for a new token that covers only the new domain. Traefik would then fail to renew your first domain's certificate.
+
+1. In Cloudflare, open **My Profile** > **API Tokens**.
+2. Find the token Deployrr uses and choose **Edit**.
+3. Keep the two permissions, Zone / Zone / Read and Zone / DNS / Edit.
+4. Under **Zone Resources**, add the new domain's zone next to the first one, or include all zones.
+5. Save the token. Don't choose **Roll**. Roll makes a new token value and stops the old one working.
+
+Editing changes what the token may do, not its value, so nothing changes in Deployrr. You don't edit the secret or recreate Traefik.
+
+To check it, run the test from step 7 of [Change or rotate the token](#change-or-rotate-the-token) once with each domain. Both replies should start with `"success":true` and list the zone. A reply for your first domain proves Traefik's saved token still works. Traefik uses the DNS Edit permission when it requests the new domain's first certificate. If that fails, [the Traefik logs](/reverse-proxy/check-traefik-logs/) show why.
+
+If you would rather make a new token, give it both zones, then follow [Change or rotate the token](#change-or-rotate-the-token).
 
 ## Check it worked
 
