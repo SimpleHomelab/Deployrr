@@ -233,6 +233,8 @@ If you edit a compose file or `.env` file to change a path, recreate the app aft
 
 Downloads and media are separate folders inside each container. So the Arr apps can't hardlink a finished file. They copy it into your media folder. The file then takes space twice while the torrent keeps seeding.
 
+Hardlinks also need your downloads and media folders on the same drive or volume. If you download to a mini PC and keep media on a NAS, the files are always copied. See [Hardlinks and Instant Moves](https://trash-guides.info/File-and-Folder-Structure/Hardlinks-and-Instant-Moves/) in the TRaSH Guides.
+
 Remove the torrent once it has seeded enough. Or open the download client entry in the Arr app and turn on **Remove Completed**, so the app removes the torrent after import.
 
 ## Check it worked
