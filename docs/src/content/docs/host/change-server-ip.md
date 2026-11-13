@@ -12,14 +12,14 @@ related:
   - using-deployrr/dashboard
   - reverse-proxy/traefikify
   - using-deployrr/stack-manager
-  - host/change-hostname
+  - host/proxmox-lxc
 further_reading: []
 videos:
   - id: rdqbAr0TFnQ
     start: 637
     title: "Deployrr 5 walkthrough: Server IP in the Prerequisites menu"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
-last_reviewed: 2026-11-11
+last_reviewed: 2026-11-13
 status: current
 old_paths: ["/using-deployrr/change-server-ip"]
 sources: []
@@ -39,6 +39,25 @@ Use the **Change Server IP** tool when your server gets a new IP address. This h
 :::caution
 The tool does a plain find and replace of the old IP text in your files. An old IP of `192.168.1.5` also matches inside `192.168.1.50` and changes it too. Type each IP exactly, with no spaces, slashes or port. Back up first, then check the files afterwards.
 :::
+
+## If Deployrr runs in a Proxmox LXC container
+
+Change the address in Proxmox first, then run the Deployrr steps below. This is general Proxmox knowledge, not a Deployrr feature.
+
+1. In the Proxmox web interface, select the container.
+2. Open **Network**, select the network device (usually `net0`) and select **Edit**.
+3. With **IPv4** set to **Static**, type the new address with its prefix in **IPv4/CIDR**, for example `192.168.1.60/24`. Check the **Gateway**. Select **OK**.
+
+   If **IPv4** is set to **DHCP**, change the reservation in your router instead. See [Give your server a fixed IP](/host/fixed-ip/#proxmox-lxc-and-vm).
+
+4. Restart the container so it uses the new address. An SSH session to the old IP stops working, so use the container's **Console** in Proxmox or connect again to the new IP.
+5. Check the address inside the container:
+
+   ```bash
+   ip -4 addr show
+   ```
+
+Set the address only in Proxmox, not inside the container as well. For other Proxmox settings, see [Run Deployrr in a Proxmox LXC](/host/proxmox-lxc/).
 
 ## Steps
 
@@ -111,7 +130,7 @@ Then you see "Updating Traefik file providers...". Deployrr checks the `app-*.ym
 
 Only files named `app-*.yml` are changed. Other files in the rules folder, for example ones you named differently, are not.
 
-"No occurrence" is normal for apps you installed from the Deployrr menu. Their rules files point at the Docker bridge address (usually `172.17.0.1`), not at your LAN IP. Files that do hold the old IP are usually ones you made with [Traefikify](/reverse-proxy/traefikify/) and pointed at this server's IP.
+"No occurrence" is normal for apps you installed from the Deployrr menu. Their rules files point at the Docker bridge address (usually `172.17.0.1`) and the app's host port, not at your LAN IP. Traefik is not on the app's Compose network, so it reaches the app that way. See [The networks in your Compose files](/using-deployrr/connecting-apps/#the-networks-in-your-compose-files). Files that do hold the old IP are usually ones you made with [Traefikify](/reverse-proxy/traefikify/) and pointed at this server's IP.
 
 ### Check the changed files
 
@@ -151,6 +170,18 @@ Four apps read the server IP from the `.env` file in their compose files:
 - BookStack
 
 A running container keeps the old value until you recreate it. For each of these apps you run, go to **Tools** > **Stack Manager** > **Recreate** and pick the app at "Select an app to recreate:". Pick `all` to recreate every app at once. Stack Manager needs a Basic, Plus or Pro license. See [Stack Manager](/using-deployrr/stack-manager/).
+
+## Where Deployrr keeps the server IP
+
+Deployrr keeps the server IP in two places: as `SERVER_LAN_IP` in the `.env` file in your Docker folder, and in its own settings. Each menu changes a different part:
+
+| Menu | What it changes |
+| --- | --- |
+| **Prerequisites** > **Server IP** | Both copies. No other file. |
+| **Tools** > **Change Server IP** | The `.env` copy, plus the old IP in the Dashboard `services.yaml` and the `app-*.yml` rules files. Not Deployrr's own copy. |
+| **Tools** > **.env Editor** | The `.env` copy only. See [Edit .env and secrets](/using-deployrr/edit-env-and-secrets/). |
+
+So after a change, run **Change Server IP** and then **Prerequisites** > **Server IP**, as in the steps above. Editing `SERVER_LAN_IP` in the `.env` Editor alone leaves the Dashboard, the rules files and Deployrr's own copy on the old IP.
 
 ## Check it worked
 

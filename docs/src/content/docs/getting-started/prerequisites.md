@@ -33,7 +33,7 @@ videos:
     start: 620
     title: "Docker on Proxmox LXC: creating a non-root user and adding it to sudo"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
-last_reviewed: 2026-11-11
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sidebar:
@@ -218,7 +218,7 @@ On a Proxmox LXC, a Docker update can also stop containers from starting. See [D
 
 **What it asks.** Nothing. Each time you select it, it toggles between **Local** and **Hybrid** and shows what that mode needs.
 
-**What to pick.** Stay on **Local** if you only use apps at home. Switch to **Hybrid** if you want to reach apps from the internet. Hybrid needs a domain, a Plus or Pro license, Traefik, ports 80 and 443 forwarded, Cloudflare DNS, a few DNS records and Cloudflare SSL mode set to FULL. The SSL mode only matters for proxied (orange cloud) records; see [Orange cloud or gray cloud](/networking/cloudflare/#orange-cloud-or-gray-cloud). With a Free license the box says the setting has no effect.
+**What to pick.** Stay on **Local** if you only use apps at home. Switch to **Hybrid** if you want to reach apps from the internet. Hybrid needs a domain, a Plus or Pro license, Traefik, ports 80 and 443 forwarded, Cloudflare DNS, a few DNS records and Cloudflare SSL mode set to **Full**. See [Orange cloud or gray cloud](/networking/cloudflare/#orange-cloud-or-gray-cloud). With a Free license the box says the setting has no effect.
 
 **What it changes.** The mode decides whether **Domain 1** and **Domain Checks** count. Switching to Local also clears the saved proxy type.
 
