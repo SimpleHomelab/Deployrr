@@ -125,7 +125,21 @@ Each app's Compose file shows both ports. The files are in the `compose/HOSTNAME
 
 `networks: - default` tells you the app is on the shared network. If you see it in both apps, use the container name and internal port.
 
-You may also see `socket_proxy` or `traefik_proxy` in some files. `socket_proxy` is the network apps use to reach Docker through the Socket Proxy, and `traefik_proxy` is for Traefik and its helper apps. They don't matter when you connect apps like Sonarr and qBittorrent. A few apps are only on `socket_proxy`, which changes how you reach them. See [Apps only on the socket_proxy network](#apps-only-on-the-socket_proxy-network).
+### The networks in your Compose files
+
+You may also see `socket_proxy` or `traefik_proxy` in some files. Deployrr uses three networks. They are defined at the top of your main Compose file, `docker-compose-HOSTNAME.yml` in your Docker folder, under `networks:`.
+
+| Network | Address range | Which apps are on it | What it is for |
+| --- | --- | --- | --- |
+| `default` | Docker picks one | Most apps | Apps reach each other by container name. |
+| `socket_proxy` | `192.168.91.0/24` | [Socket Proxy](/docker/socket-proxy/) (`192.168.91.254`), Traefik, and apps that read Docker's container list, such as Portainer, Dozzle, Homepage, Homarr, Uptime Kuma and What's Up Docker | Apps reach Docker through the Socket Proxy. |
+| `traefik_proxy` | `192.168.90.0/24` | Traefik (`192.168.90.254`), Authelia, Authentik, TinyAuth, Google OAuth, CrowdSec after the Traefik Bouncer install. Apps you put behind Traefik with labels must join it too. | Traefik reaches the login apps and the apps you put behind it with labels. |
+
+`default` and `socket_proxy` are there from the first install. **Traefik Preparation** adds `traefik_proxy` to the main Compose file.
+
+Traefik itself is not on `default`. For apps you put behind Traefik from the Deployrr menu, the Traefik rules file that Deployrr creates points at the Docker bridge address and the host port, for example `http://172.17.0.1:8989`. So keep the app's `ports` line when it sits behind Traefik. For apps you put behind Traefik with labels, see [Protect a custom.yml app with Traefik and a login](/reverse-proxy/custom-app-behind-traefik/).
+
+`socket_proxy` and `traefik_proxy` don't matter when you connect apps like Sonarr and qBittorrent. A few apps are only on `socket_proxy`, which changes how you reach them. See [Apps only on the socket_proxy network](#apps-only-on-the-socket_proxy-network).
 
 ## When an app is not on the default network
 
