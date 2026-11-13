@@ -83,7 +83,7 @@ If you use an index that is already in the list, the command replaces that entry
 
 ## Fix 2: set OVERWRITEHOST
 
-This option makes Nextcloud trust every address and build all its links with your subdomain. Use it only if you reach Nextcloud through Traefik with your own domain.
+This option makes Nextcloud trust every address and build all its links with your subdomain. It turns off Nextcloud's address check, so Fix 1 is the safer choice when you can use it. Use Fix 2 only if you reach Nextcloud through Traefik with your own domain.
 
 1. Open `YOUR_DOCKER_FOLDER/compose/HOSTNAME/nextcloud.yml`. See [Docker folder layout](/using-deployrr/docker-folder-layout/) for both placeholders.
 2. In the `environment` section, remove the `#` in front of `OVERWRITEHOST`:
@@ -94,10 +94,16 @@ This option makes Nextcloud trust every address and build all its links with you
 
 3. You can remove the `#` in front of `NEXTCLOUD_TRUSTED_DOMAINS` too. It does no harm, but it only matters on a fresh install.
 4. Save the file.
-5. Recreate Nextcloud. Go to **Tools** > **Stack Manager** > **Recreate** and pick `nextcloud`, not `nextcloud-mariadb` or `nextcloud-redis`. This needs a Basic, Plus or Pro license. See [Stack Manager](/using-deployrr/stack-manager/). Or, with any license, use the [Deployrr bash aliases](/using-deployrr/bash-aliases/):
+5. Recreate Nextcloud. Go to **Tools** > **Stack Manager** > **Recreate** and pick `nextcloud`, not `nextcloud-mariadb` or `nextcloud-redis`. This needs a Basic, Plus or Pro license. See [Stack Manager](/using-deployrr/stack-manager/). If you set up the [Deployrr bash aliases](/using-deployrr/bash-aliases/), you can run this instead:
 
    ```bash
    dcrec nextcloud
+   ```
+
+   Without Stack Manager or the aliases, run this. Replace `YOUR_DOCKER_FOLDER` and `HOSTNAME` as in step 1:
+
+   ```bash
+   sudo docker compose --profile all -f YOUR_DOCKER_FOLDER/docker-compose-HOSTNAME.yml up -d --force-recreate nextcloud
    ```
 
    Start or restart doesn't read the changed file, so it is not enough. See [Restart, Recreate or Reinstall an app after a change](/using-deployrr/restart-recreate-reinstall/).

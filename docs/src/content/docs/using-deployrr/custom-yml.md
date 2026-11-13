@@ -131,7 +131,7 @@ If you rename your server, see [Change the hostname](/host/change-hostname/).
    sudo docker compose --profile all -f /home/YOUR_USER/docker/docker-compose-HOSTNAME.yml up -d SERVICE_NAME
    ```
 
-You can also use **Tools** > **Stack Manager** > **Up** in Deployrr. That brings up the whole stack, not one service, and needs a Basic, Plus or Pro license. The `dcup` alias works with any license.
+You can also use **Tools** > **Stack Manager** > **Up** in Deployrr. That brings up the whole stack, not one service, and needs a Basic, Plus or Pro license. Setting up the bash aliases (for `dcup`) needs one of these licenses too. The plain `docker compose` command above works with any license.
 
 ## Apply later changes
 
