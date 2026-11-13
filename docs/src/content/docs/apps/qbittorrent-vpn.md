@@ -1,6 +1,6 @@
 ---
 title: Install qBittorrent VPN (qBittorrent behind Gluetun)
-description: Install Gluetun and qBittorrent VPN, check that your torrent traffic really leaves through your VPN, and pick the VPN country or server.
+description: Install Gluetun and qBittorrent VPN, check that torrents really use your VPN, pick the VPN country or server, and use Gluetun's HTTP proxy.
 type: how-to
 tags:
   - media
@@ -263,18 +263,19 @@ Installing qBittorrent VPN again also does all of this, but it resets your qBitt
 
 ## Choose a VPN country or server
 
-Deployrr doesn't ask where your VPN should connect, so Gluetun picks a server from your provider's list. To keep it in one country or city, for example for speed, or because your provider offers port forwarding only on some servers, add a filter to Gluetun's compose file.
+Deployrr doesn't ask where your VPN should connect, so Gluetun picks a server from your provider's list. To keep it in one country or city, add a filter to Gluetun's compose file. You might want this for speed, or because your provider offers port forwarding only on some servers.
 
-1. List the names Gluetun knows for your provider. Replace `mullvad` with your provider's name as you typed it at install (if the name has spaces, use hyphens instead), and `YOUR_DOCKER_FOLDER` with your Docker folder path:
+1. Open your provider's page in the [Gluetun wiki](https://github.com/qdm12/gluetun-wiki/tree/main/setup/providers) and note the filter lines it supports. Not every provider has every filter. Private Internet Access, for example, has `SERVER_REGIONS` but not `SERVER_COUNTRIES`.
+2. List the names Gluetun knows for your provider. Replace `mullvad` with your provider's name as you typed it at install (if the name has spaces, use hyphens instead), and `YOUR_DOCKER_FOLDER` with your Docker folder path:
 
    ```bash
    sudo docker run --rm -v YOUR_DOCKER_FOLDER/appdata/gluetun:/gluetun qmcgaw/gluetun format-servers -mullvad
    ```
 
-   It prints a table that includes the columns Country, City and Hostname. Copy the names exactly as they appear.
+   It prints a table of your provider's servers, for example with the columns Country, City and Hostname. Some providers show other columns, such as Region. Copy the names exactly as they appear.
 
-2. Back up and open `gluetun.yml` as in [Reinstall Gluetun](#reinstall-gluetun).
-3. Under `environment:`, add one of the lines from the table below. Match the indent of the `VPN_TYPE:` line in your file, and leave the other lines as they are. Separate more than one name with commas:
+3. Back up and open `gluetun.yml` as in [Reinstall Gluetun](#reinstall-gluetun).
+4. Under `environment:`, add one of the lines your provider supports. Match the indent of the `VPN_TYPE:` line in your file, and leave the other lines as they are. Separate more than one name with commas:
 
    ```yaml
        environment:
@@ -287,17 +288,18 @@ Deployrr doesn't ask where your VPN should connect, so Gluetun picks a server fr
    | Line | Picks servers by |
    | --- | --- |
    | `SERVER_COUNTRIES:` | Country |
+   | `SERVER_REGIONS:` | Region |
    | `SERVER_CITIES:` | City |
    | `SERVER_HOSTNAMES:` | One exact server. This is the narrowest choice: if that server leaves Gluetun's list, Gluetun can't connect. |
 
    Use one line to start with. Each filter you add narrows the list further.
 
-4. Recreate Gluetun, check that it connected and recreate qBittorrent VPN, as in steps 4 to 6 of [Fix the values in .env](#fix-the-values-in-env).
-5. Run the checks in [Check it worked](#check-it-worked). The `Public IP address is` line in the Gluetun log usually shows the country too.
+5. Recreate Gluetun, check that it connected and recreate qBittorrent VPN, as in steps 4 to 6 of [Fix the values in .env](#fix-the-values-in-env).
+6. Run the checks in [Check it worked](#check-it-worked). The `Public IP address is` line in the Gluetun log usually shows the country too.
 
-If Gluetun doesn't connect after the change, the names may not match your provider's list. Remove the line, recreate Gluetun and check the log.
+If Gluetun doesn't connect after the change, the names may not match your provider's list, or your provider may not support that filter. Remove the line, recreate Gluetun and check the log.
 
-Some providers tie a WireGuard key to one server. With those, a filter can pick a server your key doesn't work on. Check your provider's page in the [Gluetun wiki](https://github.com/qdm12/gluetun-wiki) for the options it supports.
+Some providers tie a WireGuard key to one server. With those, a filter can pick a server your key doesn't work on. Check your provider's page in the Gluetun wiki and your provider's own help before you narrow the list.
 
 Installing qBittorrent VPN again keeps your line, because it only edits the port lines in `gluetun.yml`. Reinstalling Gluetun replaces the file, so add the line again after that.
 
@@ -334,6 +336,44 @@ The app then shares Gluetun's network. It has no network, ports or container add
 5. Check the address it uses, as in [Check it worked](#check-it-worked): `sudo docker exec myapp curl -s https://ifconfig.me`. Some images don't include `curl`.
 
 Reinstalling Gluetun replaces `gluetun.yml`, so add your port line again after that.
+
+## Use Gluetun's HTTP proxy
+
+Gluetun has a built-in HTTP proxy. Point a browser or another device on your home network at it, and that traffic leaves through the VPN too, without a VPN app on the device. Deployrr leaves it off. Its port line is already in `gluetun.yml`, commented out.
+
+Anyone who can reach the port can use your VPN. Set a username and password, and don't forward the proxy port on your router. If your server has a public IP address, such as a VPS, don't open the port at all: a published Docker port gets past firewalls such as UFW.
+
+1. Back up and open `gluetun.yml` as in [Reinstall Gluetun](#reinstall-gluetun).
+2. Under `environment:`, add these lines at the indent of the `VPN_TYPE:` line. Pick your own username and password:
+
+   ```yaml
+         HTTPPROXY: "on"
+         HTTPPROXY_USER: YOUR_PROXY_USER
+         HTTPPROXY_PASSWORD: YOUR_PROXY_PASSWORD
+   ```
+
+3. Under `ports:`, remove the `# ` in front of the `8888:8888/tcp` line. If `ports:` still starts with `#` (qBittorrent VPN isn't installed), remove the `# ` in front of it too:
+
+   ```yaml
+       ports:
+         - $QBITTORRENTVPN_PORT:8080 # qBittorrent available at http://DOCKER-HOST-IP:$QBITTORRENTVPN_PORT
+         - 8888:8888/tcp # HTTP proxy
+   ```
+
+   Boxarr and Resilio Sync also use port 8888 by default. If you run either, change only the first number, for example `8889:8888/tcp`, and use that port in steps 5 and 6. See [Port is already in use](/docker/port-already-in-use/).
+
+4. Recreate Gluetun, check that it connected and recreate qBittorrent VPN, as in steps 4 to 6 of [Fix the values in .env](#fix-the-values-in-env).
+5. Test it from another computer on your network. It should print the VPN address, not your home address:
+
+   ```bash
+   curl -s -x http://YOUR_PROXY_USER:YOUR_PROXY_PASSWORD@YOUR_SERVER_IP:8888 https://ifconfig.me
+   ```
+
+6. In your browser or device, set the HTTP proxy to `YOUR_SERVER_IP` and port `8888`, with your username and password.
+
+Only traffic from apps you point at the proxy uses the VPN. When Gluetun stops or loses the VPN, the proxy stops working instead of falling back to your home connection. For the other proxy settings, see the [HTTP proxy page in the Gluetun wiki](https://github.com/qdm12/gluetun-wiki/blob/main/setup/options/http-proxy.md).
+
+Installing qBittorrent VPN again keeps these lines. Reinstalling Gluetun replaces `gluetun.yml`, so add them again after that.
 
 ## If the adapter is not found
 
