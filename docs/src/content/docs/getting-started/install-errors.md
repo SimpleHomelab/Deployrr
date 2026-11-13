@@ -1,6 +1,6 @@
 ---
 title: "Deployrr install errors: root user, sudo and architecture"
-description: Fix the errors you can hit when you install or start Deployrr v6, such as the root user stop, missing sudo rights, an unsupported CPU and command not found.
+description: Fix Deployrr v6 install and start errors, such as running as root, missing sudo rights, an unsupported CPU, command not found, or a broken install.
 type: troubleshooting
 tags:
   - install
@@ -19,6 +19,7 @@ symptoms:
   - "sudo: npx: command not found"
   - "deployrr: command not found"
   - "Could not create link in /usr/local/bin. You may need to run via absolute path."
+  - "App 'NAME' not found"
 related:
   - getting-started/quick-start
   - getting-started/prerequisites
@@ -32,7 +33,7 @@ videos:
   - id: "-ZSQdJ62r-Q"
     start: 620
     title: "Docker on Proxmox LXC: creating a non-root user with sudo"
-last_reviewed: 2026-11-11
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -216,6 +217,8 @@ Deployrr supports 64-bit x86_64 and 64-bit ARM64 processors. It does not support
 2. If it prints `x86_64` or `aarch64`, you are on a supported processor. Run the installer again and check for typing mistakes.
 3. If it prints anything else, install a 64-bit version of your operating system. Then install Deployrr again.
 
+After this message, `/opt/deployrr/apps` may already exist even though Deployrr is not installed. It does no harm.
+
 ### "Failed to download binary" or "Download failed"
 
 The installer could not download Deployrr.
@@ -241,6 +244,30 @@ The installer normally makes `deployrr` available from any folder. The curl inst
    ```bash
    /opt/deployrr/FILE_NAME
    ```
+
+### Repair a broken install
+
+Run the installer again when the Deployrr program is missing or damaged. For example, after **Settings** > **Reset** the `deployrr` command points to a missing file, or you deleted a file in `/opt/deployrr` by mistake.
+
+Running the installer again is safe:
+
+- It downloads the Deployrr program again and points the `deployrr` command at it.
+- It does not delete anything, so your saved settings, setup status and logs in `/opt/deployrr` stay.
+- It does not touch your Docker folder, your apps or your running containers.
+- The npx installer also copies the app files into `/opt/deployrr/apps` again, replacing the files with the same name.
+
+1. Run your install command again with `sudo`. See [Run the installer again](/getting-started/updating-deployrr/#run-the-installer-again).
+
+   If Deployrr still starts, `deployrr update` does the same. It shows the method you used last (npx or curl) as `Install Method:`. When you are already on the latest version, it asks `Would you like to force reinstall Deployrr anyway? (y/N)`. Type `y`.
+2. Start Deployrr without `sudo`:
+
+   ```bash
+   deployrr
+   ```
+
+3. If an app install stops with `App 'NAME' not found`, get the app files back. Build Cache needs **Disclaimers** done first. Open **Prerequisites** > **Build Cache** and choose **Yes** in the **Build App Cache** box. **Apps** > **Refresh Cache** does the same. Wait for `Building app registry...` to finish, then install the app again.
+
+A **Reset** deletes the Deployrr program, so run the installer again before you start Deployrr. Some Prerequisites steps also need to be done again. See [Refresh, Reset or Remove Deployrr](/getting-started/reset-or-remove-deployrr/).
 
 ## Check it worked
 
