@@ -19,7 +19,7 @@ videos:
     start: 1949
     title: "Deployrr 5 walkthrough: delete an app with Stack Manager and install it again"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
-last_reviewed: 2026-11-11
+last_reviewed: 2026-11-13
 status: current
 old_paths: ["/apps/reinstall-app"]
 sources: []
@@ -125,7 +125,7 @@ A reinstall keeps the app's `appdata` folder and an existing Traefik rules file.
 
 During the install you see "Copying configuration files..." and then "Files copied successfully". For some apps, this writes a config file into the app's `appdata` folder.
 
-qBittorrent and qBittorrent VPN are two cases. Reinstalling them replaces `appdata/qbittorrent/qBittorrent/qBittorrent.conf` or `appdata/qbittorrent-vpn/qBittorrent/qBittorrent.conf`. The web UI login goes back to `admin` and `adminadmin`, and your qBittorrent settings are reset. See [qBittorrent web UI says Unauthorized or won't open](/apps/qbittorrent-webui-troubleshooting/).
+qBittorrent and qBittorrent VPN are two examples. Reinstalling qBittorrent replaces `appdata/qbittorrent/qBittorrent/qBittorrent.conf`, and the web UI login goes back to `admin` and `adminadmin`. Reinstalling qBittorrent VPN deletes `appdata/qbittorrent-vpn/qBittorrent/qBittorrent.conf`, and the login becomes `admin` with a temporary password from its log. Either way your qBittorrent settings are reset. See [Reset to the default login and settings](/apps/qbittorrent-webui-troubleshooting/#reset-to-the-default-login-and-settings).
 
 Copy any config file you changed before you reinstall. For other apps, check the config file after the reinstall.
 

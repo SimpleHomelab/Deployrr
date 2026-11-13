@@ -36,7 +36,7 @@ videos:
 further_reading:
   - title: "qBittorrent, Gluetun VPN, and DeUnhealth: The Perfect Trio (video playlist)"
     url: https://youtube.com/playlist?list=PL1Hno7tIbSWWZXw1jEsYWPRK-gHqITZds
-last_reviewed: 2026-11-08
+last_reviewed: 2026-11-13
 status: current
 old_paths: ["/apps/qbittorrent-webui-troubleshooting"]
 sources:
@@ -85,10 +85,12 @@ qBittorrent VPN can't be put behind Traefik, so always open it this way. Plain q
 
 ### 2. Try the default login
 
-Deployrr sets the login to this when it installs qBittorrent or qBittorrent VPN:
+Deployrr sets the login to this when it installs qBittorrent:
 
 - Username: `admin`
 - Password: `adminadmin`
+
+qBittorrent VPN starts with the username `admin` and a temporary password that qBittorrent prints in its log. Read it as in step 5, items 6 to 8. You don't need to stop the container or edit the config file first. It prints a new one every time it starts until you set your own.
 
 If you changed the password and it no longer works, go to step 5.
 
@@ -147,7 +149,7 @@ qBittorrent VPN has no port of its own. You reach it through Gluetun, so both co
 5. If the line is missing or has a `#` in front, install qBittorrent VPN again: **Apps** > **Browse Apps** > **qBittorrent VPN** > **Install**. At the **Already Installed** prompt, choose **Yes**. The install adds the line back, restarts Gluetun and starts qBittorrent VPN again.
 
    :::caution
-   Installing qBittorrent VPN again replaces its config file. The login goes back to `admin` and `adminadmin`, and your qBittorrent settings are reset. Any changes you made to the compose files by hand are also lost.
+   Installing qBittorrent VPN again resets its config file. The login goes back to `admin` with a temporary password from the log, and your qBittorrent settings are reset. Any changes you made to the compose files by hand are also lost.
    :::
 
 6. If you restart Gluetun yourself later, restart qBittorrent VPN after it:
@@ -194,15 +196,19 @@ qBittorrent VPN has no port of its own. You reach it through Gluetun, so both co
 7. Log in with your username (`admin` unless you changed it) and the temporary password.
 8. In qBittorrent, open **Tools**, then **Options**, then **WebUI**. Set a new password and save. The temporary password only works until the container restarts.
 
+If the log shows no temporary password, or you still can't log in, [reset qBittorrent to the default login and settings](#reset-to-the-default-login-and-settings).
+
 ### 6. Check the host header settings
 
-Deployrr turns host header validation off for you. If you changed the config file, check that the `[Preferences]` section still has these lines:
+For qBittorrent, Deployrr turns host header validation off for you. If you changed the config file, check that the `[Preferences]` section still has these lines:
 
 ```ini
 WebUI\Address=*
 WebUI\ServerDomains=*
 WebUI\HostHeaderValidation=false
 ```
+
+qBittorrent VPN starts with only the first two lines. That is enough, because `ServerDomains=*` accepts any address you open it with.
 
 If you change the file, stop the container first and start it again after you save. qBittorrent can overwrite your edits while it runs.
 
@@ -211,6 +217,39 @@ To see the same fix done by hand, watch [qBittorrent Docker Compose guide: fixin
 ### 7. Check the apps that connect to qBittorrent
 
 If the web page works but Sonarr or Radarr can't connect, the host and port are probably wrong. Apps connect with a container name and the internal port, not the port you use in your browser. See [Connect your apps to each other](/using-deployrr/connecting-apps/).
+
+## Reset to the default login and settings
+
+Use this when the password reset in step 5 doesn't get you in, or when a setting you changed in **Options** stops the web UI from opening, such as the web UI port, HTTPS or the address it listens on. Installing the app again resets its config file. The steps are the same for qBittorrent and qBittorrent VPN, but the result differs a little.
+
+What the reinstall changes:
+
+- qBittorrent: `qBittorrent.conf` is replaced with Deployrr's copy. The login goes back to `admin` and `adminadmin`, host header validation is off, and the download folders are the ones under `/data/downloads/torrents/`.
+- qBittorrent VPN: `qBittorrent.conf` is deleted, and the container starts with the image's own default settings. The login is `admin` with a temporary password from the log, and the download folder is `/downloads/`. Change it to a folder under `/data/downloads/torrents/` (step 5 below).
+- Everything else you set in **Options** goes back to qBittorrent's default.
+- Only that one file changes. The other files in the app's appdata folder stay.
+- The container is recreated with the latest image, and the app's compose file is replaced. Changes you made to it by hand are lost.
+
+Steps:
+
+1. Back up the config file so you can see your old settings later. Replace `YOUR_USER` with your Linux username and `docker` with your Docker folder if it is somewhere else. For qBittorrent VPN, use `appdata/qbittorrent-vpn` in the path:
+
+   ```bash
+   sudo cp /home/YOUR_USER/docker/appdata/qbittorrent/qBittorrent/qBittorrent.conf ~/qBittorrent.conf.bak
+   ```
+
+2. Go to **Apps** > **Browse Apps** > **qBittorrent** (or **qBittorrent VPN**) > **Install**. At the **Already Installed** prompt, choose **Yes**. You can also use **Reinstall** in **Manage Apps** when the app is stopped. See [Reinstall an app and keep its data](/using-deployrr/reinstall-app/).
+3. For qBittorrent VPN, check that both `gluetun` and `qbittorrent-vpn` show as `Up` in `sudo docker ps -a`. If `qbittorrent-vpn` isn't running, start it as in step 4 of [Install qBittorrent VPN](/apps/qbittorrent-vpn/).
+4. Log in with `admin` and `adminadmin`. For qBittorrent VPN, use `admin` and the temporary password from `sudo docker logs qbittorrent-vpn`. Set a new password right away in **Tools** > **Options** > **WebUI**.
+5. For qBittorrent VPN, open **Tools** > **Options** > **Downloads**. Set **Default Save Path** to `/data/downloads/torrents/others/`. If you use an incomplete folder, set it to `/data/downloads/torrents/incomplete/`. Files saved under `/downloads/` stay inside the container and don't reach your Downloads Folder. See [Sonarr, Radarr or Lidarr don't import finished downloads](/apps/arr-downloads-not-importing/).
+6. Put the new password in every app that connects to qBittorrent, such as Sonarr and Radarr. Their download client settings hold the qBittorrent username and password.
+7. To see which settings you had changed, compare the backup with the new file:
+
+   ```bash
+   sudo diff ~/qBittorrent.conf.bak /home/YOUR_USER/docker/appdata/qbittorrent/qBittorrent/qBittorrent.conf
+   ```
+
+   For qBittorrent VPN, use `appdata/qbittorrent-vpn` in the path. Set the settings you want again in **Options**. Don't copy back the line that broke the web UI.
 
 ## Check it worked
 
@@ -228,4 +267,5 @@ sudo docker logs qbittorrent
 
 - [Connect your apps to each other](/using-deployrr/connecting-apps/): the host and port Sonarr and Radarr need, including `gluetun:8080`.
 - [Bash aliases](/using-deployrr/bash-aliases/): shortcuts for logs and container lists.
+- [Reinstall an app and keep its data](/using-deployrr/reinstall-app/): what a reinstall keeps and resets for every app.
 - [Theme your apps with Theme Park](/apps/theme-park-configuration/): give the qBittorrent web UI a new look.
