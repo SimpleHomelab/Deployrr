@@ -137,11 +137,28 @@ These steps also happen in NPM.
 
 1. Open the proxy host you made and select **Edit**.
 2. Open the **SSL** tab.
-3. Under **SSL Certificate**, pick **Request a new SSL Certificate**.
+3. Under **SSL Certificate**, pick **Request a new Certificate**.
 4. Turn on **Force SSL**.
-5. Agree to the Let's Encrypt terms and save.
+5. Save. If NPM asks you to agree to the Let's Encrypt terms, agree.
 
-NPM asks Let's Encrypt for the certificate. This works only if the domain points to your public IP and ports 80 and 443 reach your server. For a wildcard certificate, NPM needs a DNS challenge. Set that up in NPM with your DNS provider's token. Deployrr does not store a Cloudflare token for NPM.
+NPM asks Let's Encrypt for the certificate. This works only if the domain points to your public IP and ports 80 and 443 reach your server.
+
+### Get one wildcard certificate with Cloudflare
+
+Instead of one certificate per app, you can get one certificate for `*.YOUR_DOMAIN` and use it on every proxy host. Let's Encrypt gives wildcard certificates only through a DNS challenge: NPM uses a Cloudflare API token to add a temporary DNS record that proves you own the domain. Deployrr does not give NPM a Cloudflare token, so you add it in NPM yourself.
+
+These steps use the labels in recent NPM versions. Deployrr installs the `latest` NPM image, so labels can change.
+
+1. In Cloudflare, create an API token with **Zone / Zone / Read** and **Zone / DNS / Edit** for your domain, as in [Create the API token](/networking/cloudflare/#create-the-api-token). A separate token for NPM lets you revoke it without touching Traefik's token.
+2. In NPM, open **Certificates** and add a certificate. Choose **Let's Encrypt via DNS**.
+3. In the domain names field, add `YOUR_DOMAIN` and `*.YOUR_DOMAIN`. Replace `YOUR_DOMAIN` with your domain.
+4. In **DNS Provider**, select **Cloudflare**.
+5. In **Credentials File Content**, replace the sample token with yours, so the line reads `dns_cloudflare_api_token=YOUR_TOKEN`.
+6. Leave **Propagation Seconds** empty to use the default. If the request fails because the record wasn't found, try again with a higher value, such as `60`.
+7. Save and wait for the certificate to show in the list.
+8. For each proxy host, open **Edit** > **SSL**, pick the wildcard certificate under **SSL Certificate**, turn on **Force SSL** and save.
+
+NPM warns that it stores the credentials as plain text. That is one more reason to keep the [admin page off the internet](#keep-the-admin-page-off-the-internet). The wildcard covers one level only: `sonarr.YOUR_DOMAIN` works, `a.b.YOUR_DOMAIN` does not. Your DNS records still need to point to your public IP, and ports 80 and 443 still need to reach your server for visitors. See [Cloudflare for Deployrr](/networking/cloudflare/) for records and the orange or gray cloud.
 
 ## Check it worked
 
@@ -188,3 +205,4 @@ Your proxy hosts in NPM do not move to Traefik. Traefik needs its own routes for
 - [Quick start](/getting-started/quick-start/): Prerequisites and Setup Mode.
 - [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/): fix blocked ports on a VPS.
 - [Switch between Traefik and Nginx Proxy Manager](/reverse-proxy/switch-traefik-npm/): what to stop, start and change on your router.
+- [Cloudflare for Deployrr](/networking/cloudflare/): the API token and DNS records.
