@@ -172,6 +172,34 @@ Set Setup Mode to Hybrid first. Then pick a proxy. Traefik Mode needs **Proxy Ty
 
 When you switch to Local, Deployrr clears your **Proxy Type** without a message. If you switch back to Hybrid, pick your proxy again in **Proxy** > **Proxy Type**.
 
+### Move a Local server to Hybrid
+
+You can start in Local and add internet access later. Do these steps in order:
+
+1. Meet the [Hybrid requirements](#what-hybrid-needs) first: the domain on Cloudflare, the DNS records, and ports 80 and 443 forwarded to the server. See [Cloudflare for Deployrr](/networking/cloudflare/) and [Port forwarding](/networking/port-forwarding/).
+2. Go to **Prerequisites** > **Setup Mode** and select it once. The box says `Hybrid mode ENABLED`.
+3. Set **Domain 1** if it is empty. See [Domain 1](/getting-started/prerequisites/#11-domain-1).
+4. Run **Domain Checks**. It needs **System Checks** done first. Run it before Traefik or Nginx Proxy Manager is running. See [Domain Checks](/getting-started/prerequisites/#13-domain-checks).
+5. Check that **Prerequisites** shows DONE again. In Hybrid mode it needs a domain and finished Domain Checks. So it shows NOT DONE after the switch until you finish steps 3 and 4. Until then, the Traefik steps show **Requirements Not Met**.
+6. Go to **Proxy** > **Proxy Type** and pick Traefik or NPM. Do this even if you picked one before: switching to Local cleared it.
+7. Set up your proxy. For Traefik, run **Preparation**, **Staging** and **Production** as in [Set up Traefik](/reverse-proxy/traefik-setup/). Socket Proxy must be running, and you need a Plus or Pro license.
+
+If you set **Domain 1** while still in Local mode, Deployrr asks `Switch to Hybrid mode?`. Answering yes does step 2 for you.
+
+:::caution
+At the end of its port tests, **Domain Checks** stops every program that listens on ports 80, 81, 443 or 444 on the server. An app or host service on one of those ports stops answering. Traefik needs all four ports free anyway, so move anything that uses them before you start. To see what listens there, run:
+
+```bash
+sudo ss -tlnp | grep -E ':(80|81|443|444) '
+```
+
+No output means the ports are free.
+:::
+
+Setup Mode, Domain 1 and Proxy Type don't stop your apps.
+
+Apps you installed while Traefik was not running, as in Local mode, have no Traefik file, so their subdomains don't open yet. Deployrr does not go back and add files for them. Add each one with **Traefikify**, as in [The app has no Traefik file](/reverse-proxy/app-404-or-502/#the-app-has-no-traefik-file).
+
 You can also run more than one server on one domain. The main server runs Hybrid and the others run Local. See [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/).
 
 ## Next steps
