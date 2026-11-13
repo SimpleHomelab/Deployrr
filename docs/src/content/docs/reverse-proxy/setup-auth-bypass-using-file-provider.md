@@ -52,6 +52,10 @@ Anyone who has the key can open the app without logging in. Use a long, random k
 5. Wait for the **Auth Bypass Key - Set** box and close it.
 6. Check that **Auth Bypass** now shows **Set** in the menu. The success box can show even if you cancelled the key box.
 
+:::note
+The **Auth Bypass Key - Set** box tells you to use a `-bypass` template with **Traefikify** and to send an `X-Auth-Bypass` header. Follow this page instead. **Traefikify** has no bypass option, and the route on this page checks for the `traefik-auth-bypass-key` header.
+:::
+
 To replace the key later, see [Change the key](#change-the-key).
 
 ### Let Traefik read the key
@@ -126,16 +130,22 @@ If you run **Traefikify** again for this app and choose to overwrite the file, y
 
 ### Set up the mobile app
 
-1. In the mobile app, open the settings for your server or connection.
-2. Find a setting for custom headers. LunaSea and NZB360 both have one.
-3. Add a header with this name:
+LunaSea and NZB360 both set headers per service. Add the header to every service you connect, such as Sonarr, Radarr and SABnzbd. Each of those services also needs its own bypass route. See [Add the bypass route to an app](#add-the-bypass-route-to-an-app).
+
+1. In the mobile app, open the connection settings of one service:
+   - **LunaSea**: in **Settings** > **Configuration**, open the module (for example Radarr). Its **Connection Details** have a **Custom Headers** setting. Choose **Add Header**, then **Custom…**.
+   - **NZB360**: open the settings of the service. Look for its custom headers setting.
+2. Set the header name (**Header Key** in LunaSea) to:
 
    ```text
    traefik-auth-bypass-key
    ```
 
-4. Set the value to your key. In this page, `YOUR_BYPASS_KEY` stands for it.
-5. Set the server address to the app's normal address, for example `https://SUBDOMAIN.YOUR_DOMAIN`.
+3. Set the value (**Header Value** in LunaSea) to your key.
+4. Set the server address to the app's normal address, for example `https://SUBDOMAIN.YOUR_DOMAIN`.
+5. Save, and repeat for the next service.
+
+The labels in your app version can differ. LunaSea is no longer updated (its project was archived in April 2025), so it may stop working with newer versions of Sonarr, Radarr and similar apps.
 
 ## Check it worked
 
@@ -186,7 +196,3 @@ Change the key if it may have leaked: it showed in a screenshot or chat, a phone
    Your rules files don't change. They read the key from Traefik.
 5. In each mobile app, change the `traefik-auth-bypass-key` header to the new key.
 6. Run the checks in [Check it worked](#check-it-worked) with the new key. Then run the second check with the old key. It should now show the login redirect.
-
-:::note
-The **Auth Bypass Key - Set** box tells you to use a `-bypass` template with **Traefikify** and to send an `X-Auth-Bypass` header. Follow this page instead. **Traefikify** has no bypass option, and the route on this page checks for the `traefik-auth-bypass-key` header.
-:::
