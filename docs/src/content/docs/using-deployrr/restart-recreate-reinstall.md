@@ -35,7 +35,7 @@ You changed a port, a folder or a setting, and the app still behaves the old way
 ## Before you start
 
 - The app is installed.
-- For **Recreate** in Stack Manager, you have a Basic, Plus or Pro license. The `dcrec` alias works with any license. See [Stack Manager](/using-deployrr/stack-manager/).
+- For **Recreate** in Stack Manager, you have a Basic, Plus or Pro license. Setting up the bash aliases (for `dcrec`) needs one of these licenses too. With any license, you can use the plain Docker Compose command in step 2. See [Stack Manager](/using-deployrr/stack-manager/).
 - For **Reinstall**, you need a Basic, Plus or Pro license. See [Licenses](/getting-started/licenses/).
 
 ## What each action does

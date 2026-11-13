@@ -36,6 +36,8 @@ Deployrr can add a set of short commands (aliases) to your terminal. For example
 
 ## Turn on the aliases
 
+Setting up the aliases needs a Basic, Plus or Pro license. See [Licenses](/getting-started/licenses/).
+
 1. Start Deployrr.
 2. Choose **System** from the main menu.
 3. In the **System Preparation** menu, choose **Bash Aliases**. The line reads `Setup Anand's Bash Aliases`.
