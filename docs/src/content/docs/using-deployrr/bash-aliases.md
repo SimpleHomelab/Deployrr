@@ -24,7 +24,7 @@ videos:
 further_reading:
   - title: "UDMS part 13: Docker commands and bash aliases"
     url: https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/
-last_reviewed: 2026-11-08
+last_reviewed: 2026-11-13
 status: current
 old_paths: ["/operating-system/bash-aliases-explained"]
 sources: []
@@ -60,7 +60,10 @@ If you set up the Docker aliases with an older version of Deployrr, Deployrr mov
 
 - The alias file is `shared/config/udms_bash_aliases` inside your Docker folder. Deployrr recommends `/home/YOUR_USER/docker` as the Docker folder, but you choose it in **Prerequisites** > **Docker Folder**, so yours may be elsewhere.
 - Deployrr adds a short block to your `~/.bashrc` that loads the file. The block starts with the comment `# Anand's UDMS Bash Aliases added by Deployrr`. If you were moved over from the older aliases, it reads `UDMS Bash Aliases added by Deployrr`.
-- Deployrr also adds a block to `~/.bash_profile`, starting with `# Sourcing .bashrc (added by Deployrr)`, so login shells load `~/.bashrc`.
+- Deployrr also adds a block to `~/.bash_profile`, starting with `# Sourcing .bashrc (added by Deployrr)`, so login shells load `~/.bashrc`. If you had no `~/.bash_profile`, Deployrr creates it.
+- Both blocks go into the home folder of the Linux user you set up Deployrr for, and they work in the bash shell only.
+
+The alias file always uses `/home/YOUR_USER/docker` as the Docker folder. If you chose a different folder, see [Your Docker folder is somewhere else](#your-docker-folder-is-somewhere-else).
 
 To understand how an alias file works, read [UDMS part 13: Docker commands and bash aliases](https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/) (manual setup; it uses `~/.bash_aliases`, not the Deployrr alias file).
 
@@ -294,6 +297,85 @@ The alias file also defines `csbrestart`, but in the current version it fails wi
 | `aliases` | Opens `~/.bash_aliases` in nano. This is a different file from the Deployrr alias file. |
 
 These open nano. The **Tools** > **Preferred Editor** setting (nano, vim or vi) applies inside Deployrr, for example in the Secrets Editor, not to these aliases. See [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/).
+
+## If the aliases don't work
+
+### "command not found" right after setup
+
+Deployrr loads the aliases only inside its own session. Open a new terminal window or SSH session, or run `source ~/.bashrc`.
+
+If that doesn't help, check that the block is in your `~/.bashrc`:
+
+```bash
+grep -n "added by Deployrr" ~/.bashrc
+```
+
+No output means the block is missing for the user you are logged in as. Common reasons:
+
+- You are logged in as `root`, or you switched with `sudo -i` or `sudo su`. Log in as the user you set up Deployrr for.
+- Your shell isn't bash, for example zsh or fish. Run `echo $0` to see it. Type `bash` to start a bash shell, which loads the aliases.
+
+### `sudo dps` says "command not found"
+
+`sudo` doesn't know your aliases. Run the alias without `sudo`. Aliases that need it, such as `dps` and `dcup`, already include `sudo` and ask for your password.
+
+### Your Docker folder is somewhere else
+
+The alias file uses `/home/YOUR_USER/docker` as the Docker folder, even when you chose another folder in **Prerequisites**. Then `cdd`, `traefiklogs` and every `dc` alias look in the wrong place. For example, `dcup` says the Compose file doesn't exist.
+
+To fix it, set your folder after Deployrr's block:
+
+1. Back up the file: `cp ~/.bashrc ~/.bashrc.bak`
+2. Open `~/.bashrc` (the `bashrc` alias opens it in nano).
+3. Add this line at the very end, after the block that starts with `# Anand's UDMS Bash Aliases added by Deployrr`. Replace the path with your Docker folder:
+
+   ```bash
+   DOCKER_FOLDER=/srv/docker
+   ```
+
+4. Save, then run `source ~/.bashrc`.
+5. Run `cdd`, then `pwd`. It should print your Docker folder.
+
+### You moved the Docker folder
+
+The block in `~/.bashrc` loads the alias file by its full path. After you move the Docker folder, that path is wrong and the aliases stop loading without an error. Open `~/.bashrc`, change the path inside Deployrr's block to the new place of `shared/config/udms_bash_aliases`, and set `DOCKER_FOLDER` as in the section above. See [Move your data to another disk](/storage/move-data-to-another-disk/).
+
+### Programs in `~/.local/bin` stopped working over SSH
+
+On a default Debian or Ubuntu setup, `~/.profile` adds `~/bin` and `~/.local/bin` to your PATH. Bash skips `~/.profile` when `~/.bash_profile` exists. If Deployrr created `~/.bash_profile`, programs installed there (for example with `pipx`) can give "command not found" after you log in again.
+
+1. Check that your `~/.profile` loads `~/.bashrc`: `grep -n bashrc ~/.profile`. The Debian and Ubuntu default does.
+2. Back up the file: `cp ~/.bash_profile ~/.bash_profile.bak`
+3. Open `~/.bash_profile` and replace Deployrr's block (the comment line and the 3 lines after it) with:
+
+   ```bash
+   if [ -f ~/.profile ]; then
+       . ~/.profile
+   fi
+   ```
+
+4. Log out and SSH in again. Check that both the aliases (`dps`) and your programs work.
+
+## Remove the aliases or set them up again
+
+:::caution
+A mistake in `~/.bashrc` or `~/.bash_profile` can break your logins. Back up both files first and keep your current SSH session open until a new one works.
+:::
+
+1. Back up the files:
+
+   ```bash
+   cp ~/.bashrc ~/.bashrc.bak
+   cp ~/.bash_profile ~/.bash_profile.bak
+   ```
+
+2. Open `~/.bashrc` and delete Deployrr's block: the line `# Anand's UDMS Bash Aliases added by Deployrr` and the 3 lines after it.
+3. Open `~/.bash_profile` and delete the line `# Sourcing .bashrc (added by Deployrr)` and the 3 lines after it. If the file is now empty and you didn't have it before, you can delete it with `rm ~/.bash_profile`.
+4. Open a new SSH session and check that you can log in and that `dps` now gives "command not found".
+
+The alias file in `shared/config` can stay. It does nothing on its own.
+
+To run **Bash Aliases** again, remove the block from `~/.bashrc` as above. Then start Deployrr and open **System** so the menu reloads. Now **Bash Aliases** runs again instead of showing the already set up message.
 
 ## Next steps
 
