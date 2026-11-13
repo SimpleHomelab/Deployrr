@@ -1,6 +1,6 @@
 ---
 title: Edit Traefik rules files safely
-description: Edit a Traefik rules file or an app's Docker labels, see the change apply, add your own middleware and restore a file after a bad edit or overwrite.
+description: Edit a Traefik rules file or an app's Docker labels, add your own middleware or a Traefik plugin, and restore a file after a bad edit or overwrite.
 type: how-to
 tags:
   - traefik
@@ -26,7 +26,7 @@ videos:
     start: 348
     title: "Traefik 3 guide: add a middleware file to the rules folder"
     note: Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens.
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -34,7 +34,7 @@ sidebar:
   order: 10
 ---
 
-Traefik reads two kinds of settings for your apps: rules files and Docker labels. This page shows which one an app uses, how to edit it, how to add your own middleware and how to go back after a bad edit.
+Traefik reads two kinds of settings for your apps: rules files and Docker labels. This page shows which one an app uses, how to edit it, how to add your own middleware or a plugin, and how to go back after a bad edit.
 
 ## Before you start
 
@@ -163,7 +163,72 @@ To see a middleware file added to the rules folder and picked up without a resta
 
 3. Recreate the app from **Tools** > **Stack Manager** > **Recreate**. Without it, the change does not apply.
 
-A reinstall writes this file again and your label edits are lost. See [What can overwrite or delete your changes](/using-deployrr/what-overwrites-your-changes/).
+Reinstalling Traefik, Authelia, OAuth or TinyAuth keeps its compose file and your label edits. Reinstalling Authentik replaces its compose file, so copy your label lines back afterwards. Deleting the app in **Tools** > **Stack Manager** removes the file, and a new install brings back the default labels. See [What can overwrite or delete your changes](/using-deployrr/what-overwrites-your-changes/).
+
+### Add a Traefik plugin
+
+A plugin needs two parts: lines in Traefik's compose file that load it, and a middleware in a rules file that uses it. Take the plugin's name, module path, version and settings from its page in the [Traefik plugin catalog](https://plugins.traefik.io/).
+
+1. Copy Traefik's compose file.
+
+   ```bash
+   sudo cp compose/$HOSTNAME/traefik.yml ~/traefik.yml.bak
+   ```
+
+2. Open it.
+
+   ```bash
+   sudo nano compose/$HOSTNAME/traefik.yml
+   ```
+
+3. Find this line near the end of the `command:` section, just before `ports:`:
+
+   ```yaml
+         # - PLUGINS-PLACEHOLDER-DO-NOT-DELETE
+   ```
+
+   Leave it as it is. The CrowdSec Traefik Bouncer adds its plugin lines below it. If the line is gone, the bouncer install shows an error and you have to add its lines yourself. Leave the other `PLACEHOLDER` lines in this file alone too.
+
+4. Add your plugin's lines below it, not below the `METRICS-PLACEHOLDER` line just above it. Use the same six-space indent. Replace `myplugin` with a short name of your own, and the module path and version with the ones from the plugin's page:
+
+   ```yaml
+         # - PLUGINS-PLACEHOLDER-DO-NOT-DELETE
+         - --experimental.plugins.myplugin.modulename=github.com/AUTHOR/PLUGIN
+         - --experimental.plugins.myplugin.version=v1.0.0
+   ```
+
+   Do not use the name `crowdsec`. The CrowdSec Traefik Bouncer uses it. If you set up the bouncer already, its lines (a `# CrowdSec Bouncer Plugin` comment and two `crowdsec` lines) are below the placeholder too. Put yours on their own lines before or after them. The order does not matter.
+
+5. Save and close, then recreate Traefik. Web connections drop for a few seconds.
+
+   ```bash
+   dcrec traefik
+   ```
+
+   Without the aliases, use **Tools** > **Stack Manager** > **Recreate** and pick Traefik.
+
+6. Check the log for plugin errors. Traefik downloads plugins when it starts, so the server needs internet access.
+
+   ```bash
+   sudo grep -i plugin logs/$HOSTNAME/traefik/traefik.log | tail -n 20
+   ```
+
+7. Create a rules file with a name of your own, as in [Add your own middleware](#add-your-own-middleware), and use the plugin there. Under `plugin:`, the name must match the one in the compose lines. The settings come from the plugin's page.
+
+   ```yaml
+   http:
+     middlewares:
+       my-plugin:
+         plugin:
+           myplugin:
+             SETTING: VALUE
+   ```
+
+8. Add `my-plugin` to an app's `middlewares:`, as in [Add your own middleware](#add-your-own-middleware).
+
+A wrong module path or version can stop Traefik from loading any plugin, including CrowdSec. If apps fail after this change, copy `~/traefik.yml.bak` back and run `dcrec traefik`.
+
+Your plugin lines stay when you run **Traefik Preparation** again or reinstall Traefik, because Deployrr reuses the compose file. Deleting Traefik in **Tools** > **Stack Manager** removes them. For the CrowdSec plugin's own warnings, see [Warnings during the Traefik Bouncer install](/reverse-proxy/crowdsec/#warnings-during-the-traefik-bouncer-install).
 
 ## Restore a file after a bad edit
 
