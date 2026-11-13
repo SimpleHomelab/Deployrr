@@ -35,7 +35,7 @@ videos:
     start: 171
     title: "DeUnhealth video: health check and automatic restart of an unhealthy container"
     note: Manual Docker Compose setup. In Deployrr v6, install DeUnhealth from the Apps menu; only qBittorrent VPN has the label already.
-last_reviewed: 2026-11-11
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -107,7 +107,7 @@ sudo docker stop CONTAINER
 
 With the aliases: `dcstop APP`. Replace `APP` with the app's name.
 
-If you want the app to stay off after a restart of the whole stack, use **Disable** in the same menu. The app stays installed with its data. Disable asks if you want to stop the container: press `Y`, or it keeps running until the next stack restart. Use **Enable** to turn it back on. See [Stack Manager](/using-deployrr/stack-manager/).
+If you want the app to stay off after a restart of the whole stack, use **Tools** > **Stack Manager** > **Disable**. The app stays installed with its data. If the container is running, Disable asks if you want to stop it: press `Y`, or it keeps running until the next stack restart. Use **Enable** to turn it back on. To choose between the two, see [Stop or Disable?](/using-deployrr/stack-manager/#stop-or-disable) in Stack Manager.
 
 The log is still there after you stop the container.
 
@@ -139,13 +139,29 @@ Before Lazydocker starts, Deployrr shows a box saying Lazydocker is currently in
 
 ### 4. Read the health check
 
-Do this if the status says `unhealthy`. This is a general Docker command. Replace `CONTAINER` with the container name.
+Do this if the status says `unhealthy`. Deployrr's **Containers Status** shows such a container as running, so use the terminal. These are general Docker commands.
+
+To list every container that is unhealthy right now:
+
+```bash
+sudo docker ps --filter health=unhealthy
+```
+
+To see one container's health record, replace `CONTAINER` with the container name:
 
 ```bash
 sudo docker inspect --format '{{json .State.Health}}' CONTAINER
 ```
 
-The output lists the last health check runs and what each one printed. Read the `Output` text. It often says what the app could not reach.
+If this prints `null`, the container has no health check, and its status never says `unhealthy`. Only some apps have one. See [Which apps have a health check](/apps/app-reference/#which-apps-have-a-health-check). Otherwise the output shows the status (`starting`, `healthy` or `unhealthy`), how many checks failed in a row, and the last checks.
+
+To read only what the last checks printed, one line each:
+
+```bash
+sudo docker inspect --format '{{range .State.Health.Log}}exit {{.ExitCode}}: {{.Output}}{{println}}{{end}}' CONTAINER
+```
+
+Blank lines between them are normal. `exit 0` means the check passed. Any other number means it failed. Read the text after it. It often says what the check could not reach, such as the app's own port inside the container. If the app is still starting or can't open that port, the log from step 3 usually says why.
 
 ### 5. Match the log to a cause
 
