@@ -39,7 +39,7 @@ further_reading:
     url: https://www.simplehomelab.com/google-oauth-traefik-forward-auth-2024/
   - title: "UDMS part 21: Authentik with Docker Compose (manual setup)"
     url: https://www.simplehomelab.com/udms-21-authentik-docker-compose/
-last_reviewed: 2026-11-09
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -261,9 +261,28 @@ If you run **Traefikify** again for an app and choose to overwrite its file, the
 
 If an app shows an error or doesn't load, its chain probably names a method that isn't installed. [Read the Traefik logs](/reverse-proxy/check-traefik-logs/) to see which one Traefik can't find. The steps are in [One app behind Traefik shows 404, 502 or Gateway Timeout](/reverse-proxy/app-404-or-502/#5-fix-a-login-method-that-is-not-installed).
 
+## TV, phone and desktop apps
+
+Authelia, Authentik, Google OAuth and TinyAuth put a login page in front of the app. Basic HTTP Auth makes the browser ask for a username and password. A browser can handle both. Most TV, phone and desktop apps can't. They fail to connect, or show an error before the app's own login screen.
+
+Pick the method per app, by how you use it:
+
+| App | What to pick |
+| --- | --- |
+| Jellyfin, Emby | No Authentication. Both have their own login. For the Jellyfin error -27 on LG TVs and Xbox, see [Jellyfin app on LG webOS TV or Xbox shows error -27](/apps/jellyfin-client-on-lg-webos/). |
+| Plex | Plex apps sign in with your Plex account. Deployrr gives Plex your server's LAN address and Plex port (32400 unless you changed it), so apps at home connect there, not through Traefik. Plex apps use `https://plex.YOUR_DOMAIN` only if you add it as a custom server access URL in Plex's own network settings. If you do, pick No Authentication for Plex. |
+| Nextcloud | No Authentication. The Nextcloud desktop and phone apps, and calendar or contacts sync, can't get past a login page in front of Nextcloud. Use Nextcloud's own login and turn on its two-factor login. If Nextcloud then says "Access through untrusted domain", see [Nextcloud says "Access through untrusted domain"](/apps/nextcloud-untrusted-domain/). |
+| Apps you control from a phone app that can send a custom header (LunaSea or NZB360 for Sonarr and Radarr, for example) | Keep your login method and add [Auth Bypass](/reverse-proxy/setup-auth-bypass-using-file-provider/). The phone app sends a key and skips the login page. Browsers still get the login page. |
+| Apps you only open in a browser | Keep your login method. |
+
+To switch an app, use [Manage Auth or edit its rules file](#switch-your-apps-to-the-new-method).
+
+:::caution
+No Authentication leaves the app open to anyone who can reach your domain, except for the app's own login. Use a strong password on every account in that app. If you only use the app at home or over a VPN, also [make it Internal](/reverse-proxy/restrict-access-using-ip-allowlist/#option-1-use-internal-exposure-built-in) (needs Traefik in Advanced mode) or add [an IP allowlist](/reverse-proxy/restrict-access-using-ip-allowlist/#option-2-use-an-ip-allowlist-manual).
+:::
+
 ## Things to know
 
-- TV and mobile apps often can't show a login page. For those, switch the app to No Authentication if it has its own login (see [Jellyfin app on LG webOS TV or Xbox shows error -27](/apps/jellyfin-client-on-lg-webos/)), or use [Auth Bypass](/reverse-proxy/setup-auth-bypass-using-file-provider/).
 - To limit an app to your home network or VPN, add [an IP allowlist](/reverse-proxy/restrict-access-using-ip-allowlist/). Manage Auth replaces the chain name, so check the chain after you run it on such an app.
 - To change a password, add a user, or register a new two-factor device later, see [Change login passwords and add users](/reverse-proxy/manage-login-users/). Running a method's install again can remove the users you added.
 - To stop using Authentik, move your apps to another method first. See [Remove Authentik](/reverse-proxy/authentik-removal/).
