@@ -24,7 +24,7 @@ related:
   - networking/ufw-firewall-vps
   - getting-started/prerequisites
   - getting-started/quick-start
-last_reviewed: 2026-11-08
+last_reviewed: 2026-11-13
 status: current
 old_paths: ["/docker/internet-connectivity-problem"]
 sources:
@@ -43,7 +43,10 @@ ERROR: Internet connectivity could not be verified.
 
 On Debian 12, the box also adds a "Debian 12 Note". It says some users lost internet after this step and tells you to edit `/etc/systemd/resolved.conf`, set `DNS` and `FallbackDNS`, reboot and retry.
 
-The check can take about a minute and a half before it fails. It can also pass while name lookups are broken, so run the DNS test below even if the check passed.
+The check pings 8.8.8.8, 1.1.1.1 and 9.9.9.9. While it waits, the terminal shows `Waiting for network... (5s/90s)`, so it can take a minute and a half or a bit longer before it fails. Two things follow from how it works:
+
+- It can fail on a server that has internet, if your network or VPS blocks ping to those addresses.
+- It can pass while name lookups are broken, because it tests addresses, not names. Run the DNS test below even if the check passed.
 
 When you start Deployrr, it can also stop with this message before the main menu if it cannot reach the internet or the Deployrr server:
 
@@ -62,7 +65,17 @@ Other signs:
 
 There are two separate causes.
 
-**The server cannot resolve names.** On Debian, the **Packages** step rewrites `/etc/systemd/resolved.conf`. It saves your old file as `/etc/systemd/resolved.conf.bak` and sets Cloudflare (1.1.1.1) and Google (8.8.8.8) as DNS servers. Deployrr restarts the DNS service after it. Some Debian 12 users report that internet stops working after this step. One possible reason is that the server cannot reach those DNS servers, for example when your network blocks them.
+**The server cannot resolve names.** On Debian, the **Packages** step saves your `/etc/systemd/resolved.conf` as `/etc/systemd/resolved.conf.bak`. Then it replaces the whole file with these lines and restarts the DNS service:
+
+```ini
+[Resolve]
+DNS=1.1.1.1 1.0.0.1
+FallbackDNS=8.8.8.8 8.8.4.4
+```
+
+Any other setting you had in that file is gone until you put it back. The step also installs `libnss-resolve`. On Debian 12 this can bring in the systemd-resolved service, which then manages `/etc/resolv.conf`.
+
+Some Debian 12 users report that internet stops working after this step. One possible reason is that the server cannot reach Cloudflare or Google DNS, for example when your network blocks them or only allows its own DNS server.
 
 The same message about dependencies can also mean Deployrr's own server is down for a short time. Wait a few minutes and try again before you change anything. If your server has internet and the message stays, check that `wget` is installed. Deployrr needs it to start. See [Deployrr needs wget](/getting-started/updating-deployrr/#deployrr-needs-wget).
 
@@ -112,7 +125,9 @@ These are general Linux commands, not Deployrr features.
    FallbackDNS=8.8.8.8
    ```
 
-3. Save the file and close the editor.
+   If your network blocks public DNS servers, or you run your own DNS server such as Pi-hole, put your router's or DNS server's IP address in `DNS=` instead, for example `DNS=192.168.1.1`.
+
+3. Save the file and close the editor (in nano: `Ctrl+X`, `Y`, `Enter`).
 
 4. Restart the DNS service:
 
@@ -150,13 +165,21 @@ If you installed Pi-hole and turned off the stub listener, the new file removes 
 
 ### Run the step again
 
+On Debian, every run of **Packages** copies the current `/etc/systemd/resolved.conf` over the `.bak` file. After a second run, the `.bak` file holds Deployrr's settings and your original file is gone. Save your original under another name before you run the step again:
+
+```bash
+sudo cp -n /etc/systemd/resolved.conf.bak /etc/systemd/resolved.conf.original
+```
+
+The `-n` keeps an existing `resolved.conf.original`, so running this twice can't overwrite it.
+
 1. Start Deployrr.
 2. Open the **Prerequisites** menu.
 3. Choose **Packages** and press `Y` to continue.
 
-On Debian, this step overwrites `/etc/systemd/resolved.conf` again and replaces the `.bak` file with your current file. If you want your own DNS values to stay, edit the file again after the step finishes.
+The step replaces `/etc/systemd/resolved.conf` again. If you want your own DNS values to stay, edit the file again after the step finishes, or copy `resolved.conf.original` back and restart `systemd-resolved`.
 
-If the check still fails and you are sure the server has internet, you can turn on [EXPERT mode](/getting-started/expert-mode/) with **Settings** > **Mode**. Run **Packages** again. When the check fails, Deployrr now asks "Do you want to override and continue?". Only do this when `ping -c 3 google.com` works.
+If the check still fails and you are sure the server has internet (for example, your network blocks ping), you can turn on [EXPERT mode](/getting-started/expert-mode/) with **Settings** > **Mode**. The error box points to this too. Run **Packages** again. When the check fails, Deployrr now asks "Do you want to override and continue?". Only do this when `ping -c 3 google.com` works.
 
 ### Containers cannot reach the internet
 

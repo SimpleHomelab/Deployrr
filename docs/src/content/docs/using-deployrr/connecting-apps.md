@@ -87,7 +87,7 @@ Prowlarr keeps your indexers in one place and sends them to Sonarr, Radarr and L
 3. Fill in the form:
    - **Sync Level**: **Full Sync** keeps Sonarr's indexers the same as Prowlarr's, and overwrites changes you make to them in Sonarr. **Add and Remove Only** adds and removes indexers when you add or remove them in Prowlarr, and doesn't sync other changes.
    - **Prowlarr Server**: `http://prowlarr:9696`. This is the address Sonarr uses to reach Prowlarr, so use the container name, not `localhost`.
-   - **Application Server**: `http://sonarr:8989`
+   - **Sonarr Server**: `http://sonarr:8989`. For Radarr and Lidarr, this field is called **Radarr Server** or **Lidarr Server**.
    - **API Key**: the key you copied in step 1.
 4. Click **Test**, then **Save**. Prowlarr sends its indexers to Sonarr when you save.
 5. Repeat for Radarr (`http://radarr:7878`) and Lidarr (`http://lidarr:8686`), with each app's own API key.

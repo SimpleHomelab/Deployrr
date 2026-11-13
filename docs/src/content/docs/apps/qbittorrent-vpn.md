@@ -294,7 +294,7 @@ Deployrr doesn't ask where your VPN should connect, so Gluetun picks a server fr
 
    Use one line to start with. Each filter you add narrows the list further.
 
-5. Recreate Gluetun, check that it connected and recreate qBittorrent VPN, as in steps 4 to 6 of [Fix the values in .env](#fix-the-values-in-env).
+5. Recreate Gluetun and check that it connected, as in steps 4 and 5 of [Fix the values in .env](#fix-the-values-in-env). If you installed qBittorrent VPN, recreate it too (step 6).
 6. Run the checks in [Check it worked](#check-it-worked). The `Public IP address is` line in the Gluetun log usually shows the country too.
 
 If Gluetun doesn't connect after the change, the names may not match your provider's list, or your provider may not support that filter. Remove the line, recreate Gluetun and check the log.
@@ -362,7 +362,7 @@ Anyone who can reach the port can use your VPN. Set a username and password, and
 
    Boxarr and Resilio Sync also use port 8888 by default. If you run either, change only the first number, for example `8889:8888/tcp`, and use that port in steps 5 and 6. See [Port is already in use](/docker/port-already-in-use/).
 
-4. Recreate Gluetun, check that it connected and recreate qBittorrent VPN, as in steps 4 to 6 of [Fix the values in .env](#fix-the-values-in-env).
+4. Recreate Gluetun and check that it connected, as in steps 4 and 5 of [Fix the values in .env](#fix-the-values-in-env). If you installed qBittorrent VPN, recreate it too (step 6).
 5. Test it from another computer on your network. It should print the VPN address, not your home address:
 
    ```bash
