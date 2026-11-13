@@ -29,7 +29,7 @@ videos:
     start: 543
     title: "Traefik guide: external HTTP apps behind Traefik with a file provider"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources:
@@ -156,14 +156,22 @@ Replace `192.168.90.254` with the address from the log if it is different. When 
 
 ### Firewall rules
 
-If UFW or firewalld is on, allow port `8123` from your home network and from Traefik. Deployrr's own firewall rule only allows the Socket Proxy network, `192.168.91.0/24`. Requests from Traefik's `192.168.90.254` address are not covered. With UFW:
+If UFW or firewalld is on, allow port `8123` from your home network and from Traefik. Deployrr's own firewall rule only allows the Socket Proxy network, `192.168.91.0/24`. It adds no rule for Traefik's `192.168.90.0/24` network. With UFW:
 
 ```bash
 sudo ufw allow from 192.168.1.0/24 to any port 8123 proto tcp
 sudo ufw allow from 192.168.90.254 to any port 8123 proto tcp
 ```
 
-Replace `192.168.1.0/24` with your home network. Use the address from the Home Assistant log in the second line if it is different. If apps on a VPS lose internet or show certificate errors with UFW on, see [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/).
+With firewalld:
+
+```bash
+sudo firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.1.0/24" port port="8123" protocol="tcp" accept'
+sudo firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.90.254" port port="8123" protocol="tcp" accept'
+sudo firewall-cmd --reload
+```
+
+Replace `192.168.1.0/24` with your home network. Use the address from the Home Assistant log in place of `192.168.90.254` if it is different. If apps on a VPS lose internet or show certificate errors with UFW on, see [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/).
 
 ## Update Home Assistant
 
