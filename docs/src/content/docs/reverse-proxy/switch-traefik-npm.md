@@ -97,9 +97,9 @@ The [Dashboard](/using-deployrr/dashboard/) adds remote entries only while Traef
 
 ## Start a proxy you used before
 
-Choosing a Proxy Type does not start the proxy. Open **Tools** > **Stack Manager** > **Up** (needs a Basic, Plus or Pro license). It starts every enabled app, including the proxy whose line is now enabled. **Tools** > **Stack Manager** > **Start Container** also works.
+Choosing a Proxy Type does not start the proxy. Open **Tools** > **Stack Manager** > **Up** (needs a Basic, Plus or Pro license). It starts every enabled app, including the proxy whose line is now enabled. **Tools** > **Stack Manager** > **Start Container** also works if the container still exists.
 
-As a fallback, run `sudo docker start npm` or `sudo docker start traefik`. This works only if the container still exists: a Stack Manager **Up** or **Update Stack** run while a proxy's line is disabled may remove its stopped container. Its appdata stays, and the next **Up** after you switch back creates it again.
+As a fallback, run `sudo docker start npm` or `sudo docker start traefik`. This works only if the container still exists: a Stack Manager **Up** or **Update Stack** run while a proxy's line is disabled removes its stopped container (see [What happens to a disabled app's container](/using-deployrr/stack-manager/#what-happens-to-a-disabled-apps-container)). Its appdata stays, and the next **Up** after you switch back creates it again.
 
 ## Change your router forwards
 

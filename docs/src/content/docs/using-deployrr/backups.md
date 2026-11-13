@@ -25,7 +25,7 @@ videos:
     start: 4808
     title: "Deployrr 5 walkthrough: Restore Backups"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -160,14 +160,14 @@ You see the file name followed by "deleted successfully."
    sudo docker logs APP --tail 50
    ```
 
-   See [A container keeps restarting, is unhealthy or has exited](/docker/container-keeps-restarting/).
+   With the [Deployrr aliases](/using-deployrr/bash-aliases/), `dlogs APP` shows the same lines with timestamps and keeps following the log. Press `Ctrl+C` to stop. See [A container keeps restarting, is unhealthy or has exited](/docker/container-keeps-restarting/).
 3. Scroll back through the restore output and look for error lines. Deployrr deletes the old Docker folder before it unpacks the backup, so an error there can leave the folder incomplete. Run **Restore** again with the same backup, and this time press `n` at the question about a current backup. The backup of your state before the first restore (step 8 of [Restore a backup](#restore-a-backup)) is in the default backups folder, even if you restored from a custom folder.
 
 ## Back up one app's database
 
 **Backup** stops every app, so the databases in it are safe to restore. If you copy an app's database folder by hand while it runs, the copy can be broken. Use one of these ways instead. The container names, users and database names are in [Change a database password safely](/apps/change-database-password/#find-your-app). `YOUR_DOCKER_FOLDER` is your Docker folder and `USERNAME` is your Linux user.
 
-Supabase (`supabase-db`) and TeslaMate (`teslamate-pgsql`) use other names and have several containers on their database. Use **Backup** for those.
+Supabase (`supabase-db`) and TeslaMate (`teslamate-pgsql`) use other names and have several containers on their database. Use **Backup** for those. For the standalone MariaDB or PostgreSQL app, the container is just `mariadb` or `postgresql`.
 
 **Stop the database, then copy its folder.** This works for every app with an `APP-postgresql` or `APP-mariadb` container:
 
@@ -178,6 +178,8 @@ sudo cp -a YOUR_DOCKER_FOLDER/appdata/APP-postgresql /home/USERNAME/APP-postgres
 sudo docker start APP-postgresql
 sudo docker start APP
 ```
+
+With the [Deployrr aliases](/using-deployrr/bash-aliases/), `dcstop APP-postgresql APP` and `dcstart APP-postgresql APP` stop and start the same containers. Always give the names: `dcstop` on its own stops every app.
 
 Use `APP-mariadb` for a MariaDB app. If the app has more containers that use the database, such as `authentik-worker` or `langfuse-worker`, stop them too and start them last. To restore, stop the same containers, rename the database folder in `appdata`, copy your copy back with `sudo cp -a` under the old name, and start the containers again. If `docker start` says there is no such container (for example after **Backup** or **Down** removed them), use **Stack Manager** > **Up** instead.
 
@@ -194,6 +196,26 @@ sudo docker stop APP
 sudo docker exec -i APP-postgresql psql -U DB_USER -d DB_NAME < APP-db.sql
 sudo docker start APP
 ```
+
+:::caution
+The dump was made with `--clean`, so loading it replaces the tables in the current database. Anything the app saved since the dump is lost. Make a new dump of the current state first, with another file name, so you can go back.
+:::
+
+**MariaDB: dump while it runs.** The root password is already inside the container, either as a variable or in a secret file. This command reads it there, so you don't type it and it doesn't end up in your shell history:
+
+```bash
+sudo docker exec APP-mariadb sh -c 'mariadb-dump -u root -p"${MARIADB_ROOT_PASSWORD:-$(cat "$MARIADB_ROOT_PASSWORD_FILE")}" --single-transaction --databases DB_NAME' > APP-db.sql
+```
+
+Keep the single quotes. They make the container, not your server, fill in the password. To restore, stop the app, load the file, then start the app:
+
+```bash
+sudo docker stop APP
+sudo docker exec -i APP-mariadb sh -c 'mariadb -u root -p"${MARIADB_ROOT_PASSWORD:-$(cat "$MARIADB_ROOT_PASSWORD_FILE")}"' < APP-db.sql
+sudo docker start APP
+```
+
+This also replaces the tables in the current database, so dump the current state first, as for PostgreSQL.
 
 For Immich, use the folder copy. Its database has extensions that need extra restore steps.
 

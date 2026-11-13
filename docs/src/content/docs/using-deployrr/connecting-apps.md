@@ -26,7 +26,7 @@ videos:
 further_reading:
   - title: "UDMS part 14: connecting apps by container name or Docker host IP"
     url: https://www.simplehomelab.com/udms-14-docker-media-server/#Connecting_the_Apps
-last_reviewed: 2026-11-08
+last_reviewed: 2026-11-13
 status: current
 old_paths: ["/networking/connecting-applications-together"]
 sources: []
@@ -112,7 +112,7 @@ Each app's Compose file shows both ports. The files are in the `compose/HOSTNAME
 
 `networks: - default` tells you the app is on the shared network. If you see it in both apps, use the container name and internal port.
 
-You may also see `socket_proxy` or `traefik_proxy` in some files. Those are separate networks for Traefik and related apps. They don't matter when you connect apps like Sonarr and qBittorrent.
+You may also see `socket_proxy` or `traefik_proxy` in some files. `socket_proxy` is the network apps use to reach Docker through the Socket Proxy, and `traefik_proxy` is for Traefik and its helper apps. They don't matter when you connect apps like Sonarr and qBittorrent. A few apps are only on `socket_proxy`, which changes how you reach them. See [Apps only on the socket_proxy network](#apps-only-on-the-socket_proxy-network).
 
 ## When an app is not on the default network
 
@@ -123,6 +123,14 @@ Some apps do not use the container name method.
 Some apps have `network_mode: host` in their file. Examples include Homebridge, [Tailscale](/networking/tailscale/), ZeroTier, Netdata, Sshwifty and Cloudflare Tunnel. They have no container name on the Docker network.
 
 To connect to one of them from another app, use the IP address of your server and the port the app listens on.
+
+### Apps only on the socket_proxy network
+
+What's Up Docker, Dockpeek and Dockwatch have only `socket_proxy` under `networks`, not `default`. An app on the `default` network can't reach them by container name. For example, `wud:3000` fails from Nginx Proxy Manager or from a dashboard that is only on `default`. Docker GC and Deunhealth are also only on `socket_proxy`, but they have no web page to connect to.
+
+To reach one of them, use the IP address of your server and its host port, for example `WUD_PORT`, `DOCKPEEK_PORT` or `DOCKWATCH_PORT` from your `.env` file. See [Use the server IP and host port instead](#use-the-server-ip-and-host-port-instead).
+
+Apps that list both `default` and `socket_proxy`, such as Homepage, Homarr and Uptime Kuma, can still use the container name and internal port. Look up the internal ports in the [App reference](/apps/app-reference/).
 
 ### Apps that run through Gluetun
 
@@ -166,6 +174,17 @@ The **Test** button in the app shows a green check mark or a success message. If
 - Check that the other app is running. Run `dps` to see all containers. See [Bash aliases](/using-deployrr/bash-aliases/).
 - If you added a second copy of an app, it has its own container name. See [Run a second copy of an app](/using-deployrr/second-app-instances/).
 - If you added a container yourself, check that it has `networks: - default` in its service. See [Add your own containers with custom.yml](/using-deployrr/custom-yml/).
+
+### If the test says "Connection refused"
+
+"Connection refused" means the name was found, but nothing answered on that port. Check these, most common first:
+
+- **Wrong port.** With a container name, use the internal port (the number on the right in `ports`), not the host port from `.env`. With the server IP, it's the other way round: use the host port.
+- **The app is still starting.** Wait a minute after a start or update, then test again. Run `dlogs APP`, with `APP` replaced by the container name, to see when it is ready. Press Ctrl+C to stop following the log.
+- **You used a domain name.** `sonarr.YOUR_DOMAIN` goes through your reverse proxy and its login. Use the container name instead. See [What to avoid](#what-to-avoid).
+- **The apps are on different networks.** Compare the `networks` lines of both apps' Compose files. If they share no network, use the server IP and host port.
+
+If the test says the host can't be found or resolved instead, the container name is wrong, the app is not running, or the two apps share no network.
 
 ## Related
 

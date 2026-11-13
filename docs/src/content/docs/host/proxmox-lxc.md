@@ -33,7 +33,7 @@ videos:
     start: 209
     title: "Rclone SMB mount on Ubuntu/LXC: Proxmox LXC modifications"
     note: Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens.
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -170,7 +170,13 @@ A Zigbee or Z-Wave stick must reach the LXC before Docker can hand it to an app 
    ls -l /dev/serial/by-id/
    ```
 
-   You should see your stick at the path you entered. If the folder is empty or missing, check the path you entered in step 4 and that the stick is plugged into the host.
+   You should see your stick at the path you entered. If the folder is empty or missing, look for a short device name too:
+
+   ```bash
+   ls -l /dev/ttyUSB* /dev/ttyACM*
+   ```
+
+   An error for one of the two names is normal. If neither command shows the stick, check the path you entered in step 4 and that the stick is plugged into the host.
 
 7. In the app's Compose `devices:` line, use the path the stick has inside the container. For Home Assistant, see [Add a Zigbee or Z-Wave USB stick](/apps/home-assistant-container/#add-a-zigbee-or-z-wave-usb-stick-optional).
 
@@ -280,7 +286,7 @@ An LXC shares the Proxmox host's kernel. That makes it light, but you work aroun
 
 - **System Type** shows "<your OS> is on - <your type>" in **Prerequisites**.
 - **System** > **Network** ends with "VPN support enabled".
-- `ls -l /dev/serial/by-id/` inside the container shows your USB stick, if you passed one.
+- `ls -l /dev/serial/by-id/` or `ls -l /dev/ttyUSB* /dev/ttyACM*` inside the container shows your USB stick, if you passed one.
 - `ls /mnt/media` inside the container shows your NAS files.
 
 ## Next steps
