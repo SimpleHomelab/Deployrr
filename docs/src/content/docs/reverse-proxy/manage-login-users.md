@@ -370,11 +370,3 @@ If the app still does not load, [read the Traefik logs](/reverse-proxy/check-tra
 
 - Move more apps to your login method with **Manage Auth**. See [Choose a login method for your apps](/reverse-proxy/choose-login-method/).
 - Back up your Docker folder before bigger changes. See [Back up and restore your Docker folder](/using-deployrr/backups/).
-
-## Related
-
-- [Choose a login method for your apps](/reverse-proxy/choose-login-method/): install a method and switch apps to it.
-- [Restart, Recreate or Reinstall an app after a change](/using-deployrr/restart-recreate-reinstall/): when a restart is enough and when to recreate.
-- [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/): edit secret files with the Secrets Editor.
-- [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/): what to do if you run Traefik **Preparation** again.
-- [Stack Manager](/using-deployrr/stack-manager/): recreate a container.

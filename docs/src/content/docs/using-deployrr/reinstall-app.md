@@ -169,11 +169,3 @@ If the app already has a rules file, a plain reinstall keeps that file. You stil
 
 - Check the app's logs from **Apps** > **Manage Apps** > the app > **Logs**.
 - Add your edits back into the compose file, then use **Recreate** in [Stack Manager](/using-deployrr/stack-manager/).
-
-## Related
-
-- [Stack Manager](/using-deployrr/stack-manager/): the Safe and Full delete steps, and Recreate.
-- [Back up and restore your Docker folder](/using-deployrr/backups/): a full backup before a big change.
-- [GPU hardware transcoding](/apps/gpu-transcoding/): reinstall an app to give it a GPU.
-- [Choose a login method for your apps](/reverse-proxy/choose-login-method/): change an app's login with Manage Auth.
-- [qBittorrent web UI says Unauthorized or won't open](/apps/qbittorrent-webui-troubleshooting/): what a reinstall resets for qBittorrent.

@@ -211,11 +211,3 @@ If the test works but the app still fails with TLS timeouts while it pulls image
    ```bash
    sudo docker run --rm busybox nslookup google.com
    ```
-
-## Related
-
-- [Pi-hole will not start because port 53 is already in use](/apps/pi-hole-port-53-conflict/): the same `resolved.conf` file, and what the Debian Packages step changes in it.
-- [Docker image pulls fail](/docker/rate-limit/): TLS handshake timeouts when pulling images.
-- [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/): when the firewall on your VPS blocks traffic.
-- [Prerequisites, step by step](/getting-started/prerequisites/): what Packages and the other Prerequisites steps change on your server.
-- [Quick start](/getting-started/quick-start/): the Prerequisites steps in order.

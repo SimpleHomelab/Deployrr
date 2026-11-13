@@ -188,10 +188,3 @@ Apps that use the mount can start before the mount is ready. They then write int
 In **System** > **Mounts** > **Rclone**, choose **Delay Media Apps** ("Set Media apps to Start after Rclone"). Run it after Automount works, because it needs a mounted share. It stops your media apps from starting on their own at boot. Instead, they start once the Rclone mount is ready. The menu shows "DONE" next to it when it is set up. To see why it matters, watch [Deployrr 5 walkthrough: Delay Media Apps at 19:36](https://youtu.be/rdqbAr0TFnQ?t=1176) (shows Deployrr v5; menus differ in v6). [Mount a NAS share with Rclone](/storage/rclone-smb-setup/) covers the whole Rclone setup.
 
 If the mount is still not ready after about 15 minutes, the media apps stay stopped. Check the timer logs `rclone-NAME-timer.log` and `rclone-NAME-timer.err` in the same logs folder as the Rclone log.
-
-## Related
-
-- [Bash aliases](/using-deployrr/bash-aliases/): what `dcdown` and `dcup` do.
-- [Deployrr times out waiting for a container to start](/docker/waiting-for-container/): how to read container logs when apps do not start.
-- [Docker fails with "failed to create shim task"](/host/shim-task-debian/): another reason apps do not start.
-- [Quick start](/getting-started/quick-start/): the Prerequisites steps in order.

@@ -39,7 +39,7 @@ sidebar:
 
 Traefikify puts an app behind your Traefik. The app can run on the same server, on another machine, or on a device such as a NAS. You get an address like `https://SUBDOMAIN.YOUR_DOMAIN` and a login method of your choice. Un-Traefikify removes the app from Traefik again.
 
-For a container you added in `custom.yml`, see [Protect a custom.yml app with Traefik and a login](/reverse-proxy/custom-app-behind-traefik/).
+For a container you added in `custom.yml`, see [Protect a custom.yml app with Traefik and a login](/reverse-proxy/custom-app-behind-traefik/). For a second copy of an app, see [Run a second copy of an app](/using-deployrr/second-app-instances/). Some apps need one extra setting on their side, for example [Home Assistant](/apps/home-assistant-behind-traefik/).
 
 ## Before you start
 
@@ -163,11 +163,3 @@ To fix a wrong value, run **Traefikify** again with the same name and overwrite 
 4. After Un-Traefikify, the same address should no longer open the app.
 
 If the address does not load, [read the Traefik logs](/reverse-proxy/check-traefik-logs/). If it shows 404, 502 or Gateway Timeout, see [One app behind Traefik shows 404, 502 or Gateway Timeout](/reverse-proxy/app-404-or-502/).
-
-## Related
-
-- [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/): Traefikify for apps on other Deployrr servers.
-- [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/): a Traefikify example that needs one extra setting on the app side.
-- [Run a second copy of an app](/using-deployrr/second-app-instances/): use Traefikify for a second copy of an app.
-- [Let mobile apps skip the login page (Auth Bypass)](/reverse-proxy/setup-auth-bypass-using-file-provider/): Traefikify always makes a normal file, so bypass is added by hand.
-- [Choose a login method](/reverse-proxy/choose-login-method/): pick the method for the authentication prompt.

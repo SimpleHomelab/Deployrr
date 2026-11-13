@@ -104,10 +104,3 @@ Remote Assist is not in your **Help** menu. Discord is the way to get help for e
 :::note
 Do not open SSH on your router to the internet so someone can log in with a password. It is not safe.
 :::
-
-## Related
-
-- [Get help on Discord](/support/discord/): ask for help first and what to include.
-- [Quick start](/getting-started/quick-start/): the first-run steps in order.
-- [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): find log detail yourself before you ask for a session.
-- [I forgot my Deployrr PIN](/support/forgot-pin/): the other support tools in the **Help** menu.

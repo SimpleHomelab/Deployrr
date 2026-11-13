@@ -196,13 +196,3 @@ sudo docker start traefik
 ```
 
 Your proxy hosts in NPM do not move to Traefik. Traefik needs its own routes for your apps. For router forwards and moving your apps, see [Switch between Traefik and Nginx Proxy Manager](/reverse-proxy/switch-traefik-npm/).
-
-## Related
-
-- [Set up Traefik](/reverse-proxy/traefik-setup/): the other proxy type, with automatic addresses for your apps.
-- [Connect your apps to each other](/using-deployrr/connecting-apps/): container names and internal ports for the Forward Hostname / IP box.
-- [Choose a login method for your apps](/reverse-proxy/choose-login-method/): the login options that need Traefik.
-- [Quick start](/getting-started/quick-start/): Prerequisites and Setup Mode.
-- [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/): fix blocked ports on a VPS.
-- [Switch between Traefik and Nginx Proxy Manager](/reverse-proxy/switch-traefik-npm/): what to stop, start and change on your router.
-- [Cloudflare for Deployrr](/networking/cloudflare/): the API token and DNS records.

@@ -259,9 +259,3 @@ Router and service names must be unique across all the files in the rules folder
 3. Open the new web address. Add a library, a download client and an indexer in the new copy. It does not share settings with the first one. To link it to your other apps, use `sonarr-4k:8989`. See [Connect your apps to each other](/using-deployrr/connecting-apps/).
 
 If Compose prints an error when you start the service, check the indentation in `custom.yml`. If the web address does not load, [read the Traefik logs](/reverse-proxy/check-traefik-logs/).
-
-## Related
-
-- [Add your own containers with custom.yml](/using-deployrr/custom-yml/): turn on custom.yml and what Deployrr leaves alone.
-- [Bash aliases](/using-deployrr/bash-aliases/): the `dcup`, `dcrec` and `dclogs` shortcuts.
-- [Quick start](/getting-started/quick-start/): set up the Docker folder and install your first app.

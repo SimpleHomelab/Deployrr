@@ -275,11 +275,3 @@ A **Reset** deletes the Deployrr program, so run the installer again before you 
 2. Run `deployrr`. The Deployrr main menu opens with **Prerequisites** as the first item.
 
 Next, follow [Quick start](/getting-started/quick-start/) to finish setup. To keep Deployrr current later, see [Update Deployrr](/getting-started/updating-deployrr/).
-
-## Related
-
-- [Quick start](/getting-started/quick-start/): the install commands and first steps.
-- [Prerequisites, step by step](/getting-started/prerequisites/): the Username step and the rest of first-run setup.
-- [System Checks failed](/getting-started/system-checks-failed/): what to do when a host check fails after install.
-- [Update Deployrr](/getting-started/updating-deployrr/): update to the latest version.
-- [SSH access](/support/ssh-access/): log in to your server as another user.

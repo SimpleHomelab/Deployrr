@@ -258,11 +258,3 @@ The old address stops working. Update these:
 Traefik picks up the old file on its own. Delete the `.bak` copy when you no longer need it.
 
 To remove an app's file instead, use Un-Traefikify. See [Put any app behind Traefik with Traefikify](/reverse-proxy/traefikify/#remove-an-app-with-un-traefikify).
-
-## Related
-
-- [One app behind Traefik shows 404, 502 or Gateway Timeout](/reverse-proxy/app-404-or-502/): fix the new address if it does not open.
-- [Set up and maintain the Deployrr Dashboard](/using-deployrr/dashboard/): fix the Dashboard entries.
-- [Choose a login method for your apps](/reverse-proxy/choose-login-method/): change an app's login.
-- [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/): change an app's exposure.
-- [Reinstall an app and keep its data](/using-deployrr/reinstall-app/): what a reinstall keeps, including the rules file.

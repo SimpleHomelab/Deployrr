@@ -120,11 +120,3 @@ To see the Docker cleanup option in use, watch [Deployrr 5 walkthrough: Docker d
 
 - Learn which action applies a change: [Restart, Recreate or Reinstall an app after a change](/using-deployrr/restart-recreate-reinstall/).
 - Add your own containers: [Add your own containers with custom.yml](/using-deployrr/custom-yml/).
-
-## Related
-
-- [What is in your Docker folder](/using-deployrr/docker-folder-layout/): the file view, with what you can edit.
-- [Back up and restore your Docker folder](/using-deployrr/backups/): make the backup the cautions ask for.
-- [Restart, Recreate or Reinstall an app after a change](/using-deployrr/restart-recreate-reinstall/): pick the right action for a change.
-- [Stack Manager](/using-deployrr/stack-manager/): Delete, Recreate and Up.
-- [Free up disk space used by Docker](/docker/free-disk-space/): cleanup options and what each removes.

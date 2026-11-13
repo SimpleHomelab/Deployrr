@@ -334,11 +334,3 @@ The tool then updates the Deployrr Dashboard and the Traefik app rules files on 
 **Apps already installed, without Pro.** Open **Prerequisites** > **Server IP** and enter the new address. Then do the manual fixes in [Change the server IP](/host/change-server-ip/).
 
 Also update your router's port forwards so they point to the new address. See [Simple vs Advanced mode](/reverse-proxy/simple-vs-advanced-mode/) for the ports you forward. If another server's Traefik points at this server by IP, change the IP in that rules file too. See [Multiple servers on one domain](/reverse-proxy/multi-server-same-domain/).
-
-## Related
-
-- [Change the server IP](/host/change-server-ip/): update Deployrr and your apps after the address changes.
-- [Prerequisites](/getting-started/prerequisites/): where you enter the server IP.
-- [Multiple servers on one domain](/reverse-proxy/multi-server-same-domain/): remote apps that hold this server's IP.
-- [Run Deployrr in a Proxmox LXC](/host/proxmox-lxc/): set the address in Proxmox.
-- [UFW firewall on a VPS](/networking/ufw-firewall-vps/): protect a VPS, where the IP is fixed by the provider.

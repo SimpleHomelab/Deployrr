@@ -190,11 +190,3 @@ You do not need to edit it. [Stack Manager](/using-deployrr/stack-manager/) can 
 
 - Set up Traefik with [Set up Traefik](/reverse-proxy/traefik-setup/).
 - Install the [Deployrr Dashboard](/using-deployrr/dashboard/). The **Docker** menu shows it right under Socket Proxy.
-
-## Related
-
-- [Deployrr shows "Requirements Not Met"](/getting-started/requirements-not-met/): every line the box can show and where to clear it.
-- [Licenses](/getting-started/licenses/): which license you need for Socket Proxy.
-- [Set up Traefik](/reverse-proxy/traefik-setup/): Traefik needs Socket Proxy first.
-- [Stack Manager](/using-deployrr/stack-manager/): start, stop and recreate Socket Proxy.
-- [Bash aliases](/using-deployrr/bash-aliases/): `dlogs` and `dpss` for checking containers.

@@ -12,6 +12,7 @@ related:
   - reverse-proxy/check-traefik-logs
   - docker/waiting-for-container
   - host/change-hostname
+  - getting-started/quick-start
 videos:
   - id: rdqbAr0TFnQ
     start: 1468
@@ -381,8 +382,3 @@ To run **Bash Aliases** again, remove the block from `~/.bashrc` as above. Then 
 
 - Use `dpss` to check your containers, then `dlogs CONTAINER_NAME` to read the logs of one that fails. Replace `CONTAINER_NAME` with the container's name.
 - Watch videos and guides on the command line in [Videos and guides](/getting-started/videos-and-guides/).
-
-## Related
-
-- [Quick start](/getting-started/quick-start/): run Deployrr for the first time.
-- [Updating Deployrr](/getting-started/updating-deployrr/): keep Deployrr current.

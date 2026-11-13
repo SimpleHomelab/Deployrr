@@ -122,11 +122,3 @@ Only a move to or from Traefik Advanced mode needs a change. To see the Simple a
    Only one of `traefik` and `npm` should have a status that starts with "Up". The other should show "Exited". It is not listed if a Stack Manager **Up** ran since the switch.
 2. Open **Proxy**. The **Proxy Type** line should end with the name you chose.
 3. Open an app address in your browser.
-
-## Related
-
-- [Use Nginx Proxy Manager instead of Traefik](/reverse-proxy/nginx-proxy-manager/): install NPM and add proxy hosts.
-- [Set up Traefik](/reverse-proxy/traefik-setup/): Preparation, Staging and Production.
-- [Traefikify](/reverse-proxy/traefikify/): give an existing app a Traefik address.
-- [Port forwarding](/networking/port-forwarding/): set and test your router forwards.
-- [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/): which ports each mode uses.

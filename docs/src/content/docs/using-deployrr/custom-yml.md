@@ -219,9 +219,3 @@ To understand how the `include:` list works, watch [Ultimate Docker Server: Crea
 :::caution
 Deployrr lists these extra files as apps in **Tools** > **Stack Manager** (see [Stack Manager](/using-deployrr/stack-manager/) for what each option does). Don't use **Disable**, **Enable** or **Delete** on them there. **Delete** removes the line and deletes the file. `custom.yml` itself is not listed.
 :::
-
-## Related
-
-- [Bash aliases](/using-deployrr/bash-aliases/): every `dc` shortcut for starting, recreating and reading logs.
-- [Change the hostname](/host/change-hostname/): what happens to these files when your hostname changes.
-- [Quick start](/getting-started/quick-start/): set up the Docker folder and install your first app.

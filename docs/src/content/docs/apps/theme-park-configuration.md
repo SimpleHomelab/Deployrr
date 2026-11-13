@@ -143,9 +143,3 @@ The plugin is downloaded when Traefik starts. If Traefik can't reach the interne
 :::
 
 If you run [**Traefikify**](/reverse-proxy/traefikify/) again for the app and choose to overwrite its file, or remove the app from Traefik and add it back, Deployrr writes a new `app-APPNAME.yml` without your theme line. Add the line again afterwards. If you change the app's login method, check that the theme line is still in the `middlewares:` list.
-
-## Related
-
-- [qBittorrent web UI troubleshooting](/apps/qbittorrent-webui-troubleshooting/): fix login and connection problems.
-- [Add your own containers with custom.yml](/using-deployrr/custom-yml/): where Docker folder files live and how to edit them.
-- [Bash aliases](/using-deployrr/bash-aliases/): the `dcrec` and `traefiklogs` shortcuts.

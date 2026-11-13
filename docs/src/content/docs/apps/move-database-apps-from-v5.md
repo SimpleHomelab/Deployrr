@@ -276,9 +276,3 @@ The export file is empty or cut off. Make it again and check that it ends with `
 ## Other database apps
 
 This page does not cover the other database apps listed in the [move guide](/getting-started/move-from-v5/#database-apps). Set them up fresh, or ask on [Discord](/support/discord/).
-
-## Related
-
-- [Move from Deployrr v5 to v6](/getting-started/move-from-v5/): the full move this page plugs into.
-- [Change a database password safely](/apps/change-database-password/): fix a password mismatch.
-- [Folders](/storage/folders/): change where an app keeps its data.

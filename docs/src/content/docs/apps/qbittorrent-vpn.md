@@ -192,7 +192,7 @@ Gluetun connects only when the provider name and your key, address, username or 
 sudo docker logs gluetun
 ```
 
-Then fix the values in one of two ways. Editing `.env` keeps everything else as it is. Reinstalling Gluetun asks every question again, but undoes part of the qBittorrent VPN install.
+Then fix the values in one of two ways. Editing `.env` keeps everything else as it is. [Reinstalling](/using-deployrr/reinstall-app/) Gluetun asks every question again, but undoes part of the qBittorrent VPN install.
 
 Deployrr saves your answers in the `.env` file in your Docker folder:
 
@@ -389,12 +389,3 @@ Until the adapter is set, installing Gluetun shows `Network Adapter - Must be co
 Deployrr gives no steps for this. If your server is a Proxmox LXC container, the device usually has to be passed from the Proxmox host into the container. You set that on the Proxmox host, not in Deployrr. After you change it, restart the container and run **System** > **Network** again. Deployrr saves the result, so the menu line only changes when you run it again. The Proxmox steps are in [Run Deployrr in a Proxmox LXC container](/host/proxmox-lxc/#pass-devnettun-into-the-container).
 
 To see how the device is passed into an LXC, watch [Proxmox LXC network device passthrough at 2:12](https://youtu.be/r0nGMFs5pCY?t=132). The steps are also in [UDMS part 10: pass the TUN network device into a Proxmox LXC](https://www.simplehomelab.com/udms-10-proxmox-lxc-network-device-passthrough/) (manual setup).
-
-## Related
-
-- [qBittorrent web UI says Unauthorized or won't open](/apps/qbittorrent-webui-troubleshooting/): the web page won't load, the login fails or Gluetun can't connect.
-- [Connect your apps to each other](/using-deployrr/connecting-apps/): the host and port for every app, including `gluetun:8080`.
-- [Requirements Not Met](/getting-started/requirements-not-met/): every line of the requirements box and the menu that clears it.
-- [Reinstall an app and keep its data](/using-deployrr/reinstall-app/): what a reinstall of qBittorrent VPN resets.
-- [Install and manage apps from the Apps menu](/using-deployrr/manage-apps/): start, stop, restart and read logs.
-- [Add your own containers with custom.yml](/using-deployrr/custom-yml/): where to add an app you route through Gluetun.

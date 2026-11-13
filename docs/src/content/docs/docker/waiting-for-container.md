@@ -259,11 +259,3 @@ Our advice: don't install Docker yourself before you use Deployrr. Let the Prere
    With the aliases: `dps`.
 
 3. When you install the app in Deployrr again, the "Waiting for" step finishes without a timeout.
-
-## Related
-
-- [Bash aliases](/using-deployrr/bash-aliases/): `dlogs`, `dclogs` and `dps` (lists all containers, including stopped ones) for checking containers.
-- [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): where to look when Traefik does not start.
-- [Pi-hole will not start because port 53 is already in use](/apps/pi-hole-port-53-conflict/): a common port conflict.
-- [Docker image pulls fail](/docker/rate-limit/): when the image does not download.
-- [Quick start](/getting-started/quick-start/): the Prerequisites steps in order.

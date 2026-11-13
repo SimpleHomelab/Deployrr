@@ -393,11 +393,3 @@ If every SSH session is closed and you can't log in, use your provider's web con
 7. Log in over SSH from a second terminal before you close the console.
 
 If you can't log in at the console either, for example because you forgot the password, look in your provider's panel for a password reset or a rescue mode. Each provider does this differently, so follow its guide.
-
-## Related
-
-- [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/): the basic UFW rule set, and what to do when apps cannot reach the internet.
-- [Quick start](/getting-started/quick-start/): install Deployrr and work through Prerequisites.
-- [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/): why a VPS uses Simple mode.
-- [Set up Tailscale](/networking/tailscale/): reach private apps without opening ports.
-- [Deployrr install errors](/getting-started/install-errors/): the root user stop and how to create a sudo user.

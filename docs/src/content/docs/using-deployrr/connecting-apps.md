@@ -198,9 +198,3 @@ The **Test** button in the app shows a green check mark or a success message. If
 - **The apps are on different networks.** Compare the `networks` lines of both apps' Compose files. If they share no network, use the server IP and host port.
 
 If the test says the host can't be found or resolved instead, the container name is wrong, the app is not running, or the two apps share no network.
-
-## Related
-
-- [Run a second copy of an app](/using-deployrr/second-app-instances/): a second copy gets its own container name and port.
-- [Add your own containers with custom.yml](/using-deployrr/custom-yml/): put your own containers on the same network.
-- [Bash aliases](/using-deployrr/bash-aliases/): `dps` shows running containers.

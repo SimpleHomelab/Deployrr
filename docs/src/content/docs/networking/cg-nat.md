@@ -143,11 +143,3 @@ Don't rerun **Domain Checks** once it shows `DONE` and Traefik is running. It fa
 1. The router WAN address now matches the public IP from `curl -4 https://ifconfig.me`.
 2. **Domain Checks** ends with `Domain Checks Passed: 8 / 8`, or your Local mode or VPS setup opens your apps as you planned.
 3. Turn off Wi-Fi on your phone and open your app. With Tailscale, open `http://TAILSCALE-IP:PORT`. Otherwise open `https://app.YOUR_DOMAIN`. Replace `app` and `YOUR_DOMAIN` with your subdomain and domain.
-
-## Related
-
-- [Domain Checks failed in Prerequisites](/getting-started/domain-checks-failed/): every check, its message and its fix.
-- [Keep your Cloudflare A record up to date with DDNS Updater](/apps/ddns-updater/): for changing home IPs, not CG-NAT.
-- [Set up Tailscale](/networking/tailscale/): reach your apps from anywhere with no port forwarding.
-- [Setup Mode: Local or Hybrid](/getting-started/setup-mode/): what Local mode needs and allows.
-- [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/): firewall and Simple mode on a VPS.

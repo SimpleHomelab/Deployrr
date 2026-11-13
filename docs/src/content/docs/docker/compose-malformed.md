@@ -174,10 +174,3 @@ Generate a log and share it when you ask for help:
 
 1. The step that failed now finishes. For **Prerequisites** > **Environment**, you see "Compose file placeholders verified" and "Docker Environment setup complete".
 2. Selecting **Tools** > **Diagnostics** > **YAML Yoda** shows "All good!". This only proves there are no syntax errors and no missing included files.
-
-## Related
-
-- [Use custom.yml](/using-deployrr/custom-yml/): the file you edit by hand, and the most common place for YAML mistakes.
-- [Second instances of apps](/using-deployrr/second-app-instances/): another place where compose edits can go wrong.
-- [Quick start](/getting-started/quick-start/): the setup steps, including the Docker Environment step.
-- [Docker image pulls fail](/docker/rate-limit/): when an install stops because an image could not be pulled.

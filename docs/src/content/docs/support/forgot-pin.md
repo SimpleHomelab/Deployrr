@@ -149,10 +149,3 @@ Tell them the email address of your SimpleHomelab.com account. Never post your P
 After a reset, **Prerequisites** > **Verify** shows a **Pin Created** box with `Pin created.` Later verifications accept your new PIN without the **Incorrect pin.** message.
 
 After the right PIN, Deployrr shows an **Access Verification** box with your license, for example `Access Level Verified: Basic`. The **Verify** line in **Prerequisites** shows the same license.
-
-## Related
-
-- [Quick start](/getting-started/quick-start/): the full first-run steps, including Prerequisites and Verify.
-- [Licenses](/getting-started/licenses/): what each license unlocks and what to do when Verify says Free.
-- [Updating Deployrr](/getting-started/updating-deployrr/): keep Deployrr on the latest version.
-- [Discord](https://www.simplehomelab.com/discord/): ask for help if the reset doesn't work.

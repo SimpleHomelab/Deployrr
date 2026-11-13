@@ -227,11 +227,3 @@ Generate a log and share it with the exact line that stays red.
 2. Choose **Logs** ("Generate Sanitized Deployrr Log") and press `Y` to continue.
 3. Note the log path Deployrr shows at the end.
 4. Share the log on Discord. See [Get help on Discord](/support/discord/) for what else to include.
-
-## Related
-
-- [Compose file is malformed](/docker/compose-malformed/): find and fix the YAML error that YAML Yoda reports.
-- [Get remote help with Remote Assist](/support/ssh-access/): start and stop a support session.
-- [Get help on Discord](/support/discord/): share a sanitized log and ask for help.
-- [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): look into a missing or odd `acme.json`.
-- [Deployrr times out waiting for a container to start](/docker/waiting-for-container/): when Traefik or an app does not start.

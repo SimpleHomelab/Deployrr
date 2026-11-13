@@ -200,11 +200,3 @@ The difference between these three only holds in Advanced mode. In Simple mode y
 For the full checklist, see [One app behind Traefik shows 404, 502 or Gateway Timeout](/reverse-proxy/app-404-or-502/). To read the logs, see [Read the Traefik logs](/reverse-proxy/check-traefik-logs/).
 
 If the app needs to talk to another container, see [Connect your apps to each other](/using-deployrr/connecting-apps/).
-
-## Related
-
-- [Put any app behind Traefik with Traefikify](/reverse-proxy/traefikify/): every prompt in Option 1.
-- [Edit Traefik rules files safely](/reverse-proxy/edit-traefik-rules-files/): change the address, login or exposure of a rules file app.
-- [Choose a login method](/reverse-proxy/choose-login-method/): install and compare login methods.
-- [Add your own containers with custom.yml](/using-deployrr/custom-yml/): turn on `custom.yml` and apply changes.
-- [One app behind Traefik shows 404, 502 or Gateway Timeout](/reverse-proxy/app-404-or-502/): fix an app that does not open.

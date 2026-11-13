@@ -31,7 +31,3 @@ Explain one idea per section. Use numbered steps for anything done in order.
 ## Next steps
 
 Where to go after this guide.
-
-## Related
-
-- [Another page](/section/another-page/): why the reader might want it.

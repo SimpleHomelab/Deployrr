@@ -262,10 +262,3 @@ If it still fails, read the qBittorrent log and look for the last error lines. Y
 ```bash
 sudo docker logs qbittorrent
 ```
-
-## Related
-
-- [Connect your apps to each other](/using-deployrr/connecting-apps/): the host and port Sonarr and Radarr need, including `gluetun:8080`.
-- [Bash aliases](/using-deployrr/bash-aliases/): shortcuts for logs and container lists.
-- [Reinstall an app and keep its data](/using-deployrr/reinstall-app/): what a reinstall keeps and resets for every app.
-- [Theme your apps with Theme Park](/apps/theme-park-configuration/): give the qBittorrent web UI a new look.

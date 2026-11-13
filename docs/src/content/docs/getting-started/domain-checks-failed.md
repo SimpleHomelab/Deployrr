@@ -318,11 +318,3 @@ All domain checks passed successfully
 In the **Prerequisites** menu, **Domain Checks** now reads `DONE`. If a check fails, the menu row reads `IP and Domain Checks - NOT DONE`. Fix the cause shown in the error and run it again.
 
 You can then continue with [Set up Traefik](/reverse-proxy/traefik-setup/). If Traefik staging fails later even though the checks passed, see [Traefik staging fails with unable to obtain ACME certificate on OPNsense](/networking/opnsense-conflict/) and [read the Traefik logs](/reverse-proxy/check-traefik-logs/).
-
-## Related
-
-- [Prerequisites, step by step](/getting-started/prerequisites/): where Domain Checks sits in the menu.
-- [Set up Traefik](/reverse-proxy/traefik-setup/): the next step once the checks pass.
-- [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/): which router port forwards each mode needs.
-- [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/): open the ports on a VPS.
-- [Setup Mode: Local or Hybrid](/getting-started/setup-mode/): why Local mode skips these checks.

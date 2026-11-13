@@ -161,11 +161,3 @@ This avoids the problem. It does not fix it. You still do not get HTTPS addresse
 3. The Traefik log has no new `unable to obtain ACME certificate` lines.
 
 When staging works, a browser shows a "Not Secure" warning for your domain. Deployrr says this is normal for a staging certificate. The next step is **Proxy** > **Traefik** > **Production**. See [Set up Traefik](/reverse-proxy/traefik-setup/) for the whole setup.
-
-## Related
-
-- [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/): every staging and production certificate error and its fix.
-- [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): where `traefik.log` is and how to search it.
-- [Pi-hole port 53 conflict](/apps/pi-hole-port-53-conflict/): another DNS problem on port 53.
-- [Quick start](/getting-started/quick-start/): the setup steps that come before Traefik staging.
-- [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/): firewall problems on a cloud server.

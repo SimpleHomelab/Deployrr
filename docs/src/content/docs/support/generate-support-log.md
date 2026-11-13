@@ -133,11 +133,3 @@ The file is owned by root. To edit or delete it, use `sudo`. If you can't open i
 :::note
 **Settings** > **Reset** and **Settings** > **Remove** delete Deployrr's logs. If you may need help, generate a log first. See [Refresh, Reset or Remove Deployrr](/getting-started/reset-or-remove-deployrr/).
 :::
-
-## Related
-
-- [Get help on Discord](/support/discord/): what else to include when you ask for help.
-- [Deployrr shows "Unhealthy - Issues detected"](/support/diagnostics/): run health checks and read the results.
-- [Help menu](/support/help-menu/): the Support box that reminds you to share a sanitized log.
-- [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): read the Traefik log yourself.
-- [Refresh, Reset or Remove Deployrr](/getting-started/reset-or-remove-deployrr/): save a log before you delete anything.

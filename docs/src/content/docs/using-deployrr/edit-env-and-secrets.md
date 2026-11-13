@@ -204,11 +204,3 @@ The [bash aliases](/using-deployrr/bash-aliases/) that open files use nano, what
    ```
 
 4. If the app shows `Restarting` or `Exited`, see [A container keeps restarting, is unhealthy or has exited](/docker/container-keeps-restarting/). Put your backup copy back if you need to.
-
-## Related
-
-- [Restart, Recreate or Reinstall an app after a change](/using-deployrr/restart-recreate-reinstall/): pick the action that applies your change.
-- [Reinstall an app and keep its data](/using-deployrr/reinstall-app/): what a reinstall keeps and resets.
-- [Back up and restore your Docker folder](/using-deployrr/backups/): a full backup before a big change.
-- [Licenses](/getting-started/licenses/): which features need Pro.
-- [Port already in use](/docker/port-already-in-use/): change an app's port in `.env`.

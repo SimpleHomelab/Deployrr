@@ -226,11 +226,3 @@ If the server loses internet after you install Tailscale, MagicDNS is a likely c
 1. Read the log with `sudo docker logs tailscale` (or `dlogs tailscale`).
 2. If the key is expired, revoked or already used (a one-off key), create a new one.
 3. Follow [Change the auth key later](#change-the-auth-key-later).
-
-## Related
-
-- [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/): keep apps private and allow Tailscale through UFW.
-- [Connect your apps to each other](/using-deployrr/connecting-apps/): how apps on host networking are reached.
-- [Restart, Recreate or Reinstall](/using-deployrr/restart-recreate-reinstall/): apply a new auth key.
-- [Install qBittorrent VPN](/apps/qbittorrent-vpn/): the network adapter step and the Proxmox LXC fix.
-- [Requirements Not Met](/getting-started/requirements-not-met/): what the Network Adapter line means.

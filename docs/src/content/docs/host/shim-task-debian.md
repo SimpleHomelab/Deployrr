@@ -160,13 +160,3 @@ sudo apt install --only-upgrade containerd.io
 Then run `sudo docker ps` (or `dps`) and start a container to test. If the error returns, repeat fix 1.
 
 For fix 2, remove the `lxc.apparmor.profile = unconfined` line from `/etc/pve/lxc/ID.conf` on the Proxmox host. Then restart the LXC container.
-
-## Related
-
-- [Deployrr times out waiting for a container to start](/docker/waiting-for-container/): other reasons a container does not start, and how to read its log.
-- [System Checks failed](/getting-started/system-checks-failed/): what System Checks does to held Docker packages, and how to hold them again.
-- [No internet on the server or in containers after setup](/docker/no-internet-in-containers/): another host-level Docker problem.
-- [Quick start](/getting-started/quick-start/): the Prerequisites steps in order.
-- [Videos and guides](/getting-started/videos-and-guides/): includes a Proxmox tutorials playlist.
-- [Rclone mount fails because the folder is not empty](/storage/rclone-mount-not-empty/): the other host-level problem in this section.
-- [Mount a NAS share with Rclone](/storage/rclone-smb-setup/): reach NAS storage from Deployrr. In a Proxmox LXC, Deployrr blocks SMB and NFS mounts and points you to Rclone or bind mounts.

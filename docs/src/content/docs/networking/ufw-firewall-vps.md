@@ -232,11 +232,3 @@ After you add the interface, set the server IP in Deployrr (step 4) to the priva
 5. Check the Traefik log. After a fresh restart, the "Serving default certificate" and "bad record MAC" lines should not come back. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/) for how to find the log.
 
 If the problem stays, check whether your provider has its own firewall page in its web panel. Open ports 80 and 443 there too. For why a VPS needs this extra layer, watch [Traefik 3 guide: firewall and VPS provider rules at 16:43](https://youtu.be/KMZIyoZ3jWM?t=1003) (manual Docker Compose setup). To allow the ports in UFW by hand, see [UDMS part 18: Allow Ports 80 and 443 on Firewall](https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Allow_Ports_80_and_443_on_Firewall) (manual setup).
-
-## Related
-
-- [Read the Traefik logs](/reverse-proxy/check-traefik-logs/): where to find the log and what to look for.
-- [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/): how Internal and External exposure work in Advanced mode.
-- [Traefik staging fails on OPNsense](/networking/opnsense-conflict/): another firewall problem, with DNS filtering.
-- [Quick start](/getting-started/quick-start/): the setup order for Deployrr.
-- [Secure a fresh VPS before you install Deployrr](/host/secure-a-vps/): SSH keys, the provider firewall and a sudo user for a new server.

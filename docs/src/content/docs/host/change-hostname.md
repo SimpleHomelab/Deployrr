@@ -115,7 +115,3 @@ If you set up the option to start media apps after boot, there is also a `script
 
 - If an app does not load, [check the Traefik logs](/reverse-proxy/check-traefik-logs/) for errors.
 - For other problems, ask in the [Deployrr Discord](https://www.simplehomelab.com/discord/).
-
-## Related
-
-- [Quick start](/getting-started/quick-start/): the Prerequisites steps, including Docker Folder and Verify.

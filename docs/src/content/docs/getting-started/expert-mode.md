@@ -189,11 +189,3 @@ Follow this order:
 ## Next steps
 
 If you overrode a check, test the result with the step that comes next. For Domain Checks, continue with Traefik in [Prerequisites, step by step](/getting-started/prerequisites/).
-
-## Related
-
-- [Domain Checks failed](/getting-started/domain-checks-failed/): fix each Domain Check, and see the override in context.
-- [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/): the Traefik DNS error and its override.
-- [No internet on the server or in containers after setup](/docker/no-internet-in-containers/): fix the internet check before you override it.
-- [Prerequisites, step by step](/getting-started/prerequisites/): where Packages and Domain Checks sit.
-- [Traefik staging fails with unable to obtain ACME certificate on OPNsense](/networking/opnsense-conflict/): the router cause of the DNS error.

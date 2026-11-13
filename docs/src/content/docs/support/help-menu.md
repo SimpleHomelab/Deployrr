@@ -138,11 +138,3 @@ The item shows `ON` or `OFF`. Each time you select it, it switches.
 
 - The **Help** screen shows both **Current Version** and **Your Version**.
 - After you select **Intro**, a **Deployrr Intro** box shows the new setting.
-
-## Related
-
-- [I forgot my Deployrr PIN](/support/forgot-pin/): view, email or reset your PIN step by step.
-- [Deployrr licenses](/getting-started/licenses/): what Free, Basic, Plus and Pro include.
-- [Updating Deployrr](/getting-started/updating-deployrr/): update when your version is behind.
-- [Get help on Discord](/support/discord/): share a sanitized log and ask for help.
-- [Get remote help with Remote Assist](/support/ssh-access/): start and stop a support session.

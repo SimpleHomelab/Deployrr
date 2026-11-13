@@ -204,11 +204,3 @@ If the stack is ever taken down and started again, Docker can give the `default`
 :::caution
 You can also edit `YOUR_DOCKER_FOLDER/appdata/nextcloud/config/config.php` by hand. A typo there can stop Nextcloud from starting. Copy the file first, for example `sudo cp config.php config.php.bak` in that folder. The `occ` commands above are the safer way.
 :::
-
-## Related
-
-- [Restart, Recreate or Reinstall an app after a change](/using-deployrr/restart-recreate-reinstall/): why a restart does not apply the change.
-- [Stack Manager](/using-deployrr/stack-manager/): where Recreate lives.
-- [One app behind Traefik shows 404, 502 or Gateway Timeout](/reverse-proxy/app-404-or-502/): when the error page comes from Traefik.
-- [Use Nginx Proxy Manager instead of Traefik](/reverse-proxy/nginx-proxy-manager/): proxy hosts and certificates when you use NPM instead of Traefik.
-- [App reference](/apps/app-reference/): Nextcloud's container name, port and helper containers.

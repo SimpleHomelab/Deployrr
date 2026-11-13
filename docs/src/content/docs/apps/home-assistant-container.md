@@ -216,9 +216,3 @@ If you ran Home Assistant as a v5 app, v5 kept its data in `appdata/home-assista
 1. `dps` lists `homeassistant` with a status of `Up`.
 2. `http://SERVER_IP:8123` shows the Home Assistant login or onboarding page.
 3. If you use Traefik, `https://homeassistant.YOUR_DOMAIN` shows the same page. Replace `YOUR_DOMAIN` with your domain.
-
-## Related
-
-- [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/): the full Traefikify steps and the 400 error.
-- [Add your own containers with custom.yml](/using-deployrr/custom-yml/): turn on custom.yml and apply changes.
-- [Back up and restore your Docker folder](/using-deployrr/backups/): what a backup covers.

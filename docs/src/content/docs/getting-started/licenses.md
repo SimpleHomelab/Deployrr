@@ -219,9 +219,3 @@ Pro features such as **MP Restore** don't work until the new server shows Pro. S
 - Using Hybrid mode? [Set up Traefik](/reverse-proxy/traefik-setup/).
 - Have Pro? [Back up your Docker folder](/using-deployrr/backups/).
 - Not sure which login app to use? See [Choose a login method](/reverse-proxy/choose-login-method/).
-
-## Related
-
-- [Quick start](/getting-started/quick-start/): the full first-run steps, including Verify.
-- [I forgot my Deployrr PIN](/support/forgot-pin/): view, email or reset your PIN.
-- [Get help on Discord](/support/discord/): ask when Verify does not show your license.
