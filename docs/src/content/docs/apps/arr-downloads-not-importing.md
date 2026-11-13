@@ -38,7 +38,7 @@ videos:
     start: 1652
     title: "Gluetun guide: add qBittorrent behind Gluetun as a download client in Radarr"
     note: Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens.
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -94,8 +94,8 @@ A path outside `/data/downloads` exists only inside the client's container. The 
 
 1. Open the qBittorrent web UI.
 2. Go to **Tools** > **Options** > **Downloads**.
-3. Check that **Default Save Path** starts with `/data/downloads`. The settings Deployrr installs use `/data/downloads/torrents/others/`.
-4. Check that the incomplete folder, if you use one, starts with `/data/downloads`. The settings Deployrr installs use `/data/downloads/torrents/incomplete/`.
+3. Check that **Default Save Path** starts with `/data/downloads`. The settings Deployrr installs for qBittorrent use `/data/downloads/torrents/others/`. qBittorrent VPN starts with `/downloads/`, so change it to `/data/downloads/torrents/others/`.
+4. Check that the incomplete folder, if you use one, starts with `/data/downloads`. For example, `/data/downloads/torrents/incomplete/`.
 5. Check the save path of each category you use. Every one must start with `/data/downloads`.
 6. Select **Save**.
 

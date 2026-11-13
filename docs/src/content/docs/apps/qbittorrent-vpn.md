@@ -115,7 +115,7 @@ The install creates a `torrents` folder inside your Downloads Folder. It has the
 3. Read the **qBittorrent VPN Setup** box. It says Gluetun must be running and connected to your VPN, and that you reach the web page through Gluetun's port. Select **OK**. Deployrr checks the requirements after this box.
 4. At **Port Configuration**, enter the port for the web page. The default is `8082`. Deployrr suggests the first free port from there. If the port is taken, see [Port is already in use](/docker/port-already-in-use/).
 5. Wait for the four steps to finish: configuring the Gluetun port, stopping qBittorrent VPN, restarting Gluetun and starting qBittorrent VPN. The last step can show an error and leave qBittorrent VPN stopped, so check it after every install: run `sudo docker ps -a` (or `dps`). If `qbittorrent-vpn` isn't listed as `Up`, recreate it: **Tools** > **Stack Manager** > **Recreate** and pick `qbittorrent-vpn`, or `dcrec qbittorrent-vpn` with the aliases.
-6. Read the **qBittorrent VPN - Installation Notes** box at the end. It has two notes. One gives the default login. The other tells you how to connect Arr apps.
+6. Read the **qBittorrent VPN - Installation Notes** box at the end. It has two notes. One is about the login; log in as in step 5 below. The other tells you how to connect Arr apps.
 
 If you see `Required app not running` with `gluetun must be installed and running first` or `deunhealth must be installed and running first`, go back to step 2. Deployrr only checks that the container is running, not that the VPN is connected. Installing DeUnhealth without Socket Proxy shows `socket-proxy must be installed and running first`. See also [Requirements Not Met](/getting-started/requirements-not-met/).
 
@@ -127,15 +127,19 @@ If you see `Required app not running` with `gluetun must be installed and runnin
    http://YOUR_SERVER_IP:PORT
    ```
 
-2. Log in with these defaults:
+2. Log in with the username `admin` and the temporary password qBittorrent prints in its log. Find it with this command. It is on the line that mentions a temporary password:
 
-   - Username: `admin`
-   - Password: `adminadmin`
+   ```bash
+   sudo docker logs qbittorrent-vpn
+   ```
+
+   With the aliases: `dlogs qbittorrent-vpn`. Press Ctrl+C to stop following the log. qBittorrent prints a new temporary password every time it starts until you set your own.
 
 3. In qBittorrent, go to **Tools** > **Options** > **WebUI** and set a new password.
+4. Go to **Tools** > **Options** > **Downloads**. qBittorrent VPN starts with `/downloads/` as its **Default Save Path**. Change it to `/data/downloads/torrents/others/`, and the incomplete folder, if you use one, to `/data/downloads/torrents/incomplete/`. Only paths under `/data/downloads` reach your Downloads Folder and the Arr apps. Select **Save**.
 
 :::caution
-Anyone on your network who knows the default can log in. Change the password right away.
+Set your own password right away. Until you do, the password changes every time the container starts.
 :::
 
 qBittorrent VPN is not behind Traefik. You can't give it a subdomain or a login from Traefik. Always use the address above. If the page doesn't open, see [qBittorrent web UI says Unauthorized or won't open](/apps/qbittorrent-webui-troubleshooting/).
