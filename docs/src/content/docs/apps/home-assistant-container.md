@@ -100,6 +100,8 @@ Home Assistant is not in the Deployrr v6 apps menu. Install it the way Home Assi
 
 The cost is that other containers can't reach it by name. Use the server's IP address instead.
 
+If UFW or firewalld runs on the server, port `8123` must be allowed from your home network and from Traefik. With host networking, the firewall applies to Home Assistant like to any program on the server. See [Firewall rules](#firewall-rules) below.
+
 ### Add a Zigbee or Z-Wave USB stick (optional)
 
 1. Plug the stick into the server.
@@ -121,10 +123,10 @@ The cost is that other containers can't reach it by name. Use the server's IP ad
 Use the `by-id` path, not `/dev/ttyUSB0`. The `ttyUSB0` number can change after a reboot.
 
 :::caution
-Upstream's example adds `privileged: true`. It gives the container access to every device on the server. Leave it out unless something does not work without it.
+Home Assistant's own Compose example adds `privileged: true`. It gives the container access to every device on the server. Leave it out unless something does not work without it.
 :::
 
-If Deployrr runs in a Proxmox LXC, the stick must reach the LXC first, or the path won't exist. See [Run Deployrr in a Proxmox LXC](/host/proxmox-lxc/).
+If Deployrr runs in a Proxmox LXC, the stick must reach the LXC first, or the path won't exist. See [Pass a USB stick into the container](/host/proxmox-lxc/#pass-a-usb-stick-into-the-container).
 
 ## Put it behind Traefik
 
@@ -133,7 +135,11 @@ Traefikify needs a Plus or Pro license, with Socket Proxy and Traefik Production
 Follow [Home Assistant behind Traefik](/apps/home-assistant-behind-traefik/). Two parts are different for the container:
 
 - In **Traefikify**, enter your server's local IP address as the host IP, `http` as the protocol and `8123` as the port. Traefik can't use the container name, because the container has no Docker network. To see the same idea done by hand for an app that is not in Docker's network, watch [Traefik guide: external HTTP apps behind Traefik at 9:03](https://youtu.be/6S9PwhAlZUs?t=543) (manual Docker Compose setup; Deployrr does this for you).
-- When you trust the proxy in Home Assistant, use the address Home Assistant sees. Traefik is on two Docker networks in a standard Deployrr setup, `192.168.90.0/24` and `192.168.91.0/24`, and the request can come from either. Open the logs with `dclogs homeassistant` and find the line `A request from a reverse proxy was received from`. Trust the address after `from`, or trust both networks.
+- When you trust the proxy in Home Assistant, use the address Home Assistant sees. Open the logs with `dclogs homeassistant` and find the line `A request from a reverse proxy was received from`. Trust the address after `from`. In a standard Deployrr setup Traefik has the fixed address `192.168.90.254` on its proxy network, so that is the address you will often see. If you see another address, trust that one, and check the log again if the error comes back after Traefik is recreated.
+
+:::caution
+You can trust the two whole Traefik networks, `192.168.90.0/24` and `192.168.91.0/24`, if nothing else works. Do this only as a last resort: then any container on those networks can make its requests look like they come from another visitor.
+:::
 
 In Home Assistant 2026.8 and later, set this in **Settings** > **System** > **Network**, in the **HTTP server** section: turn on **Trust X-Forwarded-For** and add the address or network under **Trusted proxies**. Saving restarts Home Assistant. Confirm the new settings when asked, or Home Assistant goes back to the old ones after 5 minutes.
 
@@ -143,11 +149,21 @@ Older versions use an `http:` block in `appdata/homeassistant/configuration.yaml
 http:
   use_x_forwarded_for: true
   trusted_proxies:
-    - 192.168.90.0/24
-    - 192.168.91.0/24
+    - 192.168.90.254
 ```
 
-When you update to 2026.8 or later, Home Assistant moves this block into the UI by itself and then ignores it.
+Replace `192.168.90.254` with the address from the log if it is different. When you update to 2026.8 or later, Home Assistant moves this block into the UI by itself and then ignores it.
+
+### Firewall rules
+
+If UFW or firewalld is on, allow port `8123` from your home network and from Traefik. Deployrr's own firewall rule only allows the Socket Proxy network, `192.168.91.0/24`. Requests from Traefik's `192.168.90.254` address are not covered. With UFW:
+
+```bash
+sudo ufw allow from 192.168.1.0/24 to any port 8123 proto tcp
+sudo ufw allow from 192.168.90.254 to any port 8123 proto tcp
+```
+
+Replace `192.168.1.0/24` with your home network. Use the address from the Home Assistant log in the second line if it is different. If apps on a VPS lose internet or show certificate errors with UFW on, see [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/).
 
 ## Update Home Assistant
 

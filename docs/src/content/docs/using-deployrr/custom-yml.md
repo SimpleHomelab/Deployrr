@@ -23,7 +23,9 @@ videos:
 further_reading:
   - title: "UDMS part 14: Start the Docker Compose File and include your service files (manual setup)"
     url: "https://www.simplehomelab.com/udms-14-docker-media-server/#Start_the_Docker_Compose_File"
-last_reviewed: 2026-11-08
+  - title: "UDMS part 13: Updating Services with Docker Compose (manual setup)"
+    url: "https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/#Updating_Services"
+last_reviewed: 2026-11-12
 status: current
 old_paths: ["/docker/custom.yml-usage"]
 sources: []
@@ -140,6 +142,32 @@ To force a fresh container even when nothing changed, run:
 ```bash
 dcrec SERVICE_NAME
 ```
+
+## Update your services to a newer image
+
+**Tools** > **Stack Manager** > **Update Stack** only pulls new images for apps that Deployrr installed. It then starts the whole stack again, so your `custom.yml` services restart on the image they already have. **Up** does not pull new images either.
+
+To update one of your services, pull its image, then start it again:
+
+```bash
+dcpull SERVICE_NAME
+dcup SERVICE_NAME
+```
+
+Without the aliases, run these instead. Replace `YOUR_USER` and `HOSTNAME` with your own values.
+
+```bash
+sudo docker compose --profile all -f /home/YOUR_USER/docker/docker-compose-HOSTNAME.yml pull SERVICE_NAME
+sudo docker compose --profile all -f /home/YOUR_USER/docker/docker-compose-HOSTNAME.yml up -d SERVICE_NAME
+```
+
+`dcpull` without a service name pulls the images of every app, your own services included. Then run `dcup` to start them on the new images.
+
+If your service uses a fixed version tag, such as `image: someimage:1.4.2`, pulling gets nothing new. Change the tag in `custom.yml` first, then run the two commands above.
+
+**Tools** > **Stack Manager** > **Update App** also works for a `custom.yml` service, as long as its `container_name` is the same as its service name. It needs a Basic, Plus or Pro license. For the other update options, see [Update your apps](/using-deployrr/update-apps/).
+
+To understand how updating a Compose service works, read [UDMS part 13: Updating Services](https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/#Updating_Services) (manual setup; its folder and file names differ from Deployrr v6).
 
 ## Check it worked
 

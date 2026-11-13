@@ -24,7 +24,7 @@ videos:
   - id: Nuo83uzTWco
     start: 223
     title: "Deployrr 6 overview: NGINX Proxy Manager as a Traefik alternative"
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -94,13 +94,19 @@ Ports 80 and 443 are fixed. Deployrr doesn't let you change them for NPM.
 
 ### Create your NPM admin account
 
+Do this right after the install. Until an admin account exists, NPM shows a setup screen to whoever opens the admin page first. Anyone who reaches that page before you can create the account and take over NPM.
+
 1. Open `http://SERVER_IP:81` in your browser. Replace `SERVER_IP` with your server's local IP address. If you chose another port, use that port.
-2. Create your admin account when NPM asks. Deployrr's message says "On first access, you will be prompted to create your admin account." Deployrr does not give you a default login.
+2. Create your admin account when NPM asks. Deployrr's message says "On first access, you will be prompted to create your admin account." Deployrr does not give you a default login. Use a strong password.
 3. Log in.
 
-:::caution
-Don't forward the admin port to the internet on your router. Only forward ports 80 and 443 to your server.
-:::
+### Keep the admin page off the internet
+
+The admin page controls every address and certificate NPM serves. Only you should be able to open it.
+
+- **At home:** Don't forward the admin port on your router. Only forward ports 80 and 443 to your server.
+- **On a VPS:** The admin port is open on the server's public IP. Docker publishes it past UFW, so a UFW rule doesn't block it. Block the admin port in your provider's firewall panel and allow only your SSH port, 80 and 443 from the internet. See [Set the provider firewall](/host/secure-a-vps/#set-the-provider-firewall). To open the admin page, use an SSH tunnel, for example `ssh -L 8181:localhost:81 YOUR_USER@SERVER_IP`, then browse to `http://localhost:8181`. Use your admin port in place of `81` if you chose another one.
+- Don't add a proxy host for the admin page itself unless you protect it with an access list in NPM.
 
 ### Forward your router ports
 

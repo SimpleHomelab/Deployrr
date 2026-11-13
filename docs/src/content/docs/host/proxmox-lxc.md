@@ -3,7 +3,7 @@ title: Run Deployrr in a Proxmox LXC container
 sidebar:
   order: 1
   label: Run Deployrr in a Proxmox LXC
-description: Pick the right System Type, pass /dev/net/tun into your LXC, add NAS storage with bind mounts, and know what Kasm and a VM change.
+description: Pick the right System Type, pass /dev/net/tun or a USB stick into your LXC, add NAS storage with bind mounts, and know what Kasm and a VM change.
 type: guide
 tags:
   - host
@@ -39,7 +39,7 @@ old_paths: []
 sources: []
 ---
 
-This guide is for you if Deployrr runs in an LXC container on Proxmox and you hit a limit of the container. It covers the System Type choice, the network device VPN apps need, NAS storage, Kasm, and when a virtual machine is the better choice.
+This guide is for you if Deployrr runs in an LXC container on Proxmox and you hit a limit of the container. It covers the System Type choice, the network device VPN apps need, USB sticks, NAS storage, Kasm, and when a virtual machine is the better choice.
 
 ## Overview
 
@@ -48,7 +48,7 @@ Deployrr has no menu that changes Proxmox settings. Anything that happens on the
 You will:
 
 1. Set **System Type** to match your container.
-2. Pass `/dev/net/tun` into the container, if you use VPN apps.
+2. Pass `/dev/net/tun` into the container, if you use VPN apps, and a USB stick, if an app needs one.
 3. Give the container your NAS files with a bind mount or Rclone.
 4. Know the limits for Kasm, GPU and Docker.
 
@@ -147,6 +147,36 @@ To see the config lines added on a Proxmox host, watch [Proxmox LXC network devi
 | `Device is not readable or writable by YOUR_USER` and `Network adapter detection failed - Permission issue detected` | The device is there, but your Linux user can't use it. The device must be readable and writable by your user. Check its permissions with `ls -l /dev/net/tun` inside the container. |
 
 For the apps that use this, see [qBittorrent VPN](/apps/qbittorrent-vpn/#if-the-adapter-is-not-found) and [Tailscale](/networking/tailscale/).
+
+## Pass a USB stick into the container
+
+A Zigbee or Z-Wave stick must reach the LXC before Docker can hand it to an app such as Home Assistant. You do this on the Proxmox host. This is general Proxmox knowledge, not a Deployrr feature.
+
+1. Plug the stick into the Proxmox host.
+2. On the host, list the stable device names:
+
+   ```bash
+   ls -l /dev/serial/by-id/
+   ```
+
+   Copy the full path of your stick, such as `/dev/serial/by-id/usb-YOUR_STICK_NAME`. This name stays the same after a reboot. A name like `/dev/ttyUSB0` or `/dev/ttyACM0` can change.
+
+3. In the Proxmox web interface, select your container, then **Resources** > **Add** > **Device Passthrough**.
+4. Set the device path to the path from step 2.
+5. Restart the container.
+6. Inside the container, check the device:
+
+   ```bash
+   ls -l /dev/serial/by-id/
+   ```
+
+   You should see your stick at the path you entered. If the folder is empty or missing, check the path you entered in step 4 and that the stick is plugged into the host.
+
+7. In the app's Compose `devices:` line, use the path the stick has inside the container. For Home Assistant, see [Add a Zigbee or Z-Wave USB stick](/apps/home-assistant-container/#add-a-zigbee-or-z-wave-usb-stick-optional).
+
+The **GID** field in **Device Passthrough** sets the group of the device inside the container. Leave it empty unless the app can't open the stick. Then set it to the group ID of the `dialout` group inside the container. To find it, run `getent group dialout` inside the container. The number after the second colon is the GID.
+
+If your Proxmox has no **Device Passthrough** entry under **Add**, update Proxmox first.
 
 ## Add NAS storage
 
@@ -250,6 +280,7 @@ An LXC shares the Proxmox host's kernel. That makes it light, but you work aroun
 
 - **System Type** shows "<your OS> is on - <your type>" in **Prerequisites**.
 - **System** > **Network** ends with "VPN support enabled".
+- `ls -l /dev/serial/by-id/` inside the container shows your USB stick, if you passed one.
 - `ls /mnt/media` inside the container shows your NAS files.
 
 ## Next steps
