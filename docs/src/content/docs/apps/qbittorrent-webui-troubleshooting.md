@@ -188,10 +188,10 @@ qBittorrent VPN has no port of its own. You reach it through Gluetun, so both co
 6. Read the container log and find the temporary password. Current qBittorrent versions (4.6.1 and later) print one when no password is set:
 
    ```bash
-   sudo docker logs qbittorrent
+   sudo docker logs qbittorrent 2>&1 | grep -i password
    ```
 
-   With the aliases: `dlogs qbittorrent`. Press Ctrl+C to stop following the log.
+   Use the last line it prints. The `dlogs qbittorrent` alias shows only the last 50 lines, so the password line may already be gone from it.
 
 7. Log in with your username (`admin` unless you changed it) and the temporary password.
 8. In qBittorrent, open **Tools**, then **Options**, then **WebUI**. Set a new password and save. The temporary password only works until the container restarts.
@@ -239,8 +239,8 @@ Steps:
    ```
 
 2. Go to **Apps** > **Browse Apps** > **qBittorrent** (or **qBittorrent VPN**) > **Install**. At the **Already Installed** prompt, choose **Yes**. You can also use **Reinstall** in **Manage Apps** when the app is stopped. See [Reinstall an app and keep its data](/using-deployrr/reinstall-app/).
-3. For qBittorrent VPN, check that both `gluetun` and `qbittorrent-vpn` show as `Up` in `sudo docker ps -a`. If `qbittorrent-vpn` isn't running, start it as in step 4 of [Install qBittorrent VPN](/apps/qbittorrent-vpn/).
-4. Log in with `admin` and `adminadmin`. For qBittorrent VPN, use `admin` and the temporary password from `sudo docker logs qbittorrent-vpn`. Set a new password right away in **Tools** > **Options** > **WebUI**.
+3. For qBittorrent VPN, check that both `gluetun` and `qbittorrent-vpn` show as `Up` in `sudo docker ps -a`. If `qbittorrent-vpn` isn't running, start it as in step 4, item 5 of [Install qBittorrent VPN](/apps/qbittorrent-vpn/#4-install-qbittorrent-vpn).
+4. Log in with `admin` and `adminadmin`. For qBittorrent VPN, use `admin` and the temporary password from `sudo docker logs qbittorrent-vpn 2>&1 | grep -i password`. Set a new password right away in **Tools** > **Options** > **WebUI**.
 5. For qBittorrent VPN, open **Tools** > **Options** > **Downloads**. Set **Default Save Path** to `/data/downloads/torrents/others/`. If you use an incomplete folder, set it to `/data/downloads/torrents/incomplete/`. Files saved under `/downloads/` stay inside the container and don't reach your Downloads Folder. See [Sonarr, Radarr or Lidarr don't import finished downloads](/apps/arr-downloads-not-importing/).
 6. Put the new password in every app that connects to qBittorrent, such as Sonarr and Radarr. Their download client settings hold the qBittorrent username and password.
 7. To see which settings you had changed, compare the backup with the new file:
