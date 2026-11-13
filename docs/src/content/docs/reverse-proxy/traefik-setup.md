@@ -270,7 +270,7 @@ You may need to redo a step, for example to change the basic auth password or th
 - **A step is not DONE until it finishes again.** After you press `Y` at the "already done" warning, the step loses its `- DONE` mark. If you cancel or hit an error, run it again until it finishes.
 - **Staging resets Production.** After a Staging run, **Production** no longer shows `- DONE`. **Manage Exposure**, **Traefikify**, **Un-Traefikify**, **Domain Passthrough** and **Auth Bypass** then show "Traefik Production - Must be completed (Proxy menu)". Run Production again.
 
-So after a Preparation rerun, run Staging (it starts Traefik again), then Production. To keep the certificates you have, press `Y` at the reuse questions. For other actions that change Traefik files, see [What can overwrite or delete your changes](/using-deployrr/what-overwrites-your-changes/). For where `acme.json` and the Traefik secrets live, see [What is in your Docker folder](/using-deployrr/docker-folder-layout/).
+So after a Preparation rerun, run Staging (it starts Traefik again), then Production. To keep the certificates you have, press `Y` at the reuse questions. Staging can't keep a production certificate, so back up `acme.json` first and [put it back](/reverse-proxy/certificate-errors/#put-a-saved-certificate-back) before Production. For other actions that change Traefik files, see [What can overwrite or delete your changes](/using-deployrr/what-overwrites-your-changes/). For where `acme.json` and the Traefik secrets live, see [What is in your Docker folder](/using-deployrr/docker-folder-layout/).
 
 ## What to do next
 

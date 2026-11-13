@@ -3,7 +3,7 @@ title: Forward the right router ports for Deployrr
 sidebar:
   order: 2
   label: Port forwarding
-description: Find out which router ports Deployrr needs for Traefik Simple, Traefik Advanced or Nginx Proxy Manager, set them on your router, and test them.
+description: Find out which router ports Deployrr needs for Traefik Simple, Traefik Advanced or Nginx Proxy Manager, set them on your router, and test them from outside.
 type: how-to
 tags:
   - ports
@@ -37,7 +37,7 @@ videos:
   - id: Nuo83uzTWco
     start: 277
     title: "Deployrr 6 overview: Options for CG-NAT"
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -142,7 +142,7 @@ A green line here doesn't always prove the forward reaches your server. When the
 If you see an error instead, see [Domain Checks failed](/getting-started/domain-checks-failed/#fix-ports-80-and-443).
 
 :::caution
-Run **Domain Checks** before Traefik or Nginx Proxy Manager is installed. Once one of them is running, a rerun fails at port 80 with `Port 80 is reachable but something is already listening on it`. See [Rerunning Domain Checks after Traefik is running](/getting-started/domain-checks-failed/#rerunning-domain-checks-after-traefik-is-running).
+Run **Domain Checks** before Traefik or Nginx Proxy Manager is installed. Once one of them is running, a rerun fails at port 80 with `Port 80 is reachable but something is already listening on it`. See [Rerunning Domain Checks after Traefik is running](/getting-started/domain-checks-failed/#rerunning-domain-checks-after-traefik-is-running). To test the ports then, use the [check from outside](#check-from-outside).
 :::
 
 ### Check from outside
@@ -154,6 +154,57 @@ Do this after Traefik or Nginx Proxy Manager is up and you have an app with an a
 3. Check that the app's page or login opens with a padlock.
 
 If an app is set to Internal in Advanced mode, it should not open from mobile data. Test with an External or Both app.
+
+Test from outside your home network. From inside, the result depends on your router (hairpinning) and your local DNS, so it can fail even when the forwards work, or pass when they don't.
+
+### Test the ports with curl
+
+When the page doesn't open, test each port on its own. Run these from a device outside your home network: a VPS, a friend's computer, or a terminal app on your phone with Wi-Fi off.
+
+1. On the Docker host, find your public IP:
+
+   ```bash
+   curl -4 ifconfig.me
+   ```
+
+2. From the outside device, test port 80. Replace `PUBLIC_IP` with the address from step 1:
+
+   ```bash
+   curl -sI http://PUBLIC_IP
+   ```
+
+3. Test port 443:
+
+   ```bash
+   curl -skI https://PUBLIC_IP
+   ```
+
+   `-k` skips the certificate check, because your certificate is for your domain, not for the IP.
+
+What the results mean:
+
+| Result | What it means |
+| --- | --- |
+| Any `HTTP/...` line, even `404 Not Found` | The port reaches Traefik or Nginx Proxy Manager. On port 80, Traefik answers with a permanent redirect to `https://`. On port 443, Traefik usually answers `404`, because no app is set up for the bare IP. Nginx Proxy Manager shows its own default page. |
+| `Connection refused` | The request reached a device, but nothing listens on that port. Check the destination port in the forward (80 or 81, 443 or 444) and that Traefik or Nginx Proxy Manager is running with `docker ps`. |
+| No answer, then a timeout | The forward is missing or points at the wrong IP, a firewall drops the traffic, or your ISP blocks the port. See [If it doesn't work](#if-it-doesnt-work). |
+
+Then test your app by name:
+
+```bash
+curl -sI https://app.YOUR_DOMAIN
+```
+
+A `200`, or a redirect to your login page, means it works end to end. If the record is proxied by Cloudflare (orange cloud), this request goes to Cloudflare first. A `521` or `522` from Cloudflare means Cloudflare couldn't reach your server: test the public IP as above. See [Cloudflare for Deployrr](/networking/cloudflare/).
+
+### Use an online port checker
+
+No device outside your network? Search for "open port checker". Enter your public IP and port 80, then 443. These sites try a TCP connection from the internet:
+
+- **Open** means something on your side accepts the connection.
+- **Closed** means it doesn't. Run the checker again with Traefik or Nginx Proxy Manager running, because with nothing listening the port shows as closed even when the forward is right.
+
+A port checker tests the router ports, so check 80 and 443 in Advanced mode too, not 81 and 444. It doesn't show that the right app answers. Use curl for that.
 
 ## If it doesn't work
 

@@ -2,7 +2,7 @@
 title: Sonarr, Radarr or Lidarr don't import finished downloads
 sidebar:
   label: Arr downloads not importing
-description: Fix finished downloads that stay in the Sonarr, Radarr or Lidarr queue by checking client paths, remote path mappings, folder owner and mounts, in order.
+description: Fix finished downloads that stay in the Sonarr, Radarr or Lidarr queue by checking client folders and categories, path mappings, file owners and mounts.
 type: troubleshooting
 tags:
   - media
@@ -105,12 +105,34 @@ If you can't open the web UI, see [qBittorrent web UI says Unauthorized or won't
 
 To see why the default `/downloads` path is wrong, watch [qBittorrent Docker Compose: set the download path to /data/downloads at 11:59](https://youtu.be/Wt8hS0msLxw?t=719) (manual Docker Compose setup).
 
-**SABnzbd, NZBGet and Transmission**
+**SABnzbd**
 
-Deployrr does not set their download folders. Check them yourself.
+Deployrr does not set SABnzbd's folders. Left at SABnzbd's own defaults, downloads often go to a folder under `/config`, which only SABnzbd can see.
 
-1. Open the client's settings and find the folders for completed and incomplete downloads.
-2. Set both to a path under `/data/downloads`, such as `/data/downloads/usenet/complete` for SABnzbd or NZBGet, or `/data/downloads/others` for Transmission. For Transmission, Deployrr creates `movies`, `tv` and `others` folders that it sees at `/data/downloads`.
+1. Open the SABnzbd web UI and select the gear icon to open **Config**.
+2. Go to **Folders**.
+3. Set **Temporary Download Folder** to `/data/downloads/usenet/incomplete`.
+4. Set **Completed Download Folder** to `/data/downloads/usenet/complete`.
+5. Save the changes. If SABnzbd says a folder doesn't exist, let it create the folder.
+6. Go to **Config** > **Categories**. Add a category for each Arr app, such as `tv`, `movies` and `music`. These are the names Sonarr, Radarr and Lidarr suggest for SABnzbd.
+7. Leave the folder of each category empty, or enter a plain name such as `tv`. A plain name is placed inside the Completed Download Folder. A full path that doesn't start with `/data/downloads` breaks imports again.
+
+**NZBGet**
+
+Deployrr does not set NZBGet's folders either.
+
+1. Open the NZBGet web UI and go to **Settings** > **PATHS**.
+2. Set **MainDir** to `/data/downloads/usenet`. **DestDir** and **InterDir** are built from it by default (`${MainDir}/dst` and `${MainDir}/inter`), so they follow. If you changed them to a full path, make sure it starts with `/data/downloads`.
+3. Go to **Settings** > **CATEGORIES**. NZBGet comes with `Movies`, `Series`, `Music` and `Software`. Leave **DestDir** of each category empty, so NZBGet puts it in a folder named after the category inside DestDir.
+4. Save the settings at the bottom of the page. Reload NZBGet if it asks.
+5. Use the NZBGet category names in the Arr apps (check 4). Sonarr suggests `tv`, which doesn't exist in NZBGet. Use `Series`, or add a `tv` category in NZBGet.
+
+**Transmission**
+
+Deployrr does not set Transmission's download folder.
+
+1. Open Transmission's settings and find the download folder.
+2. Set it to a path under `/data/downloads`, such as `/data/downloads/others`. Deployrr creates `movies`, `tv` and `others` folders that Transmission sees at `/data/downloads`.
 3. Save.
 
 ### 3. Add a remote path mapping for Transmission
@@ -144,9 +166,13 @@ Do not add remote path mappings for qBittorrent, qBittorrent VPN, SABnzbd or NZB
    | Transmission | `transmission` | `9091` |
    | qBittorrent VPN | `gluetun` | `8080` |
 
-4. Check that the **Category** matches a category in the client, if the client uses categories.
-5. Select **Test**. It should show a green check.
-6. Save.
+4. Check that the **Category** matches a category in the client, if the client uses categories. Case matters to some clients, so copy the name exactly.
+5. Enter the client's login:
+   - SABnzbd: paste its API key. You find it in SABnzbd's **Config** pages, under **General**.
+   - NZBGet: enter its username and password. Deployrr shows the defaults after install: `nzbget` and `tegbzn6789`.
+   - Transmission: enter the username and password you chose when you installed it.
+6. Select **Test**. It should show a green check. If SABnzbd refuses the connection with a message about hostname verification, add `sabnzbd` to **host_whitelist** in SABnzbd's **Config** > **Special**, save, and test again. Deployrr normally adds it for you during install.
+7. Save.
 
 For the steps and the reasons behind these values, see [Connect your apps to each other](/using-deployrr/connecting-apps/). For the VPN setup, see [Install qBittorrent VPN](/apps/qbittorrent-vpn/).
 

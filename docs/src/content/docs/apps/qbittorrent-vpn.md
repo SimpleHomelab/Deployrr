@@ -100,7 +100,7 @@ With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dlogs gluetun`
 After a time-out, Gluetun counts as installed. The qBittorrent VPN install in step 4 then goes ahead even though the VPN isn't connected. Fix your VPN details and get `VPN connected successfully!` before you go on. See [If Gluetun doesn't connect](#if-gluetun-doesnt-connect).
 :::
 
-At the end, Deployrr tells you that you can route other containers through Gluetun by adding `network_mode: service:gluetun` to their compose configuration. You don't need that for qBittorrent VPN. Its install does it for you.
+At the end, Deployrr tells you that you can route other containers through Gluetun by adding `network_mode: service:gluetun` to their compose configuration. You don't need that for qBittorrent VPN. Its install does it for you. To do it for an app of your own, see [Route another app through Gluetun](#route-another-app-through-gluetun).
 
 ### 3. Set your Downloads Folder
 
@@ -127,13 +127,13 @@ If you see `Required app not running` with `gluetun must be installed and runnin
    http://YOUR_SERVER_IP:PORT
    ```
 
-2. Log in with the username `admin` and the temporary password qBittorrent prints in its log. Find it with this command. It is on the line that mentions a temporary password:
+2. Log in with the username `admin` and the temporary password qBittorrent prints in its log. This command shows only the lines that mention a password:
 
    ```bash
-   sudo docker logs qbittorrent-vpn
+   sudo docker logs qbittorrent-vpn 2>&1 | grep -i password
    ```
 
-   With the aliases: `dlogs qbittorrent-vpn`. Press Ctrl+C to stop following the log. qBittorrent prints a new temporary password every time it starts until you set your own.
+   Use the last one. qBittorrent prints a new temporary password every time it starts until you set your own. The `dlogs qbittorrent-vpn` alias shows only the last 50 lines, so the password line may already be gone from it.
 
 3. In qBittorrent, go to **Tools** > **Options** > **WebUI** and set a new password.
 4. Go to **Tools** > **Options** > **Downloads**. qBittorrent VPN starts with `/downloads/` as its **Default Save Path**. Change it to `/data/downloads/torrents/others/`, and the incomplete folder, if you use one, to `/data/downloads/torrents/incomplete/`. Only paths under `/data/downloads` reach your Downloads Folder and the Arr apps. Select **Save**.
@@ -261,6 +261,38 @@ The reinstall replaces Gluetun's compose file with a fresh one, and removes the 
 
 Installing qBittorrent VPN again also does all of this, but it resets your qBittorrent login and settings. See [qBittorrent web UI says Unauthorized or won't open](/apps/qbittorrent-webui-troubleshooting/#4-check-that-the-container-runs-qbittorrent-vpn).
 
+## Route another app through Gluetun
+
+You can send a second app's traffic through the VPN the same way qBittorrent VPN does. Do this for your own services in [custom.yml](/using-deployrr/custom-yml/). Don't edit the compose file of an app Deployrr installed: a reinstall replaces it. Sonarr, Radarr and the other Arr apps don't need the VPN; the comment at the top of `gluetun.yml` says so too.
+
+The app then shares Gluetun's network. It has no network, ports or container address of its own, and it loses its connection whenever Gluetun stops or is recreated.
+
+1. In your service in `custom.yml`, add the `network_mode` line and remove the service's `ports:` and `networks:` sections. Docker Compose refuses to start a service that has them together with `network_mode`:
+
+   ```yaml
+   services:
+     myapp:
+       image: SOME_IMAGE
+       container_name: myapp
+       network_mode: "service:gluetun"
+   ```
+
+2. Back up and open `gluetun.yml` as in [Reinstall Gluetun](#reinstall-gluetun). Under `ports:`, add a line for your app's web port, `HOST_PORT:CONTAINER_PORT`. If `ports:` still starts with `#` (qBittorrent VPN isn't installed), remove the `# ` in front of it. Leave the qBittorrent VPN line as it is:
+
+   ```yaml
+   ports:
+     - $QBITTORRENTVPN_PORT:8080
+     - 8090:9000
+   ```
+
+   All apps behind Gluetun share one network, so two of them can't listen on the same port inside. qBittorrent VPN already uses `8080`. Check that the host port is free; see [Port is already in use](/docker/port-already-in-use/).
+
+3. Recreate Gluetun (`dcrec gluetun`), then start your app with `dcup myapp` (`dcrec myapp` if it already runs), then recreate qBittorrent VPN (`dcrec qbittorrent-vpn`) if you have it. These are [Deployrr bash aliases](/using-deployrr/bash-aliases/).
+4. Open the app at `http://YOUR_SERVER_IP:HOST_PORT`. Other apps connect to it with the host `gluetun` and the container port, for example `gluetun:9000`.
+5. Check the address it uses, as in [Check it worked](#check-it-worked): `sudo docker exec myapp curl -s https://ifconfig.me`. Some images don't include `curl`.
+
+Reinstalling Gluetun replaces `gluetun.yml`, so add your port line again after that.
+
 ## If the adapter is not found
 
 Deployrr only checks for the device. It doesn't create it. These are the two results that stop you:
@@ -283,3 +315,4 @@ To see how the device is passed into an LXC, watch [Proxmox LXC network device p
 - [Requirements Not Met](/getting-started/requirements-not-met/): every line of the requirements box and the menu that clears it.
 - [Reinstall an app and keep its data](/using-deployrr/reinstall-app/): what a reinstall of qBittorrent VPN resets.
 - [Install and manage apps from the Apps menu](/using-deployrr/manage-apps/): start, stop, restart and read logs.
+- [Add your own containers with custom.yml](/using-deployrr/custom-yml/): where to add an app you route through Gluetun.

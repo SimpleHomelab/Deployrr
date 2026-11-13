@@ -29,13 +29,13 @@ videos:
     start: 4001
     title: "Deployrr 5 walkthrough: Manually adding apps to the Dashboard"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
 ---
 
-Deployrr asks for an app's subdomain once, when you install it. After that, no menu changes it. This page shows how to change it by editing the app's Traefik file. It also tells you which menu changes the app's login method and exposure.
+Deployrr asks for an app's subdomain once, when you install it. After that, no menu changes it. This page shows how to change it by editing the app's Traefik file, or the compose file for the Traefik dashboard and the login apps. It also tells you which menu changes the app's login method and exposure.
 
 ## What the install asks
 
@@ -61,7 +61,7 @@ Deployrr saves your answers in one file for the app, named `app-NAME.yml`. It si
 Your Traefik certificate covers your domain and every subdomain of it, so a new name needs no new certificate.
 
 :::note
-Traefik, Authelia, Authentik, OAuth and TinyAuth have no `app-NAME.yml` file. This page does not cover them. The Deployrr Dashboard does have one, `app-deployrr-dashboard.yml`. Its default subdomain is `deployrr`. You edit it the same way.
+The Traefik dashboard, Authelia, Authentik, Google OAuth and TinyAuth have no `app-NAME.yml` file. See [Traefik dashboard and login apps](#traefik-dashboard-and-login-apps) for them. The Deployrr Dashboard does have one, `app-deployrr-dashboard.yml`. Its default subdomain is `deployrr`. You edit it the same way.
 :::
 
 ## Steps
@@ -148,6 +148,77 @@ Leave the comment lines in the file alone. See [Edit the dashboard files](/using
 
 **Tools** > **ReDash** also reads the new subdomain from the file for apps you installed from the Apps menu. But it rebuilds the whole app list and drops hand edits to `services.yaml`. It also adds a local and a remote entry for every app while Traefik runs, whatever the app's exposure. For an entry you added through the Traefikify or Dashify Dashboard dialogs, it puts back the old address. ReDash first saves the old file as `services.DATE_TIME.yaml` in the same folder.
 
+## Traefik dashboard and login apps
+
+These apps get their address from a Docker label in their own file in `compose/HOSTNAME/`, not from a rules file. See [Apps that use Docker labels](/reverse-proxy/app-404-or-502/#apps-that-use-docker-labels). A login app also keeps its own address in a second place. Change every place in the table, or logins send people to the old address.
+
+| App | File in `compose/HOSTNAME/` | Also change |
+| --- | --- | --- |
+| Traefik dashboard | `traefik.yml` | Nothing else. |
+| Authelia | `authelia.yml` | `rd=https://authelia.` in `appdata/traefik3/rules/HOSTNAME/middlewares-authelia.yml`, and `authelia_url:` in `appdata/authelia/configuration.yml`. |
+| Authentik | `authentik.yml` | Any address you typed into Authentik's admin pages that starts with `https://authentik.`. |
+| Google OAuth | `oauth.yml` | The `AUTH_HOST=` line in the same file, and the redirect URI in your Google Cloud project. |
+| TinyAuth | `tinyauth.yml` | The `TINYAUTH_APPURL=` line in the same file, and the callback URL at Google or GitHub if you set up that login. |
+
+:::caution
+Deployrr keeps your edited compose file when you install a login app again or rerun Traefik **Preparation**. You get a fresh file with the default address only after you delete the app in Stack Manager and install it again. Installing Authelia again does replace `configuration.yml` (it saves the old one as `configuration_DATE.yml` in `appdata/authelia/`) and `middlewares-authelia.yml` (no backup), so redo step 5 after that. Deployrr's own messages keep showing the default address.
+:::
+
+1. Go to your Docker folder and back up the file. Replace `NAME` with the file name from the table, without `.yml`.
+
+   ```bash
+   cdd
+   sudo cp compose/$HOSTNAME/NAME.yml ~/NAME.yml.bak
+   ```
+
+   For Authelia, also back up `middlewares-authelia.yml` and `configuration.yml` the same way.
+
+2. Open the file.
+
+   ```bash
+   sudo nano compose/$HOSTNAME/NAME.yml
+   ```
+
+3. Find the `rule=Host(...)` label and change only the old subdomain. Leave `.$DOMAINNAME_1` as it is. For example, to change Authelia from `authelia` to `login`:
+
+   ```yaml
+   - "traefik.http.routers.authelia-rtr.rule=Host(`authelia.$DOMAINNAME_1`)"
+   ```
+
+   becomes:
+
+   ```yaml
+   - "traefik.http.routers.authelia-rtr.rule=Host(`login.$DOMAINNAME_1`)"
+   ```
+
+   Authentik has a second rule, on the `authentik-output-rtr` line. It matches every subdomain, for Authentik's outpost path only. Leave it alone.
+
+4. For Google OAuth or TinyAuth, change the subdomain in the `AUTH_HOST=` or `TINYAUTH_APPURL=` line in the same file. Save the file and close nano.
+
+5. For Authelia, change the subdomain in the `rd=https://authelia.` part (or the name you set before) of the `address:` line in `middlewares-authelia.yml`. Then change the `authelia_url:` line in `configuration.yml`. Leave the `domain:` lines as they are. They hold only your domain, so the subdomain doesn't matter to them.
+
+   ```bash
+   sudo nano appdata/traefik3/rules/$HOSTNAME/middlewares-authelia.yml
+   sudo nano appdata/authelia/configuration.yml
+   ```
+
+6. Recreate the app. Traefik doesn't see a label change until you do.
+
+   ```bash
+   dcrec NAME
+   ```
+
+   Without the aliases, see the full command in [Apps that use Docker labels](/reverse-proxy/app-404-or-502/#apps-that-use-docker-labels).
+
+7. Update the address outside your server:
+   - Google OAuth: in your Google Cloud project, change the authorized redirect URI to `https://NEW_SUBDOMAIN.YOUR_DOMAIN/_oauth`.
+   - TinyAuth: change the callback URL in the Google or GitHub app you made for TinyAuth to use the new address.
+   - Authentik: Deployrr stores no other Authentik address. If you typed one into Authentik's admin pages yourself, open them at the new address and update any that still starts with `https://authentik.`.
+
+8. Change the app's Dashboard entry by hand, as in [Update the Deployrr Dashboard](#update-the-deployrr-dashboard). **Tools** > **ReDash** reads these apps' default address, not your label, so it puts the old address back. After a ReDash, edit the entry again.
+
+To check it, open `https://NEW_SUBDOMAIN.YOUR_DOMAIN` in a private browser window. For a login app, also open an app that uses it. You should land on the login page at the new address. If you get a 404, see [Apps that use Docker labels](/reverse-proxy/app-404-or-502/#apps-that-use-docker-labels). To undo, copy the `.bak` files back and recreate the app.
+
 ## Change the login method
 
 Use **Security** > **Manage Auth** (Pro license), or edit the chain name in the same file. Manage Auth also lists the apps that use Docker labels. Both ways are in [Choose a login method for your apps](/reverse-proxy/choose-login-method/#with-manage-auth). The file route is under [By editing the rules file](/reverse-proxy/choose-login-method/#by-editing-the-rules-file).
@@ -171,7 +242,7 @@ The old address stops working. Update these:
 - Bookmarks in your browsers.
 - Mobile and TV apps that you pointed at the old address.
 - Other apps that call this app by its address.
-- Any login app that lists the old address as a redirect URL, if you set one up that way.
+- Any login app that lists the old address as a redirect URL, if you set one up that way. If you changed the login app's own address, see [Traefik dashboard and login apps](#traefik-dashboard-and-login-apps).
 - Nextcloud only answers on addresses it trusts. Add the new one as in [Nextcloud says Access through untrusted domain](/apps/nextcloud-untrusted-domain/). If you turned on `OVERWRITEHOST`, also change `NEXTCLOUD_SUBDOMAIN` in `.env` and recreate Nextcloud.
 
 ## Undo the change

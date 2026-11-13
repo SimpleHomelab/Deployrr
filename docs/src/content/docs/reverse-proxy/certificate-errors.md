@@ -46,7 +46,7 @@ videos:
     start: 2664
     title: "Traefik 3 guide: Staging first, then Production, and Let's Encrypt rate limits"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -270,6 +270,7 @@ To stay under the limit:
 
 - Always run **Staging** before **Production**. Staging uses the Let's Encrypt test server.
 - When Production shows its "already done" warning and then asks "Reuse existing production SSL certificate?", press `Y` at both if the certificate works. Deployrr then skips asking for a new one.
+- Back up `acme.json` before you run Staging again, and [put it back](#put-a-saved-certificate-back) instead of asking for a new production certificate.
 
 ### Check the clock
 
@@ -334,6 +335,8 @@ Staging and Production replace your saved certificate file with an empty one bef
    sudo cp -p appdata/traefik3/acme/acme.json appdata/traefik3/acme/acme.json.bak
    ```
 
+   To use it again later, see [Put a saved certificate back](#put-a-saved-certificate-back).
+
 2. Open **Proxy** > **Traefik** > **Staging**.
 3. If you see "It appears that Traefik Staging/Production was already done. If you proceed, previous setup may be overwritten.", press `Y`.
 4. If you see "Reuse existing staging SSL certificate?", press any key except `Y` to get a fresh certificate.
@@ -347,6 +350,43 @@ After a failed Staging, Deployrr usually starts fresh with no questions.
 :::note
 Running Staging after a Production run also marks Production as not done. Production is blocked until Staging finishes again. The **Requirements Not Met** box then says "Traefik Staging - Must be completed (Proxy menu)".
 :::
+
+### Put a saved certificate back
+
+Use this when Staging replaced a production certificate that worked, or when you set up Traefik again on a new server with the same **Domain 1**. A saved production certificate lets you skip a new request, so you stay under the Let's Encrypt limit. You need a copy of `acme.json` from when the certificate worked, such as the `acme.json.bak` from [Run Staging again](#run-staging-again).
+
+:::caution
+`acme.json` holds the private key of your certificate. Keep copies private. Don't share them or put them in a public place.
+:::
+
+1. Go to your Docker folder:
+
+   ```bash
+   cdd
+   ```
+
+2. Check that the copy holds a production certificate:
+
+   ```bash
+   sudo grep -c "acme-v02.api.letsencrypt.org" appdata/traefik3/acme/acme.json.bak
+   ```
+
+   `0` means it holds a staging certificate or none. Deployrr can't reuse it for Production. The certificate must also be for the domain you have in **Domain 1**.
+
+3. Make sure Staging shows `- DONE` in the Traefik menu and Traefik is running. Production needs both. On a new server, run **Preparation** and **Staging** first. On a new server, Staging always starts with an empty `acme.json`, so put the copy back after it.
+4. Copy the saved file back and set its permissions. Leave Traefik running:
+
+   ```bash
+   sudo cp -p appdata/traefik3/acme/acme.json.bak appdata/traefik3/acme/acme.json
+   sudo chmod 600 appdata/traefik3/acme/acme.json
+   ```
+
+5. Right away, open **Proxy** > **Traefik** > **Production**. Production restarts Traefik so it reads the file.
+6. At "It appears that Traefik Production was already done. If you proceed, previous setup may be overwritten.", press `Y`.
+7. At "Reuse existing production SSL certificate?", press `Y`. Deployrr shows "Skipping certificate acquisition (reusing existing)..." and starts Traefik with the certificate.
+8. Wait for "Traefik Production Setup completed successfully".
+
+If Production doesn't show the "already done" warning, Deployrr didn't find a production certificate for **Domain 1** in the file. It empties `acme.json` and asks Let's Encrypt for a new certificate. The same happens if you see the warning but no reuse question after `Y`. Your `acme.json.bak` stays as it was.
 
 ## Check it worked
 
