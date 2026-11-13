@@ -14,7 +14,7 @@ related:
   - getting-started/quick-start
   - using-deployrr/backups
   - apps/move-database-apps-from-v5
-  - using-deployrr/bash-aliases
+  - reverse-proxy/custom-app-behind-traefik
   - support/discord
 further_reading: []
 videos:
@@ -29,7 +29,7 @@ videos:
     start: 4684
     title: "Deployrr 5 walkthrough: making a backup"
     note: Shows Deployrr v5. Menus and steps differ in v6.
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -295,6 +295,45 @@ These v6 apps come with their own database service:
 
 If an app holds data you cannot lose, such as photos or documents, export it from v5 first if the app allows it. You can ask on [Discord](/support/discord/) before you move.
 
+### Step 9: Add your own containers again (optional)
+
+Skip this step if you had no containers of your own in v5's `custom.yml`.
+
+Your own containers do not carry over. For each one:
+
+1. Copy its service from `/home/USERNAME/docker-v5/compose/HOSTNAME/custom.yml` into the v6 file, `/home/USERNAME/docker/compose/HOSTNAME/custom.yml`. Turn `custom.yml` on first if you have not. See [Add your own containers with custom.yml](/using-deployrr/custom-yml/).
+2. If the service keeps data in `appdata`, copy that folder the same way as in Step 8.
+3. If the service had Traefik labels in v5, fix or replace them as shown below before you start it.
+
+#### Keep your v5 labels
+
+Most v5 labels work in v6 without changes. The entrypoint names (`websecure-internal` and `websecure-external`) and the chain names (such as `chain-authelia@file`) are the same.
+
+Only the name of Traefik's network changed. v5 called it `t3_proxy`. v6 calls it `traefik_proxy`. In the service, change every `t3_proxy` to `traefik_proxy`. That includes the `networks:` list and a `traefik.docker.network=t3_proxy` label if you have one. Docker Compose does not start a service that names a network your stack doesn't have.
+
+Then start the service with `dcup SERVICE_NAME`. Replace `SERVICE_NAME` with the service name from `custom.yml`.
+
+The chain must exist in v6 too. **Proxy** > **Traefik** > **Preparation** creates only `chain-basic-auth` and `chain-no-auth`. For any other chain, install that login method first (Step 6). To change the chain later, edit the label yourself. Don't use **Manage Auth** for `custom.yml`: it changes every service in the file at once.
+
+#### Or switch to a rules file
+
+v6 connects its own apps with rules files. You can do the same for your containers. Then **Proxy** > **Traefik** > **Manage Exposure** (in Advanced Traefik mode) and **Security** > **Manage Auth** can change the route later.
+
+1. Remove the Traefik labels from the service. Give the service a published port in `ports:`.
+2. Run `dcup SERVICE_NAME`.
+3. Run **Proxy** > **Traefik** > **Traefikify**. It needs a Plus or Pro license. Enter a name that differs from the router names in any labels you kept.
+
+This table shows where each v5 label goes if you write the file `app-NAME.yml` by hand instead:
+
+| v5 label | Line in `app-NAME.yml` |
+|---|---|
+| `traefik.http.routers.NAME-rtr.rule=Host(...)` | `rule:` |
+| `traefik.http.routers.NAME-rtr.entrypoints=...` | `entryPoints:`, one entrypoint per line |
+| `traefik.http.routers.NAME-rtr.middlewares=chain-authelia@file` | `middlewares:` with `- chain-authelia` (no `@file` inside a rules file) |
+| `traefik.http.services.NAME-svc.loadbalancer.server.port=80` | `url:` with your server's IP and the published port, such as `http://192.168.1.10:8095` |
+
+For every step and prompt of both ways, see [Protect a custom.yml app with Traefik and a login](/reverse-proxy/custom-app-behind-traefik/). To edit a rules file safely, see [Edit Traefik rules files safely](/reverse-proxy/edit-traefik-rules-files/).
+
 ## Check it worked
 
 1. Deployrr v6 opens and shows your installed apps.
@@ -337,7 +376,7 @@ To put the fresh folder back, stop the app, delete `appdata/APP`, then run the i
 
 ### My own containers from v5 are gone
 
-Containers you added in v5's `custom.yml` do not carry over. Add them again by hand. See [Add your own containers with custom.yml](/using-deployrr/custom-yml/).
+Containers you added in v5's `custom.yml` do not carry over. Add them again by hand, as in [Step 9](#step-9-add-your-own-containers-again-optional).
 
 ### Can I go back to v5?
 
