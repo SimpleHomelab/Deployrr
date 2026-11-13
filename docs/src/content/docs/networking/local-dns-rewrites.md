@@ -68,7 +68,7 @@ Replace `YOUR_DOMAIN` with your domain and `SERVER_LAN_IP` with your server's LA
 6. At **Enter the port for Pi-hole (Web interface port)**, keep the suggested port (`83`, or the next free port) or enter another.
 7. Wait for the install to finish. Deployrr shows a note with the address of the Pi-hole web interface: `http://SERVER_LAN_IP:PORT/admin/`.
 
-Pi-hole uses port 53 on your server, and port 67 for DHCP. If the install fails with "address already in use", see [Pi-hole will not start because port 53 is already in use](/apps/pi-hole-port-53-conflict/).
+Pi-hole uses port 53 on your server, and port 67 for DHCP. If the install fails with "address already in use", see [Pi-hole will not start because port 53 is already in use](/apps/pi-hole-port-53-conflict/). Keep your router as the DHCP server: Pi-hole's DHCP server doesn't work in this setup ([why](/apps/pi-hole-port-53-conflict/#use-pi-hole-for-dhcp)).
 
 ### Add the rewrite in Pi-hole
 
