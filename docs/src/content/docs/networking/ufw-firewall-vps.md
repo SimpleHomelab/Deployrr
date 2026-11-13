@@ -175,10 +175,10 @@ Steps 1, 2 and 5 are general Linux and UFW advice. They are not part of Deployrr
 
 ### What Deployrr changes on your firewall
 
-Deployrr does not turn UFW on, and it adds only one rule:
+Deployrr does not turn UFW on. Here is what it does change:
 
-- **Prerequisites** > **Packages** installs UFW on Debian, Ubuntu and Arch. It stays off until you run `sudo ufw enable`.
 - **Socket Proxy** adds one rule when you set it up: allow traffic from `192.168.91.0/24`, the Socket Proxy's Docker network. It adds it even if UFW is off. If UFW is not installed but firewalld is, the rule goes to firewalld instead.
+- **Prerequisites** > **Packages** installs UFW on Debian, Ubuntu and Arch. It stays off until you run `sudo ufw enable`.
 - **Traefik** adds no rules. Allow ports 80 and 443 yourself, as in step 5. In Advanced mode, a firewall in front of the server sends traffic to ports 81 and 444. If you use one, allow those two ports as well.
 - No other app adds a UFW or firewalld rule. If you open an app's port to the internet without Traefik, allow it yourself.
 - **Security** > **Firewall Bouncer**, if you install it, blocks the addresses CrowdSec bans. It does this in the server's firewall. See [Install the Firewall Bouncer](/reverse-proxy/crowdsec/#install-the-firewall-bouncer).

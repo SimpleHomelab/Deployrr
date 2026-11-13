@@ -15,7 +15,7 @@ related:
 further_reading:
   - title: Deployrr changelog
     url: https://github.com/SimpleHomelab/Deployrr/blob/main/CHANGELOG.md
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: ["/deployrr/updating-deployrr"]
 sidebar:
@@ -81,7 +81,7 @@ Update to vY using npx? Press Y/y to exit and update, or any other key to contin
 To skip the update, press Enter instead. Deployrr shows `Continuing with v...` and opens as usual.
 
 :::note
-This prompt always suggests the `npx` command, even if you installed with `curl`. If you installed with `curl`, use `deployrr update` instead. It keeps your install method.
+This prompt always suggests the `npx` command, even if you installed with `curl`. If you installed with `curl`, use `deployrr update` instead. It keeps your install method. If you run the npx command anyway, your install method becomes `npx`. See [npx or curl](#npx-or-curl-switch-your-install-method).
 :::
 
 ## Run the installer again
@@ -101,6 +101,26 @@ sudo bash -c "$(curl -fsSL https://files.deployrr.app/install.sh)"
 ```
 
 You also need this after **Settings** > **Reset**, which deletes the Deployrr program. See [Refresh, Reset or Remove Deployrr](/getting-started/reset-or-remove-deployrr/).
+
+## npx or curl: switch your install method
+
+Both installers download the same Deployrr program into `/opt/deployrr` and link the `deployrr` command. They differ in what they need and in what `deployrr update` runs later:
+
+| Install method | Needs | `deployrr update` runs |
+|---|---|---|
+| `npx` | Node.js, npm and `curl` | `sudo npx -y @simplehomelab/deployrr@latest` |
+| `curl` | `curl` and `tar` | the curl installer |
+
+If Node.js and npm are already on your server, either works. If not, the curl installer saves you from installing them. If you plan to remove Node.js, switch to curl first, or `deployrr update` fails with `sudo: npx: command not found`.
+
+The installer you ran last sets your install method. The updater screen shows it as **Install Method**. To switch, run the other installer once:
+
+- **To curl**: run the curl command from [Run the installer again](#run-the-installer-again). Nothing else is needed.
+- **To npx**: install Node.js and npm first. Check that `sudo npx --version` prints a version number. Then run the npx command from [Run the installer again](#run-the-installer-again).
+
+Then run `deployrr update`. The updater screen shows the new **Install Method**. If you are already on the latest version, press Enter to skip the reinstall.
+
+Switching does not stop, change or remove your running apps or your Docker folder.
 
 ## If the update fails
 
