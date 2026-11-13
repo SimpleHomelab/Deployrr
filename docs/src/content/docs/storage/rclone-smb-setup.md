@@ -29,7 +29,7 @@ videos:
     start: 734
     title: "Rclone SMB mount: the script that starts media apps after the mount"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
-last_reviewed: 2026-11-09
+last_reviewed: 2026-11-13
 status: current
 old_paths: ["/host/rclone-smb-setup"]
 sources: []
@@ -49,7 +49,9 @@ This page shows how to mount a share from your NAS on your Deployrr server with 
 Deployrr is tested with one SMB remote through Rclone. The menu says so. Set up one remote.
 :::
 
-If your server is a Proxmox LXC container, Deployrr does not block the **Rclone** menu. It does block the separate **SMB Mount** and **NFS Mount** options. After you choose **Yes** at their first prompt, they show this message: "SMB mounting is only supported on VPS, Barebones, or Virtual Machine systems. If you are using a Proxmox LXC, then use Bind Mounts or Rclone." If Docker itself fails in your LXC, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
+If your server is a Proxmox LXC container, Rclone works once FUSE is turned on for the container. You do that on the Proxmox host before part 1: see [Turn on FUSE for Rclone](/host/proxmox-lxc/#turn-on-fuse-for-rclone), or watch [Rclone SMB mount on Ubuntu/LXC: Proxmox LXC modifications at 3:29](https://youtu.be/D-XS0biLP14?t=209) (manual setup). If **Automount** ends with "Mount verification failed" in an LXC, check this setting first.
+
+Deployrr does not block the **Rclone** menu in an LXC. It does block the separate **SMB Mount** and **NFS Mount** options. After you choose **Yes** at their first prompt, they show this message: "SMB mounting is only supported on VPS, Barebones, or Virtual Machine systems. If you are using a Proxmox LXC, then use Bind Mounts or Rclone." If Docker itself fails in your LXC, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
 
 ## Steps
 

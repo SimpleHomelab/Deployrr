@@ -32,7 +32,7 @@ videos:
   - id: D-XS0biLP14
     start: 209
     title: "Rclone SMB mount on Ubuntu/LXC: Proxmox LXC modifications"
-    note: Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens.
+    note: Manual Docker Compose setup. You turn on FUSE in Proxmox yourself; Deployrr does the steps inside the container.
 last_reviewed: 2026-11-13
 status: current
 old_paths: []
@@ -190,12 +190,27 @@ In an LXC container, open **System** > **Mounts** > **SMB Mount** or **NFS Mount
 
 You have two choices:
 
-- **Rclone.** Deployrr does not block it in an LXC. See [Mount a NAS share with Rclone](/storage/rclone-smb-setup/).
-- **A Proxmox bind mount.** Mount the NAS on the Proxmox host, then share that folder with the container. The steps below are general Proxmox knowledge.
+- **Rclone.** Deployrr does not block it in an LXC, and it works once FUSE is turned on for the container. See [Turn on FUSE for Rclone](#turn-on-fuse-for-rclone) below, then [Mount a NAS share with Rclone](/storage/rclone-smb-setup/).
+- **A Proxmox bind mount.** Mount the NAS on the Proxmox host, then share that folder with the container. The bind mount steps below are general Proxmox knowledge.
 
-To see the Proxmox LXC changes needed for Rclone, watch [Rclone SMB mount on Ubuntu/LXC: Proxmox LXC modifications at 3:29](https://youtu.be/D-XS0biLP14?t=209) (manual Docker Compose setup; Deployrr does these steps for you). To understand bind mounts and ID mapping, read [UDMS part 9](https://www.simplehomelab.com/udms-part-9-bind-mount-remote-storage-in-proxmox-lxc-containers/) (manual setup).
+### Turn on FUSE for Rclone
+
+Rclone mounts your share through FUSE. An LXC container can't use FUSE until you turn it on from the Proxmox host. Do this before you run **Install** in the Rclone menu:
+
+1. In the Proxmox web interface, select the container.
+2. Open **Options**, select **Features**, then select **Edit**.
+3. Tick **FUSE** and select **OK**. Leave the features that are already ticked as they are.
+4. Restart the container.
+
+Deployrr does the rest inside the container when you run **Install**: it installs fuse3 and lets your apps read the mounted files.
+
+To see this setting in Proxmox, watch [Rclone SMB mount on Ubuntu/LXC: Proxmox LXC modifications at 3:29](https://youtu.be/D-XS0biLP14?t=209) (manual Docker Compose setup). The video also adds an extra disk for the Rclone cache. You don't need it.
+
+If **Automount** ends with "Mount verification failed", check that **FUSE** is ticked for the container, then read the Rclone log as shown in [Mount a NAS share with Rclone](/storage/rclone-smb-setup/).
 
 ### Bind mount a folder into the container
+
+To understand bind mounts and ID mapping, read [UDMS part 9](https://www.simplehomelab.com/udms-part-9-bind-mount-remote-storage-in-proxmox-lxc-containers/) (manual setup).
 
 This works for a NAS share mounted on the Proxmox host, or for a local disk. Replace these values:
 
