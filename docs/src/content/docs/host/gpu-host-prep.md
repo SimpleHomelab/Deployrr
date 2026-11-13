@@ -3,7 +3,7 @@ title: Prepare your server's GPU so Deployrr can use it
 sidebar:
   order: 8
   label: GPU host prep
-description: Get your server, a Proxmox LXC or a VM to the point where System > GPU reports your Intel, AMD or NVIDIA GPU as Ready.
+description: Get your server, a Proxmox LXC or a VM to the point where System > GPU reports your Intel, AMD or NVIDIA GPU as Ready, and fix nvidia-smi driver errors.
 type: how-to
 tags:
   - host
@@ -29,7 +29,7 @@ videos:
     start: 628
     title: "Jellyfin Docker Compose guide: checking /dev/dri on the Docker host"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -90,7 +90,7 @@ You need two things: the NVIDIA driver, and the NVIDIA Container Toolkit so Dock
    nvidia-smi
    ```
 
-   You see a table with your GPU. If you get an error, check your distribution's NVIDIA driver documentation (Secure Boot can block the driver).
+   You see a table with your GPU. If you get an error instead, see [If nvidia-smi shows an error](#if-nvidia-smi-shows-an-error).
 
 4. Install the NVIDIA Container Toolkit. Follow NVIDIA's [install guide](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) for your distribution. It is the same link Deployrr prints under "NVIDIA Container Toolkit: Not installed or not configured".
 5. Tell Docker to use the toolkit:
@@ -162,6 +162,91 @@ Step 2 edits the kernel boot line. A typing mistake can stop the host from booti
 7. Inside the VM, do part 1 (Intel or AMD) or part 2 (NVIDIA).
 
 Set **System Type** to **Virtual Machine** in **Prerequisites**. See [Run Deployrr in a Proxmox LXC](/host/proxmox-lxc/#choose-your-system-type).
+
+## If nvidia-smi shows an error
+
+Run these checks on the machine where the driver is installed: the server or VM, or the Proxmox host for an LXC. Start with what the error says.
+
+| Error | Most likely cause |
+| --- | --- |
+| `NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver` | The driver's kernel module isn't loaded. Secure Boot blocked it, or a kernel update left it unbuilt. |
+| `Failed to initialize NVML: Driver/library version mismatch` | The driver was updated but the old one is still loaded. Reboot. In an LXC, the driver inside the container doesn't match the one on the Proxmox host. |
+| `nvidia-smi: command not found` | The driver isn't installed, or on Debian the `nvidia-smi` package is missing. |
+
+### Check that the module is loaded
+
+```bash
+lsmod | grep nvidia
+```
+
+No output means the module isn't loaded. Try to load it and read the error:
+
+```bash
+sudo modprobe nvidia
+```
+
+### Secure Boot
+
+Check whether Secure Boot is on:
+
+```bash
+mokutil --sb-state
+```
+
+If it says `SecureBoot enabled` and `modprobe` printed `Key was rejected by service`, the kernel refused the driver because it isn't signed with a key your system trusts. You have two ways out:
+
+- **Enroll the signing key.** A driver built on your server (DKMS) is signed with a local key that you enroll once. Import it and set a one-time password:
+
+  ```bash
+  sudo mokutil --import /var/lib/dkms/mok.pub
+  ```
+
+  Reboot. A blue MOK Manager screen opens: choose **Enroll MOK** and type that password. On Ubuntu, the driver install may ask for the password itself, and `sudo ubuntu-drivers install` usually installs a module that is already signed, so this comes up less often there. The Debian wiki's Secure Boot page has the details for Debian.
+- **Turn off Secure Boot** in the BIOS or UEFI settings.
+
+You need a screen and keyboard or the server's remote console for both. In a VM, Secure Boot is a setting of the VM, not the host.
+
+### A kernel update broke the driver
+
+The driver's kernel module must match the running kernel. When the driver is built on your server (DKMS, as Debian's `nvidia-driver` package does), it is rebuilt for each new kernel. If that build failed, the new kernel has no NVIDIA module. Check:
+
+```bash
+uname -r
+dkms status
+```
+
+If `dkms status` doesn't list `nvidia` as `installed` for the kernel `uname -r` shows, install the headers for that kernel and rebuild:
+
+```bash
+sudo apt install linux-headers-$(uname -r)
+sudo dkms autoinstall
+```
+
+On a Proxmox host, the headers package is `proxmox-headers-$(uname -r)` (`pve-headers-$(uname -r)` on older releases) instead of `linux-headers-$(uname -r)`.
+
+If `dkms status` lists nothing, the driver came prebuilt (common on Ubuntu) or from NVIDIA's own installer. Run `sudo ubuntu-drivers install` or NVIDIA's installer again so it installs the module for the new kernel.
+
+Reboot and run `nvidia-smi` again. If it still fails, pick the previous kernel in the boot menu to get the GPU back while you sort it out.
+
+### Driver versions on Proxmox and in an LXC
+
+An LXC uses the Proxmox host's kernel module, and the driver files inside the container must be the same version. After you update the driver on the host, install the same version inside the container. On the host, show the loaded version:
+
+```bash
+cat /proc/driver/nvidia/version
+```
+
+Don't run that inside the container: it shows the host's module there too. Inside the container, list the installed driver files instead:
+
+```bash
+ls /usr/lib/x86_64-linux-gnu/libnvidia-ml.so.*
+```
+
+The number at the end, such as `550.120`, must match the host's version. If the host itself shows the error, fix the host first with the checks above.
+
+### Apps say the driver is too old
+
+If an app container won't start and the error mentions `unsatisfied condition: cuda>=`, the app's image needs a newer NVIDIA driver than the one installed. Update the driver on the server (or the Proxmox host), reboot, and start the app again.
 
 ## Check it worked
 
