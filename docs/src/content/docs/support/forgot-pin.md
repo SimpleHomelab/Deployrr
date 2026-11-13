@@ -54,7 +54,7 @@ Your license stays unverified until you enter the right PIN.
 **Verify** ends at the **Incorrect pin.** box and your license is not verified, so:
 
 - On a new server, the **Verify** line in **Prerequisites** shows `Your Deployrr License: Free`.
-- Apps and features that need a paid license show a **License Required** box (**Pro License Required** for some) until you verify with the right PIN.
+- On a new server, apps and features that need a paid license show a **License Required** box (**Pro License Required** for some) until you verify with the right PIN.
 - A failed **Verify** doesn't stop or change your running apps.
 
 If Deployrr accepts your PIN but then says `No access found. You can continue to use the Free version.`, your PIN is fine. Deployrr found no paid license for the email you entered. See [Licenses](/getting-started/licenses/).

@@ -186,7 +186,7 @@ You also need to tell Nextcloud to trust NPM. The line `TRUSTED_PROXIES=192.168.
 
 Set it in `nextcloud.yml`, not with `occ config:system:set`. The value in `nextcloud.yml` takes priority over `config.php`, so an `occ` change to `trusted_proxies` has no effect.
 
-If the stack is ever taken down and started again, Docker can give the `default` network a new range. If Nextcloud stops showing visitors' addresses, repeat steps 1 to 4.
+If the stack is ever taken down and started again, Docker can give the `default` network a new range. If Nextcloud stops showing visitors' addresses, repeat steps 1 to 4. Repeat them after you reinstall Nextcloud too, because a reinstall copies a fresh `nextcloud.yml`.
 
 ## Check it worked
 

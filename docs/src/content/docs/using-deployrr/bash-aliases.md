@@ -354,7 +354,7 @@ On a default Debian or Ubuntu setup, `~/.profile` adds `~/bin` and `~/.local/bin
    fi
    ```
 
-4. Log out and SSH in again. Check that both the aliases (`dps`) and your programs work.
+4. Open a new SSH session and keep this one open until both the aliases (`dps`) and your programs work there.
 
 ## Remove the aliases or set them up again
 
