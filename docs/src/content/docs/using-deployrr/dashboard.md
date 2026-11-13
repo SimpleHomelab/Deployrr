@@ -15,7 +15,7 @@ related:
   - using-deployrr/stack-manager
   - reverse-proxy/multi-server-same-domain
   - reverse-proxy/point-root-domain-to-a-dashboard
-  - getting-started/move-from-v5
+  - reverse-proxy/change-app-subdomain
 further_reading:
   - title: Homepage documentation
     url: https://gethomepage.dev/
@@ -32,7 +32,7 @@ videos:
     start: 4001
     title: "Deployrr 5 walkthrough: editing services.yaml by hand"
     note: Shows Deployrr v5. Menus and steps differ in v6.
-last_reviewed: 2026-11-10
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -193,6 +193,56 @@ ReDash leaves some apps out:
 
 If you see "No installed apps found", there is nothing to add yet. If you see "The Deployrr Dashboard is not installed", install it first.
 
+While Traefik runs, ReDash gives each app that normally sits under **Apps (Local)** and has a subdomain both a local and a remote entry. It does not look at the app's exposure. An Internal app then gets an **Apps (Remote)** link, and an External app gets an **Apps (Local)** link. See [An entry shows the wrong address or port](#an-entry-shows-the-wrong-address-or-port) to put them back.
+
+### Get your hand edits back
+
+ReDash prints the backup name in its summary, for example `services.20261113_142530.yaml`. Every run saves a new backup and keeps the old ones. If you ran ReDash more than once, your hand edits are in the backup from before the first run, not the newest one. Run these commands from your Docker folder.
+
+1. List the backups, newest last:
+
+   ```bash
+   ls -ltr appdata/deployrr-dashboard/config/services.*.yaml
+   ```
+
+2. See what ReDash changed. Lines starting with `<` are only in the old file. Replace `DATE_TIME` with the part from the file name:
+
+   ```bash
+   sudo diff appdata/deployrr-dashboard/config/services.DATE_TIME.yaml appdata/deployrr-dashboard/config/services.yaml
+   ```
+
+3. Copy the entries you want back into `services.yaml` with `sudo nano`. Keep each entry between its `START` and `END` comment lines.
+
+To undo the whole ReDash run instead, copy the backup over the new file. This also removes the apps ReDash added.
+
+```bash
+sudo cp appdata/deployrr-dashboard/config/services.DATE_TIME.yaml appdata/deployrr-dashboard/config/services.yaml
+```
+
+Refresh the dashboard in your browser.
+
+## An entry shows the wrong address or port
+
+Deployrr writes an app's address into `services.yaml` when it adds the entry. Later changes to the app don't change the entry. Pick the row that matches what you see.
+
+| What you see | Why | What to do |
+| --- | --- | --- |
+| The local link uses the old port after you changed the port in `.env` | The entry keeps the port from the install. | In Advanced mode, open **Proxy** > **Traefik** > **Manage Exposure**, pick the app and pick the same exposure again. It rewrites the app's entries with the port from `.env`. Otherwise edit the port in `services.yaml`, or run **ReDash**. |
+| Speedtest Tracker or 9Router shows port 8081 or 20128 after ReDash, but you use another port | ReDash uses these apps' default port. **Manage Exposure** leaves their entries as they are. | Edit the port in `services.yaml` by hand after each ReDash. For these two apps, also delete an extra local or remote entry by hand. |
+| The remote link uses the old subdomain | The entry keeps the subdomain from the install. | See [Update the Deployrr Dashboard](/reverse-proxy/change-app-subdomain/#update-the-deployrr-dashboard). |
+| An Internal app has a remote link, or an External app has a local link, after ReDash | ReDash adds both entries while Traefik runs. | Open **Manage Exposure**, pick the app and pick its exposure again. Or delete the extra entry in `services.yaml`. |
+| A Dashify entry shows the old server IP after ReDash | ReDash puts back Dashify entries with the address you typed when you added them. **Change Server IP** doesn't change that saved address. | Fix the address in `services.yaml`. Then run **Dashify** again with the same **App Name** (capital letters don't matter) and **Dashboard Location** and the new URL. The dashboard doesn't change ("Success!" with no new entry), but the next ReDash uses the new address. |
+
+**Manage Exposure** needs Traefik Advanced mode, a Plus or Pro license, Traefik Production done, Traefik and Socket Proxy running, and Setup Mode set to **Hybrid**. It only lists apps that have a Traefik rules file. See [Change it later with Manage Exposure](/reverse-proxy/simple-vs-advanced-mode/#change-it-later-with-manage-exposure).
+
+To edit an entry by hand, open the file from your Docker folder:
+
+```bash
+sudo nano appdata/deployrr-dashboard/config/services.yaml
+```
+
+Find the app's lines between its `START` and `END` comments. Change the address on the `href:` line and on the `description:` line if it shows the address too. Save, then refresh the dashboard.
+
 ## Edit the dashboard files
 
 Dashboard settings live in your Docker folder, in `appdata/deployrr-dashboard/config/`:
@@ -245,8 +295,9 @@ Leave the comment lines in `services.yaml` alone, such as the ones ending in `PL
 | The page does not load at `http://SERVER_IP:PORT` | Check that the container runs. See [Stack Manager](/using-deployrr/stack-manager/), or run `sudo docker ps -a` (`dps` with the aliases). |
 | The page does not load at your domain address | Check that the local address works first. Then see [Read the Traefik logs](/reverse-proxy/check-traefik-logs/). |
 | An app is missing | Start the dashboard if it is stopped, then run **ReDash**. |
-| A hand edit disappeared | Find the saved file in `appdata/deployrr-dashboard/config/`. It is named `services.DATE_TIME.yaml`. Copy your lines from it. |
-| Entries show an old server IP address | Run **Tools** > **Change Server IP**. See [Change the server IP](/host/change-server-ip/). |
+| A hand edit disappeared | ReDash saved the old file as `services.DATE_TIME.yaml`. See [Get your hand edits back](#get-your-hand-edits-back). |
+| Entries show an old server IP address | Run **Tools** > **Change Server IP** (needs a Pro license). See [Change the server IP](/host/change-server-ip/). For Dashify entries after a ReDash, see [An entry shows the wrong address or port](#an-entry-shows-the-wrong-address-or-port). |
+| A link has the wrong port or subdomain, or sits in the wrong section | See [An entry shows the wrong address or port](#an-entry-shows-the-wrong-address-or-port). |
 
 ## Related
 
@@ -254,4 +305,5 @@ Leave the comment lines in `services.yaml` alone, such as the ones ending in `PL
 - [Stack Manager](/using-deployrr/stack-manager/): delete an app and its dashboard entry, or restart the dashboard.
 - [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/): the Traefikify steps for remote apps.
 - [Open a dashboard at your root domain](/reverse-proxy/point-root-domain-to-a-dashboard/): show the dashboard at `example.com`.
+- [Change the subdomain of an app you already installed](/reverse-proxy/change-app-subdomain/): change the app first, then its dashboard entry.
 - [Move from v5](/getting-started/move-from-v5/): the dashboard is one of the core setup steps.
