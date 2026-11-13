@@ -1,13 +1,13 @@
 ---
 title: Connect your apps to each other
-description: Find the host name and port to type when one app needs to reach another, such as Prowlarr to Sonarr or Sonarr to qBittorrent.
+description: Find the host name and port to type when one app needs to reach another, connect Prowlarr to Sonarr, Radarr and Lidarr, and point Sonarr at qBittorrent.
 type: how-to
 tags:
   - app-networking
   - docker
   - media
 applies_to: v6.0+
-apps: [sonarr, radarr, prowlarr, qbittorrent, qbittorrent-vpn, gluetun, sabnzbd, plex]
+apps: [sonarr, radarr, lidarr, prowlarr, qbittorrent, qbittorrent-vpn, gluetun, sabnzbd, plex]
 related:
   - using-deployrr/second-app-instances
   - using-deployrr/custom-yml
@@ -78,12 +78,25 @@ To understand how container names and the Docker host IP work together, read [UD
 
 5. Use the **Test** button, then save.
 
-### Example: Prowlarr to Sonarr
+### Example: Prowlarr to Sonarr, Radarr and Lidarr
 
-In Prowlarr, add Sonarr as an app. Use these values:
+Prowlarr keeps your indexers in one place and sends them to Sonarr, Radarr and Lidarr. You add each of those apps to Prowlarr once.
 
-- **Prowlarr Server**: `http://prowlarr:9696`
-- **Sonarr Server**: `http://sonarr:8989`
+1. In Sonarr, go to **Settings** > **General** and copy the **API Key** from the **Security** section.
+2. In Prowlarr, go to **Settings** > **Apps** and click **+**. Pick **Sonarr**.
+3. Fill in the form:
+   - **Sync Level**: **Full Sync** keeps Sonarr's indexers the same as Prowlarr's, and overwrites changes you make to them in Sonarr. **Add and Remove Only** adds and removes indexers when you add or remove them in Prowlarr, and doesn't sync other changes.
+   - **Prowlarr Server**: `http://prowlarr:9696`. This is the address Sonarr uses to reach Prowlarr, so use the container name, not `localhost`.
+   - **Application Server**: `http://sonarr:8989`
+   - **API Key**: the key you copied in step 1.
+4. Click **Test**, then **Save**. Prowlarr sends its indexers to Sonarr when you save.
+5. Repeat for Radarr (`http://radarr:7878`) and Lidarr (`http://lidarr:8686`), with each app's own API key.
+
+In Sonarr, Radarr or Lidarr, check **Settings** > **Indexers**. The indexers from Prowlarr have `(Prowlarr)` at the end of their name. Prowlarr only sends an indexer to an app if the indexer has categories for it. For example, a TV-only indexer doesn't show up in Radarr or Lidarr.
+
+If you added indexers by hand in Sonarr before, you now have each one twice. Turn off the old entries without `(Prowlarr)` first, then delete them once searches work.
+
+To send the indexers again after a change, click **Sync App Indexers** on Prowlarr's **Settings** > **Apps** page.
 
 ### Example: Sonarr to qBittorrent
 

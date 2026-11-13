@@ -3,7 +3,7 @@ title: Apps are stopped or show empty folders after a reboot
 sidebar:
   order: 4
   label: Apps not starting after reboot
-description: Start Jellyfin, Sonarr, Radarr and other media apps that stay Exited after a reboot, and check your disk or share is mounted first.
+description: Start media apps that stay Exited after a reboot, check your disk or share is mounted first, and make them wait for an SMB or NFS share at boot.
 type: troubleshooting
 tags:
   - docker
@@ -25,6 +25,7 @@ symptoms:
   - Media apps stay stopped after Docker restarts
   - My media app shows an empty library after a reboot
   - My NAS share or disk is not mounted after a reboot
+  - I want my media apps to start after my SMB or NFS share is mounted
 related:
   - using-deployrr/stack-manager
   - storage/rclone-smb-setup
@@ -45,7 +46,7 @@ videos:
     start: 2276
     title: "Docker Compose server guide: why Jellyfin does not auto-start after a reboot"
     note: Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens.
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -132,7 +133,7 @@ No output means it worked. If you see an error, read it. It usually names the li
 
 To understand how the `/etc/fstab` test works, read [UDMS part 07: Test fstab Configuration](https://www.simplehomelab.com/udms-07-mount-remote-shares-smb/#Test_fstab_Configuration) for SMB or [UDMS part 08: Test the fstab Entry](https://www.simplehomelab.com/udms-08-mount-remote-folders-using-nfs/#Test_the_fstab_Entry) for NFS (manual setup).
 
-If the share or disk is mounted after `sudo mount -a` but was not mounted at boot, the NAS may not have been ready when your server booted. Next time, make sure the NAS is on before you start the server.
+If the share or disk is mounted after `sudo mount -a` but was not mounted at boot, the NAS may not have been ready when your server booted. Next time, make sure the NAS is on before you start the server. To have your media apps wait for the share by themselves, see step 6.
 
 :::caution
 A wrong line in `/etc/fstab` can stop your server from booting normally. Before you change it, copy it with `sudo cp /etc/fstab /etc/fstab.before-edit`. After you change it, run `sudo mount -a` and fix every error before you reboot. Deployrr also keeps copies as `/etc/fstab_` followed by the date and time. See [If the mount fails](/storage/smb-nfs-mounts/#if-the-mount-fails) for the steps. For a local disk, see [Move data to another disk](/storage/move-data-to-another-disk/). If the server doesn't boot at all, see [Server won't boot after an /etc/fstab change](/storage/fstab-boot-recovery/).
@@ -177,8 +178,83 @@ To see this set up, watch [Deployrr 5 walkthrough: Rclone Delay Media Apps at 19
 After the next reboot, Deployrr waits for the Rclone mount and then starts your media apps. It checks every 5 seconds and gives up after about 15 minutes. If the mount never appears, it stops and removes the media app containers. This also removes Audiobookshelf and Lollypop, which otherwise start on their own. Your app data stays in the Docker folder. Fix the mount (step 2), then start the apps with **Stack Manager** > **Up** (step 4). **Start Container** can't help here, because the containers are gone. See part 5 of [Mount a NAS share with Rclone](/storage/rclone-smb-setup/) for the log files.
 
 :::note
-**Delay Media Apps** only watches the Rclone mount. It does not wait for an SMB or NFS mount in `/etc/fstab`, or for a local disk. It does not start Kasm, Resilio Sync or MQTTX Web either. After a reboot, start those with step 4.
+**Delay Media Apps** only watches the Rclone mount. It does not wait for an SMB or NFS mount in `/etc/fstab`, or for a local disk. For those, see step 6. It does not start Kasm, Resilio Sync or MQTTX Web either. After a reboot, start those with step 4.
 :::
+
+### 6. Start your media apps at boot after an SMB or NFS share is ready
+
+**Delay Media Apps** only works with Rclone. If your share is in `/etc/fstab` (from **SMB Mount**, **NFS Mount** or a line you added), you can add a small systemd service yourself (a task Linux runs at boot). It waits until the share is mounted and then starts the apps you list. It does not change `/etc/fstab`.
+
+:::caution
+Change only the one file this section creates. A mistake in it only stops the listed apps from starting, and your server still boots. Test it before you reboot, as the last item below shows.
+:::
+
+1. Find the exact name of your main compose file. Replace `DOCKER_FOLDER` with your Docker folder, such as `/home/USER/docker`:
+
+   ```bash
+   ls DOCKER_FOLDER/docker-compose-*.yml
+   ```
+
+2. Find the full path of the `docker` command. It is usually `/usr/bin/docker`:
+
+   ```bash
+   command -v docker
+   ```
+
+3. Create the service file:
+
+   ```bash
+   sudo nano /etc/systemd/system/start-apps-after-share.service
+   ```
+
+4. Paste these lines, then change them:
+   - Replace `MOUNT_FOLDER` with your mount folder.
+   - Replace the path after `-f` with the file from step 1.
+   - Replace `jellyfin sonarr radarr` with the apps that use the share, as their names show in `sudo docker ps -a`.
+   - If step 2 showed a different path, use it in place of `/usr/bin/docker`.
+
+   ```ini
+   [Unit]
+   Description=Start media apps after the NAS share is mounted
+   Requires=docker.service
+   Wants=network-online.target
+   After=docker.service network-online.target
+   RequiresMountsFor=MOUNT_FOLDER
+
+   [Service]
+   Type=oneshot
+   ExecStart=/usr/bin/docker compose --profile all -f /home/USER/docker/docker-compose-HOSTNAME.yml up -d jellyfin sonarr radarr
+
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+   Save with Ctrl+O and Enter, then close with Ctrl+X.
+
+5. Turn the service on:
+
+   ```bash
+   sudo systemctl daemon-reload
+   sudo systemctl enable start-apps-after-share.service
+   ```
+
+6. Test it before you reboot. With the share mounted, stop one of the apps you listed so you can see the service start it again. Replace `jellyfin` with that app. Then run the service:
+
+   ```bash
+   sudo docker stop jellyfin
+   sudo systemctl start start-apps-after-share.service
+   sudo systemctl status start-apps-after-share.service
+   ```
+
+   Look for `status=0/SUCCESS`. Then check that the apps show `Up` in `sudo docker ps -a`. If the status shows an error such as `no such service`, an app name is wrong. Fix the file, then run `sudo systemctl daemon-reload` and test again.
+
+After the next reboot, Linux mounts the share first and then starts the apps. If the share can't be mounted, for example because the NAS is off, the service does not run and the apps stay stopped. They don't start on an empty folder. If your apps stayed stopped after a reboot, turn the NAS on if it was off, run `sudo mount -a`, and then run `sudo systemctl start start-apps-after-share.service`.
+
+Keep these in mind:
+
+- Apps that start on their own, such as Audiobookshelf and Lollypop, start with Docker and don't wait for the share. If one shows an empty library after a reboot, restart it, for example `sudo docker restart audiobookshelf`.
+- When you install another app that uses the share, or change your hostname or Docker folder, edit the `ExecStart` line to match. Then run `sudo systemctl daemon-reload`.
+- To remove the service, run `sudo systemctl disable start-apps-after-share.service`, delete only that file with `sudo rm /etc/systemd/system/start-apps-after-share.service`, and run `sudo systemctl daemon-reload`.
 
 ## Check it worked
 

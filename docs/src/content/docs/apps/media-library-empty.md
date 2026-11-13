@@ -2,7 +2,7 @@
 title: Media app shows an empty library or no folders
 sidebar:
   label: Media library is empty
-description: Fix an empty Plex, Jellyfin, Emby or Arr library by checking the media folder, the container path, the folder owner and the library scan, in order.
+description: Fix an empty Plex, Jellyfin, Emby or Arr library. Check the media folder, add the library or root folder with the /data path, check the owner, then scan.
 type: troubleshooting
 tags:
   - media
@@ -49,7 +49,7 @@ videos:
     start: 669
     title: "Rclone SMB mount: making your user the owner of the mount folders"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -138,14 +138,39 @@ Recreating does not turn on a media folder that was off. Only a reinstall does. 
 
 ### 3. Use the path inside the app
 
-In the app, add the library with the `/data` path, not the path on your server.
+In the app, add the library with the `/data` path, not the path on your server. Do not type a path like `/home/YOUR_USER/media/movies`. The app cannot see that path.
 
-1. Open the app and go to where you add a library or a root folder.
-2. Browse to `/data/media1`, then pick your media type folder, such as `/data/media1/movies`.
-3. Do not type a path like `/home/YOUR_USER/media/movies`. The app cannot see that path.
-4. Save the library.
+Pick the folder for one media type, such as `/data/media1/movies` or `/data/media1/tv`, not `/data/media1` itself. Use your own folder names; these are examples.
 
-For Sonarr, Radarr and Lidarr, the root folder works the same way. See [Connect your apps to each other](/using-deployrr/connecting-apps/) if you link them to a media server.
+**Jellyfin**
+
+1. Go to **Admin** > **Dashboard**, then **Server** > **Libraries**.
+2. Click **Add Media Library**.
+3. Pick the content type, such as movies or shows, and give the library a name.
+4. Add a folder and browse to `/data/media1/movies`. If the browser doesn't show it, type the path.
+5. Save the library.
+
+**Emby**
+
+1. Open the server dashboard and go to **Library**.
+2. Click **Add Media Library**.
+3. Pick the **Content Type** and enter a display name.
+4. Under **Library Paths**, click **+** and browse to `/data/media1/movies`, or type the path and click **OK**.
+5. Save the library.
+
+**Plex**
+
+Add a library, pick its type, then add a folder and pick `/data/media1/movies`. The menu names change between Plex versions, so follow what your Plex shows.
+
+**Sonarr, Radarr and Lidarr**
+
+1. Go to **Settings** > **Media Management**.
+2. Under **Root Folders**, add a root folder. In Sonarr and Radarr the button is **Add Root Folder**. In Lidarr it is **Add (+)**, and you also give the folder a **Name**.
+3. Pick the folder for that app's media, such as `/data/media1/tv` for Sonarr, `/data/media1/movies` for Radarr or `/data/media1/music` for Lidarr.
+
+Do not use `/data/downloads` or a folder inside it as a root folder. Sonarr, Radarr and Lidarr need the download folder and the root folder to be different places. If finished downloads don't reach the root folder, see [Sonarr, Radarr or Lidarr don't import finished downloads](/apps/arr-downloads-not-importing/).
+
+To link these apps to each other and to a media server, see [Connect your apps to each other](/using-deployrr/connecting-apps/).
 
 ### 4. Check who owns the folder
 
