@@ -18,7 +18,7 @@ related:
   - getting-started/domain-checks-failed
   - host/fixed-ip
   - reverse-proxy/restrict-access-using-ip-allowlist
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -151,11 +151,62 @@ Keep these in mind:
 
 ## If it still does not work
 
-- **The old answer is cached.** Restart the browser. If that does not help, restart the device or clear its DNS cache.
-- **The browser ignores your DNS server.** Browsers can use their own secure DNS, also called DNS over HTTPS. That skips Pi-hole. Turn it off in the browser's privacy or security settings.
-- **The device does not use the new DNS server.** Run `nslookup app.YOUR_DOMAIN` with no server on the device. If the answer is your public IP, the device still uses another DNS server.
+- **The old answer is cached.** Restart the browser. If that does not help, restart the device or clear its DNS cache (see [Check which DNS server a device uses](#check-which-dns-server-a-device-uses), step 6).
+- **The device does not use the new DNS server.** See [Check which DNS server a device uses](#check-which-dns-server-a-device-uses).
+- **The browser ignores your DNS server.** See [Turn off secure DNS in the browser](#turn-off-secure-dns-in-the-browser).
 - **Domain Checks now fail with an IP mismatch.** The server uses your rewrite. See [Do the rewrite after Domain Checks](#do-the-rewrite-after-domain-checks) and [Domain Checks failed](/getting-started/domain-checks-failed/).
 - **Pi-hole will not start.** See [Pi-hole will not start because port 53 is already in use](/apps/pi-hole-port-53-conflict/).
+
+## Check which DNS server a device uses
+
+Do this when an Internal app opens on some devices but not on others, or only some of the time.
+
+1. On the device that fails, run this. It works on Windows, macOS and Linux:
+
+   ```bash
+   nslookup app.YOUR_DOMAIN
+   ```
+
+2. Read the output. The first `Server:` and `Address:` lines show the DNS server the device asked. The last `Address:` line is the answer.
+3. Compare with this table:
+
+   | What you see | What it means and what to do |
+   |---|---|
+   | Server is `DNS_SERVER_IP`, answer is `SERVER_LAN_IP` | DNS is fine on this device. If the browser still fails, see [Turn off secure DNS in the browser](#turn-off-secure-dns-in-the-browser). |
+   | Server is your router's IP, answer is your public IP | The device asks your router, and the router doesn't know the rewrite. Set the DNS server in the router's DHCP settings to `DNS_SERVER_IP`, or add the rewrite in the router (see [Use your router instead](#use-your-router-instead)). |
+   | Server is a public DNS server such as `1.1.1.1` or `8.8.8.8` | The device or the router has a public DNS server set by hand. Change it to `DNS_SERVER_IP` in the device's network settings or the router's DHCP settings. |
+   | Server is an IPv6 address | The device got a DNS server over IPv6, often from the router, and uses it instead of Pi-hole. In the router's IPv6 or LAN settings, stop it from handing out its own DNS server, or hand out the IPv6 address of the device that runs Pi-hole. The setting names differ by brand. |
+   | Server is `127.0.0.53` (Linux) | The device uses a local DNS cache (systemd-resolved). Run `resolvectl status` and read the `Current DNS Server` line to see the real server. |
+
+4. To see the DNS servers a device has, run `ipconfig /all` on Windows (look for **DNS Servers**) or `resolvectl status` on Linux. On macOS, open **System Settings** > **Network**, select your connection, then **Details** > **DNS**.
+5. To ask your DNS server directly from Linux or macOS, use `dig`. It is in the `dnsutils` package on Debian and Ubuntu:
+
+   ```bash
+   dig +short app.YOUR_DOMAIN @DNS_SERVER_IP
+   ```
+
+   It should print `SERVER_LAN_IP`. Run `dig app.YOUR_DOMAIN` without `@`. The `;; SERVER:` line near the end shows which server the device uses.
+6. After you change a device's DNS server, clear its DNS cache:
+   - Windows: `ipconfig /flushdns`
+   - macOS: `sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder`
+   - Linux with systemd-resolved: `resolvectl flush-caches`
+   - Phones: turn Wi-Fi off and on again.
+
+`nslookup` and `dig` ask the DNS server directly. A right answer there doesn't prove that your browser uses the same server, so check the browser too.
+
+## Turn off secure DNS in the browser
+
+Most browsers can send DNS lookups over HTTPS to their own provider, such as Cloudflare or Google. These lookups skip Pi-hole and your rewrite, so the browser gets your public IP while `nslookup` shows `SERVER_LAN_IP`.
+
+Turn it off on each device where Internal apps fail. Menu names and places change between browser versions. If you can't find the setting, search the browser's settings for "secure DNS" or "DNS over HTTPS".
+
+- **Chrome**: **Settings** > **Privacy and security** > **Security** > **Use secure DNS**. Turn it off.
+- **Edge**: **Settings** > **Privacy, search, and services**, then find **Use secure DNS**. Turn it off.
+- **Brave**: **Settings** > **Privacy and security** > **Security** > **Use secure DNS**. Turn it off.
+- **Firefox**: **Settings** > **Privacy & Security** > **DNS over HTTPS**. Choose **Off**.
+- **Android** (affects all apps on the phone): **Settings** > **Network & internet** > **Private DNS**. Choose **Off** or **Automatic**. If a provider hostname is set here, the phone skips Pi-hole for every lookup.
+
+Close and reopen the browser, then open `https://app.YOUR_DOMAIN` again.
 
 ## Related
 
