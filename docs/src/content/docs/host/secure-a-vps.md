@@ -30,7 +30,7 @@ videos:
   - id: M6GMp4FJrB8
     start: 432
     title: "Tailscale tutorial: installing Tailscale on Linux"
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -46,7 +46,7 @@ A new VPS or dedicated server is on the public internet from the first minute. B
 - A second terminal window on your own computer. You use it to test each change.
 
 :::caution
-Several steps below can lock you out of the server. For each one, keep your current session open and test in a second terminal before you close anything. If you do get locked out, use the provider's web console.
+Several steps below can lock you out of the server. For each one, keep your current session open and test in a second terminal before you close anything. If you do get locked out, see [If you get locked out](#if-you-get-locked-out).
 
 Deployrr does not manage SSH and does not turn UFW on. It does add firewall rules when you set up some apps. When you set up Traefik, it allows ports 80, 81, 443 and 444 (TCP, and UDP for 443 and 444). Socket Proxy adds a rule that allows its Docker network, `192.168.91.0/24`. If UFW is not installed but firewalld is, the same rules go to firewalld. The rules are added even if UFW is off. Run `sudo ufw status` before you turn UFW on, so you know what it will allow. Prerequisites > Packages installs UFW on Debian, Ubuntu and Arch.
 
@@ -354,6 +354,45 @@ In Simple mode, every app is reachable from the internet. Protect apps with a lo
    It is refused with `Permission denied (publickey)`.
 4. Run `sudo sshd -T | grep -E 'passwordauthentication|permitrootlogin|kbdinteractiveauthentication'`. All three are `no`.
 5. From your computer, your apps open on `https://` addresses. Other ports on the server do not answer.
+
+## If you get locked out
+
+If every SSH session is closed and you can't log in, use your provider's web console. It works like a screen and keyboard attached to the server, so the SSH settings and firewalls on this page don't block it.
+
+1. Open the web console in your provider's panel. It may be called console, VNC console or serial console.
+2. Log in as `NAME` with the account password you set with `adduser`. The SSH settings on this page only apply to SSH. The password still works at the console.
+3. Find out which port SSH listens on:
+
+   ```bash
+   sudo ss -tlnp
+   ```
+
+   Look for your SSH port, for example `:22` or `:2222`. On Ubuntu 24.04 and newer, the program on that line can be `systemd` instead of `sshd`. That is normal.
+
+4. Test the SSH settings for mistakes. No output means no errors:
+
+   ```bash
+   sudo sshd -t
+   ```
+
+   If you changed the SSH settings, undo your change with the restore commands on this page: [after turning off password login](#turn-off-password-login-and-root-login) or [after changing the port](#optional-change-the-ssh-port). On Ubuntu 24.04 and newer, include the `daemon-reload` and `ssh.socket` commands, or the port does not change.
+
+5. If UFW is on, check that it allows your SSH port:
+
+   ```bash
+   sudo ufw status
+   ```
+
+   If the port is missing, allow it. Replace `22` with your SSH port:
+
+   ```bash
+   sudo ufw allow 22/tcp
+   ```
+
+6. If the provider's firewall blocks the port, fix the rule in the provider's panel. The console can't change it.
+7. Log in over SSH from a second terminal before you close the console.
+
+If you can't log in at the console either, for example because you forgot the password, look in your provider's panel for a password reset or a rescue mode. Each provider does this differently, so follow its guide.
 
 ## Related
 
