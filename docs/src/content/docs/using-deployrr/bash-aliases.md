@@ -1,6 +1,6 @@
 ---
 title: Bash aliases
-description: Turn on the Deployrr bash aliases and look up every shortcut for Docker, Compose, system checks, networking and more.
+description: Turn on the Deployrr bash aliases, look up every shortcut, and pick the right alias to read container, Traefik and CrowdSec logs.
 type: reference
 tags:
   - shell
@@ -298,6 +298,39 @@ The alias file also defines `csbrestart`, but in the current version it fails wi
 | `aliases` | Opens `~/.bash_aliases` in nano. This is a different file from the Deployrr alias file. |
 
 These open nano. The **Tools** > **Preferred Editor** setting (nano, vim or vi) applies inside Deployrr, for example in the Secrets Editor, not to these aliases. See [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/).
+
+## Check logs from the terminal
+
+Pick the alias by the log you want to read:
+
+| What you want to read | Command |
+| --- | --- |
+| One container | `dlogs CONTAINER_NAME`. Shows the last 50 lines with a timestamp on each. |
+| One app in the Compose file | `dclogs APP`. Use the app's Compose name. In Deployrr it is the same as the container name. |
+| All your apps at once | `dclogs`. Each line starts with the app name. |
+| Traefik | `traefiklogs`. The access log has no alias. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/). |
+| CrowdSec Firewall Bouncer | `tailcsfb`. For the service state, use `csfbstatus`. |
+| Logins to the server, such as SSH | `tailauth` |
+| Kernel messages, such as UFW block lines | `tailkern` |
+| What CrowdSec blocked | `csalerts` and `csdecisions`. See [Block bad visitors with CrowdSec](/reverse-proxy/crowdsec/#check-it-worked). |
+
+`dlogs`, `dclogs` and the `tail` aliases keep printing new lines. Press `Ctrl+C` to stop. This stops only the log output, not the app. `csfbstatus`, `csalerts` and `csdecisions` show their output once instead of following.
+
+Use `dpss` to find the container name. `dlogs` also works on a stopped container, so you can read why an app exited.
+
+To read more than the last 50 lines, search them, or save them to share:
+
+```bash
+sudo docker logs --tail 500 CONTAINER_NAME
+sudo docker logs CONTAINER_NAME 2>&1 | grep -i error
+sudo docker logs CONTAINER_NAME > ~/CONTAINER_NAME.log 2>&1
+```
+
+Check a saved log for your domain and IP addresses before you post it. See [Check the log before you share it](/support/generate-support-log/#check-the-log-before-you-share-it).
+
+If `tailauth` or `tailkern` says the file doesn't exist, your system keeps these logs in the journal only. This is the default on Debian 12. Use `sudo journalctl -f` for all system messages, or `sudo journalctl -k -f` for kernel messages.
+
+To see which container logs take up disk space, run `dlogsize`. For the Traefik log files, see [Keep the log files small](/reverse-proxy/check-traefik-logs/#keep-the-log-files-small).
 
 ## If the aliases don't work
 

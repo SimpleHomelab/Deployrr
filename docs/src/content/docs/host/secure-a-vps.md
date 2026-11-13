@@ -48,7 +48,7 @@ A new VPS or dedicated server is on the public internet from the first minute. B
 :::caution
 Several steps below can lock you out of the server. For each one, keep your current session open and test in a second terminal before you close anything. If you do get locked out, see [If you get locked out](#if-you-get-locked-out).
 
-Deployrr does not manage SSH and does not turn UFW on. It does add firewall rules when you set up some apps. When you set up Traefik, it allows ports 80, 81, 443 and 444 (TCP, and UDP for 443 and 444). Socket Proxy adds a rule that allows its Docker network, `192.168.91.0/24`. If UFW is not installed but firewalld is, the same rules go to firewalld. The rules are added even if UFW is off. Run `sudo ufw status` before you turn UFW on, so you know what it will allow. Prerequisites > Packages installs UFW on Debian, Ubuntu and Arch.
+Deployrr does not manage SSH and does not turn UFW on. Prerequisites > Packages installs UFW on Debian, Ubuntu and Arch. Socket Proxy adds one rule that allows its Docker network, `192.168.91.0/24`, even if UFW is off. Traefik adds no rules, so you allow ports 80 and 443 yourself. Run `sudo ufw show added` before you turn UFW on, so you know what it will allow. See [What Deployrr changes on your firewall](/networking/ufw-firewall-vps/#what-deployrr-changes-on-your-firewall).
 
 The one Deployrr feature that uses SSH is Remote Assist (Help > Remote Assist, Pro). It sets a temporary password for a support session and asks you to restore your settings afterwards. See [Get remote help with Remote Assist](/support/ssh-access/).
 :::
