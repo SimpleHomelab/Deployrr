@@ -3,7 +3,7 @@ title: Mount an SMB or NFS share without Rclone
 sidebar:
   order: 2
   label: Mount an SMB or NFS share
-description: Mount an SMB or NFS share from your NAS with System > Mounts, without Rclone, and fix the "Selected directory is not empty" message.
+description: Mount an SMB or NFS share from your NAS with System > Mounts, fix or remove it safely, and fix the "Selected directory is not empty" message.
 type: how-to
 tags:
   - host
@@ -20,7 +20,7 @@ further_reading:
     url: "https://www.simplehomelab.com/udms-08-mount-remote-folders-using-nfs/#Permission_Denied_Errors"
   - title: "UDMS part 07: Test the fstab entry for an SMB mount"
     url: "https://www.simplehomelab.com/udms-07-mount-remote-shares-smb/#Test_fstab_Configuration"
-last_reviewed: 2026-11-09
+last_reviewed: 2026-11-13
 status: current
 old_paths: ["/host/smb-nfs-mounts"]
 sources: []
@@ -41,8 +41,16 @@ All three are under **System** > **Mounts**.
 | Extra software | `cifs-utils` is installed for you | The NFS client (`nfs-common` on Debian or Ubuntu) is installed for you | Rclone and fuse3 |
 | After a reboot | Entry in `/etc/fstab` | Entry in `/etc/fstab` | Its own service |
 | **Delay Media Apps** | Not offered | Not offered | Offered |
+| If the NAS is off at boot | The boot usually waits, then goes on without the share | The boot usually waits, then goes on without the share | With **Delay Media Apps**, your media apps wait about 15 minutes for the mount, then Deployrr removes their containers. App data stays. |
 
 Pick **SMB Mount** or **NFS Mount** if your server is a VPS, a bare-metal machine or a virtual machine and you want a plain mount. Pick **Rclone** if your server is a Proxmox LXC container, or if you want **Delay Media Apps** to hold your media apps back until the share is ready. See [Mount a NAS share with Rclone](/storage/rclone-smb-setup/).
+
+If your NAS is sometimes off or slow to start when the server boots, plan for it:
+
+- With **SMB Mount** or **NFS Mount**, the share stays unmounted until you turn the NAS on and run `sudo mount -a`.
+- The lines Deployrr adds don't have `nofail`. A network share without it usually only delays the boot, but this can differ between distros. To add it, see [Server won't boot after an /etc/fstab change](/storage/fstab-boot-recovery/).
+- To start your media apps only once an SMB or NFS share is mounted, set up the service in [step 6 of Apps are stopped or show empty folders after a reboot](/docker/apps-not-starting-after-reboot/#6-start-your-media-apps-at-boot-after-an-smb-or-nfs-share-is-ready).
+- With **Rclone** and **Delay Media Apps**, fix the mount and start the apps again as in [step 5 of the same page](/docker/apps-not-starting-after-reboot/#5-start-your-media-apps-on-their-own-at-boot-rclone-only).
 
 ## Before you start
 
@@ -236,6 +244,8 @@ Check the IP address, share name or export path, and (for SMB) the user name and
    sudo umount MOUNT_FOLDER
    ```
 
+   If you see `target is busy`, an app or a terminal still uses the folder. Stop your apps (see [Fix "Selected directory is not empty"](#fix-selected-directory-is-not-empty)), leave the folder in every terminal, and run the command again.
+
 2. Make a copy of the file:
 
    ```bash
@@ -251,9 +261,40 @@ Check the IP address, share name or export path, and (for SMB) the user name and
 4. Test the file before you reboot:
 
    ```bash
+   sudo findmnt --verify
    sudo mount -a
    ```
 
-   No output means the file is fine. If you see an error, put your copy back with `sudo cp /etc/fstab.before-edit /etc/fstab`.
+   `findmnt --verify` ends with `Success, no errors or warnings detected` or lists the problems. `mount -a` prints nothing when the file is fine. If you see an error, put your copy back with `sudo cp /etc/fstab.before-edit /etc/fstab`.
 
 5. In **System** > **Folders**, point any folder that used the mount to a new place, then recreate your apps.
+
+### Clean up old copies
+
+Each time you get past the mount folder step of **SMB Mount** or **NFS Mount**, Deployrr saves a copy of `/etc/fstab` before it changes the file. So you may have several. They are small and harmless. To remove the ones you don't need, list them first:
+
+```bash
+ls -l /etc/fstab_*
+```
+
+The names end with the date and time, such as `/etc/fstab_20261112_143005`. Keep the newest one and your own `/etc/fstab.before-edit` until the server has rebooted fine. Delete the others one at a time, with the full name:
+
+```bash
+sudo rm /etc/fstab_20261112_143005
+```
+
+:::danger
+Type each full name. Never run `rm` on `/etc/fstab` itself, and never use a pattern such as `/etc/fstab*`. Without `/etc/fstab`, your server can't boot normally.
+:::
+
+If no SMB mount line is left in `/etc/fstab`, you can also delete the file that holds your NAS user name and password. Check first. The command prints `0` when no line uses it:
+
+```bash
+grep -c "credentials=/etc/samba/credentials" /etc/fstab
+```
+
+Only if you saw `0`, delete the file. The next **SMB Mount** run creates it again.
+
+```bash
+sudo rm /etc/samba/credentials
+```
