@@ -2,7 +2,7 @@
 title: Pi-hole will not start because port 53 is already in use
 sidebar:
   label: "Pi-hole: port 53 already in use"
-description: Fix the "address already in use" error on port 53 when you install Pi-hole, by turning off the systemd-resolved stub listener on the host.
+description: Fix "address already in use" on port 53 or 67 when you install Pi-hole, why its DHCP server doesn't work here, and its web address at home and via Traefik.
 type: troubleshooting
 tags:
   - ports
@@ -14,13 +14,14 @@ symptoms:
   - "Error response from daemon: driver failed programming external connectivity on endpoint pihole: failed to bind host port for 0.0.0.0:53:172.18.0.18:53/tcp: address already in use"
   - Pi-hole install fails and the pihole container does not start
   - Something else is already listening on port 53
+  - "failed to bind host port for 0.0.0.0:67 ... address already in use"
 related:
   - docker/port-already-in-use
   - using-deployrr/bash-aliases
   - docker/no-internet-in-containers
   - networking/opnsense-conflict
   - getting-started/quick-start
-last_reviewed: 2026-11-08
+last_reviewed: 2026-11-13
 status: current
 old_paths: ["/apps/pi-hole-port-53-conflict"]
 sources:
@@ -130,7 +131,59 @@ On Debian, **Prerequisites** > **Packages** rewrites `/etc/systemd/resolved.conf
 
 If something other than `systemd-resolved` is on port 53, the `ports` and `showlistening` shortcuts on the [bash aliases page](/using-deployrr/bash-aliases/) can help you find it. Stop that program, or move it to another port (see [Port already in use](/docker/port-already-in-use/) if it is one of your apps), then repeat steps 6 to 11.
 
-Pi-hole also uses port 67/udp for DHCP. If a DHCP server runs on the same machine, it can clash in the same way.
+## Port 67 already in use
+
+Pi-hole's compose file also maps port 67/udp, the DHCP port, even if you never turn on Pi-hole's DHCP server. If a DHCP server already runs on the host, Docker fails with the same "address already in use" error, but for port 67.
+
+1. Find the program that holds port 67:
+
+   ```bash
+   sudo ss -lnup | grep ':67 '
+   ```
+
+   Common ones are `dnsmasq`, `dhcpd` (isc-dhcp-server) and `kea-dhcp4`.
+
+2. If your network doesn't need that DHCP server (your router hands out addresses), stop it and turn it off.
+
+   :::caution
+   If this DHCP server hands out the addresses on your network, don't turn it off. Devices can't get an address while it is off. Use the compose file steps below instead.
+   :::
+
+   For example, for isc-dhcp-server:
+
+   ```bash
+   sudo systemctl disable --now isc-dhcp-server
+   ```
+
+3. Install Pi-hole again as in steps 6 to 11 above.
+
+If you need to keep that DHCP server, take port 67 out of Pi-hole's compose file instead:
+
+1. In your Docker folder, back up the file:
+
+   ```bash
+   cp compose/HOSTNAME/pihole.yml compose/HOSTNAME/pihole.yml.bak
+   ```
+
+2. Open `compose/HOSTNAME/pihole.yml` and put a `#` in front of the `- "67:67/udp"` line.
+3. Go to **Tools** > **Stack Manager** > **Recreate** and pick `pihole`.
+
+When you reinstall Pi-hole, Deployrr copies a fresh compose file, so you make this change again.
+
+## Use Pi-hole for DHCP
+
+Most setups don't need this. Keep your router as the DHCP server and set the DNS server in its DHCP settings to your server's LAN IP. [Local DNS rewrites](/networking/local-dns-rewrites/#point-your-devices-at-the-dns-server) shows how.
+
+Deployrr runs Pi-hole on a Docker network, not on your server's own network. DHCP requests from your devices are broadcasts, and they don't reach a container on a Docker network. So Pi-hole's DHCP server does not hand out addresses in this setup, even though port 67 is mapped. Pi-hole's own documentation lists what it needs instead: the `NET_ADMIN` capability (commented out in the compose file) and host networking or a DHCP relay. Deployrr doesn't set this up for you.
+
+## Open the Pi-hole web interface
+
+| From | Address |
+|---|---|
+| Your home network | `http://SERVER_LAN_IP:PORT/admin/`, with the web port you chose (`83` by default) |
+| Through Traefik | `https://pihole.YOUR_DOMAIN/admin/`, or the subdomain you entered at **Traefik Subdomain** (asked at install when Traefik runs) |
+
+Keep `/admin/` at the end. Pi-hole serves its web interface under that path. If the page doesn't load through Traefik, see [App shows 404 or 502](/reverse-proxy/app-404-or-502/).
 
 ## Related
 

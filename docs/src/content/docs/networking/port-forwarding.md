@@ -170,29 +170,30 @@ When the page doesn't open, test each port on its own. Run these from a device o
 2. From the outside device, test port 80. Replace `PUBLIC_IP` with the address from step 1:
 
    ```bash
-   curl -sI http://PUBLIC_IP
+   curl -sSI http://PUBLIC_IP
    ```
 
 3. Test port 443:
 
    ```bash
-   curl -skI https://PUBLIC_IP
+   curl -sSkI https://PUBLIC_IP
    ```
 
-   `-k` skips the certificate check, because your certificate is for your domain, not for the IP.
+   `-k` skips the certificate check, because your certificate is for your domain, not for the IP. `-sS` hides the progress bar but still prints errors.
 
 What the results mean:
 
 | Result | What it means |
 | --- | --- |
 | Any `HTTP/...` line, even `404 Not Found` | The port reaches Traefik or Nginx Proxy Manager. On port 80, Traefik answers with a permanent redirect to `https://`. On port 443, Traefik usually answers `404`, because no app is set up for the bare IP. Nginx Proxy Manager shows its own default page. |
+| An SSL or TLS error on the port 443 test, such as `curl: (35)` | Something on the other side answered, so the port is most likely forwarded. Traefik may refuse a secure connection that asks for a bare IP instead of a domain name, or answer it with a `404`. Test your app by name (below) before you change the forward. |
 | `Connection refused` | The request reached a device, but nothing listens on that port. Check the destination port in the forward (80 or 81, 443 or 444) and that Traefik or Nginx Proxy Manager is running with `docker ps`. |
 | No answer, then a timeout | The forward is missing or points at the wrong IP, a firewall drops the traffic, or your ISP blocks the port. See [If it doesn't work](#if-it-doesnt-work). |
 
 Then test your app by name:
 
 ```bash
-curl -sI https://app.YOUR_DOMAIN
+curl -sSI https://app.YOUR_DOMAIN
 ```
 
 A `200`, or a redirect to your login page, means it works end to end. If the record is proxied by Cloudflare (orange cloud), this request goes to Cloudflare first. A `521` or `522` from Cloudflare means Cloudflare couldn't reach your server: test the public IP as above. See [Cloudflare for Deployrr](/networking/cloudflare/).

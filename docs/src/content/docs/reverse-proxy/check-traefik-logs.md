@@ -1,6 +1,6 @@
 ---
 title: Read the Traefik logs
-description: Find the Traefik log files, follow them live, spot certificate and routing errors, and change how much detail Traefik logs.
+description: Find and follow the Traefik logs, spot certificate and routing errors, change the log level, and keep the files from filling your disk.
 type: how-to
 tags:
   - traefik
@@ -31,7 +31,7 @@ videos:
     start: 2114
     title: "Traefik 3 guide: Traefik logging options and log level"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
-last_reviewed: 2026-11-08
+last_reviewed: 2026-11-13
 status: current
 old_paths: ["/traefik/check-traefik-logs"]
 sources: []
@@ -39,7 +39,7 @@ sidebar:
   order: 8
 ---
 
-Traefik is the reverse proxy that sends web traffic to your apps. When an app does not load, or a certificate fails, the Traefik logs usually say why. This page shows where the logs are, how to read them, and how to make them more or less detailed.
+Traefik is the reverse proxy that sends web traffic to your apps. When an app does not load, or a certificate fails, the Traefik logs usually say why. This page shows where the logs are, how to read them, how to make them more or less detailed, and how to keep them from filling your disk.
 
 ## Before you start
 
@@ -80,7 +80,7 @@ They are in the `logs/HOSTNAME/traefik/` folder inside your Docker folder. `HOST
 Deployrr sets Traefik to write its messages to the two files above. Read the files, not `docker logs traefik`.
 :::
 
-When you run **Proxy** > **Traefik** > **Production** (Setup Traefik Production), Deployrr renames the old log to `traefik_staging.log` and starts a new `traefik.log`. Nothing else trims or rotates these files, so they can grow large over time. See [Free up disk space used by Docker](/docker/free-disk-space/) for other things that fill your disk.
+When you run **Proxy** > **Traefik** > **Production** (Setup Traefik Production), Deployrr renames the old log to `traefik_staging.log` and starts a new `traefik.log`. Deployrr doesn't trim or rotate these files, so they can grow large over time. See [Keep the log files small](#keep-the-log-files-small) below, and [Free up disk space used by Docker](/docker/free-disk-space/) for other things that fill your disk.
 
 ### Follow the Traefik log live
 
@@ -188,6 +188,108 @@ The levels, from most to least detail, are `DEBUG`, `INFO`, `WARN`, `ERROR`, `FA
 
 Recreating Traefik drops web connections for a few seconds.
 
+### Keep the log files small
+
+Check how much space the logs use. Run this from your Docker folder:
+
+```bash
+sudo du -sh logs/$HOSTNAME/traefik/*
+```
+
+The `dlogsize` alias doesn't help here. It shows the size of Docker's own container logs, not these files.
+
+The log files grow in different ways:
+
+- `traefik.log`: Traefik's own documentation says it starts a new file when this one reaches 100 MB. It keeps every old file, compressed, in the same folder. The `DEBUG` level fills it fastest, so [change the log level](#change-the-log-level) to `INFO` first.
+- `access.log`: Traefik never starts a new file for this one. It grows until you rotate it.
+- `traefik_staging.log`: the old log from before the production setup. Nothing writes to it any more. Once your apps open with a trusted certificate, you can delete it with `sudo rm logs/$HOSTNAME/traefik/traefik_staging.log`. You can't get it back after that.
+
+#### Keep fewer old copies of traefik.log
+
+1. Back up Traefik's compose file, then open it:
+
+   ```bash
+   cdd
+   cp compose/$HOSTNAME/traefik.yml compose/$HOSTNAME/traefik.yml.bak
+   nano compose/$HOSTNAME/traefik.yml
+   ```
+
+2. Below the `- --log.level=` line, add two lines with the same indent:
+
+   ```yaml
+         - --log.maxSize=50 # MB per file
+         - --log.maxBackups=3 # old files to keep
+   ```
+
+3. Save the file and recreate Traefik. This drops web connections for a few seconds.
+
+   ```bash
+   dcrec traefik
+   ```
+
+4. Check that Traefik is running with `dps`. If it keeps restarting, put the backup back with `cp compose/$HOSTNAME/traefik.yml.bak compose/$HOSTNAME/traefik.yml` and recreate Traefik with `dcrec traefik`.
+
+Some Deployrr actions write a fresh `traefik.yml`, for example deleting Traefik in Stack Manager and installing it again. If that happens, add the two lines again. See [What overwrites or deletes your changes](/using-deployrr/what-overwrites-your-changes/).
+
+#### Rotate access.log with logrotate
+
+`logrotate` is a standard Linux tool that renames and compresses log files on a schedule. It runs once a day on Ubuntu and Debian. Traefik's documentation says it opens `access.log` again when it gets the `USR1` signal. The rule below sends that signal after each rotation.
+
+:::caution
+You add a file to `/etc/logrotate.d/`, which runs as root every day. Use the full path to your own `access.log`, and run the test in step 3 before you rely on it. To undo, delete the file you created. Old rotated copies stay in the folder; delete them if you want.
+:::
+
+1. Find the full path of the file. Run this from your Docker folder:
+
+   ```bash
+   realpath logs/$HOSTNAME/traefik/access.log
+   ```
+
+2. Create the rule file:
+
+   ```bash
+   sudo nano /etc/logrotate.d/traefik-access
+   ```
+
+   Paste this. Replace the first line with the path from step 1:
+
+   ```text
+   /home/YOUR_USER/docker/logs/HOSTNAME/traefik/access.log {
+       su root root
+       weekly
+       maxsize 50M
+       rotate 4
+       compress
+       delaycompress
+       missingok
+       notifempty
+       postrotate
+           docker kill --signal=USR1 traefik > /dev/null 2>&1 || true
+       endscript
+   }
+   ```
+
+   This keeps four old files. It starts a new file each week, or sooner if the file is over 50 MB when logrotate runs.
+
+3. Test the rule without changing anything:
+
+   ```bash
+   sudo logrotate -d /etc/logrotate.d/traefik-access
+   ```
+
+   The output should name your `access.log` and show no `error:` lines.
+
+4. Optional: rotate once now to see it work:
+
+   ```bash
+   sudo logrotate -f /etc/logrotate.d/traefik-access
+   ls -lh logs/$HOSTNAME/traefik/
+   ```
+
+   You should see `access.log.1` next to a new `access.log`. Open one of your apps a few times. The new `access.log` should get lines again, after the 100-line buffer fills.
+
+If the new `access.log` stays empty while the old one keeps growing, Traefik didn't get the signal. Recreate Traefik with `dcrec traefik` so it opens the new file.
+
 ### Read the logs in Dozzle
 
 If you prefer a web page to the terminal, you can read both files in Dozzle. These apps need all **Prerequisites** steps done and **Proxy** > **Traefik** > **Production** (Setup Traefik Production) done. If something is missing, Deployrr shows a **Requirements Not Met** box that lists it.
@@ -206,12 +308,14 @@ When an install finishes, Deployrr shows `Traefik Error Logs should now be avail
 - `ls -lh logs/$HOSTNAME/traefik/` lists both files, and `traefik.log` is not empty.
 - `traefiklogs` prints lines, and new lines appear when you open one of your apps.
 - After a log level change, `traefik.log` grows more slowly or fills with fewer detail lines.
+- After a test rotation, `access.log.1` exists and the new `access.log` gets lines.
 
 ## Common problems
 
 - **The folder or files are missing.** Check that you used your own hostname and Docker folder. If you changed the hostname, see [Change the hostname](/host/change-hostname/).
 - **`traefiklogs` says `command not found`.** Turn on the aliases, then open a new terminal. See [Bash aliases](/using-deployrr/bash-aliases/).
 - **The log is too big to read.** Lower the log level, or search with `grep` as shown above.
+- **The logs fill your disk.** See [Keep the log files small](#keep-the-log-files-small).
 - **The log shows a certificate error.** See [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/) for the fix for each error. For `unable to obtain ACME certificate` behind a firewall that filters DNS, also see [Traefik staging fails on OPNsense](/networking/opnsense-conflict/).
 - **Traefik never starts and Deployrr says `Timed out. Could not verify if Traefik is running.`** The log file may not exist yet. See [Deployrr times out waiting for a container to start](/docker/waiting-for-container/).
 
