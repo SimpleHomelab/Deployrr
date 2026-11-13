@@ -311,7 +311,13 @@ Most v5 labels work in v6 without changes. The entrypoint names (`websecure-inte
 
 Only the name of Traefik's network changed. v5 called it `t3_proxy`. v6 calls it `traefik_proxy`. In the service, change every `t3_proxy` to `traefik_proxy`. That includes the `networks:` list and a `traefik.docker.network=t3_proxy` label if you have one. Docker Compose does not start a service that names a network your stack doesn't have.
 
-Then start the service with `dcup SERVICE_NAME`. Replace `SERVICE_NAME` with the service name from `custom.yml`.
+Then start the service. Replace `SERVICE_NAME` with the service name from `custom.yml`:
+
+```bash
+sudo docker compose --profile all -f /home/USERNAME/docker/docker-compose-HOSTNAME.yml up -d SERVICE_NAME
+```
+
+If you set up the [Bash aliases](/using-deployrr/bash-aliases/), `dcup SERVICE_NAME` starts the same service. It also rebuilds the service if needed and removes orphaned containers.
 
 The chain must exist in v6 too. **Proxy** > **Traefik** > **Preparation** creates only `chain-basic-auth` and `chain-no-auth`. For any other chain, install that login method first (Step 6). To change the chain later, edit the label yourself. Don't use **Manage Auth** for `custom.yml`: it changes every service in the file at once.
 
@@ -320,7 +326,7 @@ The chain must exist in v6 too. **Proxy** > **Traefik** > **Preparation** create
 v6 connects its own apps with rules files. You can do the same for your containers. Then **Proxy** > **Traefik** > **Manage Exposure** (in Advanced Traefik mode) and **Security** > **Manage Auth** can change the route later.
 
 1. Remove the Traefik labels from the service. Give the service a published port in `ports:`.
-2. Run `dcup SERVICE_NAME`.
+2. Start the service with the `docker compose` command under [Keep your v5 labels](#keep-your-v5-labels), or with `dcup SERVICE_NAME`.
 3. Run **Proxy** > **Traefik** > **Traefikify**. It needs a Plus or Pro license. Enter a name that differs from the router names in any labels you kept.
 
 This table shows where each v5 label goes if you write the file `app-NAME.yml` by hand instead:

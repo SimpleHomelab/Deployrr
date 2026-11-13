@@ -26,7 +26,7 @@ videos:
     start: 455
     title: "Traefik 3 guide: Cloudflare A and CNAME DNS records"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
-last_reviewed: 2026-11-10
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -74,7 +74,7 @@ When you switch to Hybrid, the box lists eight requirements:
 7. A DNS CNAME record for `*` that points to `@`.
 8. Cloudflare SSL mode set to FULL.
 
-The SSL mode only applies to proxied (orange cloud) records. Deployrr's setup uses gray cloud records, so it matters only if you proxy a record yourself. See [Orange cloud or gray cloud](/networking/cloudflare/#orange-cloud-or-gray-cloud).
+Set the SSL mode to **Full** even though your DNS records stay gray cloud. See [Orange cloud or gray cloud](/networking/cloudflare/#orange-cloud-or-gray-cloud).
 
 Meet these before you set up Traefik. See [Set up Traefik](/reverse-proxy/traefik-setup/). If **Domain Checks** fails, see [Domain Checks failed](/getting-started/domain-checks-failed/).
 

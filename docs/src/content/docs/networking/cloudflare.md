@@ -114,7 +114,7 @@ Deployrr is set up for gray cloud:
 - Simple and Advanced mode do not depend on the cloud color. The mode decides which router ports you forward and whether an app is Internal, External or Both. See [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/). Internal apps open from home through your server's LAN IP, which comes from your router or from a [local DNS rewrite](/networking/local-dns-rewrites/).
 
 :::note
-The Hybrid box lists "Cloudflare SSL Mode set to FULL". Cloudflare's SSL/TLS mode applies to proxied (orange) records. Deployrr's setup uses gray cloud. If you proxy a record yourself, the mode must be **Full**.
+Hybrid mode needs Cloudflare's SSL/TLS encryption mode set to **Full**. The Hybrid box lists it as "Cloudflare SSL Mode set to FULL". Set it on the SSL/TLS page for your domain in the Cloudflare dashboard. Your DNS records stay gray cloud.
 :::
 
 ## Where Deployrr keeps the token
