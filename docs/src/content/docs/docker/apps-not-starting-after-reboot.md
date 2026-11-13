@@ -26,6 +26,7 @@ symptoms:
   - My media app shows an empty library after a reboot
   - My NAS share or disk is not mounted after a reboot
   - I want my media apps to start after my SMB or NFS share is mounted
+  - My apps stopped after I restarted Docker
 related:
   - using-deployrr/stack-manager
   - storage/rclone-smb-setup
@@ -189,29 +190,24 @@ After the next reboot, Deployrr waits for the Rclone mount and then starts your 
 Change only the one file this section creates. A mistake in it only stops the listed apps from starting, and your server still boots. Test it before you reboot, as the last item below shows.
 :::
 
-1. Find the exact name of your main compose file. Replace `DOCKER_FOLDER` with your Docker folder, such as `/home/USER/docker`:
+1. Note the name of your main compose file and the path of the `docker` command. Replace `DOCKER_FOLDER` with your Docker folder, such as `/home/USER/docker`:
 
    ```bash
    ls DOCKER_FOLDER/docker-compose-*.yml
-   ```
-
-2. Find the full path of the `docker` command. It is usually `/usr/bin/docker`:
-
-   ```bash
    command -v docker
    ```
 
-3. Create the service file:
+2. Create the service file:
 
    ```bash
    sudo nano /etc/systemd/system/start-apps-after-share.service
    ```
 
-4. Paste these lines, then change them:
+3. Paste these lines, then change them:
    - Replace `MOUNT_FOLDER` with your mount folder.
-   - Replace the path after `-f` with the file from step 1.
+   - Replace the path after `-f` with the compose file from step 1.
    - Replace `jellyfin sonarr radarr` with the apps that use the share, as their names show in `sudo docker ps -a`.
-   - If step 2 showed a different path, use it in place of `/usr/bin/docker`.
+   - If step 1 showed a path other than `/usr/bin/docker`, use that path.
 
    ```ini
    [Unit]
@@ -229,16 +225,16 @@ Change only the one file this section creates. A mistake in it only stops the li
    WantedBy=multi-user.target
    ```
 
-   Save with Ctrl+O and Enter, then close with Ctrl+X.
+   Save and close with Ctrl+X, Y, Enter.
 
-5. Turn the service on:
+4. Turn the service on:
 
    ```bash
    sudo systemctl daemon-reload
    sudo systemctl enable start-apps-after-share.service
    ```
 
-6. Test it before you reboot. With the share mounted, stop one of the apps you listed so you can see the service start it again. Replace `jellyfin` with that app. Then run the service:
+5. Test it before you reboot. With the share mounted, stop one of the apps you listed so you can see the service start it again. Replace `jellyfin` with that app. Then run the service:
 
    ```bash
    sudo docker stop jellyfin
@@ -255,6 +251,26 @@ Keep these in mind:
 - Apps that start on their own, such as Audiobookshelf and Lollypop, start with Docker and don't wait for the share. If one shows an empty library after a reboot, restart it, for example `sudo docker restart audiobookshelf`.
 - When you install another app that uses the share, or change your hostname or Docker folder, edit the `ExecStart` line to match. Then run `sudo systemctl daemon-reload`.
 - To remove the service, run `sudo systemctl disable start-apps-after-share.service`, delete only that file with `sudo rm /etc/systemd/system/start-apps-after-share.service`, and run `sudo systemctl daemon-reload`.
+
+## Restart Docker without a reboot
+
+Restarting Docker stops every container, so all your apps, including Traefik and a DNS app such as Pi-hole, go offline for a moment. A system update that upgrades Docker can restart it too. When Docker is back, it starts only the apps that start on their own. The apps listed under [Cause](#cause) stay `Exited`, the same as after a reboot. Apps you stopped yourself before the restart also stay stopped. Your mounts are not touched.
+
+**Delay Media Apps** and the service from step 6 only run at boot. They do not start your apps again after a Docker restart.
+
+1. Restart Docker:
+
+   ```bash
+   sudo systemctl restart docker
+   ```
+
+2. List the containers and look for any that show `Exited`:
+
+   ```bash
+   sudo docker ps -a
+   ```
+
+3. Start the stopped apps you use with step 4. **Start Container** with `all` starts every stopped app at once, including any you stopped on purpose.
 
 ## Check it worked
 
