@@ -32,7 +32,7 @@ videos:
     start: 533
     title: "Traefik 3 guide: create the Cloudflare DNS API token"
     note: Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens.
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -124,7 +124,7 @@ If Preparation stops with an error, use this table.
 | Password cannot be empty. | Type a password. |
 | Passwords do not match. | Type the same password in both fields. |
 | Invalid Cloudflare token. Please check token permissions. | Make a new user token with Zone / Zone / Read and Zone / DNS / Edit. |
-| Port N is occupied. This is needed for Traefik. | Stop whatever uses that port (443, 444, 80 or 81), then run Preparation again. If Traefik itself is running, that is the cause. See [Run the steps again](#run-the-steps-again). |
+| Port N is occupied. This is needed for Traefik. | Stop whatever uses that port (443, 444, 80 or 81), then run Preparation again. See [A port is occupied](#a-port-is-occupied). |
 
 ### Run Staging
 
@@ -204,6 +204,62 @@ Production shows the same errors as Staging, plus these:
    ```
 
    You should see `traefik` with a status that starts with "Up".
+
+## If a step won't start
+
+### A port is occupied
+
+Preparation checks ports 443, 444, 80 and 81. For each one that is taken, it shows `Port N is occupied. This is needed for Traefik.` and, below it, a line that names the program holding the port. The end of that line is the process number and the program, for example `1234/nginx: master` or `5678/docker-proxy`. Preparation then stops, and it loses its `- DONE` mark even if it was done before.
+
+What to do depends on the program:
+
+- **`docker-proxy`**: a container uses the port. Find it with `sudo docker ps --format 'table {{.Names}}\t{{.Ports}}'`.
+  - `traefik`: Traefik itself. See [Run the steps again](#run-the-steps-again).
+  - `npm`: Nginx Proxy Manager. Pick Traefik in **Proxy** > **Proxy Type** first and let Deployrr stop NPM.
+  - Any other app: move it to another port. See [Port already in use](/docker/port-already-in-use/#fix-b-change-the-port-of-an-installed-app).
+- **`nginx`, `apache2`, `httpd`, `caddy` or `lighttpd`**: a web server runs on the server itself, outside Docker. Some VPS images and hosting control panels come with one. See what it is with `systemctl status nginx` (use the name from the line).
+
+:::caution
+Stopping the web server takes down every site it serves, including a hosting control panel. If you still need those sites or the panel, move them off ports 80 and 443 first, or run it on another server.
+:::
+
+If you don't need the web server, stop it and keep it from starting at boot. Replace `nginx` with the program name:
+
+```bash
+sudo systemctl disable --now nginx
+```
+
+To turn it back on later, run `sudo systemctl enable --now nginx`.
+
+Check that all four ports are free. This prints nothing when they are:
+
+```bash
+sudo ss -tlnp | grep -E ':(80|81|443|444) '
+```
+
+Then run Preparation again. For other ways to find what holds a port, see [Find what uses a port](/docker/port-already-in-use/#find-what-uses-a-port).
+
+### Requirements Not Met
+
+Staging and Production check what they need as soon as you open them. Preparation checks right after you press **Yes** on its first box.
+
+| Step | Needs |
+| --- | --- |
+| Preparation | All Prerequisites done, Setup Mode Hybrid, Socket Proxy running, a Plus or Pro license |
+| Staging | The same, plus Preparation done |
+| Production | The same as Staging, plus Staging done and Traefik running |
+
+If something is missing, a **Requirements Not Met** box lists it. [Deployrr shows "Requirements Not Met"](/getting-started/requirements-not-met/#traefik-and-docker-lines) explains each line. Common ones here:
+
+- `License - Plus or Pro required. Current: Free` after you paid: run **Prerequisites** > **Verify**. If it asks for a PIN you don't have, see [Forgot your PIN](/support/forgot-pin/).
+- `Socket Proxy - Must be running (Docker menu)`: open **Docker** > **Socket Proxy**, answer **Yes**, then **Yes** at "Already Installed". This recreates the container and keeps its data. See [Socket Proxy](/docker/socket-proxy/).
+- `Traefik - Must be running (Proxy menu)` on Production: start Traefik with `sudo docker start traefik`. If it stops again, read [the Traefik logs](/reverse-proxy/check-traefik-logs/). If Docker says there is no such container, run Staging, which creates it. Staging replaces your production certificate with a test one, so run Production after it and expect new certificates (they count toward the Let's Encrypt rate limit).
+
+:::caution
+When the box appears, the step you opened loses its `- DONE` mark, even if it was done before. For example, opening Production while Traefik is stopped clears Production. **Manage Exposure**, **Traefikify** and the login apps in **Security** then say `Traefik Production - Must be completed (Proxy menu)`.
+:::
+
+After you fix the missing item, run the step that lost its mark again. For Production, press `Y` at the "already done" warning, then `Y` at "Reuse existing production SSL certificate?" to keep your certificates. If Staging lost its mark but Production still shows `- DONE`, leave Staging alone. The tools after Production don't check Staging, and a Staging run replaces your production certificate with a test one.
 
 ## Run the steps again
 
