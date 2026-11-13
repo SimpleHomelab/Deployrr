@@ -20,6 +20,7 @@ symptoms:
   - "Traefik Production - Must be completed (Proxy menu)"
   - "Advanced Authentication - Authelia, Authentik, OAuth, or TinyAuth must be running (Security menu)"
   - "Required app not running"
+  - "System type not compatible"
 related:
   - getting-started/licenses
   - getting-started/setup-mode
@@ -35,7 +36,7 @@ videos:
     start: 1028
     title: "Deployrr 5 walkthrough: Rclone install, SMB remote and automount"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-13
 status: current
 old_paths: ["/using-deployrr/requirements-not-met"]
 sources: []
@@ -251,11 +252,25 @@ Every app needs the Prerequisites line. Some apps need more:
 An app that needs another app running, such as the Deployrr Dashboard, shows a message in the terminal instead of a box:
 
 ```txt
-Required app not running
+✗ Required app not running
 [REQUIRED] socket-proxy must be installed and running first
 ```
 
 Install the named app first. For Socket Proxy, use **Docker** > **Socket Proxy**.
+
+An app that only runs on some kinds of server stops with this message in the terminal:
+
+```txt
+✗ System type not compatible
+[REQUIRED] Compatible with: Bare Metal VPS Virtual Machine Privileged LXC
+[CURRENT] Your system: Unprivileged LXC
+```
+
+In v6, only Kasm has this limit. `[CURRENT]` is what you picked in **Prerequisites** > **System Type**.
+
+- If that choice is wrong, select **Prerequisites** > **System Type** again and pick the type that matches your server. Then start the install again.
+- If you really run an Unprivileged LXC, Kasm can't run there. Use a VM or a VPS for Kasm.
+- If Kasm stops on a **Virtual Machine**, **Privileged LXC** or **Barebones** server, follow the steps in [Run Deployrr in a Proxmox LXC container: Kasm](/host/proxmox-lxc/#kasm).
 
 ## How it differs from License Required
 

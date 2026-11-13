@@ -266,7 +266,7 @@ Most of these don't stop the install, and the step still ends with a success lin
 | --- | --- | --- |
 | "Could not find PLUGINS-PLACEHOLDER-DO-NOT-DELETE in Traefik compose" | The plugin lines in `compose/HOSTNAME/traefik.yml`. Without them, Traefik can't load the CrowdSec plugin. Apps that use a chain with the bouncer may stop working. | Add the plugin lines below. Then run `dcrec traefik`. |
 | "Could not find basic_auth_credentials in Traefik compose, manual addition may be needed" | The bouncer key in the `secrets:` list of the Traefik service. | Add `- crowdsec_bouncer_traefik_key` to that list, in line with the other entries. Then run `dcrec traefik`. |
-| "Could not find networks section in CrowdSec compose" | The `traefik_proxy` network in `compose/HOSTNAME/crowdsec.yml`. | Under `networks:` of the CrowdSec service, add `- traefik_proxy` below `- default`. Then run `dcrec crowdsec`. |
+| "Could not find networks section in CrowdSec compose" | The `traefik_proxy` network in `compose/HOSTNAME/crowdsec.yml`. This only happens when the file was edited by hand and has no `networks:` section. | Add a `networks:` section to the CrowdSec service, at the same indent as `ports:`, with `- default` and `- traefik_proxy` below it. See the example below the table. Then run `dcrec crowdsec`. |
 | "CrowdSec did not become ready in time" | Nothing was finished. Deployrr stopped. | Check `sudo docker logs crowdsec`, then run **Traefik Bouncer** again. |
 | "No chain files found in ..." or "Could not find inner middlewares section in chain-....yml" | The bouncer in your chain files. | See [A chain file lost the bouncer](#a-chain-file-lost-the-bouncer). |
 | "Bouncer may not appear in list yet, this is normal" | Probably nothing. | Run `csbouncers` after a minute. `traefik-bouncer-HOSTNAME` should be listed. |
@@ -279,7 +279,17 @@ The plugin lines go in the `command:` section of the Traefik service in `compose
       - --experimental.plugins.crowdsec.version=${TRAEFIKBOUNCER_VERSION_PIN}
 ```
 
-The Traefik Bouncer install sets `TRAEFIKBOUNCER_VERSION_PIN` in your `.env` file. Back up a file before you edit it. If Traefik doesn't come back, put the backup back and run `dcrec traefik`. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/).
+The Traefik Bouncer install sets `TRAEFIKBOUNCER_VERSION_PIN` in your `.env` file.
+
+The `networks:` section of the CrowdSec service in `compose/HOSTNAME/crowdsec.yml` uses a four-space indent, like `ports:`:
+
+```yaml
+    networks:
+      - default
+      - traefik_proxy
+```
+
+Back up a file before you edit it. If Traefik doesn't come back, put the backup back and run `dcrec traefik`. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/).
 
 ### A chain file lost the bouncer
 
