@@ -172,6 +172,7 @@ The old address stops working. Update these:
 - Mobile and TV apps that you pointed at the old address.
 - Other apps that call this app by its address.
 - Any login app that lists the old address as a redirect URL, if you set one up that way.
+- Nextcloud only answers on addresses it trusts. Add the new one as in [Nextcloud says Access through untrusted domain](/apps/nextcloud-untrusted-domain/). If you turned on `OVERWRITEHOST`, also change `NEXTCLOUD_SUBDOMAIN` in `.env` and recreate Nextcloud.
 
 ## Undo the change
 
