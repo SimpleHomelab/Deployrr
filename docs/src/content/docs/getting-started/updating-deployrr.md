@@ -100,6 +100,18 @@ If you installed with curl:
 sudo bash -c "$(curl -fsSL https://files.deployrr.app/install.sh)"
 ```
 
+Running the install command again also gets you the latest program files when Deployrr is already installed. It downloads the current version and installs it over the old one. With npx you see something like this:
+
+```text
+Deployrr Installer
+Installing app files...
+Downloading Deployrr v6.0 (x86_64)...
+...
+Run: deployrr
+```
+
+npm may also print its own `New major version of npm available` notice. You can ignore it. When you see `Run: deployrr`, start Deployrr with `deployrr`.
+
 You also need this after **Settings** > **Reset**, which deletes the Deployrr program. See [Refresh, Reset or Remove Deployrr](/getting-started/reset-or-remove-deployrr/).
 
 ## npx or curl: switch your install method
