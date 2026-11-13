@@ -125,7 +125,7 @@ Deployrr does not set NZBGet's folders either.
 2. Set **MainDir** to `/data/downloads/usenet`. **DestDir** and **InterDir** are built from it by default (`${MainDir}/dst` and `${MainDir}/inter`), so they follow. If you changed them to a full path, make sure it starts with `/data/downloads`.
 3. Go to **Settings** > **CATEGORIES**. NZBGet comes with `Movies`, `Series`, `Music` and `Software`. Leave **DestDir** of each category empty, so NZBGet puts it in a folder named after the category inside DestDir.
 4. Save the settings at the bottom of the page. Reload NZBGet if it asks.
-5. Use the NZBGet category names in the Arr apps (check 4). Sonarr suggests `tv`, which doesn't exist in NZBGet. Use `Series`, or add a `tv` category in NZBGet.
+5. Use the NZBGet category names in the Arr apps (check 4), spelled the same way: `Series` in Sonarr, `Movies` in Radarr and `Music` in Lidarr. Sonarr suggests `tv`, which doesn't exist in NZBGet. Use `Series`, or add a `tv` category in NZBGet.
 
 **Transmission**
 
