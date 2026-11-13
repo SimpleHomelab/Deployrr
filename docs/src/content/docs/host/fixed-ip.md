@@ -276,7 +276,7 @@ sudo nmcli con mod "CONNECTION_NAME" ipv4.method auto ipv4.addresses "" ipv4.gat
 
 ### Proxmox LXC and VM
 
-For a Proxmox LXC container, set the address in Proxmox, on the container's **Network** tab. Don't set it inside the container as well. For a VM, use a reservation in your router or the steps above inside the VM. See [Run Deployrr in a Proxmox LXC](/host/proxmox-lxc/) for other Proxmox settings. To watch the static IP set while you create a container, see [Docker on Proxmox LXC: static IP at 7:47](https://youtu.be/-ZSQdJ62r-Q?t=467).
+For a Proxmox LXC container, set the address in Proxmox, on the container's **Network** tab. Don't set it inside the container as well. If Deployrr already runs in the container and the address changes, see [Change the server IP](/host/change-server-ip/#if-deployrr-runs-in-a-proxmox-lxc-container). For a VM, use a reservation in your router or the steps above inside the VM. See [Run Deployrr in a Proxmox LXC](/host/proxmox-lxc/) for other Proxmox settings. To watch the static IP set while you create a container, see [Docker on Proxmox LXC: static IP at 7:47](https://youtu.be/-ZSQdJ62r-Q?t=467).
 
 ### VPS
 
