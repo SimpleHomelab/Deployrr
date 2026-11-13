@@ -1,6 +1,6 @@
 ---
 title: Block bad visitors with CrowdSec
-description: Install CrowdSec, the Firewall Bouncer and the Traefik Bouncer from the Security menu, check they block, and unblock yourself if needed.
+description: Install CrowdSec, the Firewall Bouncer and the Traefik Bouncer from the Security menu, check they block, fix bouncer errors, and unblock yourself if needed.
 type: how-to
 tags:
   - traefik
@@ -30,7 +30,7 @@ videos:
     start: 3101
     title: "Traefik 3 guide: why CrowdSec helps against bad visitors"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
-last_reviewed: 2026-11-10
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -58,7 +58,7 @@ CrowdSec is not fully tested with [Nginx Proxy Manager](/reverse-proxy/nginx-pro
 
 ## Steps
 
-Open **Security** from the main menu. The CrowdSec items sit under their own heading. Once installed, each shows `RUNNING` or `STOPPED` after its name. The main menu also shows a status next to **Security**, such as `CrowdSec Active` or `1 Auth + 2 CrowdSec`.
+Open **Security** from the main menu. The CrowdSec items sit under their own heading. Once installed, **CrowdSec** and **Traefik Bouncer** show `RUNNING` or `STOPPED` after their name. **Firewall Bouncer** shows `RUNNING` while its service runs, and nothing when it is stopped. The main menu also shows a status next to **Security**, such as `CrowdSec Active` or `1 Auth + 2 CrowdSec`.
 
 ### Install CrowdSec
 
@@ -69,8 +69,8 @@ Open **Security** from the main menu. The CrowdSec items sit under their own hea
 3. If you want the console, create an account at `https://app.crowdsec.net` and add a Security Engine. The page shows an enroll command. Copy the key after `-e context`.
 4. Select **Yes, Proceed**.
 5. At "Enter the enroll context key", paste your key. Leave it empty to skip the console.
-6. If CrowdSec is already installed, Deployrr asks: "CrowdSec appears to be already installed. Do you want to reinstall/reconfigure it? WARNING: This will reset your CrowdSec configuration." Say no unless you want to start over.
-7. In the **Port Configuration** box, accept the suggested port. The default is 8080. Deployrr suggests the first free port from there.
+6. If CrowdSec is already installed, Deployrr asks: "CrowdSec appears to be already installed. Do you want to reinstall/reconfigure it? WARNING: This will reset your CrowdSec configuration." Say no unless you want to start over. If you say yes while CrowdSec runs, the terminal may also ask whether to "force reset the status and continue with installation of CrowdSec". Answer `y`.
+7. In the **Port Configuration** box, accept the suggested port. The default is 8080. Deployrr suggests the first free port from there. On a reinstall, the port CrowdSec uses now counts as taken, so CrowdSec moves to a new port. See [After you reinstall CrowdSec](#after-you-reinstall-crowdsec).
 8. Wait. The install pulls the image and can take a few minutes. It also installs `rsyslog`.
 9. If you gave a console key, Deployrr says "Enrollment requires manual approval on CrowdSec Console". Open `https://app.crowdsec.net`, approve the enrollment, and press any key. It continues by itself after 120 seconds.
 10. Wait for "All done with CrowdSec setup!".
@@ -84,7 +84,7 @@ During the install, Deployrr prints which logs CrowdSec will watch. It adds each
 - `/var/log/mail.log`
 - The Traefik logs, from `logs/HOSTNAME/traefik/` in your Docker folder. This happens when `traefik.log` or `access.log` exists there.
 
-If the Traefik logs are missing, Deployrr says "No Traefik logs found at ..." and "Skipping Traefik log acquisition". Install Traefik, then run **CrowdSec** again. Running it again means answering **Yes** to the reinstall question in step 6. That resets your CrowdSec configuration, and the enrollment key prompt appears again.
+If the Traefik logs are missing, Deployrr says "No Traefik logs found at ..." and "Skipping Traefik log acquisition". Install Traefik, then run **CrowdSec** again. Running it again means answering **Yes** to the reinstall question in step 6. That resets your CrowdSec configuration, and the enrollment key prompt appears again. If you already installed a bouncer, run it again afterwards, as in [After you reinstall CrowdSec](#after-you-reinstall-crowdsec).
 
 CrowdSec also never bans these addresses:
 
@@ -107,11 +107,7 @@ The Firewall Bouncer blocks banned addresses at your server's firewall. It runs 
 4. Wait for "Firewall Bouncer service is active and running".
 5. Read the **Current CrowdSec bouncers** list that follows. It should include `firewall-bouncer-HOSTNAME`, where `HOSTNAME` is your server's name.
 
-If you see "Firewall Bouncer service failed to start", run this to read the service log:
-
-```bash
-sudo journalctl -u crowdsec-firewall-bouncer -f
-```
+If you see "Firewall Bouncer service failed to start", see [The Firewall Bouncer won't start](#the-firewall-bouncer-wont-start).
 
 What the Firewall Bouncer does to a banned visitor:
 
@@ -132,7 +128,11 @@ The Traefik Bouncer makes Traefik check every visitor against CrowdSec before it
    - The Traefik rules folder. Deployrr adds the file `middlewares-crowdsec-bouncer.yml`.
 4. Select **Yes** to continue.
 5. If the bouncer is already installed, Deployrr asks whether to reinstall it and warns that this will regenerate the API key. Reinstalling deletes the old key and creates a new one.
-6. At **Add to Chain Files?**, choose **Yes** unless you edit your chains by hand. Deployrr then adds `middlewares-crowdsec-bouncer` as the first middleware of each login chain file it finds (`chain-no-auth`, `chain-basic-auth`, and the Authelia, Authentik, Google OAuth and TinyAuth chains if you installed them). If you choose **No**, the bouncer is not applied until you add it. Deployrr says: "manually add middlewares-crowdsec-bouncer as the first middleware in your chain files."
+6. At **Add to Chain Files?**, choose **Yes** unless you edit your chains by hand. Deployrr then adds `middlewares-crowdsec-bouncer` as the first middleware of every `chain-*.yml` file in your Traefik rules folder. That includes `chain-no-auth`, `chain-basic-auth`, and the Authelia, Authentik, Google OAuth and TinyAuth chains if you installed them.
+
+   Chain files created or replaced later don't get it. See [A chain file lost the bouncer](#a-chain-file-lost-the-bouncer).
+
+   If you choose **No**, the bouncer is not applied until you add it. Deployrr says: "manually add middlewares-crowdsec-bouncer as the first middleware in your chain files."
 7. Wait while Deployrr restarts CrowdSec and Traefik. It says "Traefik container restarted and running". If Traefik is slow, it says "Traefik may not have fully started". In that case, [read the Traefik logs](/reverse-proxy/check-traefik-logs/).
 8. Read the **Current CrowdSec bouncers** list. It should include `traefik-bouncer-HOSTNAME`.
 
@@ -207,6 +207,113 @@ Each command comes in two forms. The short alias works if you installed the [Dep
 
 Deployrr says: "When an IP is blocked, you will see [CSFB_BLOCK] in the logs." If you installed the aliases, `tailkern` follows `/var/log/kern.log` and `tailcsfb` follows `/var/log/crowdsec-firewall-bouncer.log`. For the Traefik Bouncer, run `sudo docker logs traefik`. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/).
 
+## Fix bouncer problems
+
+In the commands below, replace `DOCKER_FOLDER` with the path to your Docker folder and `HOSTNAME` with your server's hostname.
+
+### The Firewall Bouncer won't start
+
+Deployrr says "Firewall Bouncer service failed to start". Read the service log:
+
+```bash
+sudo journalctl -u crowdsec-firewall-bouncer -n 50
+```
+
+The bouncer runs on your server and talks to CrowdSec through the port CrowdSec publishes. It fails when that port or its key is wrong. Check both:
+
+1. Check that CrowdSec runs. Open **Security**. **CrowdSec** should show `RUNNING`.
+2. Compare the ports. The first command shows the address the bouncer uses. The second shows the port CrowdSec uses now. The two port numbers must match.
+
+   ```bash
+   sudo grep api_url /etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml
+   ```
+
+   ```bash
+   sudo grep CROWDSEC_PORT DOCKER_FOLDER/.env
+   ```
+
+   :::caution
+   The bouncer file also holds the bouncer's key. Don't post the whole file when you ask for help.
+   :::
+
+3. Check that the key is still registered. Run `csbouncers` (or `sudo docker exec -t crowdsec cscli bouncers list`). The list should show `firewall-bouncer-HOSTNAME`.
+4. If the ports differ or the bouncer is missing from the list, open **Security** > **Firewall Bouncer** again. It writes a fresh configuration with the current port and a new key. If it asks "Do you want to reinstall it?", say yes.
+
+If Deployrr stops earlier with "Failed to create Firewall Bouncer API key" and "Check if CrowdSec container is running properly", CrowdSec isn't running or isn't ready yet. Start CrowdSec, wait a minute, and run **Firewall Bouncer** again.
+
+On Arch Linux, Deployrr installs the bouncer package from the AUR with `yay` or `paru`. If you have neither, it says "No AUR helper found. Please install crowdsec-firewall-bouncer-iptables manually from AUR." Install that package yourself, then run **Firewall Bouncer** again.
+
+### After you reinstall CrowdSec
+
+Running **Security** > **CrowdSec** again and answering yes to the reinstall question affects both bouncers:
+
+- **The port changes.** The port CrowdSec used counts as taken, so Deployrr suggests the next free one. If you type the old port, it says the port is already in use and takes the suggestion. The Firewall Bouncer still points to the old port and can no longer reach CrowdSec.
+- **The CrowdSec compose file is replaced.** The new one no longer has the `traefik_proxy` network that the Traefik Bouncer added. Traefik can then no longer reach CrowdSec. Depending on the plugin's settings, visitors may get errors or go through unchecked.
+
+The registered bouncers stay in CrowdSec's data, so `csbouncers` still lists them. Don't rely on that. After a CrowdSec reinstall:
+
+1. Open **Security** > **Firewall Bouncer** and let it run. If it asks "Do you want to reinstall it?", say yes.
+2. Open **Security** > **Traefik Bouncer**. Answer **Yes** to the setup box and to the reinstall question. It adds the network back and creates a new key. At **Add to Chain Files?**, choose **Yes**. Chain files that already have the bouncer are skipped.
+3. Run the checks in [Check it worked](#check-it-worked).
+
+### Warnings during the Traefik Bouncer install
+
+Most of these don't stop the install, and the step still ends with a success line. Fix each one by hand. Then run the command in the **Fix** column.
+
+`dcrec traefik` and `dcrec crowdsec` need the [Deployrr bash aliases](/using-deployrr/bash-aliases/). Without them, run `sudo docker compose --profile all -f DOCKER_FOLDER/docker-compose-HOSTNAME.yml up -d --force-recreate traefik`. For CrowdSec, end the command with `crowdsec` instead.
+
+| Message | What is missing | Fix |
+| --- | --- | --- |
+| "Could not find PLUGINS-PLACEHOLDER-DO-NOT-DELETE in Traefik compose" | The plugin lines in `compose/HOSTNAME/traefik.yml`. Without them, Traefik can't load the CrowdSec plugin. Apps that use a chain with the bouncer may stop working. | Add the plugin lines below. Then run `dcrec traefik`. |
+| "Could not find basic_auth_credentials in Traefik compose, manual addition may be needed" | The bouncer key in the `secrets:` list of the Traefik service. | Add `- crowdsec_bouncer_traefik_key` to that list, in line with the other entries. Then run `dcrec traefik`. |
+| "Could not find networks section in CrowdSec compose" | The `traefik_proxy` network in `compose/HOSTNAME/crowdsec.yml`. | Under `networks:` of the CrowdSec service, add `- traefik_proxy` below `- default`. Then run `dcrec crowdsec`. |
+| "CrowdSec did not become ready in time" | Nothing was finished. Deployrr stopped. | Check `sudo docker logs crowdsec`, then run **Traefik Bouncer** again. |
+| "No chain files found in ..." or "Could not find inner middlewares section in chain-....yml" | The bouncer in your chain files. | See [A chain file lost the bouncer](#a-chain-file-lost-the-bouncer). |
+| "Bouncer may not appear in list yet, this is normal" | Probably nothing. | Run `csbouncers` after a minute. `traefik-bouncer-HOSTNAME` should be listed. |
+
+The plugin lines go in the `command:` section of the Traefik service in `compose/HOSTNAME/traefik.yml`. Put them at the end of that section, just before `ports:`, with the same six-space indent as the other lines:
+
+```yaml
+      # CrowdSec Bouncer Plugin
+      - --experimental.plugins.crowdsec.modulename=github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin
+      - --experimental.plugins.crowdsec.version=${TRAEFIKBOUNCER_VERSION_PIN}
+```
+
+The Traefik Bouncer install sets `TRAEFIKBOUNCER_VERSION_PIN` in your `.env` file. Back up a file before you edit it. If Traefik doesn't come back, put the backup back and run `dcrec traefik`. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/).
+
+### A chain file lost the bouncer
+
+The Traefik Bouncer adds itself to the chain files that exist when you install it. These later actions replace a chain file with one that has no bouncer:
+
+- Running **Proxy** > **Traefik** > **Preparation** again replaces `chain-no-auth.yml` and `chain-basic-auth.yml`.
+- Installing or reinstalling Authelia, Authentik, Google OAuth or TinyAuth writes that login app's chain file.
+
+CrowdSec no longer checks apps that use such a chain, and nothing tells you. To list the chain files that don't have the bouncer:
+
+```bash
+sudo grep -L middlewares-crowdsec-bouncer DOCKER_FOLDER/appdata/traefik3/rules/HOSTNAME/chain-*.yml
+```
+
+No output means every chain file has it. To fix the files listed, choose one:
+
+- Open **Security** > **Traefik Bouncer** again, answer **Yes** to the reinstall question, and choose **Yes** at **Add to Chain Files?**. This also creates a new bouncer key and restarts CrowdSec and Traefik.
+- Or edit each listed file. Back it up first. Add `- middlewares-crowdsec-bouncer` as the first entry under the inner `middlewares:` line, with the same indent as the other entries. For example:
+
+  ```yaml
+  http:
+    middlewares:
+      chain-no-auth:
+        chain:
+          middlewares:
+            - middlewares-crowdsec-bouncer
+            - middlewares-rate-limit
+            - middlewares-secure-headers
+  ```
+
+  Traefik watches the rules folder and picks up the change by itself. If an app stops loading, put the backup back and [read the Traefik logs](/reverse-proxy/check-traefik-logs/).
+
+Run the grep again after you change a login app or rerun **Preparation**.
+
 ## Unblock yourself
 
 If CrowdSec bans your own address, work from another network or from the server's console, then remove the ban.
@@ -234,7 +341,7 @@ If CrowdSec bans your own address, work from another network or from the server'
    sudo docker restart crowdsec
    ```
 
-If your home IP changes, the address Deployrr whitelisted at install time no longer matches your connection. You can add the new one by hand as above. Or run **Security** > **CrowdSec** again. It rebuilds the file with your current public IP. But it shows the reinstall question from step 6 of the install: "CrowdSec appears to be already installed. Do you want to reinstall/reconfigure it? WARNING: This will reset your CrowdSec configuration." Answering yes resets your CrowdSec configuration.
+If your home IP changes, the address Deployrr whitelisted at install time no longer matches your connection. You can add the new one by hand as above. Or run **Security** > **CrowdSec** again and answer yes to the reinstall question (step 6 of the install). It rebuilds the file with your current public IP. It also resets your CrowdSec configuration, and your bouncers need to be run again. See [After you reinstall CrowdSec](#after-you-reinstall-crowdsec). Adding the IP by hand is simpler.
 
 ## Alias cheat sheet
 

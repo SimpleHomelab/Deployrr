@@ -91,7 +91,8 @@ Make a backup first. A deleted file or folder is gone. A rewritten file loses yo
 - **TinyAuth:** after a rerun, `users_file` holds only the user you typed, and that user sets up two-factor again. No copy is kept. Copy `users_file` before the rerun.
 - **Authelia:** a rerun moves `users.yml` and `configuration.yml` to copies with the date and time in their names. It writes new files with one user, makes new secrets and empties `notifications.txt`. Your extra users are only in the dated copy. The run also removes all stopped containers, unused images and unused networks on the server.
 - **Google OAuth:** a rerun writes `secrets/oauth_secrets` again. Lines you added by hand are lost. Emails you entered in earlier runs come back.
-- **CrowdSec:** a rerun also rewrites `acquis.yaml` and `custom-whitelists.yaml`. Copy them if you edited them.
+- **CrowdSec:** a rerun also rewrites `acquis.yaml` and `custom-whitelists.yaml`. Copy them if you edited them. It also moves CrowdSec to a new port and replaces its compose file, so run both bouncers again. See [After you reinstall CrowdSec](/reverse-proxy/crowdsec/#after-you-reinstall-crowdsec).
+- **Traefik Bouncer:** a login setup rerun and a **Proxy** > **Traefik** > **Preparation** rerun write chain files without the CrowdSec bouncer. See [A chain file lost the bouncer](/reverse-proxy/crowdsec/#a-chain-file-lost-the-bouncer).
 
 To keep your own Traefik middleware safe from a Preparation rerun, put it in a file with your own name. See [Edit Traefik rules files safely](/reverse-proxy/edit-traefik-rules-files/#add-your-own-middleware).
 
