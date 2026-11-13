@@ -144,7 +144,7 @@ These options act on apps as entries in your main compose file.
 
 ### Services Status
 
-Shows "Status of services in docker-compose-HOSTNAME.yml..." and a table with **Service** and **Status**. Status is **Enabled** or **Disabled**. It tells you whether the app is switched on in your stack, not whether it is running. For that, use **Containers Status**. The menu line says "N running apps", but the number counts every app listed, enabled or disabled.
+Shows "Status of services in docker-compose-HOSTNAME.yml..." and a table with **Service** and **Status**. Status is **Enabled** or **Disabled**. It tells you whether the app is switched on in your stack, not whether it is running. For that, use **Containers Status**. The number in the menu line includes disabled apps.
 
 ### Update App
 
@@ -172,11 +172,11 @@ With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dcrec APP`. Re
 1. Choose **Disable**.
 2. At "Enter the number of the service to disable:", type the number of the app and press Enter. Type `exit` to leave.
 3. If the app is running, answer "Do you want to stop APP container?". Press `Y` to stop it. Press any other key to leave it running. You see "Container left running (will not start on next stack up)".
-4. Look for "APP disabled successfully".
+4. Look for "APP disabled successfully". Then open **Services Status** and check that the app shows **Disabled**. If it shows **Enabled**, open `docker-compose-HOSTNAME.yml` in your Docker folder (see [Docker folder layout](/using-deployrr/docker-folder-layout/)), find the line `- compose/$HOSTNAME/APP.yml` and put `# ` in front of the dash, so it reads `# - compose/$HOSTNAME/APP.yml`. Change only that line.
 
 If no app is enabled, you see "No enabled services found in" followed by your compose file name. If you type `exit`, you see "No changes made."
 
-Some apps have helper containers, such as a database. For these you see "Multicontainer app detected" and the question "Do you want to also disable dependency containers?". Answer it.
+Some apps have helper containers, such as a database. For these you see "Multicontainer app detected" and the question "Do you want to also disable dependency containers?". Press `Y` to disable the helpers too. Deployrr stops them, even if you left the app running at step 3. Press any other key and the helpers stay enabled, as they are, and start with the stack.
 
 You can't disable a helper on its own. Deployrr says "Cannot disable dependency directly" and tells you to disable the parent app.
 
@@ -188,19 +188,31 @@ This is also what happens to the proxy you switch away from in **Proxy** > **Pro
 
 Nothing is lost. When you enable the app again, **Up** creates a new container from the same settings and data.
 
+#### Stop or Disable?
+
+Both pause an app and keep its data. They differ in what brings it back.
+
+| | **Stop Container** | **Disable** |
+| --- | --- | --- |
+| Server reboot | Stays stopped | Stays stopped if you stopped it at step 3. A container you left running starts again. |
+| **Up** or **Update Stack** | Starts again | Container removed, app stays off |
+| To bring it back | **Start Container** or **Up** | **Enable**, then **Up** |
+
+The reboot row is for apps with the usual restart setting (`unless-stopped` in the app's compose file). Many media apps (Plex, Jellyfin, Sonarr, Radarr and others) are set not to restart on their own, so after a reboot they stay stopped whichever option you used. Use **Stop Container** for a short pause. Use **Disable** when the app should stay off through stack updates.
+
 ### Enable
 
 "N disabled apps". The reverse of **Disable**. The app starts with the stack again.
 
 1. Choose **Enable**.
 2. At "Enter the number of the service to enable:", type the number of the app and press Enter. Type `exit` to leave.
-3. For an app with helper containers, answer the question about enabling them too.
+3. For an app with helper containers, answer "Do you want to also enable dependency containers?". If you disabled the helpers with the app, press `Y`. The app needs them, and Docker Compose can refuse to start the stack when an app points to a helper that is turned off.
 4. If the app is not running, answer "Do you want to start APP container?". Press `Y` to start it now. Press any other key to leave it stopped. You see "Container left stopped (will start on next stack up)". If you enabled helpers and start the app, Deployrr also asks "Do you want to also start the dependency containers?".
 5. Look for "APP enabled successfully".
 
 If no app is disabled, you see "No disabled services found in" followed by your compose file name.
 
-Step 4 can only start a container that still exists. If **Up** or **Update Stack** ran while the app was disabled, its container was removed, and answering `Y` does not bring it back. Run **Up** after **Enable** instead, or `dcup APP` with the [bash aliases](/using-deployrr/bash-aliases/). Then check **Containers Status**.
+Step 4 can only start a container that still exists. If **Up** or **Update Stack** ran while the app was disabled, its container was removed, and answering `Y` does not bring it back. Run **Up** after **Enable** instead, or `dcup APP` with the [bash aliases](/using-deployrr/bash-aliases/). Whatever step 4 shows, check **Containers Status** to confirm the app runs.
 
 You can't enable a helper on its own. Deployrr says "Cannot enable dependency directly". Enable the parent app instead.
 
