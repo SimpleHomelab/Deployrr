@@ -287,7 +287,7 @@ A wrong rule here can cut off SSH. Allow your SSH port before you save, and keep
 30. Allow inbound TCP on your SSH port. This is `22` unless you changed it.
 31. Allow inbound TCP on `80`.
 32. Allow inbound TCP on `443`. Optionally allow UDP on `443` too, for HTTP/3. Browsers fall back to TCP if you skip it.
-33. Block all other inbound traffic. Apps reached through Traefik use port 443, so their own ports do not need to be open. Keep ports `81` and `444` blocked. Keep the Traefik dashboard port blocked too. It is `8080` by default, and Traefik Preparation prints "Port N assigned for Traefik dashboard". The dashboard has no login of its own on that port.
+33. Block all other inbound traffic. Apps reached through Traefik use port 443, so their own ports do not need to be open. Keep ports `81` and `444` blocked. Keep the Traefik dashboard port blocked too. It is `8080` by default, and Traefik Preparation prints "Port N assigned for Traefik dashboard" (or "Port N previously set for Traefik dashboard" when you run it again). The dashboard has no login of its own on that port. To open it safely, see [Open the Traefik dashboard without opening its port](#open-the-traefik-dashboard-without-opening-its-port).
 34. Apply the rules to your server.
 35. Open a new SSH session to check that you can still log in.
 
@@ -334,6 +334,28 @@ If you do not want an app reachable from the internet, reach it over Tailscale i
 :::note
 In Simple mode, every app is reachable from the internet. Protect apps with a login, or keep them private with Tailscale.
 :::
+
+### Open the Traefik dashboard without opening its port
+
+Traefik Preparation publishes the Traefik dashboard on its own port, `8080` by default. If 8080 was taken, it picked the next free port and saved it as `TRAEFIK_PORT` in your `.env` file. The dashboard has no login on that port. Ports that Docker publishes skip UFW, so the provider firewall is what keeps this port off the internet. Keep it blocked there (step 33) and use one of these ways in:
+
+- **The dashboard address.** Open `https://traefik.YOUR_DOMAIN`. It asks for the username and password you set in Traefik Preparation (Basic HTTP Auth). For a stronger login, such as Authelia or TinyAuth, select **TRAEFIK** in **Security** > **Manage Auth**. It needs a Pro license and Traefik running in Production. See [Choose a login method](/reverse-proxy/choose-login-method/).
+- **Tailscale.** With [Tailscale](/networking/tailscale/) on the server, open `http://TAILSCALE_IP:8080` from a device on your tailnet. Use your dashboard port if it isn't 8080. Tailscale traffic arrives inside its own encrypted connection, so the blocked port in the provider panel doesn't stop it.
+- **An SSH tunnel.** On your computer, run this and keep the session open. Add `-p 2222` if you changed the SSH port:
+
+  ```bash
+  ssh -L 8080:localhost:8080 NAME@YOUR_SERVER_IP
+  ```
+
+  Then open `http://localhost:8080` in your browser. If your dashboard port isn't 8080, put it in place of the second `8080`.
+
+To check that the port is closed, run this from your own computer, not the server. Replace `8080` with your dashboard port:
+
+```bash
+curl -m 5 http://YOUR_SERVER_IP:8080
+```
+
+It should time out. If it prints a page, fix the rule in the provider's panel.
 
 ## Check it worked
 
