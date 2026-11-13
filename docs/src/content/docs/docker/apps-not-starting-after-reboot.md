@@ -256,7 +256,7 @@ Keep these in mind:
 
 Restarting Docker stops every container, so all your apps, including Traefik and a DNS app such as Pi-hole, go offline for a moment. A system update that upgrades Docker can restart it too. When Docker is back, it starts only the apps that start on their own. The apps listed under [Cause](#cause) stay `Exited`, the same as after a reboot. Apps you stopped yourself before the restart also stay stopped. Your mounts are not touched.
 
-**Delay Media Apps** and the service from step 6 only run at boot. They do not start your apps again after a Docker restart.
+**Delay Media Apps** and the service from [step 6](#6-start-your-media-apps-at-boot-after-an-smb-or-nfs-share-is-ready) only run at boot. They do not start your apps again after a Docker restart.
 
 1. Restart Docker:
 
@@ -270,7 +270,7 @@ Restarting Docker stops every container, so all your apps, including Traefik and
    sudo docker ps -a
    ```
 
-3. Start the stopped apps you use with step 4. **Start Container** with `all` starts every stopped app at once, including any you stopped on purpose.
+3. Start the stopped apps you use with [step 4](#4-start-your-apps). **Start Container** with `all` starts every stopped app at once, including any you stopped on purpose.
 
 ## Check it worked
 
