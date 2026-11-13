@@ -14,12 +14,13 @@ symptoms:
   - Please contact your administrator. If you are an administrator, edit the "trusted_domains" setting in config/config.php
   - Nextcloud shows an untrusted domain page on https://nextcloud.YOUR_DOMAIN
   - Nextcloud shows an untrusted domain page on http://SERVER_IP:PORT
+  - Behind Nginx Proxy Manager, Nextcloud shows the same address for every visitor
 related:
   - using-deployrr/restart-recreate-reinstall
   - using-deployrr/stack-manager
   - reverse-proxy/app-404-or-502
+  - reverse-proxy/nginx-proxy-manager
   - apps/app-reference
-  - using-deployrr/docker-folder-layout
 further_reading:
   - title: Nextcloud admin manual, trusted domains and reverse proxy settings
     url: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/reverse_proxy_configuration.html
@@ -144,6 +145,49 @@ To switch Nextcloud to plain `http`:
 
 If you add Traefik later, remove the `#` again and recreate Nextcloud.
 
+## Behind Nginx Proxy Manager
+
+If you use [Nginx Proxy Manager](/reverse-proxy/nginx-proxy-manager/) instead of Traefik, the untrusted page has the same fix. Add the address you typed in NPM's **Domain Names** with Fix 1. In the proxy host, use `nextcloud` as **Forward Hostname / IP** and `80` as **Forward Port**.
+
+You also need to tell Nextcloud to trust NPM. The line `TRUSTED_PROXIES=192.168.90.0/24` in `nextcloud.yml` covers Traefik's network only. NPM and Nextcloud sit on the `default` Docker network, and Docker picks its addresses. Until you add that network, Nextcloud sees NPM's address instead of each visitor's. Its brute force protection can then slow down logins for everyone after a few failed logins.
+
+1. Find the name of the network Nextcloud is on:
+
+   ```bash
+   sudo docker inspect nextcloud --format '{{range $name, $net := .NetworkSettings.Networks}}{{$name}} {{end}}'
+   ```
+
+   It prints your Docker folder's name plus `_default`, for example `docker_default` when your Docker folder is `/home/YOUR_USER/docker`.
+
+2. Get that network's address range. Replace `docker_default` with the name from step 1:
+
+   ```bash
+   sudo docker network inspect docker_default --format '{{range .IPAM.Config}}{{.Subnet}} {{end}}'
+   ```
+
+   It prints a range such as `172.18.0.0/16`.
+
+3. Open `YOUR_DOCKER_FOLDER/compose/HOSTNAME/nextcloud.yml`. Add the range to the `TRUSTED_PROXIES` line, after a space. Keep Traefik's range:
+
+   ```yaml
+   - TRUSTED_PROXIES=192.168.90.0/24 172.18.0.0/16
+   ```
+
+   Use a space between the ranges, not a comma.
+
+4. Save the file and recreate Nextcloud as in Fix 2, step 5.
+5. Check the setting:
+
+   ```bash
+   sudo docker exec --user www-data nextcloud php occ config:system:get trusted_proxies
+   ```
+
+   It should print both ranges, one per line.
+
+Set it in `nextcloud.yml`, not with `occ config:system:set`. The value in `nextcloud.yml` takes priority over `config.php`, so an `occ` change to `trusted_proxies` has no effect.
+
+If the stack is ever taken down and started again, Docker can give the `default` network a new range. If Nextcloud stops showing visitors' addresses, repeat steps 1 to 4. Repeat them after you reinstall Nextcloud too, because a reinstall copies a fresh `nextcloud.yml`.
+
 ## Check it worked
 
 1. Open `https://nextcloud.YOUR_DOMAIN`, or `http://SERVER_IP:PORT` on a local install. You should see the Nextcloud login page.
@@ -166,4 +210,5 @@ You can also edit `YOUR_DOCKER_FOLDER/appdata/nextcloud/config/config.php` by ha
 - [Restart, Recreate or Reinstall an app after a change](/using-deployrr/restart-recreate-reinstall/): why a restart does not apply the change.
 - [Stack Manager](/using-deployrr/stack-manager/): where Recreate lives.
 - [One app behind Traefik shows 404, 502 or Gateway Timeout](/reverse-proxy/app-404-or-502/): when the error page comes from Traefik.
+- [Use Nginx Proxy Manager instead of Traefik](/reverse-proxy/nginx-proxy-manager/): proxy hosts and certificates when you use NPM instead of Traefik.
 - [App reference](/apps/app-reference/): Nextcloud's container name, port and helper containers.

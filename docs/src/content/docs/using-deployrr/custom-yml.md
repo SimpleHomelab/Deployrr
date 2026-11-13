@@ -43,11 +43,11 @@ To run a second copy of an app you already installed, see [Run a second copy of 
 
 - Deployrr is installed and you created your Docker folder in **Prerequisites**. See the [Quick start](/getting-started/quick-start/).
 - You know basic Docker Compose syntax.
-- Optional: turn on the [Bash aliases](/using-deployrr/bash-aliases/). This page uses `cdd`, `dcup`, `dcrec` and `dclogs`.
+- Optional: turn on the [Bash aliases](/using-deployrr/bash-aliases/) (Basic, Plus or Pro). This page uses `cdd`, `dcup`, `dcrec` and `dclogs`. If your Docker folder isn't `/home/YOUR_USER/docker`, read [Your Docker folder is somewhere else](/using-deployrr/bash-aliases/#your-docker-folder-is-somewhere-else) first.
 
 ## Where the files are
 
-All paths are inside your Docker folder. Deployrr recommends `/home/YOUR_USER/docker`, but you choose the folder yourself, so yours may differ. The `cdd` alias takes you there.
+All paths are inside your Docker folder. Deployrr recommends `/home/YOUR_USER/docker`, but you choose the folder yourself, so yours may differ. The `cdd` alias takes you there (see the note on other folders above).
 
 | File | What it is |
 | --- | --- |

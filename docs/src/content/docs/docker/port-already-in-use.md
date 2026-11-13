@@ -18,6 +18,7 @@ symptoms:
   - "Error response from daemon: driver failed programming external connectivity on endpoint: Bind for 0.0.0.0:PORT failed: port is already allocated"
   - "failed to bind host port: address already in use"
   - "Port Conflict - Cannot Install"
+  - "Port 80 is occupied. This is needed for Traefik."
   - An app container will not start after install and another app uses the same port
 related:
   - apps/pi-hole-port-53-conflict
@@ -25,7 +26,7 @@ related:
   - using-deployrr/stack-manager
   - using-deployrr/connecting-apps
   - reverse-proxy/nginx-proxy-manager
-last_reviewed: 2026-11-11
+last_reviewed: 2026-11-13
 status: current
 old_paths: ["/apps/port-already-in-use"]
 sources: []
@@ -100,7 +101,7 @@ A port number can belong to only one program on the server at a time. The port i
 - A program outside Docker on the same server listens on it.
 - A container you added yourself maps it, for example in [custom.yml](/using-deployrr/custom-yml/).
 
-Deployrr warns you if the port you pick is already used by another app or program it can see. It can't catch every case. For example, it doesn't warn about port 53 for Pi-hole, because Pi-hole never asks you for that port. If Docker fails to start the container after the install, use the steps below to find what holds the port.
+Deployrr warns you if the port you pick is already used by another app or program it can see. It can't catch every case. For example, it doesn't warn about port 53 for Pi-hole, because Pi-hole never asks you for that port. See [Ports Deployrr never asks about](#ports-deployrr-never-asks-about). If Docker fails to start the container after the install, use the steps below to find what holds the port.
 
 When you reinstall an app, the suggested port may be one higher than the port it uses now. Typing the old port in the box doesn't help: Deployrr shows **Port In Use** and uses the suggested port. To keep the old port, accept the suggestion, then change the port back with [Fix B](#fix-b-change-the-port-of-an-installed-app).
 
@@ -131,6 +132,55 @@ These commands are general Linux and Docker advice. They are not part of Deployr
    ```
 
    This assumes your Docker folder is `~/docker`. If yours is elsewhere, use its path. Each line looks like `SONARR_PORT='8989'`, or `SONARR_PORT=8989` if you edited it in the .env Editor. The left part is the app, the right part is its port.
+
+4. If you still find nothing, a stopped app may use the port as a fixed port. Those are not in `.env`. Check the list in [Ports Deployrr never asks about](#ports-deployrr-never-asks-about).
+
+### With the Bash aliases
+
+If you set up the [Bash aliases](/using-deployrr/bash-aliases/), two of them list ports:
+
+- `ports` lists every port and connection with the program that holds it. Narrow it down with `ports | grep ':PORT '`. Without `sudo`, the program column shows `-` for programs that run as root, which includes Docker. Run `sudo netstat -tulanp | grep ':PORT '` to see those names.
+- `showlistening` lists the programs that wait for connections. It also only shows your own programs unless you run `sudo lsof -i -n | grep LISTEN`. If it says `lsof: command not found`, install `lsof` with your package manager or use `ports` instead.
+
+`sudo ss -tulpn` from step 1 shows the same information and needs no extra tools.
+
+## Ports Deployrr never asks about
+
+Some apps publish ports that are fixed in their compose file. Deployrr doesn't ask about these ports, and doesn't check whether they are free before the install. If another program holds one, the app installs but Docker can't start it. You see Docker's error from [Symptoms](#symptoms).
+
+| App | Fixed ports |
+|---|---|
+| Pi-hole | 53 (TCP and UDP), 67 (UDP) |
+| Nginx Proxy Manager | 80, 443 |
+| Plex | 3005, 8324, 32469, and UDP 1900, 32410, 32412, 32413, 32414 |
+| Emby | 8920 |
+| WG-Easy | 51820 (UDP) |
+| Transmission | 51413 (TCP and UDP) |
+| Resilio Sync | 55555 |
+| Qdrant | 6334 |
+| Weaviate | 50051 |
+| Supabase | 5432, 6543 and 8443 (see the note below) |
+
+What to know:
+
+- The port check in the **Port Configuration** box doesn't see UDP ports. It also doesn't see the fixed ports of an app that is stopped. So you can pick, for example, port 8920 for another app while Emby is stopped. Emby then fails to start. Check this table before you type your own port.
+- Port 53 is the common case. On Ubuntu, the system's own DNS service often holds it. See [Pi-hole will not start because port 53 is already in use](/apps/pi-hole-port-53-conflict/).
+- UDP 1900 is used by programs that find devices on your network, such as DLNA servers. If Plex fails on that port, look for such a program on the host.
+- For Nginx Proxy Manager, Deployrr only checks whether Traefik runs. A web server on the host, such as Apache or nginx, also blocks ports 80 and 443. See [Ports 80 and 443](#ports-80-and-443-traefik-and-nginx-proxy-manager).
+- The PostgreSQL app also suggests port 5432. If you install Supabase after PostgreSQL, Supabase's 5432 clashes with it. Move Supabase's port as below.
+- Apps that use the host's network directly, such as Netdata, Homebridge, Tailscale and ZeroTier, publish no ports in Docker. They open their own ports on the host, and Deployrr doesn't check those either.
+
+To fix a clash on a fixed port, stop or move the other program. You can't move these ports through `.env` or the .env Editor, because there is no setting for them.
+
+Supabase is the exception. Add one of these lines to your `.env` file, with a free port in place of `NEW_PORT`:
+
+- `SUPABASE_POOLER_PORT=NEW_PORT` for 5432
+- `SUPABASE_POOLER_PROXY_PORT=NEW_PORT` for 6543
+- `SUPABASE_KONG_HTTPS_PORT=NEW_PORT` for 8443
+
+Then go to **Tools** > **Stack Manager** > **Recreate** and pick `supabase-pooler` (for 5432 or 6543) or `supabase-kong` (for 8443). Back up `.env` first, as in [Fix B](#fix-b-change-the-port-of-an-installed-app).
+
+Don't change a port in an app's compose file yourself. When you reinstall the app, Deployrr copies a fresh compose file over yours, and your change is gone.
 
 ## Fix A: take the suggested port during install
 
@@ -212,6 +262,8 @@ You can also [reinstall the app](/using-deployrr/reinstall-app/) and answer the 
 ## Ports 80 and 443: Traefik and Nginx Proxy Manager
 
 Traefik and Nginx Proxy Manager (NPM) both need ports 80 and 443, so you can't run both at once.
+
+Traefik also needs ports 81 and 444. Traefik Preparation checks all four before it goes on. If one is taken, you see `Port 80 is occupied. This is needed for Traefik.` with the program that holds it, and the step stops. Stop that program, or move it to another port, then run the step again. This check doesn't cover UDP. Traefik also uses UDP 443 and 444.
 
 - To install NPM, first set **Proxy** > **Proxy Type** to NPM. If you try to install NPM while Traefik runs, you see **Port Conflict - Cannot Install**. Stop or uninstall Traefik first.
 - When you switch **Proxy** > **Proxy Type** and the other proxy is running, Deployrr warns that its container must be stopped to avoid a conflict on ports 80 and 443. It offers to stop that container. It does not remove it. If the other proxy is not running, you don't see this box.

@@ -147,16 +147,16 @@ qBittorrent VPN has no port of its own. You reach it through Gluetun, so both co
 5. If the line is missing or has a `#` in front, install qBittorrent VPN again: **Apps** > **Browse Apps** > **qBittorrent VPN** > **Install**. At the **Already Installed** prompt, choose **Yes**. The install adds the line back, restarts Gluetun and starts qBittorrent VPN again.
 
    :::caution
-   Installing qBittorrent VPN again replaces its config file, even though the prompt says data is preserved. The login goes back to `admin` and `adminadmin`, and your qBittorrent settings are reset. Any changes you made to the compose files by hand are also lost.
+   Installing qBittorrent VPN again replaces its config file. The login goes back to `admin` and `adminadmin`, and your qBittorrent settings are reset. Any changes you made to the compose files by hand are also lost.
    :::
 
-6. If you restart or recreate Gluetun yourself later, restart qBittorrent VPN after it:
+6. If you restart Gluetun yourself later, restart qBittorrent VPN after it:
 
    ```bash
    sudo docker restart qbittorrent-vpn
    ```
 
-   With the aliases: `dcrestart qbittorrent-vpn`.
+   With the aliases: `dcrestart qbittorrent-vpn`. If you recreate or reinstall Gluetun, recreate qBittorrent VPN instead (`dcrec qbittorrent-vpn`). See [If Gluetun doesn't connect](/apps/qbittorrent-vpn/#if-gluetun-doesnt-connect).
 
 :::note
 `$QBITTORRENTVPN_PORT` is a variable name. Leave it as it is in the file. It takes the number from your `.env` file.

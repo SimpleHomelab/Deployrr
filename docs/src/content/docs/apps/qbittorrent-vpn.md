@@ -29,7 +29,7 @@ videos:
   - id: r0nGMFs5pCY
     start: 132
     title: "Proxmox LXC network device passthrough: add /dev/net/tun to the container"
-last_reviewed: 2026-11-11
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -97,7 +97,7 @@ sudo docker logs gluetun
 With the [Deployrr bash aliases](/using-deployrr/bash-aliases/): `dlogs gluetun`. It keeps following the log; press Ctrl+C to stop.
 
 :::caution
-After a time-out, Gluetun currently counts as installed. The qBittorrent VPN install in step 4 then goes ahead even though the VPN isn't connected. Fix your VPN details and get `VPN connected successfully!` before you go on. For a Gluetun that can't connect, see [qBittorrent web UI says Unauthorized or won't open](/apps/qbittorrent-webui-troubleshooting/).
+After a time-out, Gluetun counts as installed. The qBittorrent VPN install in step 4 then goes ahead even though the VPN isn't connected. Fix your VPN details and get `VPN connected successfully!` before you go on. See [If Gluetun doesn't connect](#if-gluetun-doesnt-connect).
 :::
 
 At the end, Deployrr tells you that you can route other containers through Gluetun by adding `network_mode: service:gluetun` to their compose configuration. You don't need that for qBittorrent VPN. Its install does it for you.
@@ -114,7 +114,7 @@ The install creates a `torrents` folder inside your Downloads Folder. It has the
 2. Select **qBittorrent VPN** and choose **Install**.
 3. Read the **qBittorrent VPN Setup** box. It says Gluetun must be running and connected to your VPN, and that you reach the web page through Gluetun's port. Select **OK**. Deployrr checks the requirements after this box.
 4. At **Port Configuration**, enter the port for the web page. The default is `8082`. Deployrr suggests the first free port from there. If the port is taken, see [Port is already in use](/docker/port-already-in-use/).
-5. Wait for the four steps to finish: configuring the Gluetun port, stopping qBittorrent VPN, restarting Gluetun and starting qBittorrent VPN.
+5. Wait for the four steps to finish: configuring the Gluetun port, stopping qBittorrent VPN, restarting Gluetun and starting qBittorrent VPN. The last step can show an error and leave qBittorrent VPN stopped, so check it after every install: run `sudo docker ps -a` (or `dps`). If `qbittorrent-vpn` isn't listed as `Up`, recreate it: **Tools** > **Stack Manager** > **Recreate** and pick `qbittorrent-vpn`, or `dcrec qbittorrent-vpn` with the aliases.
 6. Read the **qBittorrent VPN - Installation Notes** box at the end. It has two notes. One gives the default login. The other tells you how to connect Arr apps.
 
 If you see `Required app not running` with `gluetun must be installed and running first` or `deunhealth must be installed and running first`, go back to step 2. Deployrr only checks that the container is running, not that the VPN is connected. Installing DeUnhealth without Socket Proxy shows `socket-proxy must be installed and running first`. See also [Requirements Not Met](/getting-started/requirements-not-met/).
@@ -179,6 +179,83 @@ Check that qBittorrent VPN uses your VPN address, not your home address.
 If both commands print the same address, qBittorrent VPN is not using the VPN. Stop torrenting and check Gluetun with `sudo docker logs gluetun` (or `dlogs gluetun`).
 
 You can also run `sudo docker ps` (or `dps`). Both `gluetun` and `qbittorrent-vpn` must show as `Up`.
+
+## If Gluetun doesn't connect
+
+Gluetun connects only when the provider name and your key, address, username or password match what your VPN provider gave you. Read its log first to see what failed:
+
+```bash
+sudo docker logs gluetun
+```
+
+Then fix the values in one of two ways. Editing `.env` keeps everything else as it is. Reinstalling Gluetun asks every question again, but undoes part of the qBittorrent VPN install.
+
+Deployrr saves your answers in the `.env` file in your Docker folder:
+
+| `.env` line | What it holds |
+| --- | --- |
+| `GLUETUN_VPN_SERVICE_PROVIDER` | Your provider's name, such as `mullvad` |
+| `GLUETUN_VPN_TYPE` | `wireguard` or `openvpn` |
+| `GLUETUN_WIREGUARD_PRIVATE_KEY` | WireGuard private key |
+| `GLUETUN_WIREGUARD_ADDRESSES` | WireGuard address |
+| `GLUETUN_OPENVPN_USERNAME` | OpenVPN username |
+| `GLUETUN_OPENVPN_PASSWORD` | OpenVPN password |
+
+### Fix the values in .env
+
+Use this when the provider name or a key, address or password was wrong. Your qBittorrent VPN setup stays as it is.
+
+1. Back up `.env`. Replace `YOUR_DOCKER_FOLDER` with your Docker folder path:
+
+   ```bash
+   sudo cp YOUR_DOCKER_FOLDER/.env YOUR_DOCKER_FOLDER/.env.bak
+   ```
+
+2. Open `.env` with **Tools** > **.env Editor** (Pro), or by hand:
+
+   ```bash
+   sudo nano YOUR_DOCKER_FOLDER/.env
+   ```
+
+3. Correct the lines from the table. Keep each value in single quotes, as Deployrr writes them, for example `GLUETUN_WIREGUARD_PRIVATE_KEY='YOUR_KEY'`. If a line is missing (for example because you cancelled a box during the install), add it. See [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/).
+4. Recreate Gluetun: **Tools** > **Stack Manager** > **Recreate** and pick `gluetun`. With the aliases: `dcrec gluetun`.
+5. Check that it connected. This prints a line when it did:
+
+   ```bash
+   sudo docker logs gluetun 2>&1 | grep "Public IP address is"
+   ```
+
+6. Recreate qBittorrent VPN the same way (`dcrec qbittorrent-vpn`). It uses Gluetun's network, so it must be built again after Gluetun is. Recreate keeps its settings and your login.
+
+Don't switch `GLUETUN_VPN_TYPE` between `wireguard` and `openvpn` here. Gluetun's compose file only has the lines for the type you chose at install switched on. To change the type, reinstall Gluetun.
+
+### Reinstall Gluetun
+
+Use this to change the VPN type or to start over.
+
+1. Go to **Apps** > **Browse Apps**, select **Gluetun** and choose **Install**. At the **Already Installed** prompt, choose **Yes**.
+2. Answer every prompt again, as in [step 2](#2-install-the-apps-qbittorrent-vpn-needs). The provider box starts empty and the type box starts at `wireguard`, so type your own values. The key, address, username and password boxes may show your old values. Replace them if they were wrong.
+3. Wait for `VPN connected successfully!`.
+
+The reinstall replaces Gluetun's compose file with a fresh one, and removes the old Gluetun container. qBittorrent VPN's web page port is switched off again, and qBittorrent VPN loses its network. Fix both:
+
+1. Back up and open the Gluetun file. `HOSTNAME` is your server's hostname:
+
+   ```bash
+   sudo cp YOUR_DOCKER_FOLDER/compose/HOSTNAME/gluetun.yml YOUR_DOCKER_FOLDER/compose/HOSTNAME/gluetun.yml.bak
+   sudo nano YOUR_DOCKER_FOLDER/compose/HOSTNAME/gluetun.yml
+   ```
+
+2. Remove the `#` and the space after it in front of these two lines. Leave the other `#` lines alone:
+
+   ```yaml
+   ports:
+     - $QBITTORRENTVPN_PORT:8080
+   ```
+
+3. Recreate `gluetun`, then `qbittorrent-vpn`, as in steps 4 to 6 above.
+
+Installing qBittorrent VPN again also does all of this, but it resets your qBittorrent login and settings. See [qBittorrent web UI says Unauthorized or won't open](/apps/qbittorrent-webui-troubleshooting/#4-check-that-the-container-runs-qbittorrent-vpn).
 
 ## If the adapter is not found
 

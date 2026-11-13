@@ -12,8 +12,10 @@ symptoms:
   - Forgot your pin? Check
   - Incorrect pin.
   - Invalid Pin
+  - License not verified after entering my PIN
 related:
   - getting-started/quick-start
+  - getting-started/licenses
   - support/discord
   - getting-started/updating-deployrr
 further_reading: []
@@ -22,7 +24,7 @@ videos:
     start: 906
     title: "Deployrr 5 walkthrough: License verification and creating a PIN"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
-last_reviewed: 2026-11-09
+last_reviewed: 2026-11-13
 status: current
 old_paths: ["/deployrr/forgot-pin", "/using-deployrr/forgot-pin"]
 sidebar:
@@ -47,6 +49,16 @@ Incorrect pin.
 
 Your license stays unverified until you enter the right PIN.
 
+### What Incorrect pin means for your license
+
+**Verify** ends at the **Incorrect pin.** box and your license is not verified, so:
+
+- On a new server, the **Verify** line in **Prerequisites** shows `Your Deployrr License: Free`.
+- On a new server, apps and features that need a paid license show a **License Required** box (**Pro License Required** for some) until you verify with the right PIN.
+- A failed **Verify** doesn't stop or change your running apps.
+
+If Deployrr accepts your PIN but then says `No access found. You can continue to use the Free version.`, your PIN is fine. Deployrr found no paid license for the email you entered. See [Licenses](/getting-started/licenses/).
+
 ## Cause
 
 Your PIN is a 6-digit number. You created it the first time you ran **Prerequisites** > **Verify**. Deployrr asks for the same PIN each time you verify again.
@@ -66,6 +78,10 @@ Use this if Deployrr still has your PIN saved on this machine.
 3. Select **View Pin**.
 
 Deployrr shows your 6-digit PIN. If you see `No pin found. Please re-run access Verify step from Prerequisites menu.`, Deployrr has no PIN saved on this machine. Go to option 2.
+
+:::caution
+If you just saw **Incorrect pin.**, **View Pin** may not show your correct PIN. Use option 2 or 3 instead.
+:::
 
 ### Option 2: Have your PIN emailed to you
 
@@ -107,6 +123,8 @@ Use this if the email doesn't arrive or you would rather pick a new PIN. As with
 
 Write the new PIN down somewhere safe.
 
+Between the reset and step 10, paid features can show **License Required**. That is expected. Finish **Verify** and they work again.
+
 To see a PIN created and then entered at the next verification, watch [Deployrr 5 walkthrough: License verification and creating a PIN at 15:06](https://youtu.be/rdqbAr0TFnQ?t=906) (shows Deployrr v5; menus and steps differ in v6).
 
 :::note
@@ -118,7 +136,7 @@ Use the email address of your SimpleHomelab.com account. The message does not te
 Ask for help on [Discord](https://www.simplehomelab.com/discord/) if any of these happen:
 
 - You see `Could not request PIN.` or `Could not reset PIN.` Your PIN was not changed. Try again later.
-- You see an error saying your email is not configured. Run **Prerequisites** > **Verify** first, then try again.
+- You see `Email or token not configured.` Run **Prerequisites** > **Verify** first, then try again.
 - No email arrives after several minutes.
 - You see **Error Creating Pin** with `Pin could not be created.`
 
@@ -130,8 +148,11 @@ Tell them the email address of your SimpleHomelab.com account. Never post your P
 
 After a reset, **Prerequisites** > **Verify** shows a **Pin Created** box with `Pin created.` Later verifications accept your new PIN without the **Incorrect pin.** message.
 
+After the right PIN, Deployrr shows an **Access Verification** box with your license, for example `Access Level Verified: Basic`. The **Verify** line in **Prerequisites** shows the same license.
+
 ## Related
 
 - [Quick start](/getting-started/quick-start/): the full first-run steps, including Prerequisites and Verify.
+- [Licenses](/getting-started/licenses/): what each license unlocks and what to do when Verify says Free.
 - [Updating Deployrr](/getting-started/updating-deployrr/): keep Deployrr on the latest version.
 - [Discord](https://www.simplehomelab.com/discord/): ask for help if the reset doesn't work.

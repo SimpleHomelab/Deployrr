@@ -129,7 +129,7 @@ These steps happen on NPM's own screens. They come from NPM, not Deployrr, and N
 6. In **Forward Port**, type the app's internal port, for example `8989`.
 7. Save the host.
 
-Use the container name and internal port, joined as `container-name:internal-port`. This works because NPM is on the same `default` Docker network as most apps. Don't type `localhost` or `127.0.0.1`, because inside the NPM container they point to NPM itself. For the name and port of each app, and for apps on host networking, see [Connect your apps to each other](/using-deployrr/connecting-apps/).
+Use the container name and internal port, joined as `container-name:internal-port`. This works because NPM is on the same `default` Docker network as most apps. Don't type `localhost` or `127.0.0.1`, because inside the NPM container they point to NPM itself. For the name and port of each app, and for apps on host networking, see [Connect your apps to each other](/using-deployrr/connecting-apps/). Nextcloud needs extra settings behind NPM; see [Nextcloud behind Nginx Proxy Manager](/apps/nextcloud-untrusted-domain/#behind-nginx-proxy-manager).
 
 ### Get a certificate
 
