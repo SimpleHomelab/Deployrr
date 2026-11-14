@@ -31,7 +31,7 @@ videos:
     start: 4527
     title: "Deployrr 5 walkthrough: Stack Manager and Recreate"
     note: Shows Deployrr v5. Menus and steps differ in v6.
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-14
 status: current
 old_paths: []
 sources: []
@@ -142,9 +142,78 @@ Recreate in Stack Manager needs a Basic, Plus or Pro license. If you already hav
 This is general Docker behavior: a restart keeps the values the container was created with. Use Recreate.
 :::
 
-## A reinstall can replace passwords
+## Where an app's values come from
 
-A reinstall can give some apps' generated secret files new values. Back up `secrets` and `appdata` before you reinstall. See [Reinstall an app and keep its data](/using-deployrr/reinstall-app/).
+When you install an app, Deployrr fills in its `.env` values and secret files in three ways. Each one behaves differently when you install the app again.
+
+| Kind | Examples | On a reinstall |
+|---|---|---|
+| Values Deployrr makes for you in `.env` | The database password of Immich, BookStack's app key and database password, Paperless-ngx's secret key and database passwords | Kept. Deployrr only makes one when the name isn't in `.env` yet. |
+| Secret files Deployrr makes for you, without a question | The database passwords of n8n and Nextcloud, Open WebUI's secret key | New values every time. See [Before you reinstall an app with generated secrets](#before-you-reinstall-an-app-with-generated-secrets). |
+| Values and secrets you answer a question for | The port, a password, a username | Asked again. What you enter is saved. |
+
+This is about reinstalling an app that is still installed. Removing or deleting an app first also deletes its `.env` values. See [When you remove or delete an app](#when-you-remove-or-delete-an-app).
+
+How the question boxes treat your old answer:
+
+- A masked password box with the note "(An existing password was found. Enter a new password or leave blank to keep existing.)" keeps your old secret when you leave it empty.
+- A "Required Information" text box for a secret, such as the Nextcloud admin password, shows the value already saved. **OK** keeps it.
+- The port box suggests the first free port from the app's default, not the port you use now. Type your old port to keep it.
+- A text box with "Suggested:" and a new random password saves that new one, also when you leave it empty. Type your old password to keep it.
+
+### Before you reinstall an app with generated secrets
+
+These apps get new secrets on every install, also on a reinstall. Their data in `appdata` still expects the old ones. A database keeps the password it was first set up with, so the app can't log in to its own database after the reinstall. For n8n, Langfuse and Supabase, Deployrr also writes the new values into the app's compose files, so putting back only the secret files is not enough.
+
+| App | What gets new values | What to put back after the reinstall |
+|---|---|---|
+| Nextcloud | `secrets/nextcloud_mariadb_root_password` and `secrets/nextcloud_mariadb_password` | Those two secret files |
+| Open WebUI | `OPENWEBUI_SECRET_KEY` in `.env` and in `secrets/` | The `OPENWEBUI_SECRET_KEY` line in `.env`. The key is used to encrypt sessions, so a new key may sign users out. |
+| n8n | `secrets/n8n_postgresql_password` and `compose/HOSTNAME/n8n.yml` | The secret file and `n8n.yml` |
+| Langfuse | Every `secrets/langfuse_` file, and `langfuse.yml` and every `langfuse-*.yml` in `compose/HOSTNAME/` | The secret files and the compose files |
+| Supabase | Every `secrets/supabase_` file, and `supabase.yml`, the `supabase-*.yml` files and `realtime-dev.supabase-realtime.yml` in `compose/HOSTNAME/` | The secret files and the compose files |
+
+A compose file you put back also brings back everything else it had before the reinstall, such as a version pin. That is usually what you want, because it is the file that worked.
+
+Authelia also gets new secrets on a rerun. See [Login setups](/using-deployrr/what-overwrites-your-changes/#login-setups).
+
+To keep the old values:
+
+1. Before the reinstall, copy `.env` and the `secrets` folder, as shown in [Back up first](#back-up-first). For n8n, Langfuse and Supabase, also copy the compose folder. Replace `YOUR_DOCKER_FOLDER` with your Docker folder path:
+
+   ```bash
+   sudo cp -a YOUR_DOCKER_FOLDER/compose ~/compose.bak
+   ```
+
+2. Reinstall the app. See [Reinstall an app and keep its data](/using-deployrr/reinstall-app/).
+3. Put back the files from the table. For a secret file, replace `NAME` with the file name:
+
+   ```bash
+   sudo cp -a YOUR_DOCKER_FOLDER/secrets.bak/NAME YOUR_DOCKER_FOLDER/secrets/NAME
+   ```
+
+   For a compose file, replace `HOSTNAME` with your server's hostname and `FILE` with the file name:
+
+   ```bash
+   sudo cp -a ~/compose.bak/HOSTNAME/FILE YOUR_DOCKER_FOLDER/compose/HOSTNAME/FILE
+   ```
+
+   For Open WebUI, open `.env.bak`, find `OPENWEBUI_SECRET_KEY` and copy its value into `.env`, as shown in [Edit by hand without Pro](#edit-by-hand-without-pro).
+
+4. Recreate the app, as shown in [Apply the change with Recreate](#apply-the-change-with-recreate). **Recreate** lists every container by name, including helpers such as `n8n-postgresql`, `langfuse-worker` or `supabase-db`. Recreate the main app and each helper whose file you put back, one at a time. Or choose `all`, which recreates every container on the server.
+5. Check that the app starts and shows your data. When it works, delete `~/compose.bak`.
+
+### When you remove or delete an app
+
+What happens to its values depends on how you remove it:
+
+- **Apps** > **Manage Apps** > **Remove** deletes the app's secret files and its settings in `.env`, such as its port and version pin. It does this whether or not you remove the app data.
+- **Tools** > **Stack Manager** > **Delete** > **Safe** keeps the secret files and `appdata`, but removes the app's settings in `.env`.
+- **Tools** > **Stack Manager** > **Delete** > **Full** deletes the secret files, `appdata` and the `.env` settings.
+
+For an app with helper containers, choosing to remove the app with all its dependencies also removes the helpers' `.env` settings. For the apps in [Before you reinstall an app with generated secrets](#before-you-reinstall-an-app-with-generated-secrets), a kept secret file gets a new value on the next install anyway, so **Safe** alone doesn't keep their passwords.
+
+Copy `.env` and `secrets` first if you may install the app again. For the full list, see [What overwrites or deletes your changes](/using-deployrr/what-overwrites-your-changes/#apps-and-containers).
 
 ## Edit by hand without Pro
 
