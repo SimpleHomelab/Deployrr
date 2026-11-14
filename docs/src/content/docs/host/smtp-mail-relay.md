@@ -180,6 +180,12 @@ Running Mail Relay again writes a fresh `/etc/ssmtp/ssmtp.conf`. Your edit is lo
 
 Deployrr does not install smartd or fail2ban. The Scrutiny app shows disk health in a web page, but it does not install smartd on the host. If you want these tools, install them yourself. Use these settings once they are running.
 
+Back up each config file before you edit it, for example:
+
+```bash
+sudo cp -a /etc/smartd.conf /etc/smartd.conf.orig
+```
+
 **Cron.** Root's cron jobs need their own line. Run `sudo crontab -e` to open root's crontab and put `MAILTO=you@example.com` at the top, as shown above. Cron only sends mail when a job prints output.
 
 **smartd.** Edit `/etc/smartd.conf`. Find the `DEVICESCAN` line, or each device line. If it already has `-m root`, change it to `-m you@example.com`. If it has no `-m`, add `-m you@example.com`. To get a test mail, also add `-M test`, restart the service, then remove `-M test`. The service is `smartmontools` on Debian and Ubuntu and `smartd` on Arch:
@@ -202,13 +208,13 @@ action = %(action_mw)s
 
 Replace `you@example.com` with your own address. Replace `YOUR_FROM_ADDRESS` with the From address from Mail Relay step 4. Many providers reject unverified senders. The default `destemail` is `root@localhost`, which ssmtp cannot deliver, so set it.
 
-`action_mw` bans and mails you a whois report. Use `action_mwl` to add log lines. Depending on your fail2ban version, it may also mail you when a jail starts and stops. Restart it to apply the change:
+`action_mw` bans and mails you a whois report. The report needs the `whois` command on the server, so install it too (the package is `whois` on Debian and Ubuntu). Without it, the mail may come with an empty report. Use `action_mwl` to add log lines. Depending on your fail2ban version, it may also mail you when a jail starts and stops. Restart it to apply the change:
 
 ```bash
 sudo systemctl restart fail2ban
 ```
 
-Back up a config file with `cp -a` before you edit it. See each tool's man page for more options.
+See each tool's man page for more options.
 
 ## If the test fails
 
