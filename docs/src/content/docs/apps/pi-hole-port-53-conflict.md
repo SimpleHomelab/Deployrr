@@ -8,6 +8,7 @@ tags:
   - ports
   - host
   - docker
+  - dns
 applies_to: v6.0+
 apps: [pihole]
 symptoms:

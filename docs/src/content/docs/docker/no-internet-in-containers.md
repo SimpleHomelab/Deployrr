@@ -9,6 +9,7 @@ tags:
   - docker
   - host
   - install
+  - dns
 applies_to: v6.0+
 symptoms:
   - "[ERROR] Problem with some dependencies. This can be due to two reasons: No internet connection"

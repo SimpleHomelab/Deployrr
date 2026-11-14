@@ -3,6 +3,7 @@ title: Send email from your server with SMTP and Mail Relay
 description: Save your SMTP provider details in Deployrr, set up Mail Relay, and send a test email so cron, smartd and fail2ban can mail you.
 type: how-to
 tags:
+  - email
   - host
   - shell
 applies_to: v6.0+

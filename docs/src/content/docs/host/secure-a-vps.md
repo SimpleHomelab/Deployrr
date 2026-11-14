@@ -6,6 +6,7 @@ sidebar:
 description: Make a new VPS or dedicated server safer with a sudo user, SSH keys, no password login and a provider firewall, then install Deployrr in Simple mode.
 type: how-to
 tags:
+  - security
   - host
   - firewall
   - install

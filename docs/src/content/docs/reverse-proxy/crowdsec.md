@@ -6,6 +6,7 @@ tags:
   - traefik
   - firewall
   - logs
+  - security
 apps:
   - crowdsec
   - traefik

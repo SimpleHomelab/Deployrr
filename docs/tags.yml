@@ -34,13 +34,22 @@ tags:
     description: Login protection for apps, bypass rules and auth providers.
   domain:
     label: Domain and DNS
-    description: Domain names, DNS records and Cloudflare.
+    description: Domain names, public DNS records and Cloudflare.
+  dns:
+    label: Local DNS
+    description: DNS on your own network, such as Pi-hole, local DNS records and DNS inside containers.
   ports:
     label: Ports
     description: Port conflicts and port forwarding.
   firewall:
     label: Firewall
     description: Host firewalls and blocking or allowing traffic.
+  security:
+    label: Security
+    description: Keeping your server and apps safe from attacks, such as SSH hardening, CrowdSec and IP allowlists.
+  email:
+    label: Email
+    description: Sending email from your server, such as alerts and mail relay setup.
   host:
     label: Host system
     description: The Linux server itself, such as its name, packages, DNS, Proxmox LXC and disk mounts.
