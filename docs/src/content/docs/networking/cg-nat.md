@@ -146,6 +146,24 @@ A VPS has its own public IP, so there is nothing to forward. See [Fix the UFW fi
 **Option D: Use ZeroTier or Cloudflare Tunnel.**
 Deployrr can install both, and neither needs a forwarded port. ZeroTier works like Tailscale: your devices join a private network, and you open apps at `http://ZEROTIER-IP:PORT`. Cloudflare Tunnel makes apps public on your domain, and Cloudflare carries the traffic to your server. Neither one makes **Domain Checks** pass, so use them with Local mode. See [ZeroTier or Cloudflare Tunnel](#zerotier-or-cloudflare-tunnel) below.
 
+#### Tailscale, ZeroTier or Cloudflare Tunnel?
+
+Options B and D differ mainly in who can open your apps.
+
+| | Tailscale | ZeroTier | Cloudflare Tunnel |
+|---|---|---|---|
+| Who can open your apps | Devices signed in to your Tailscale account | Devices you authorize on your ZeroTier network | Anyone with the address, unless you add a login |
+| What each device needs | The Tailscale app | The ZeroTier app | A web browser |
+| Address you open | `http://TAILSCALE-IP:PORT` | `http://ZEROTIER-IP:PORT` | `https://app.YOUR_DOMAIN` |
+| Domain needed | No | No | Yes, with DNS on Cloudflare |
+| Traffic path | Usually direct between your devices | Usually direct between your devices | Always through Cloudflare |
+
+- Pick Tailscale or ZeroTier when only you and your household use the apps. Nothing is public, so an app without its own login stays safe. Both fall back to a relay when two devices can't connect directly, and a relayed link is slower.
+- Pick Cloudflare Tunnel when people need to open an app without installing anything, such as a shared photo album. Every app you add to the tunnel is public, so give each one a login.
+- For Jellyfin, Plex or other media streaming, use Tailscale or ZeroTier. With a tunnel, every stream goes through Cloudflare, and Cloudflare's terms restrict serving a lot of video through its network.
+- Between Tailscale and ZeroTier, Tailscale has more help on this site. [Set up Tailscale](/networking/tailscale/) covers it in full, and the [VPS setup below](#traefik-on-a-vps-with-your-apps-at-home) uses it.
+- You can run more than one. For example, use Tailscale for your own apps and a tunnel for the one app you share.
+
 ### 4. Skip DDNS Updater
 
 A dynamic DNS updater can't help behind CG-NAT. It keeps your Cloudflare A record in line with your public IP. That doesn't help when the IP is shared and your router can't receive the traffic. See [Keep your Cloudflare A record up to date with DDNS Updater](/apps/ddns-updater/#are-you-behind-cg-nat).
@@ -213,7 +231,7 @@ This is Option D. Both apps are in **Apps** > **Browse Apps**. Neither has a web
 5. Install ZeroTier on your phone or laptop, join the same network, and authorize that device too.
 6. Open `http://ZEROTIER-IP:PORT`, with the server's ZeroTier IP from ZeroTier Central and the app's port.
 
-To see the ZeroTier network and the device clients set up, watch [ZeroTier tutorial: create a network and connect your devices at 2:30](https://youtu.be/olFVgvwjve0?t=150). Follow this page for the Deployrr install, because the video's Deployrr menus may differ from v6.
+To see the ZeroTier network and the device clients set up, watch [ZeroTier tutorial: create a network and connect your devices at 2:30](https://youtu.be/olFVgvwjve0?t=150). The video doesn't cover the Deployrr install, so use the steps above for that part.
 
 ### Cloudflare Tunnel
 
