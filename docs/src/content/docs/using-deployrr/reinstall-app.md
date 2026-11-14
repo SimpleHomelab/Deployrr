@@ -127,7 +127,7 @@ During the install you see "Copying configuration files..." and then "Files copi
 
 qBittorrent and qBittorrent VPN are two examples. Reinstalling qBittorrent replaces `appdata/qbittorrent/qBittorrent/qBittorrent.conf`, and the web UI login goes back to `admin` and `adminadmin`. Reinstalling qBittorrent VPN deletes `appdata/qbittorrent-vpn/qBittorrent/qBittorrent.conf`, and the login becomes `admin` with a temporary password from its log. Either way your qBittorrent settings are reset. See [Reset to the default login and settings](/apps/qbittorrent-webui-troubleshooting/#reset-to-the-default-login-and-settings).
 
-Copy any config file you changed before you reinstall. For other apps, check the config file after the reinstall.
+Copy any config file you changed before you reinstall. For the other apps that get a config file written again, and the steps to keep your edits, see [Config files a reinstall writes again](/using-deployrr/what-overwrites-your-changes/#config-files-a-reinstall-writes-again).
 
 ## Safe delete, then reinstall
 

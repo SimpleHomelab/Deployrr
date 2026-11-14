@@ -130,7 +130,7 @@ In the table, replace `SERVICE_NAME` with the name of your own service. To pick 
 
 You reach **Reinstall** in **Apps** > **Manage Apps** > the app > **Reinstall**. It shows only when the app is stopped. For a running app, use **Apps** > **Browse Apps** > the app > **Install**, then **Yes** in the **Already Installed** box. For the full steps, see [Reinstall an app and keep its data](/using-deployrr/reinstall-app/).
 
-Reinstall replaces `compose/HOSTNAME/APP.yml`. It also writes again every config file the app ships in `appdata/APP`, so your edits to those files are lost. Other files in `appdata/APP` stay. An existing `app-APP.yml` rules file stays too. Deployrr still asks for the subdomain, login and exposure, but your answers do not change that file. Edit the rules file yourself instead.
+Reinstall replaces `compose/HOSTNAME/APP.yml`. It also writes again every config file the app ships in `appdata/APP`, so your edits to those files are lost. See [which apps and files](/using-deployrr/what-overwrites-your-changes/#config-files-a-reinstall-writes-again). Other files in `appdata/APP` stay. An existing `app-APP.yml` rules file stays too. Deployrr still asks for the subdomain, login and exposure, but your answers do not change that file. Edit the rules file yourself instead.
 
 :::caution
 Some apps get passwords and keys that Deployrr makes for you, such as the database password of Nextcloud or n8n. A reinstall writes new values into those files in `secrets/`, while the app's database in `appdata` keeps the old password. Before you reinstall an app that has its own database, copy its secret files. For example, for n8n:
