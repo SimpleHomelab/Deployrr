@@ -26,7 +26,7 @@ videos:
     start: 455
     title: "Traefik 3 guide: Cloudflare A and CNAME DNS records"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
-last_reviewed: 2026-11-13
+last_reviewed: 2026-11-14
 status: current
 old_paths: []
 sources: []

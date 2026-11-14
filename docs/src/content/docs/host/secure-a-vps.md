@@ -30,7 +30,7 @@ videos:
   - id: M6GMp4FJrB8
     start: 432
     title: "Tailscale tutorial: installing Tailscale on Linux"
-last_reviewed: 2026-11-13
+last_reviewed: 2026-11-14
 status: current
 old_paths: []
 sources: []
@@ -287,7 +287,7 @@ A wrong rule here can cut off SSH. Allow your SSH port before you save, and keep
 30. Allow inbound TCP on your SSH port. This is `22` unless you changed it.
 31. Allow inbound TCP on `80`.
 32. Allow inbound TCP on `443`. Optionally allow UDP on `443` too, for HTTP/3. Browsers fall back to TCP if you skip it.
-33. Block all other inbound traffic. Apps reached through Traefik use port 443, so their own ports do not need to be open. Keep ports `81` and `444` blocked. Keep the Traefik dashboard port blocked too. It is `8080` by default, and Traefik Preparation prints "Port N assigned for Traefik dashboard" (or "Port N previously set for Traefik dashboard" when you run it again). The dashboard has no login of its own on that port. To open it safely, see [Open the Traefik dashboard without opening its port](#open-the-traefik-dashboard-without-opening-its-port).
+33. Block all other inbound traffic. Apps reached through Traefik use port 443, so their own ports do not need to be open. Keep ports `81` and `444` blocked. Keep the Traefik dashboard port blocked too. It is `8080` by default, and Traefik Preparation prints "Port N assigned for Traefik dashboard" (or "Port N previously set for Traefik dashboard" when you run it again while Traefik is running). The dashboard has no login of its own on that port. To open it safely, see [Open the Traefik dashboard without opening its port](#open-the-traefik-dashboard-without-opening-its-port).
 34. Apply the rules to your server.
 35. Open a new SSH session to check that you can still log in.
 

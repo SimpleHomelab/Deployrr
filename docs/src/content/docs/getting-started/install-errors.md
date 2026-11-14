@@ -33,7 +33,7 @@ videos:
   - id: "-ZSQdJ62r-Q"
     start: 620
     title: "Docker on Proxmox LXC: creating a non-root user with sudo"
-last_reviewed: 2026-11-13
+last_reviewed: 2026-11-14
 status: current
 old_paths: []
 sources: []
@@ -216,6 +216,14 @@ Deployrr supports 64-bit x86_64 and 64-bit ARM64 processors. It does not support
 
 2. If it prints `x86_64` or `aarch64`, you are on a supported processor. Run the installer again and check for typing mistakes.
 3. If it prints anything else, install a 64-bit version of your operating system. Then install Deployrr again.
+
+On a Raspberry Pi 4 or 5, 32-bit Raspberry Pi OS can start a 64-bit kernel. Then `uname -m` prints `aarch64` and the installer goes ahead, even though the rest of the system is 32-bit. Before you install on a Raspberry Pi, also run:
+
+```bash
+dpkg --print-architecture
+```
+
+It must print `arm64`. If it prints `armhf`, install 64-bit Raspberry Pi OS, then install Deployrr.
 
 After this message, `/opt/deployrr/apps` may already exist even though Deployrr is not installed. It does no harm.
 

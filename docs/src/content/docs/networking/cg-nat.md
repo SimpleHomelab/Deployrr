@@ -36,7 +36,7 @@ videos:
   - id: M6GMp4FJrB8
     start: 38
     title: "Tailscale tutorial: remote access without opening ports"
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-14
 status: current
 old_paths: []
 sources: []
@@ -97,12 +97,35 @@ For background, see [UDMS part 18: CG-NAT](https://www.simplehomelab.com/udms-18
 
 ### 2. If you have double NAT
 
-This is general guidance. Pick one:
+The device in front of your router is usually a modem or router from your ISP. Its menus differ by ISP.
 
-- Put the device in front of your router into bridge mode, so your router gets the public IP. Your ISP can often tell you how.
-- Or forward ports 80 and 443 on both devices. The first device forwards to your router's address. Your router forwards to the Docker host.
+Your router's WAN address shows which network the device in front uses. If your router's WAN IP is `192.168.0.20`, the device in front is often at `192.168.0.1`. Open that address in a browser to reach its admin page. The login is often on a label on the device.
 
-Then check again. Your router's WAN address should now match your public IP.
+Pick one of these, in this order.
+
+**Best: bridge mode on the device in front.**
+Bridge mode turns the ISP device into a plain modem, so your router gets the public IP. It may be called **Bridge Mode**, **Modem Mode** or **IP Passthrough**. Your ISP can often tell you how, or turn it on for you.
+
+:::caution
+Bridge mode can cut your internet until your router picks up the new address. The ISP device's Wi-Fi and its other network ports often stop working too, so anything plugged into them goes offline. Before you switch:
+
+1. Write down the ISP device's settings, its admin address and its login.
+2. If your ISP uses PPPoE, get the PPPoE username and password from your ISP first. Your router needs them after the switch.
+3. Know how to go back. Most ISP devices return to their old settings with a factory reset, using the reset button.
+
+After the switch, restart your router, or renew its WAN address, so it gets the public IP.
+:::
+
+**Next: put your router in the device's DMZ.**
+If the ISP device has no bridge mode, look for **DMZ** or **Exposed Host**. Set it to your router's WAN IP. The ISP device then sends all traffic from the internet to your router, and your router's port forwards and firewall still apply. Give your router's WAN a fixed address on the ISP device first, so the DMZ keeps pointing at it. Never set the DMZ to your Docker host's address. That exposes the whole server to the internet.
+
+**Last: forward ports on both devices.**
+On the ISP device, forward ports 80 and 443 (TCP) to your router's WAN IP, with the same port numbers. On your router, forward them to the Docker host as in [What to forward](/networking/port-forwarding/#what-to-forward). In Advanced Traefik mode, only your router changes the ports to 81 and 444. The ISP device still forwards 80 to 80 and 443 to 443. Give your router's WAN a fixed address on the ISP device here too.
+
+Then check again:
+
+- With bridge mode, your router's WAN address now matches your public IP.
+- With a DMZ or forwards on both devices, your router's WAN address stays private. That is expected. Test with the [check from outside](/networking/port-forwarding/#check-from-outside) instead.
 
 ### 3. If you have CG-NAT, pick an option
 
@@ -140,6 +163,6 @@ Don't rerun **Domain Checks** once it shows `DONE` and Traefik is running. It fa
 
 ## Check it worked
 
-1. The router WAN address now matches the public IP from `curl -4 https://ifconfig.me`.
+1. The router WAN address now matches the public IP from `curl -4 https://ifconfig.me`. If you kept double NAT with a DMZ or two forwards, skip this and use the [check from outside](/networking/port-forwarding/#check-from-outside).
 2. **Domain Checks** ends with `Domain Checks Passed: 8 / 8`, or your Local mode or VPS setup opens your apps as you planned.
 3. Turn off Wi-Fi on your phone and open your app. With Tailscale, open `http://TAILSCALE-IP:PORT`. Otherwise open `https://app.YOUR_DOMAIN`. Replace `app` and `YOUR_DOMAIN` with your subdomain and domain.
