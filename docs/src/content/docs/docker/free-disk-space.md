@@ -27,7 +27,7 @@ videos:
     start: 2132
     title: "Traefik 3 guide: Traefik log settings and access log growth"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-14
 status: current
 old_paths: []
 sources: []
@@ -270,37 +270,80 @@ These are the settings in its compose file, `compose/HOSTNAME/docker-gc.yml` in 
 
 | Setting | Value | Meaning |
 | --- | --- | --- |
-| `CRON` | `0 0 0 * * ?` | Runs every day at midnight. |
-| Grace period | `604800` seconds | Keeps things for 7 days before removal. |
+| `CRON` | `0 0 0 * * ?` | Written as a daily midnight schedule. It currently never runs. See [Make it run every night](#make-it-run-every-night). |
+| `GRACE_PERIOD_SECONDS` | `604800` | Keeps things for 7 days before removal. |
 | `FORCE_IMAGE_REMOVAL` | `1` | Forces the removal of unused images. |
 | `FORCE_CONTAINER_REMOVAL` | `0` | Does not force the removal of containers. |
 | `CLEAN_UP_VOLUMES` | `1` | Removes unused volumes. |
 | `DRY_RUN` | `0` | Does the removal for real. |
 
-In plain terms, the Docker GC image removes containers that exited more than 7 days ago, images that no container uses, and unused volumes. This is how the image behaves, not something Deployrr adds. To understand how a garbage collector works in a manual setup, read [UDMS part 14: Docker Garbage Collector](https://www.simplehomelab.com/udms-14-docker-media-server/#16_Docker_Garbage_Collector) (manual setup, for background only; Deployrr v6 runs it through Socket Proxy with the settings above).
-
-To keep an image, list it in `appdata/docker-gc/docker-gc-exclude` in your Docker folder. The file ships with only the Docker GC image in it.
+A Docker GC run removes containers that exited more than 7 days ago, images that no container uses, and unused volumes. This is how the image behaves, not something Deployrr adds. To understand how a garbage collector works in a manual setup, read [UDMS part 14: Docker Garbage Collector](https://www.simplehomelab.com/udms-14-docker-media-server/#16_Docker_Garbage_Collector) (manual setup, for background only; Deployrr v6 runs it through Socket Proxy with the settings above).
 
 :::caution
 Docker GC removes unused volumes. Removing a volume deletes its data for good. Read the warning in [Pick a cleanup alias](#pick-a-cleanup-alias) and make a [backup](/using-deployrr/backups/) first.
 
 If an app has been stopped for more than 7 days, Docker GC can remove its container. Its settings stay in your Docker folder. Use **Tools** > **Stack Manager** > **Up** to create the container again.
-
-Deployrr writes the exclude file and `docker-gc.yml` again on every install or reinstall. Your changes to either are lost then. Keep your own copy of what you change.
 :::
 
-#### Test it before you trust it
+#### Make it run every night
 
-1. Open `compose/HOSTNAME/docker-gc.yml` in your Docker folder.
-2. Set `DRY_RUN` to `1`. Save the file.
-3. Go to **Tools** > **Stack Manager** > **Recreate**. In the numbered list, pick `docker-gc`.
-4. After its next run, read its log:
+The image reads `CRON` as a normal 5-part schedule: minute, hour, day of month, month, day of week. The schedule in the compose file currently has 6 parts, so the third `0` lands on the day of month, and there is no day 0. The job currently never starts. Set a 5-part schedule yourself:
+
+1. Make a copy of the compose file. Run this from your Docker folder, and replace `HOSTNAME` with your server's hostname:
+
+   ```bash
+   cp compose/HOSTNAME/docker-gc.yml ~/docker-gc.yml.bak
+   ```
+
+2. Open `compose/HOSTNAME/docker-gc.yml` and change the `CRON` line to:
+
+   ```yaml
+         - CRON=0 0 * * *
+   ```
+
+   This runs every day at midnight. `0 3 * * 0` runs Sundays at 3 AM. Keep the line's indent as it was.
+
+3. Decide on volumes before the first run. To keep unused volumes, set `CLEAN_UP_VOLUMES=0`. Images and old containers are still cleaned.
+4. Save the file.
+5. Go to **Tools** > **Stack Manager** > **Recreate**. In the numbered list, pick `docker-gc`.
+6. Check the schedule the container uses:
+
+   ```bash
+   sudo docker exec docker-gc crontab -l
+   ```
+
+   The line should start with `0 0 * * *`.
+
+7. After the next scheduled time, read its log:
 
    ```bash
    sudo docker logs docker-gc
    ```
 
-5. Set `DRY_RUN` back to `0` and recreate it again when you are happy with the list.
+   A run starts with "Docker GC starting." and ends with "Docker GC has completed." If you see neither, the schedule didn't match. Check the `CRON` line again.
+
+#### Change what it removes
+
+Edit the same file, save it and recreate `docker-gc` as in the steps above.
+
+- **Keep things longer:** raise `GRACE_PERIOD_SECONDS`. `1209600` is 14 days.
+- **Keep unused volumes:** set `CLEAN_UP_VOLUMES=0`.
+- **Keep an image:** add it to `appdata/docker-gc/docker-gc-exclude` in your Docker folder, one per line. Use the name and tag, like `lscr.io/linuxserver/plex:latest`, or the 12-character image ID that `sudo docker images` shows. The file ships with only the Docker GC image in it.
+
+#### Try a dry run first
+
+With `DRY_RUN=1`, Docker GC lists the containers and images it would remove and removes none of them. It still removes unused volumes if `CLEAN_UP_VOLUMES` is `1`. For a dry run that removes nothing, set both:
+
+```yaml
+      - DRY_RUN=1
+      - CLEAN_UP_VOLUMES=0
+```
+
+Recreate it and read `sudo docker logs docker-gc` after the next run. Look for "would have been removed". When you are happy with the list, set `DRY_RUN` back to `0`, set `CLEAN_UP_VOLUMES` the way you want and recreate it again.
+
+#### What a reinstall resets
+
+Deployrr writes `docker-gc.yml` and the exclude file again on every install or reinstall of Docker GC, including **Apps** > **Manage Apps** > the app > **Manage** > **Reinstall**. **Tools** > **Stack Manager** > **Recreate** keeps your edits. Your `CRON` fix, other settings and excluded images are lost then, and the schedule stops working again. Keep your own copy of both files (see [What overwrites your changes](/using-deployrr/what-overwrites-your-changes/)) and put your changes back after a reinstall.
 
 ### Limit container log size
 
