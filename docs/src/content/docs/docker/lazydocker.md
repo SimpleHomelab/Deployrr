@@ -29,7 +29,7 @@ further_reading:
   - title: "UDMS part 13: Docker container logs commands"
     url: https://www.simplehomelab.com/udms-13-docker-and-docker-compose-commands/#Container_Logs
 videos: []
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-14
 status: current
 old_paths: ["/traefik/traefik-minimum-supported-docker-api"]
 sources:
@@ -76,7 +76,7 @@ In the Server section, find a line like this. The numbers will differ:
 API version:      1.52 (minimum version 1.44)
 ```
 
-If the minimum version is higher than 1.25, pick one of the two fixes below.
+If the minimum version is higher than 1.25, pick one of the two fixes below. For what these numbers mean, see [Docker versions and Deployrr](#docker-versions-and-deployrr).
 
 ### Fix A: Lower the minimum API version in Docker
 
@@ -160,6 +160,29 @@ These keys are general Lazydocker behaviour.
 
 1. Open **Tools** > **Lazydocker** and press **OK**. After Fix A, the list of your containers shows and the error does not appear.
 2. After Fix B, `sudo ~/.local/bin/lazydocker` shows your containers.
+
+## Docker versions and Deployrr
+
+Deployrr does not pin a Docker version, and it does not check which version you run.
+
+- On the Docker side, **Prerequisites** > **System Checks** only checks that Docker is installed and running. If Docker is missing, it installs it with Docker's install script, or from Docker's apt repository if that script fails. On Arch, it installs Docker from the Arch repos.
+- If Docker is already installed, System Checks asks "Would you like to check and update your system? (Y/n)". Only **Y** runs a full system update on Debian, Ubuntu and Arch. Any other answer, including Enter, skips it. The update can also move Docker to a newer version.
+
+So a new server gets whatever Docker version Docker's script or the Arch repos provide that day, and an older server can move to a new major version after a system update.
+
+To see your versions, run `sudo docker version`. In the Server section, look at two lines:
+
+- `Version`: the Docker Engine version, for example `29.0.0`.
+- `API version: 1.52 (minimum version 1.44)`: the newest Docker API this server speaks, and the oldest one it accepts. A tool that uses an older API than the minimum gets the "client version ... is too old" error. That is what happens to Lazydocker above.
+
+To see whether a system update would install a new Docker on Debian or Ubuntu, run this general apt command before you answer **Y**:
+
+```bash
+sudo apt update
+apt list --upgradable 2>/dev/null | grep -i docker
+```
+
+If `docker-ce` is listed with a new major version, read the release notes on the Docker site before you update.
 
 ## If you only need logs
 
