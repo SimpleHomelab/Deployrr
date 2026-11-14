@@ -102,7 +102,6 @@ During an install you see "Copying configuration files...". For the apps below, 
 | Prometheus | `appdata/prometheus/config/prometheus.yml` | Your scrape jobs. |
 | qBittorrent | `appdata/qbittorrent/qBittorrent/qBittorrent.conf` | All qBittorrent settings and the web UI login. See [Config files](/using-deployrr/reinstall-app/#config-files). |
 | qBittorrent VPN | `appdata/qbittorrent-vpn/qBittorrent/qBittorrent.conf` is deleted | All qBittorrent settings and the web UI login. See [Config files](/using-deployrr/reinstall-app/#config-files). |
-| OpenClaw | `appdata/shared/openclaw-cli/openclaw.json` | Your OpenClaw settings. The install also deletes its `identity`, `devices`, `credentials` and `sessions` folders, and so does every **Update App** for OpenClaw. |
 | SearXNG | `appdata/searxng/settings/settings.yml` and `limiter.toml` | Your search settings. `settings.yml` also gets a new secret key. |
 | Sshwifty | `appdata/sshwifty/conf.json` | Your presets and settings. Deployrr fills in the web password from `secrets/sshwifty_password` again, and one preset for this server's SSH port if it finds the port. |
 | ViniPlay | `appdata/viniplay/.env` | Nothing you set, but it gets a new session secret, so everyone has to log in again. |
