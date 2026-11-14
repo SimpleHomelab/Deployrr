@@ -34,7 +34,7 @@ videos:
     start: 2898
     title: "Traefik 3 guide: switching from staging to production and emptying acme.json"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-14
 status: current
 old_paths: []
 sources: []
@@ -104,6 +104,28 @@ To see a similar folder layout built by hand, watch [Ultimate Docker Server in 5
 | `secrets/` | Secret files, such as passwords and keys, one file each. |
 
 `.env` and `secrets/` belong to root. Use `sudo` to read them in a terminal. See [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/). **Tools** > **Diagnostics** checks that `.env` has the permissions it should (600) and can fix them. See [Diagnostics](/support/diagnostics/).
+
+### Common names in .env
+
+The compose files use these names, for example `$DOCKERDIR/appdata/sonarr:/config`. This table shows where each value comes from.
+
+| Name | What it holds | Set by |
+| --- | --- | --- |
+| `PUID`, `PGID`, `PRIMARY_USERNAME`, `USERDIR` | Your Linux user, its IDs and its home folder | **Prerequisites** > **Environment** |
+| `TZ` | Your time zone, taken from the server (UTC if Deployrr can't detect it) | **Prerequisites** > **Environment** |
+| `DOCKERDIR` | The path of your Docker folder | **Prerequisites** > **Environment** |
+| `HOSTNAME` | The server's hostname | **Prerequisites** > **Environment**, and **Tools** > **Change Hostname** |
+| `SERVER_LAN_IP` | The server's IP address | **Prerequisites** > **Server IP** (Environment copies it if set), and **Tools** > **Change Server IP** |
+| `DOMAINNAME_1` | Your domain | **Prerequisites** > **Domain 1** (Environment copies it if set). An empty entry removes it. |
+| `LOCAL_IPS`, `CLOUDFLARE_IPS` | IP ranges Traefik trusts | **Prerequisites** > **Environment** |
+| `MEDIADIR1`, `DOWNLOADSDIR`, `BOOKSDIR` and the other folder names | Your media, downloads and other folders | **System** > **Folders**. See the [full list of folder names](/storage/folders/). |
+| `APP_PORT`, for example `SONARR_PORT` | The port of one app | The app's install. See [Port already in use](/docker/port-already-in-use/). |
+| `APP_VERSION_PIN`, for example `TRAEFIK_VERSION_PIN` | The image version of one app | **Prerequisites** > **Environment** for all apps, and the app's install if its pin is missing. See [Update apps](/using-deployrr/update-apps/). |
+| `APP_SUBDOMAIN`, for example `NEXTCLOUD_SUBDOMAIN` | The subdomain, for the few apps that need it inside the app | The app's install |
+
+`APP` is the app's name in capitals without dashes, so `open-webui` becomes `OPENWEBUI`. Most apps get their subdomain from their Traefik rules file, not from `.env`. Apps with a database or login also add their own values, such as passwords and keys.
+
+For the server IP, the domain and the hostname, use the menu, not a hand edit. **Prerequisites** > **Server IP** and **Domain 1** update `.env` and the copy Deployrr keeps for itself. The **Tools** entries (Pro) do more than change `.env`. **Change Hostname** renames the folders and files named after the host. **Change Server IP** writes the new IP into your Traefik rules files and the Dashboard. See [Change the hostname](/host/change-hostname/) and [Change the server IP](/host/change-server-ip/).
 
 ## What you can edit and what Deployrr writes
 
