@@ -236,7 +236,7 @@ These steps change who owns your Docker files and what your apps run as. A mista
 5. Change four values in the `.env` file in your Docker folder: `PUID` (the first number), `PGID` (the second number), `PRIMARY_USERNAME` (the name) and `USERDIR` (`/home/NEW_USER`). Use **Tools** > **.env Editor** (Pro) or edit by hand. See [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/#edit-a-value-with-the-env-editor) and [Edit by hand without Pro](/using-deployrr/edit-env-and-secrets/#edit-by-hand-without-pro).
 
    :::note
-   Don't run **Environment** again to do this. It warns "If you proceed, you may break previously installed apps", and both **Recreate** and **Reuse** delete files. **Reuse** keeps only `appdata`, `.env`, `secrets` and `custom.yml`, so your apps' compose files are removed.
+   Don't run **Environment** again to do this. It warns "If you proceed, you may break previously installed apps", and both **Recreate** and **Reuse** delete files. **Reuse** also removes your apps' compose files.
    :::
 
 6. Give the new user the same folders the old user had. Don't run a recursive `chown` on `appdata` or the whole Docker folder. Some apps, such as pgAdmin, Mosquitto and n8n, own their folders with fixed IDs, and you would break them.
