@@ -24,7 +24,7 @@ videos:
     start: 1655
     title: "Deployrr 5 walkthrough: Docker disk usage and cleanup"
     note: Shows Deployrr v5. Menus and steps differ in v6.
-last_reviewed: 2026-11-13
+last_reviewed: 2026-11-14
 status: current
 old_paths: []
 sources: []
@@ -53,7 +53,7 @@ Make a backup first. A deleted file or folder is gone. A rewritten file loses yo
 
 | Action | Overwrites or deletes | Keeps | Protect your change | Details |
 | --- | --- | --- | --- | --- |
-| **Apps** > **Manage Apps** > the app > **Reinstall** (shown only for a stopped app), or **Install** then **Yes** in **Already Installed** | The app's compose file, the compose files of its database containers, and every config file Deployrr ships for the app. Secrets that Deployrr makes without asking you get new values. | `appdata/APP` data, an existing Traefik rules file, secrets you typed in (the prompt offers to keep them) | Copy the files you changed and, for an app with a database, its files in `secrets/`. Put edits back, then **Recreate**. | [Reinstall](/using-deployrr/docker-folder-layout/#reinstall), [Reinstall an app](/using-deployrr/reinstall-app/) |
+| **Apps** > **Manage Apps** > the app > **Reinstall** (shown only for a stopped app), or **Install** then **Yes** in **Already Installed** | The app's compose file, the compose files of its database containers, and the config files listed under [Config files a reinstall writes again](#config-files-a-reinstall-writes-again). Secrets that Deployrr makes without asking you get new values. | `appdata/APP` data, an existing Traefik rules file, secrets you typed in (the prompt offers to keep them) | Copy the files you changed and, for an app with a database, its files in `secrets/`. Put edits back, then **Recreate**. | [Config files a reinstall writes again](#config-files-a-reinstall-writes-again), [Reinstall an app](/using-deployrr/reinstall-app/) |
 | **Apps** > **Manage Apps** > the app > **Remove** | The container, the compose file and the app's secret files, also when you keep app data | `appdata/APP`, if you answer **No** to removing app data | Copy the app's files in `secrets/` first. | [Manage your apps](/using-deployrr/manage-apps/) |
 | **Tools** > **Stack Manager** > **Delete** > **Safe** | The container, compose file, the app's entries in `.env`, its Traefik rules file and Dashboard entry | `appdata/APP` and secrets | Copy the compose file and rules file first. | [Stack Manager](/using-deployrr/stack-manager/#delete) |
 | **Stack Manager** > **Delete** > **Full** | All of the above, plus `appdata/APP` and the app's secrets. It can also remove unused Docker volumes. You can't undo it. | Nothing of that app | Back up the Docker folder first. | [Stack Manager](/using-deployrr/stack-manager/#delete) |
@@ -85,6 +85,42 @@ Make a backup first. A deleted file or folder is gone. A rewritten file loses yo
 | **Settings** > **Remove** | Deployrr's configuration, saved settings, cache, scripts and logs | Your apps, images and Docker folder | Back up first. | [Refresh, Reset or Remove](/getting-started/reset-or-remove-deployrr/#remove-deployrr) |
 
 ## Notes the tables can't hold
+
+### Config files a reinstall writes again
+
+During an install you see "Copying configuration files...". For the apps below, this step, or a setup step right after it, writes the file again on every reinstall, even if it is already there. Your edits in it are lost, and no copy is kept. Paths are inside your Docker folder.
+
+| App | File | What you lose |
+| --- | --- | --- |
+| Deployrr Dashboard | `appdata/deployrr-dashboard/config/` `services.yaml`, `settings.yaml`, `widgets.yaml`, `bookmarks.yaml` and `docker.yaml` | Your layout, widgets and bookmarks. The app list keeps only the Dashboard, Socket Proxy and Traefik (if it runs). Run **Tools** > **ReDash** to add your apps back. You reinstall the Dashboard from **Docker** > **Deployrr Dashboard**, then **Yes** in **Already Installed**. See [Dashboard](/using-deployrr/dashboard/). |
+| Dashy | `appdata/dashy/conf.yml` | Your whole Dashy layout. It goes back to the starter page. |
+| DDNS Updater | `appdata/ddns-updater/config.json` | Settings you added by hand. See [After a reinstall](/apps/ddns-updater/#after-a-reinstall). |
+| Docker Garbage Collection | `appdata/docker-gc/docker-gc-exclude` | The images you told it to keep. |
+| Glances | `appdata/glances/glances.conf` | Your Glances settings. |
+| Mosquitto | `appdata/mosquitto/config/mosquitto.conf` and `appdata/mosquitto/config/passwd` | Your listener changes and your MQTT users. The new `passwd` holds only the user you enter at the install prompts. Anonymous login stays off, so clients that use other users can't connect until you add them again. |
+| PrivateBin | `appdata/privatebin/conf.php` | Your PrivateBin settings. |
+| Prometheus | `appdata/prometheus/config/prometheus.yml` | Your scrape jobs. |
+| qBittorrent | `appdata/qbittorrent/qBittorrent/qBittorrent.conf` | All qBittorrent settings and the web UI login. See [Config files](/using-deployrr/reinstall-app/#config-files). |
+| qBittorrent VPN | `appdata/qbittorrent-vpn/qBittorrent/qBittorrent.conf` is deleted | All qBittorrent settings and the web UI login. See [Config files](/using-deployrr/reinstall-app/#config-files). |
+| OpenClaw | `appdata/shared/openclaw-cli/openclaw.json` | Your OpenClaw settings. The install also deletes its `identity`, `devices`, `credentials` and `sessions` folders, and so does every **Update App** for OpenClaw. |
+| SearXNG | `appdata/searxng/settings/settings.yml` and `limiter.toml` | Your search settings. `settings.yml` also gets a new secret key. |
+| Sshwifty | `appdata/sshwifty/conf.json` | Your presets and settings. Deployrr fills in the web password from `secrets/sshwifty_password` again, and one preset for this server's SSH port if it finds the port. |
+| ViniPlay | `appdata/viniplay/.env` | Nothing you set, but it gets a new session secret, so everyone has to log in again. |
+
+Supabase's config files and Cloudflare Tunnel's `hosts` file are only written when they are missing, so a reinstall keeps your edits there. For the Traefik rules file and secrets, see the [Apps and containers](#apps-and-containers) table.
+
+To keep your edits:
+
+1. Copy the file before you reinstall. For example, for Mosquitto:
+
+   ```bash
+   sudo cp -a YOUR_DOCKER_FOLDER/appdata/mosquitto/config ~/mosquitto-config.bak
+   ```
+
+2. Reinstall the app.
+3. Stop the app with **Apps** > **Manage Apps** > the app > **Stop**, so it can't write the file while you copy.
+4. Copy your file back over the new one, or copy only the lines you changed.
+5. Use **Tools** > **Stack Manager** > **Recreate** for that app, so it starts and reads the file again.
 
 ### Login setups
 

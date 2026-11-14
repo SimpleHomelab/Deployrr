@@ -3,7 +3,7 @@ title: "Behind CG-NAT: your apps can't be reached from the internet"
 sidebar:
   order: 4
   label: Behind CG-NAT
-description: "Find out if your ISP uses CG-NAT, then pick a fix: ask for a public IP, use Local mode with Tailscale, or run Deployrr on a VPS."
+description: "Find out if your ISP uses CG-NAT, then pick a fix: ask for a public IP, use Local mode with Tailscale, ZeroTier or Cloudflare Tunnel, or run Deployrr on a VPS."
 type: troubleshooting
 tags:
   - remote-access
@@ -36,6 +36,9 @@ videos:
   - id: M6GMp4FJrB8
     start: 38
     title: "Tailscale tutorial: remote access without opening ports"
+  - id: olFVgvwjve0
+    start: 150
+    title: "ZeroTier tutorial: create a network and connect your devices"
 last_reviewed: 2026-11-14
 status: current
 old_paths: []
@@ -140,8 +143,8 @@ Local mode serves your apps on your home network only. It needs no domain, no re
 **Option C: Run Deployrr on a VPS.**
 A VPS has its own public IP, so there is nothing to forward. See [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/) for firewall and Simple mode advice on a VPS. If you also have a server at home, you can run Hybrid mode with Traefik on the VPS and add the home apps with **Traefikify**. The VPS must be able to reach each home app's IP and port. Behind CG-NAT it can't do that over the internet, so connect the two servers with Tailscale. See [Traefik on a VPS with your apps at home](#traefik-on-a-vps-with-your-apps-at-home) below.
 
-**Option D: Use a tunnel service.**
-Services such as Cloudflare Tunnel connect your server to the internet without a forwarded port. This is outside Deployrr's setup, and this page has no steps for it.
+**Option D: Use ZeroTier or Cloudflare Tunnel.**
+Deployrr can install both, and neither needs a forwarded port. ZeroTier works like Tailscale: your devices join a private network, and you open apps at `http://ZEROTIER-IP:PORT`. Cloudflare Tunnel makes apps public on your domain, and Cloudflare carries the traffic to your server. Neither one makes **Domain Checks** pass, so use them with Local mode. See [ZeroTier or Cloudflare Tunnel](#zerotier-or-cloudflare-tunnel) below.
 
 ### 4. Skip DDNS Updater
 
@@ -186,6 +189,49 @@ Use the Tailscale IP, not the home server's Tailscale machine name. [Set up Tail
 - If you use access controls in the Tailscale admin console, allow the VPS to reach the home server on each app's port. Tailscale's default rules allow it.
 - Apps on the VPS itself are added as usual. For other ways to share one domain, see [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/).
 
+## ZeroTier or Cloudflare Tunnel
+
+This is Option D. Both apps are in **Apps** > **Browse Apps**. Neither has a web page of its own.
+
+### Before you start
+
+- You have a Basic, Plus or Pro license. See [Licenses](/getting-started/licenses/).
+- Run **System** > **Network** first, so Deployrr checks your server for the network adapter (`/dev/net/tun`). Without it, the install stops with **Requirements Not Met**, after the app's first box. The steps are the same as for Tailscale. See [Set the network adapter](/networking/tailscale/#1-set-the-network-adapter).
+- In a Proxmox LXC container, pass `/dev/net/tun` into the container first. See [Pass /dev/net/tun into the container](/host/proxmox-lxc/#pass-devnettun-into-the-container).
+
+### ZeroTier
+
+1. Sign in at `my.zerotier.com`, create a network, and copy its Network ID.
+2. In Deployrr, go to **Apps** > **Browse Apps**, select **ZeroTier** and choose **Install**. At `Do you want to install this app?`, choose **Yes**. The **ZeroTier Host Networking** box says you will open apps at `ZEROTIER-IP:PORT`. Select **OK**.
+3. At **ZeroTier - Configuration**, which asks `Enter value for ZEROTIER_NETWORKID:`, paste the Network ID. Deployrr joins the server to the network after the install. If you leave it empty, or the join fails, join later with:
+
+   ```bash
+   sudo docker exec zerotier zerotier-cli join YOUR_NETWORK_ID
+   ```
+
+4. In ZeroTier Central, find the server under the network's members and authorize it. It gets a ZeroTier IP once you do.
+5. Install ZeroTier on your phone or laptop, join the same network, and authorize that device too.
+6. Open `http://ZEROTIER-IP:PORT`, with the server's ZeroTier IP from ZeroTier Central and the app's port.
+
+To see the ZeroTier network and the device clients set up, watch [ZeroTier tutorial: create a network and connect your devices at 2:30](https://youtu.be/olFVgvwjve0?t=150). Follow this page for the Deployrr install, because the video's Deployrr menus may differ from v6.
+
+### Cloudflare Tunnel
+
+Your domain must use Cloudflare for DNS. See [Cloudflare for Deployrr](/networking/cloudflare/).
+
+1. In the Cloudflare Zero Trust dashboard, create a tunnel of type Cloudflared. Cloudflare shows an install command with a long token in it. Copy only the token.
+2. In Deployrr, go to **Apps** > **Browse Apps**, select **Cloudflare Tunnel** and choose **Install**. At `Do you want to install this app?`, choose **Yes**. At the **Cloudflare Tunnel Token Required** box, choose **Yes**.
+3. At **Cloudflare Tunnel - Configuration**, which asks `Enter value for CLOUDFLARE_TUNNEL_TOKEN:`, paste the token. Don't leave it empty. The box accepts an empty value, but the tunnel can't connect without a token.
+4. Back in Cloudflare, add a public hostname to the tunnel for each app. Pick the subdomain and your domain, and set the service to `http://localhost:PORT`, with the app's port. The tunnel runs on the server's own network, so `localhost` reaches the app.
+5. Turn off Wi-Fi on your phone and open `https://app.YOUR_DOMAIN`.
+
+Things to know:
+
+- Anyone who has the address can open the app. For apps without their own login, add one in Cloudflare Zero Trust before you share the address.
+- If a DNS record with the same name already exists, Cloudflare won't add the public hostname. Delete the old record first.
+- The token gives control of the tunnel. Treat it like a password. Deployrr saves it in your `.env` file as `CLOUDFLARE_TUNNEL_TOKEN`. To change it, edit that value with **Tools** > **.env Editor** (Pro license) or by hand, then run **Tools** > **Stack Manager** > **Recreate** on the app. See [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/).
+- This page doesn't cover sending tunnel traffic through Traefik.
+
 ## After you get a public IP
 
 1. Check that your router forwards the right ports to the Docker host. Simple mode needs 80 to 80 and 443 to 443. Advanced mode needs 80 to 81 and 443 to 444. See [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/).
@@ -200,4 +246,4 @@ Don't rerun **Domain Checks** once it shows `DONE` and Traefik is running. It fa
 
 1. The router WAN address now matches the public IP from `curl -4 https://ifconfig.me`. If you kept double NAT with a DMZ or two forwards, skip this and use the [check from outside](/networking/port-forwarding/#check-from-outside).
 2. **Domain Checks** ends with `Domain Checks Passed: 8 / 8`, or your Local mode or VPS setup opens your apps as you planned.
-3. Turn off Wi-Fi on your phone and open your app. With Tailscale, open `http://TAILSCALE-IP:PORT`. Otherwise open `https://app.YOUR_DOMAIN`. Replace `app` and `YOUR_DOMAIN` with your subdomain and domain.
+3. Turn off Wi-Fi on your phone and open your app. With Tailscale, open `http://TAILSCALE-IP:PORT`. With ZeroTier, open `http://ZEROTIER-IP:PORT`. Otherwise open `https://app.YOUR_DOMAIN`. Replace `app` and `YOUR_DOMAIN` with your subdomain and domain.
