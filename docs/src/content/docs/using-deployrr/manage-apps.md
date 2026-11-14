@@ -29,7 +29,7 @@ videos:
     start: 1954
     title: "Deployrr 5 walkthrough: Stack Manager Safe and Full delete"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
-last_reviewed: 2026-11-11
+last_reviewed: 2026-11-14
 status: current
 old_paths: ["/apps/manage-apps"]
 sources: []
@@ -53,7 +53,7 @@ Core apps such as Traefik are in neither list. They have their own menus.
 
 You need a Basic, Plus or Pro license to install or reinstall an app. Without one you see "License Required" and "Official apps require a paid license." Start, Stop, Restart, Logs and Remove in **Manage Apps** have no license or requirements check. See [Licenses](/getting-started/licenses/).
 
-The **Apps Menu** also lists **ShellInABox** under SYSTEM APPS. It is a web-based SSH terminal. It needs Traefik in production, a login method and a paid license. This page doesn't cover it. See [Install ShellInABox](/apps/shellinabox/).
+The **Apps Menu** also lists **ShellInABox** under SYSTEM APPS. It is not a Docker app, so **Manage Apps** doesn't show it. See [Parts that don't run in Docker](#parts-that-dont-run-in-docker).
 
 ## Install an app with Browse Apps
 
@@ -242,6 +242,30 @@ In the aliases, replace `APP` with the app's name. See [Bash aliases](/using-dep
 | License and Prerequisites check | None | Every Stack Manager option checks for a Basic, Plus or Pro license and finished Prerequisites |
 
 See [Stack Manager](/using-deployrr/stack-manager/) for every option.
+
+## Parts that don't run in Docker
+
+A few things Deployrr sets up run on the server itself as system services, not as containers. **Manage Apps** and `docker ps` don't list them, and Docker commands and the Deployrr aliases don't control them.
+
+| Part | Where you set it up | What its menu line shows | Service name | Page |
+| --- | --- | --- | --- | --- |
+| ShellInABox | **Apps** > SYSTEM APPS > **ShellInABox** | **RUNNING**, or **STOPPED** when installed but not running | `shellinabox` | [Install ShellInABox](/apps/shellinabox/) |
+| CrowdSec Firewall Bouncer | **Security** > **Firewall Bouncer** | **RUNNING** while the service runs, otherwise nothing | `crowdsec-firewall-bouncer` | [Block bad visitors with CrowdSec](/reverse-proxy/crowdsec/) |
+| Rclone mount | **System** > **Mounts** > **Rclone** > **Automount** Your mount folder, then **mounted** or **not mounted**. Before setup: "SMB Share via Rclone" | `rclone-NAME`, where `NAME` is your remote name | [Mount a NAS share with Rclone](/storage/rclone-smb-setup/) |
+| Delay Media Apps | **System** > **Mounts** > **Rclone** > **Delay Media Apps** | **DONE** once set up | `start-media-after-boot` | [Apps are stopped after a reboot](/docker/apps-not-starting-after-reboot/) |
+
+Delay Media Apps runs once at boot. It waits up to 15 minutes for the Rclone mount, starts your media apps, and then exits. `systemctl status` shows it as inactive afterwards. That is normal. If the mount never appears, it stops the media apps instead.
+
+To check, stop, start or read the log of one of them, use the general Linux commands below. Replace `SERVICE` with the service name from the table.
+
+```bash
+sudo systemctl status SERVICE
+sudo systemctl stop SERVICE
+sudo systemctl start SERVICE
+sudo journalctl -u SERVICE -n 50
+```
+
+To remove the Rclone mount and Delay Media Apps, use **System** > **Mounts** > **Rclone** > **Uninstall**. It unmounts the share and removes Rclone and both services. ShellInABox has no remove option in Deployrr. Remove it by hand as in [Remove it](/apps/shellinabox/#remove-it), including its Traefik rules file and Dashboard entry. Afterwards the **Apps Menu** still shows ShellInABox as **STOPPED**.
 
 ## Next steps
 
