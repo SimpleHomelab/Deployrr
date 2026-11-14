@@ -38,10 +38,31 @@ Check these before you install.
 ### Supported systems
 
 - Ubuntu 22.04 or newer, and Debian 11 or newer. These are the main, supported platforms. Systems based on them work too.
-- Fedora, Arch, CentOS, RHEL and Rocky Linux work, but they are not officially supported. On these, Deployrr uses the system's own package manager (dnf or pacman), and it works with firewalld as well as UFW.
+- Fedora, Arch, CentOS, RHEL and Rocky Linux work, but they are not officially supported. On these, Deployrr uses the system's own package manager (dnf or pacman), and it works with firewalld as well as UFW. A few menu items work differently or not at all there. See [On Arch and Fedora](#on-arch-and-fedora).
 - An x86_64 or ARM64 processor, running a 64-bit OS. A Raspberry Pi works with 64-bit Raspberry Pi OS or another supported 64-bit OS. To check on Debian, Ubuntu or Raspberry Pi OS, run `dpkg --print-architecture`. It must print `amd64` or `arm64`. If it prints `armhf`, you have a 32-bit OS: install the 64-bit version first. See [Unsupported architecture](/getting-started/install-errors/#unsupported-architecture).
 - NAS systems such as Synology or QNAP are not supported. If your NAS can run a virtual machine, install a supported OS in a VM and run Deployrr there.
 - Any of these system types: an LXC container (unprivileged or privileged), a virtual machine on any hypervisor (Proxmox, ESXi, VirtualBox, Windows WSL and others), bare metal, or a VPS. In a Proxmox LXC container, a Docker update can stop containers from starting. See [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
+
+### On Arch and Fedora
+
+Apps run in Docker, so they work the same on every system. The differences are in menu items that install software on the server itself.
+
+On Arch and Manjaro, some of that software is only in the AUR. Install `yay` or `paru` first. Without one, these items show `No AUR helper found` and can't install what they need. Mail Relay then stops with `Failed to install ssmtp package`. The others carry on and still show a success message:
+
+- **System** > **Mail Relay**
+- **Security** > **CrowdSec** and **Security** > **Firewall Bouncer**
+- The [ShellInABox](/apps/shellinabox/) app
+
+On Fedora, RHEL, Rocky Linux and CentOS:
+
+- Install Docker yourself before **System Checks**, with the steps for your system from Docker's documentation. The fallback that **System Checks** uses to install Docker only works on Debian and Ubuntu.
+- When Docker is installed, **System Checks** asks `Would you like to check and update your system? (Y/n)`. Press Enter or type `n` to skip it, and update with `sudo dnf upgrade` instead.
+- The **Username** step creates a user without a password or sudo rights. See [Create a regular user with sudo rights](/getting-started/install-errors/#create-a-regular-user-with-sudo-rights).
+- **System** > **Mounts** > **SMB Mount** and **NFS Mount** stop with `Failed to install required packages`, even when the client is already installed. **System** > **Mounts** > **Rclone** > **Install** stops with `Failed to install fuse3`. Mount network shares by hand.
+- **System** > **Mail Relay**, **Security** > **Firewall Bouncer** and the [ShellInABox](/apps/shellinabox/) app don't work.
+- Before you install **CrowdSec**, install rsyslog: `sudo dnf install rsyslog`.
+- Before you use **Help** > **Remote Assist** (Pro license only), install tmate: `sudo dnf install tmate`. On RHEL and Rocky Linux, you may need to add the EPEL repository first.
+- **Packages** doesn't install UFW. Use firewalld. See [What Deployrr changes on your firewall](/networking/ufw-firewall-vps/#what-deployrr-changes-on-your-firewall).
 
 ### Prerequisites
 
