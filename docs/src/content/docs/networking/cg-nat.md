@@ -160,7 +160,7 @@ Options B and D differ mainly in who can open your apps.
 
 - Pick Tailscale or ZeroTier when only you and your household use the apps. Nothing is public, so an app without its own login stays safe. Both fall back to a relay when two devices can't connect directly, and a relayed link is slower.
 - Pick Cloudflare Tunnel when people need to open an app without installing anything, such as a shared photo album. Every app you add to the tunnel is public, so give each one a login.
-- For Jellyfin, Plex or other media streaming, use Tailscale or ZeroTier. With a tunnel, every stream goes through Cloudflare, and Cloudflare's terms restrict serving a lot of video through its network.
+- For Jellyfin, Plex or other media streaming, use Tailscale or ZeroTier. With a tunnel, every stream goes through Cloudflare, and Cloudflare's [CDN terms](https://www.cloudflare.com/service-specific-terms-application-services/) let it limit sites that serve video through it without one of its paid video services.
 - Between Tailscale and ZeroTier, Tailscale has more help on this site. [Set up Tailscale](/networking/tailscale/) covers it in full, and the [VPS setup below](#traefik-on-a-vps-with-your-apps-at-home) uses it.
 - You can run more than one. For example, use Tailscale for your own apps and a tunnel for the one app you share.
 
