@@ -1,7 +1,7 @@
 ---
 title: What is in your Docker folder
 sidebar:
-  order: 10
+  order: 11
   label: Docker folder layout
 description: See what each file and folder in your Docker folder does, which ones you can edit, how to apply a change, and why one backup covers your app data.
 type: guide
@@ -232,7 +232,7 @@ This means:
 - A backup of the Docker folder holds each app's settings and data, plus `.env`, `secrets`, your compose files and your Traefik rules.
 - Restoring that backup brings an app back with its data.
 - Deleting an app's folder in `appdata` deletes its data. Do not do this to free space. See [Free up disk space used by Docker](/docker/free-disk-space/).
-- In **Tools** > **Stack Manager**, a safe **Delete** keeps the app's data ("Retain App's data"). A full **Delete** removes it. See [Stack Manager](/using-deployrr/stack-manager/).
+- In **Tools** > **Stack Manager**, a safe **Delete** keeps the app's data ("Retain App's data"). A full **Delete** removes it. See [Stack Manager](/using-deployrr/stack-manager/). If **Delete** can't remove an app, see [Remove an app by hand](/using-deployrr/remove-app-by-hand/).
 
 Some things sit outside the Docker folder, so a backup does not cover them:
 

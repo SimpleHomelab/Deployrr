@@ -30,7 +30,7 @@ status: current
 old_paths: ["/operating-system/bash-aliases-explained"]
 sources: []
 sidebar:
-  order: 15
+  order: 16
 ---
 
 Deployrr can add a set of short commands (aliases) to your terminal. For example, `dps` lists your containers and `dclogs` follows the logs of your Compose apps. This page shows how to turn them on and lists every alias.

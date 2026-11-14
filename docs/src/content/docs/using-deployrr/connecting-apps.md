@@ -31,7 +31,7 @@ status: current
 old_paths: ["/networking/connecting-applications-together"]
 sources: []
 sidebar:
-  order: 8
+  order: 9
 ---
 
 Apps like Sonarr, Radarr and Prowlarr ask you for a host name and a port when you add a download client, an indexer or another app. This page tells you what to type.

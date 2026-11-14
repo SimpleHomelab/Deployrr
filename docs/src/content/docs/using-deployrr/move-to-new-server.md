@@ -22,7 +22,7 @@ status: current
 old_paths: []
 sources: []
 sidebar:
-  order: 14
+  order: 15
 ---
 
 Use a Migration Package to move your whole setup to a new server. The package holds your Deployrr settings and your full Docker folder. You create it on the old server, copy it over and restore it on the new one.

@@ -30,7 +30,7 @@ status: current
 old_paths: []
 sources: []
 sidebar:
-  order: 13
+  order: 14
 ---
 
 Use **Tools** > **Backups** to save a copy of your Docker folder, bring an old copy back, and clean up backups you no longer need. Make a backup before you change something big, such as setting up the Docker folder again. [What can overwrite or delete your changes](/using-deployrr/what-overwrites-your-changes/) lists the actions to back up before.

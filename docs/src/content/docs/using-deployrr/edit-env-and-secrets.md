@@ -36,7 +36,7 @@ status: current
 old_paths: []
 sources: []
 sidebar:
-  order: 9
+  order: 10
 ---
 
 Your apps read their settings, passwords and keys from the `.env` file and from files in the `secrets` folder. Use this page to change one of them, make the app use the new value, and choose the text editor Deployrr opens.
