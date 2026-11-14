@@ -29,7 +29,7 @@ videos:
     start: 321
     title: "Traefik guide: Proxmox web UI (HTTPS, self-signed) behind Traefik"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
-last_reviewed: 2026-11-10
+last_reviewed: 2026-11-14
 status: current
 old_paths: []
 sources: []
@@ -154,6 +154,34 @@ If the app is up and the address still does not work, check these:
 4. No firewall on the app's machine blocks the port from your Deployrr server.
 
 To fix a wrong value, run **Traefikify** again with the same name and overwrite the file. You can also edit `appdata/traefik3/rules/HOSTNAME/app-NAME.yml` and change the address on the `url:` line. Traefik picks up the change on its own. To change the subdomain the same way, see [Change the subdomain of an app you already installed](/reverse-proxy/change-app-subdomain/).
+
+## Use a hostname instead of an IP address
+
+The rules file holds the app's address as you typed it. If the machine that runs the app gets a new IP address, the app stops loading through Traefik. The best fix is a fixed IP for that machine. See [Give your server a fixed IP address](/host/fixed-ip/).
+
+If you can't fix the IP, put a hostname on the `url:` line instead, for example `http://nas.home.lan:5000`. The **Host IP Address** prompt asks for an IPv4 address. It also accepts a hostname.
+
+Deployrr tests the name from the server. Traefik looks it up from inside its own container, so the two can give different results. If Deployrr's test fails, it only warns and still creates the file. Test the name from the Traefik container as shown below.
+
+Traefik must be able to look up that name:
+
+- A name from your local DNS server or router works when the server uses that DNS server.
+- A name that exists only in the server's `/etc/hosts` file, or a `.local` name, may work in Deployrr's test but not in Traefik. Add the name to your local DNS server instead. See [Set up local DNS rewrites](/networking/local-dns-rewrites/).
+
+To test the name from inside the Traefik container, run this. Replace the name and port with yours:
+
+```bash
+sudo docker exec traefik wget -q --spider http://nas.home.lan:5000/ && echo OK
+```
+
+What you see tells you where the problem is:
+
+- `OK`: Traefik can reach the app by that name.
+- `bad address`: Traefik can't look up the name.
+- `Connection refused` or a timeout: the name works, but the app did not answer. Check the port and the firewall on the app's machine.
+- `server returned error` with an HTTP code, such as `401`: Traefik reached the app. The app answered with an error or a login request, which is fine.
+
+If the server running Deployrr changes its IP, see [Change the server IP](/host/change-server-ip/). That page covers rules files that point at the server itself.
 
 ## Check it worked
 
