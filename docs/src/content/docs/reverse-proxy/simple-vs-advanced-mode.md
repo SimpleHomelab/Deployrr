@@ -28,7 +28,7 @@ videos:
     start: 4127
     title: "Deployrr 5 walkthrough: Manage App Exposure, hairpinning and local DNS"
     note: Shows Deployrr v5. Menus and steps differ in v6.
-last_reviewed: 2026-11-10
+last_reviewed: 2026-11-13
 status: current
 old_paths: []
 sources: []
@@ -153,6 +153,20 @@ To go further and allow only chosen IP addresses, see [Allow only some IP addres
 - Switching does not change any app's saved setting.
 - When you move from Simple to Advanced, apps keep their saved setting. Apps installed in Simple are **Both**. Open **Manage Exposure** and set the ones that should stay at home to **Internal**.
 - When you move from Advanced to Simple, your router forwards go to ports 80 and 443. Apps set to **Internal** (and **Both**) become reachable from the internet. Apps set to **External** stop opening until you set them to **Both** or go back to Advanced. You can't use **Manage Exposure** in Simple mode, so open it before you switch and set every **External** app to **Both**.
+
+### Move a home server from Simple to Advanced step by step
+
+Apps Deployrr put behind Traefik in Simple mode (at install or with Traefikify) are **Both**. Traefik serves them on its home ports and its internet ports, so they keep opening while you change the router. Only the apps you later set to **Internal** change.
+
+1. Write down your current router forwards, so you can put them back.
+2. Make sure your apps open by their domain from inside your home: turn on NAT loopback in your router, or set up [local DNS rewrites](/networking/local-dns-rewrites/). Without one of them, Internal apps won't open from home. See [If an Internal app won't open from home](#if-an-internal-app-wont-open-from-home).
+3. Open **Proxy** > **Traefik** > **Traefik Mode**. The box says "Advanced mode ENABLED".
+4. Change your router forwards: port 80 to port 81 and port 443 to port 444 on the Docker host. See [Forward the right router ports](/networking/port-forwarding/).
+5. From mobile data, open an app such as `https://app.YOUR_DOMAIN`. It should still open.
+6. Open **Proxy** > **Traefik** > **Manage Exposure**. Your apps show **Int & Ext** in the list. Set each app that should stay at home to **Internal**.
+7. Test one Internal app: it opens from a device on your home network, and does not open from mobile data.
+
+If something stops opening after step 4, do both: put the old router forwards back, and select **Traefik Mode** again to return to Simple. If you only put the forwards back, your Internal apps become reachable from the internet.
 
 ## If an Internal app won't open from home
 

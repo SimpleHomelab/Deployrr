@@ -247,6 +247,86 @@ sudo tail -n 20 DOCKER_FOLDER/logs/HOSTNAME/rclone-NAME-timer.err
 
 The `.log` file says "Media containers started" with a date. The `.err` file says "Media containers start failed" if the mount never became ready.
 
+## Change the mount folder, cache or NAS details
+
+Once the automount is set up, running **Automount** again only shows, after the confirmation box, "An automount is already defined and active for this remote", or offers to start it. To change the mount folder, the cache folder or the cache size, you remove the automount service and run **Automount** again. To use a new NAS address, user name or password, you replace the remote in `rclone.conf`.
+
+:::caution
+These steps stop your media apps and unmount the share until you finish. Make the backup in step 1 first. Check that the new mount works before you reboot.
+:::
+
+In the commands below, replace `NAME`, `DOCKER_FOLDER` and `HOSTNAME` as in part 3.
+
+### Change the mount folder, cache folder or cache size
+
+1. Back up the service file to your home folder:
+
+   ```bash
+   sudo cp /etc/systemd/system/rclone-NAME.service ~/rclone-NAME.service.bak
+   ```
+
+2. Stop your media apps:
+
+   ```bash
+   sudo docker compose --profile media -f DOCKER_FOLDER/docker-compose-HOSTNAME.yml down
+   ```
+
+3. Stop the mount and remove its service:
+
+   ```bash
+   sudo systemctl stop rclone-NAME.service
+   sudo systemctl disable rclone-NAME.service
+   sudo rm /etc/systemd/system/rclone-NAME.service
+   sudo systemctl daemon-reload
+   ```
+
+4. Run **Automount** again, as in [part 3](#3-set-up-the-automount). Pick the folders and enter the cache size you want now. The size box shows your old value; the folder browser starts at `/`. Use an empty mount folder, as in the caution in part 3.
+5. If you changed the mount folder:
+   - Run **Delay Media Apps** again, as in [part 5](#5-delay-your-media-apps-at-boot). It writes the new folder into the start script. Without this, the script waits for the old folder at boot and removes your media app containers after about 15 minutes.
+   - Set your media and downloads folders to paths inside the new mount folder in **System** > **Folders**. Then recreate or reinstall the apps that use them, as in [part 4](#4-point-your-apps-at-the-share).
+6. Start your apps with `dcup`, or the full command at the end of part 5.
+7. Do steps 1 and 2 of [Check it worked](#check-it-worked). Reboot only when the share shows up in the new mount folder.
+
+If **Automount** fails or you cancel it partway, Deployrr may already have saved the new folders. The menu then shows the new folder as "not mounted", and **Delay Media Apps** and **Refresh Cache** stop with a "must be mounted" message. To go back, set up the old values again through the menu:
+
+1. Look up your old folders and cache size in the backup:
+
+   ```bash
+   grep -E 'rclone mount|cache-dir|cache-max-size' ~/rclone-NAME.service.bak
+   ```
+
+2. If the service file exists again (a failed **Automount** leaves it in place), stop and remove the service again with the commands in step 3 above.
+3. Run **Automount** again with the old mount folder, cache folder and cache size.
+4. Start your apps with `dcup`.
+
+Rclone no longer uses the old cache folder. You can delete it to free space once the new mount works. Check the path first, and delete only the folder you picked as the old cache.
+
+### Use a new NAS address, user name or password
+
+Keep the same **Remote Name**. The automount service finds the remote by its name, so it keeps working with the new details. If you pick a new name, Deployrr only knows the new one. **Automount** then sets up a second service. The old one keeps mounting at every boot, and **Uninstall** no longer removes it.
+
+1. Back up `rclone.conf`:
+
+   ```bash
+   sudo cp DOCKER_FOLDER/appdata/rclone/rclone.conf DOCKER_FOLDER/appdata/rclone/rclone.conf.bak
+   ```
+
+2. Delete the `[NAME]` block from `rclone.conf`, as described in [part 2](#2-add-the-smb-remote). Do this even if only the IP address changes. Otherwise **SMB Remote** adds a second block with the same name.
+3. Run **SMB Remote** with the same **Remote Name** and the new details. Type the password again. Wait for "Remote connection successful".
+4. Stop your media apps, restart the mount so it reads the new details, then start your apps:
+
+   ```bash
+   sudo docker compose --profile media -f DOCKER_FOLDER/docker-compose-HOSTNAME.yml down
+   sudo systemctl restart rclone-NAME.service
+   dcup
+   ```
+
+   Without the aliases, use the full command at the end of part 5 instead of `dcup`.
+
+5. Do steps 1 and 2 of [Check it worked](#check-it-worked) before you reboot.
+
+If the connection test fails, fix the details and repeat steps 2 and 3. To go back to the old details, copy `rclone.conf.bak` back over `rclone.conf` and run the commands in step 4 again.
+
 ## Other options in the Rclone menu
 
 - **Refresh Cache** ("Clear/refresh Rclone Cache") makes Rclone read the files on your NAS again. Use it when new files do not show up. It needs the share to be mounted. Deployrr asks "Clear cache for remote: NAME?" first. It ends with "Cache refresh operation completed". If you see "No active mount found for NAME" before that, the refresh did nothing because the mount is not running.
