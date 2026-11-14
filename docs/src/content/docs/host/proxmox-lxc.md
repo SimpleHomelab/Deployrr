@@ -339,7 +339,7 @@ The package holds your Docker folder and Deployrr's settings. It holds nothing o
 
 1. In Proxmox, create the VM and give it a static IP. See [Proxmox LXC and VM](/host/fixed-ip/#proxmox-lxc-and-vm).
 2. Create the same Linux user name the LXC uses, then install Deployrr in the VM. See [Quick start](/getting-started/quick-start/).
-3. In the LXC, open **Tools** > **Backups** > **MP Create**. At the restart question, press any key other than `Y`. Both servers must not run the same apps.
+3. In the LXC, open **Tools** > **Backups** > **MP Create**. At the restart question, press any key other than `Y`. Don't run the same apps on both servers at once.
 4. Copy the package to the VM, then run **MP Restore** there. The restore puts the Docker folder back at the same path it had in the LXC. At "Deployrr will now restart", press `Y`. For these steps, see [Move Deployrr to a new server](/using-deployrr/move-to-new-server/).
 5. In **Prerequisites**, choose **System Type** and select **Virtual Machine**. The restore brings back the old setting, so the VM still says an LXC type until you change it.
 6. Mount your NAS shares with **System** > **Mounts** > **SMB Mount** or **NFS Mount**. Use the same path the LXC used, such as `/mnt/media`, so your apps' folder paths still match. See [SMB and NFS mounts](/storage/smb-nfs-mounts/).

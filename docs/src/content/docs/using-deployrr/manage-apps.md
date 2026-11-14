@@ -251,10 +251,10 @@ A few things Deployrr sets up run on the server itself as system services, not a
 | --- | --- | --- | --- | --- |
 | ShellInABox | **Apps** > SYSTEM APPS > **ShellInABox** | **RUNNING**, or **STOPPED** when installed but not running | `shellinabox` | [Install ShellInABox](/apps/shellinabox/) |
 | CrowdSec Firewall Bouncer | **Security** > **Firewall Bouncer** | **RUNNING** while the service runs, otherwise nothing | `crowdsec-firewall-bouncer` | [Block bad visitors with CrowdSec](/reverse-proxy/crowdsec/) |
-| Rclone mount | **System** > **Mounts** > **Rclone** > **Automount** Your mount folder, then **mounted** or **not mounted**. Before setup: "SMB Share via Rclone" | `rclone-NAME`, where `NAME` is your remote name | [Mount a NAS share with Rclone](/storage/rclone-smb-setup/) |
+| Rclone mount | **System** > **Mounts** > **Rclone** > **Automount** | Your mount folder, then **mounted** or **not mounted**. Before setup: "SMB Share via Rclone" | `rclone-NAME`, where `NAME` is your remote name | [Mount a NAS share with Rclone](/storage/rclone-smb-setup/) |
 | Delay Media Apps | **System** > **Mounts** > **Rclone** > **Delay Media Apps** | **DONE** once set up | `start-media-after-boot` | [Apps are stopped after a reboot](/docker/apps-not-starting-after-reboot/) |
 
-Delay Media Apps runs once at boot. It waits up to 15 minutes for the Rclone mount, starts your media apps, and then exits. `systemctl status` shows it as inactive afterwards. That is normal. If the mount never appears, it stops the media apps instead.
+Delay Media Apps runs once at boot. It waits up to 15 minutes for the Rclone mount, starts your media apps, and then exits. `systemctl status` shows it as inactive afterwards. That is normal. If the mount never appears, it stops the media apps instead. To see what happened at the last boot, look in the `logs/HOSTNAME` folder inside your Docker folder: `rclone-NAME-timer.log` says when the media apps started, and `rclone-NAME-timer.err` says when they failed to start.
 
 To check, stop, start or read the log of one of them, use the general Linux commands below. Replace `SERVICE` with the service name from the table.
 
