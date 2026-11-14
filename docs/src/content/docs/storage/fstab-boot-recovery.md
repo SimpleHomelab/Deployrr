@@ -27,7 +27,7 @@ further_reading:
   - title: "UDMS part 08: Test the fstab entry for an NFS mount"
     url: "https://www.simplehomelab.com/udms-08-mount-remote-folders-using-nfs/#Test_the_fstab_Entry"
 videos: []
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-14
 status: current
 old_paths: ["/host/fstab-boot-recovery"]
 sources: []
@@ -69,7 +69,9 @@ You need a console. SSH does not work in emergency mode. Use one of these:
 
 - A keyboard and monitor on the server.
 - The Proxmox web console, if the server is a virtual machine.
-- The web or recovery console of your VPS provider.
+- The web or recovery console of your VPS provider. See [If you get locked out](/host/secure-a-vps/#if-you-get-locked-out) for how it works.
+
+If none of these gives you a shell, use a rescue system ([Fix C](#fix-c-use-a-rescue-system)).
 
 :::caution
 Editing `/etc/fstab` can break boot. Copy the file before every edit. Test your change with `sudo mount -a` and `sudo findmnt --verify` before you reboot.
@@ -197,9 +199,58 @@ You can still start the server with a shell and no login. The keys below can dif
 
     If the server doesn't go on booting, turn it off and on again. You ran `sync`, so your change is saved.
 
-:::note
-On a VPS you may not get the GRUB menu. Use your provider's rescue mode instead. Follow the provider's docs to mount your server's disk, then edit `etc/fstab` on that disk the same way.
-:::
+### Fix C: use a rescue system
+
+Use this fix when Fix A and Fix B don't work for you. For example, a VPS console may not show the GRUB menu, or the key to open GRUB may not get through a web console. A rescue system starts from a separate disk or image, so your server's `/etc/fstab` is not used.
+
+1. Start a rescue system:
+   - **VPS:** turn on rescue mode in your provider's panel and reboot into it. Your provider's docs tell you how to log in to it.
+   - **Proxmox virtual machine:** in the Proxmox web interface, select the VM and go to **Hardware**. Edit the **CD/DVD Drive** (if there is none, use **Add** > **CD/DVD Drive**) and pick a live ISO that gives you a shell, such as the Ubuntu desktop ISO. A live ISO runs a full system from the image without installing it. In **Options** > **Boot Order**, move that drive to the top. Start the VM and open its **Console**. For the Ubuntu desktop ISO, choose **Try Ubuntu** and open a terminal.
+   - **A physical server:** start it from a USB stick with a live ISO.
+2. Find your server's main partition:
+
+   ```bash
+   lsblk -f
+   ```
+
+   Look for the large `ext4` or `xfs` partition. On a default Ubuntu install it is `ubuntu--vg-ubuntu--lv`. If you only see `LVM2_member`, run `sudo vgchange -ay` and run `lsblk -f` again.
+
+3. Mount it. Replace `PARTITION` with the name from step 2, such as `sda2` or `mapper/ubuntu--vg-ubuntu--lv`:
+
+   ```bash
+   sudo mount /dev/PARTITION /mnt
+   ```
+
+4. Check that you mounted the right disk. You should see your fstab and its copies:
+
+   ```bash
+   ls -l /mnt/etc/fstab*
+   ```
+
+5. Keep the broken file:
+
+   ```bash
+   sudo cp /mnt/etc/fstab /mnt/etc/fstab.broken
+   ```
+
+6. Fix the file as in step 5 of Fix A, with `/mnt` in front of each path. Either copy an older file over it with `sudo cp /mnt/etc/COPY_NAME /mnt/etc/fstab`, or open it with `sudo nano /mnt/etc/fstab` and put `#` in front of the bad line.
+7. Check that each disk in the file exists. List the disks and their UUIDs:
+
+   ```bash
+   sudo blkid
+   ```
+
+   Every `UUID=` line in `/mnt/etc/fstab` that doesn't start with `#` must match a UUID in this list. If one doesn't, put `#` in front of it. Check lines that start with `LABEL=` or `/dev/` against the same list.
+
+8. Write your changes and unmount the disk:
+
+   ```bash
+   sync
+   sudo umount /mnt
+   ```
+
+9. Leave the rescue system. On a VPS, turn off rescue mode in the panel and reboot. On Proxmox, move the server's disk back to the top of **Boot Order**, set the **CD/DVD Drive** to **Do not use any media**, and restart the VM.
+10. When the server is up, run `sudo findmnt --verify` and `sudo mount -a` to test the file before the next reboot.
 
 ## Check it worked
 
