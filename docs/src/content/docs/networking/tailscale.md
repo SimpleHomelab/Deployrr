@@ -29,7 +29,7 @@ videos:
     start: 1249
     title: "Tailscale tutorial: open your apps by Tailscale IP and port"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-14
 status: current
 old_paths: []
 sources: []
@@ -169,6 +169,29 @@ To find an app's port, run `sudo docker ps` (or `dps`, which also lists stopped 
 
 3. Open the admin console page that lists your devices (usually **Machines**). Your server must be listed and show as connected. This is the check that proves it joined.
 4. From another device on your Tailscale account, open `http://TAILSCALE-IP:3050` or another app's address.
+
+## Tailscale and Traefik on the same server
+
+Traefik needs **Prerequisites** > **Setup Mode** set to **Hybrid**. Tailscale works in Local or Hybrid mode, so you can run both on the same server. Each app then has two kinds of address, and they behave differently.
+
+| Address | How it reaches the app | Opens over Tailscale |
+| --- | --- | --- |
+| `http://TAILSCALE-IP:PORT` | Straight to the app's port. Traefik is not involved. | Every app, whatever its Internal or External setting |
+| `https://app.YOUR_DOMAIN` | Your domain points to your public IP (or to Cloudflare), so the request goes over the internet to Traefik, not through Tailscale. | Apps set to **External** or **Both**. Apps set to **Internal** don't open. |
+
+Replace `app` and `YOUR_DOMAIN` with the app's subdomain and your domain. In Simple mode, every app is **Both**. See [Simple vs Advanced mode](/reverse-proxy/simple-vs-advanced-mode/).
+
+:::caution
+`TAILSCALE-IP:PORT` skips Traefik, so it also skips the login you picked for the app in Traefik, such as Authelia or TinyAuth. Anyone on your Tailscale account sees the app's own login screen, or none if the app has no login. Keep your Tailscale account to devices you trust.
+:::
+
+### Open Internal apps by domain over Tailscale
+
+Traefik counts a request as Internal when it arrives on port 443 of your server. A request to the server's Tailscale IP on port 443 counts too. So an Internal app opens by domain over Tailscale when your device looks up `app.YOUR_DOMAIN` as the server's Tailscale IP.
+
+Deployrr does not set this up. One way is Tailscale's split DNS: in the Tailscale admin console, on the **DNS** page, add a nameserver used only for your domain, such as Pi-hole on this server, reached at the server's Tailscale IP. That DNS server must answer `app.YOUR_DOMAIN` with the server's Tailscale IP, not its LAN IP. Each device you browse from must have **Use Tailscale DNS settings** turned on. The server itself ignores Tailscale DNS, so this only changes your other devices. If devices at home also use that Pi-hole, they get the Tailscale IP too, and only open the app while Tailscale runs on them. [Set up local DNS rewrites](/networking/local-dns-rewrites/) shows how to add the record. See Tailscale's [DNS documentation](https://tailscale.com/kb/1054/dns).
+
+Once this works, apps set to **External** only don't open over Tailscale by domain, because the request now arrives on the Internal port. Set them to **Both** if you want them on both paths. If this is more setup than you need, use `http://TAILSCALE-IP:PORT` for Internal apps.
 
 ## Change the auth key later
 
