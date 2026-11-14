@@ -2,7 +2,7 @@
 title: Restart unhealthy containers automatically with DeUnhealth
 sidebar:
   label: DeUnhealth
-description: Install DeUnhealth after Socket Proxy, check it runs, and add its label to an app so Docker restarts that app when it turns unhealthy.
+description: Install DeUnhealth after Socket Proxy, check it runs, give an app a health check, and add the label so Docker restarts that app when it turns unhealthy.
 type: how-to
 tags:
   - docker
@@ -21,7 +21,11 @@ videos:
     start: 171
     title: "DeUnhealth video: health check and automatic restart of an unhealthy container"
     note: Manual Docker Compose setup. In Deployrr v6, install DeUnhealth from the Apps menu; only qBittorrent VPN has the label already.
-last_reviewed: 2026-11-12
+  - id: oY1U_Htes9A
+    start: 209
+    title: "DeUnhealth video: add a health check block to a compose file and recreate the app"
+    note: Manual Docker Compose setup. In Deployrr v6, install DeUnhealth from the Apps menu; only qBittorrent VPN has the label already.
+last_reviewed: 2026-11-14
 status: current
 old_paths: []
 sources: []
@@ -96,7 +100,7 @@ Replace `NAME` with the app's container name. This is a value you fill in.
 sudo docker inspect --format '{{json .State.Health}}' NAME
 ```
 
-If the output is `null`, the app has no health check. Stop here. The label would do nothing.
+If the output is `null`, the app has no health check, and the label would do nothing. Give it one first: see [Add a health check to an app](#add-a-health-check-to-an-app).
 
 Otherwise the output lists the status and the last checks. You can also read the status in `docker ps`. The `STATUS` column shows `(healthy)`, `(unhealthy)` or `(health: starting)` after the uptime.
 
@@ -154,6 +158,94 @@ sudo docker inspect --format '{{json .Config.Labels}}' NAME
 The output includes `"deunhealth.restart.on.unhealthy":"true"`.
 
 If Docker or Compose reports an error after your edit, copy the backup back over the file, then recreate the app. See [Docker environment setup fails with: docker-compose file is malformed](/docker/compose-malformed/) for the main file.
+
+## Add a health check to an app
+
+Most apps have no health check (see the [App reference](/apps/app-reference/#which-apps-have-a-health-check)). You can add one to the app's compose file. Docker then runs a test command inside the container at a set interval and marks it `unhealthy` after a number of failures in a row.
+
+:::caution
+Installing the app again from the Apps menu usually replaces the compose file with the default one, and your health check is lost. See [What overwrites or deletes your changes](/using-deployrr/what-overwrites-your-changes/). A wrong test marks a working app `unhealthy`, and with the DeUnhealth label it then restarts again and again. Test the command by hand first.
+:::
+
+### 1. Find a test that works inside the container
+
+The test runs inside the container, so it can only use tools the image has. Replace `NAME` with the container name and `PORT` with the app's internal port. Both are in the [App reference](/apps/app-reference/#container-names-and-ports).
+
+1. Check whether the image has `curl` or `wget`:
+
+   ```bash
+   sudo docker exec NAME sh -c 'command -v curl wget'
+   ```
+
+   It prints the path of each tool it finds. If it prints nothing, the image has neither. If it says `sh` was not found, the image has no shell either; use a test the app's own documentation gives, or leave the app without a health check.
+
+2. Run the test by hand. With `curl`:
+
+   ```bash
+   sudo docker exec NAME curl -fsS -o /dev/null http://localhost:PORT/ && echo OK
+   ```
+
+   With `wget`:
+
+   ```bash
+   sudo docker exec NAME wget -q --spider http://localhost:PORT/ && echo OK
+   ```
+
+   `OK` means the test passes. If you see no `OK`:
+
+   - The page may need a login (an error such as 401) or the port is wrong. Try another address the app answers without a login, for example a health or ping address from the app's own documentation.
+   - Some images resolve `localhost` to an IPv6 address the app doesn't listen on. Try `127.0.0.1` instead of `localhost`.
+   - `wget --spider` asks only for the page headers, and a few apps refuse that. If the page opens in your browser, try the `curl` test.
+
+### 2. Add the health check
+
+1. Back up the compose file and open it, as in [Back up the compose file](#2-back-up-the-compose-file) and [Add the label](#3-add-the-label) above.
+   Apps with a database or cache have a separate file for each helper container, for example `APP-postgresql.yml`. Edit the file of the container you want to check.
+2. Under the app's service, add a `healthcheck:` block at the same indent as `image:`. Use the command that printed `OK`. With `curl`:
+
+   ```yaml
+       healthcheck:
+         test: ["CMD-SHELL", "curl -fsS -o /dev/null http://localhost:PORT/ || exit 1"]
+         interval: 30s
+         timeout: 10s
+         retries: 3
+         start_period: 1m
+   ```
+
+   With `wget`, the `test:` line is:
+
+   ```yaml
+         test: ["CMD-SHELL", "wget -q --spider http://localhost:PORT/ || exit 1"]
+   ```
+
+3. Save the file.
+
+What the lines mean:
+
+| Line | What it does |
+| --- | --- |
+| `test` | The command Docker runs. Exit code 0 is healthy, anything else is a failure. |
+| `interval` | How often the test runs. |
+| `timeout` | How long one test may take before it counts as a failure. |
+| `retries` | How many failures in a row turn the app `unhealthy`. |
+| `start_period` | Time to start up. Failures in this time don't count. Raise it for apps that start slowly. |
+
+For one of your own containers in [custom.yml](/using-deployrr/custom-yml/), add the same block to its service there.
+
+### 3. Recreate and check
+
+1. Recreate the app, as in [Recreate the app](#4-recreate-the-app) above.
+2. Wait for `interval` plus `start_period`, then read the status:
+
+   ```bash
+   sudo docker inspect --format '{{json .State.Health}}' NAME
+   ```
+
+   The output shows `"Status":"healthy"` and the last checks. `starting` means Docker is still in the start period. For `unhealthy`, read the output of the last checks. See [Read the health check](/docker/container-keeps-restarting/#4-read-the-health-check).
+
+If Docker or Compose reports an error after your edit, copy the backup back over the file, then recreate the app.
+
+Once the app shows `healthy`, you can [add the DeUnhealth label](#add-deunhealth-to-another-app) to it.
 
 ## If it doesn't work
 

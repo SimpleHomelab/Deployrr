@@ -21,7 +21,7 @@ related:
   - using-deployrr/edit-env-and-secrets
   - reverse-proxy/certificate-errors
   - using-deployrr/stack-manager
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-14
 status: current
 old_paths: []
 sources: []
@@ -335,6 +335,73 @@ If you run **Security** > **Google OAuth** again, Deployrr writes `secrets/oauth
 5. Recreate the `oauth` container. Go to **Tools** > **Stack Manager** > **Recreate**. At `Select an app to recreate:`, type the number of `oauth` and press Enter. See [Stack Manager](/using-deployrr/stack-manager/) and [Restart, Recreate or Reinstall an app after a change](/using-deployrr/restart-recreate-reinstall/).
 
 To remove an account, delete its `whitelist=` line and recreate `oauth` the same way. If a `secrets/oauth_whitelist_N` file holds that address, delete that file too (`sudo rm secrets/oauth_whitelist_N`, with the right number). Otherwise the account comes back the next time you run **Security** > **Google OAuth**.
+
+## Move your Basic Auth users to TinyAuth or Authelia
+
+You can keep your Basic Auth users when you move to TinyAuth or Authelia. Their passwords stay the same. The hashes in `secrets/basic_auth_credentials` are bcrypt, and both tools accept them.
+
+1. Show your Basic Auth users:
+
+   ```bash
+   sudo cat secrets/basic_auth_credentials
+   ```
+
+2. Each line is `username:hash`. The hash starts with `$2y$`. Keep this output open.
+3. Set up the new method first with **Security** > **TinyAuth** or **Security** > **Authelia**. Read the caution in [TinyAuth](#tinyauth) or [Authelia](#authelia) first. A rerun removes users, so do this before you copy anyone in.
+4. Back up the new method's file, as shown in its section.
+
+### Move users to TinyAuth
+
+1. Open the file:
+
+   ```bash
+   sudo nano appdata/tinyauth/users_file
+   ```
+
+2. Paste each Basic Auth line you want to keep on its own line. Do not change it. Skip the user you typed during setup, who is already there.
+3. Save with `Ctrl+O`, `Enter`, then close with `Ctrl+X`.
+4. Recreate TinyAuth with **Tools** > **Stack Manager** > **Recreate**, or run `dcrec tinyauth`.
+
+Moved users have no two-factor. To add it, see [Turn on two-factor for a user, or set up a new device](#turn-on-two-factor-for-a-user-or-set-up-a-new-device).
+
+### Move users to Authelia
+
+1. Open the file:
+
+   ```bash
+   sudo nano appdata/authelia/users.yml
+   ```
+
+2. Add a block for each user below the last one. Use the text after the colon as the `password` value, in single quotes. Replace `USERNAME` and `EMAIL`:
+
+   ```yaml
+     USERNAME:
+       disabled: false
+       displayname: USERNAME
+       email: EMAIL
+       password: 'HASH_FROM_BASIC_AUTH'
+       groups:
+         - admins
+   ```
+
+3. Save with `Ctrl+O`, `Enter`, then close with `Ctrl+X`.
+4. Restart Authelia:
+
+   ```bash
+   sudo docker restart authelia
+   ```
+
+Each user needs an email. Authelia uses it for password resets, and the messages go to `notifications.txt`. Keep the indent the same as the other users.
+
+If a user cannot log in, make a new hash with [Make a password hash](#make-a-password-hash). Put it in `password:` and restart Authelia. That user then has a new password.
+
+### Move your apps
+
+Use **Security** > **Manage Auth** (Pro) to switch apps to the new method. See [Switch your apps to the new method](/reverse-proxy/choose-login-method/#switch-your-apps-to-the-new-method).
+
+:::note
+Leave `secrets/basic_auth_credentials` where it is. Traefik still reads it, and apps you have not moved keep using Basic Auth. That includes the Traefik dashboard, which uses Basic Auth unless you switch it in **Manage Auth** too.
+:::
 
 ## Check it worked
 
