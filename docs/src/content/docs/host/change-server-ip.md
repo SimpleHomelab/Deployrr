@@ -19,7 +19,7 @@ videos:
     start: 637
     title: "Deployrr 5 walkthrough: Server IP in the Prerequisites menu"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
-last_reviewed: 2026-11-13
+last_reviewed: 2026-11-14
 status: current
 old_paths: ["/using-deployrr/change-server-ip"]
 sources: []
@@ -108,7 +108,7 @@ Traefik reads only the `rules/HOSTNAME` folder. The `HOSTNAME-backup` folder sit
 10. Press Enter, or wait a few seconds, to go back to **Tools**. There is no final success message.
 11. Go to **Prerequisites** > **Server IP**. Enter the new IP and select **OK**. You see "Server IP set to NEW_IP."
 
-    Deployrr keeps a second copy of the server IP in its own settings, and Change Server IP does not update it. Without this step, Deployrr can show the old IP again later. To see the Server IP entry in Prerequisites, watch [Deployrr 5 walkthrough: Server IP at 10:37](https://youtu.be/rdqbAr0TFnQ?t=637) (shows Deployrr v5; menus and steps differ in v6).
+    The box is already filled in with the new IP, so you can just select **OK**. Deployrr keeps a second copy of the server IP in its own settings, and Change Server IP does not update it. Without this step, the **Server IP** entry in **Prerequisites** keeps showing the old IP. Your apps and a rerun of **Environment** still use the new IP from `.env`. To see the Server IP entry in Prerequisites, watch [Deployrr 5 walkthrough: Server IP at 10:37](https://youtu.be/rdqbAr0TFnQ?t=637) (shows Deployrr v5; menus and steps differ in v6).
 
 ### Read the output
 
