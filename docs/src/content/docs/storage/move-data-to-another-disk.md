@@ -180,6 +180,20 @@ Recreate is enough when an app already had that folder. If you move to a folder 
 
 Check that it worked (see [Check it worked](#check-it-worked)). Keep the old copy until you are sure.
 
+### Delete the old copy
+
+Do not delete the old copy until your apps have run for a few days with the new folder. To make sure nothing still uses it, rename it first. Replace `OLD_FOLDER` with your old folder:
+
+```bash
+sudo mv OLD_FOLDER OLD_FOLDER.old
+```
+
+If everything works after a few days, delete it. Check the path twice. This cannot be undone:
+
+```bash
+sudo rm -rf OLD_FOLDER.old
+```
+
 ### Move the Immich or Nextcloud folder
 
 The **Immich Folder** holds every photo and video uploaded to Immich. The **Nextcloud Folder** holds the files in Nextcloud. Move them with the steps above. Keep these points in mind:
@@ -206,17 +220,7 @@ If the app shows an error or does not start, the new path does not hold the old 
 - If Nextcloud says the data directory is readable by other users, run `sudo chmod 0770 NEW_FOLDER`.
 - To go back, set the folder to the old path in **System** > **Folders** and recreate the app again. Your old copy is still there.
 
-Do not delete the old copy until your apps have run for a few days with the new folder. To make sure nothing still uses it, rename it first. Replace `OLD_FOLDER` with your old folder:
-
-```bash
-sudo mv OLD_FOLDER OLD_FOLDER.old
-```
-
-If everything works after a few days, delete it. Check the path twice. This cannot be undone:
-
-```bash
-sudo rm -rf OLD_FOLDER.old
-```
+Then remove the old copy as in [Delete the old copy](#delete-the-old-copy).
 
 ## Move Docker's storage
 

@@ -318,10 +318,10 @@ Do this only after everything works as the new user, including the [other steps]
    This also clears the old entry from `secrets` and `.env`. It had no effect there, because those stay readable only by root.
 
 3. Run `getfacl DOCKER_FOLDER` again. The `OLD_USER` lines are gone. If you ran step 6 of [After setup](#after-setup), the `NEW_USER` lines are still there.
-4. Open a few apps and check that they still work. If one breaks, give the old user access to that app's folder again first. Replace `APP_FOLDER` with the app's folder in `appdata`:
+4. Open a few apps and check that they still work. If one breaks, give the old user access to that app's folder again first. Replace `APP` with the app's folder in `appdata`:
 
    ```bash
-   sudo setfacl -Rm u:OLD_USER:rwX DOCKER_FOLDER/appdata/APP_FOLDER
+   sudo setfacl -Rm u:OLD_USER:rwX DOCKER_FOLDER/appdata/APP
    ```
 
    Then restart the app. Restore the folder from your backup only as a last resort: the backup is from before the switch, so anything the app saved since then is lost.

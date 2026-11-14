@@ -343,7 +343,7 @@ Recreate it and read `sudo docker logs docker-gc` after the next run. Look for "
 
 #### What a reinstall resets
 
-Deployrr writes `docker-gc.yml` and the exclude file again on every install or reinstall of Docker GC, including **Apps** > **Manage Apps** > the app > **Manage** > **Reinstall**. **Tools** > **Stack Manager** > **Recreate** keeps your edits. Your `CRON` fix, other settings and excluded images are lost then, and the schedule stops working again. Keep your own copy of both files (see [What overwrites your changes](/using-deployrr/what-overwrites-your-changes/)) and put your changes back after a reinstall.
+Deployrr writes `docker-gc.yml` and the exclude file again on every install or reinstall of Docker GC, including **Apps** > **Manage Apps** > the app > **Manage** > **Reinstall** (shown when the app is stopped). Your `CRON` fix, other settings and excluded images are lost then, and the schedule stops working again. Keep your own copy of both files (see [What overwrites your changes](/using-deployrr/what-overwrites-your-changes/)) and put your changes back after a reinstall. **Tools** > **Stack Manager** > **Recreate** keeps your edits.
 
 ### Limit container log size
 
