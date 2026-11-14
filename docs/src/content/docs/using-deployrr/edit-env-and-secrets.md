@@ -167,6 +167,7 @@ These apps get new secrets on every install, also on a reinstall. Their data in 
 
 | App | What gets new values | What to put back after the reinstall |
 |---|---|---|
+| Authentik | `secrets/authentik_postgresql_password` and `secrets/authentik_secret_key` | Those two secret files |
 | Nextcloud | `secrets/nextcloud_mariadb_root_password` and `secrets/nextcloud_mariadb_password` | Those two secret files |
 | Open WebUI | `OPENWEBUI_SECRET_KEY` in `.env` and in `secrets/` | The `OPENWEBUI_SECRET_KEY` line in `.env`. The key is used to encrypt sessions, so a new key may sign users out. |
 | n8n | `secrets/n8n_postgresql_password` and `compose/HOSTNAME/n8n.yml` | The secret file and `n8n.yml` |
