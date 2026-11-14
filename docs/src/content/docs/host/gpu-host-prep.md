@@ -1,7 +1,7 @@
 ---
 title: Prepare your server's GPU so Deployrr can use it
 sidebar:
-  order: 8
+  order: 9
   label: GPU host prep
 description: Get your server, a Proxmox LXC or a VM to the point where System > GPU reports your Intel, AMD or NVIDIA GPU as Ready, and fix nvidia-smi driver errors.
 type: how-to

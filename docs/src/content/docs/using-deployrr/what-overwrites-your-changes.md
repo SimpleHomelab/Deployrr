@@ -1,7 +1,7 @@
 ---
 title: What can overwrite or delete your changes
 sidebar:
-  order: 11
+  order: 12
   label: What overwrites your changes
 description: Check which Deployrr actions overwrite or delete your edited files and app data, what each one keeps, and how to protect your change first.
 type: guide

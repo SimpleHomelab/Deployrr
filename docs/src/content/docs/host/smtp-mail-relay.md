@@ -28,7 +28,7 @@ status: current
 old_paths: []
 sources: []
 sidebar:
-  order: 6
+  order: 7
 ---
 
 Use this page to let your server send email. You save your SMTP provider details in Deployrr, then set up Mail Relay. After that, tools on the server such as cron, smartd and fail2ban can email you.

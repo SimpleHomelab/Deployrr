@@ -37,7 +37,7 @@ status: current
 old_paths: []
 sources: []
 sidebar:
-  order: 12
+  order: 13
 ---
 
 The Deployrr Dashboard is one web page with a link to each of your apps. Deployrr adds new apps to it for you. This page shows how to install it, open it, add apps by hand, and fix it when it no longer matches what you have installed.

@@ -1,7 +1,7 @@
 ---
 title: Docker fails with "failed to create shim task" in a Proxmox LXC container
 sidebar:
-  order: 7
+  order: 8
   label: Failed to create shim task (LXC)
 description: Fix the Docker "failed to create shim task" permission denied error in a Proxmox LXC container by pinning containerd.io or relaxing AppArmor.
 type: troubleshooting

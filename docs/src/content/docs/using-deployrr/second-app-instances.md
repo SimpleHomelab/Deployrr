@@ -30,7 +30,7 @@ status: current
 old_paths: ["/docker/second-instances-of-apps"]
 sources: []
 sidebar:
-  order: 7
+  order: 8
 ---
 
 Deployrr installs one copy of each app. If you want a second copy, for example Sonarr for 4K shows next to your normal Sonarr, you add it yourself in `custom.yml`. This page uses Sonarr as the example. The same steps work for Radarr, Lidarr and most other apps.

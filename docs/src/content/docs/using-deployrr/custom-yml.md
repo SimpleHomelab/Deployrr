@@ -30,7 +30,7 @@ status: current
 old_paths: ["/docker/custom.yml-usage"]
 sources: []
 sidebar:
-  order: 6
+  order: 7
 ---
 
 Use `custom.yml` to run containers that are not in the Deployrr apps library, or to run your own version of an app. You write the Compose code. Deployrr starts it together with your other apps.

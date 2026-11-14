@@ -185,6 +185,8 @@ On Fedora, RHEL, Rocky Linux and CentOS, the new user gets no password and no su
 
 To see a user created and added to sudo by hand, watch [Docker on Proxmox LXC: creating a non-root user at 10:20](https://youtu.be/-ZSQdJ62r-Q?t=620) (manual setup; Deployrr does this for you).
 
+To switch to another user after **Environment**, more than this step has to change. See [Use a different Linux user after setup](/host/change-linux-user/).
+
 **Done status.** Your username in green.
 
 ## 5. System Type
