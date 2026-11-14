@@ -22,7 +22,7 @@ videos:
     start: 1671
     title: "Authelia 2FA guide: one-time code in notifications.txt"
     note: Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens.
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-14
 status: current
 old_paths: []
 sources: []
@@ -138,10 +138,77 @@ Replace `you@example.com` with your own address.
 
 Many system tools, such as smartd, fail2ban and root's cron jobs, send their mail to the root account by default. Mail Relay sends mail for root and other system accounts to `root@YOUR_DOMAIN`. It does not go to the address you used for the test.
 
-To get these alerts, do one of these:
+ssmtp has no local mailboxes. A name without an `@`, such as `root`, goes to the root address if it is a system account. Your own user name gets your domain added, so it goes to `USERNAME@YOUR_DOMAIN`. An address that already has an `@`, such as `root@localhost`, is sent as is, and your provider will most likely reject it.
 
-- Make sure `root@YOUR_DOMAIN` reaches you, for example with a forward at your domain's email provider.
-- Set your own address in each tool's settings, or with `MAILTO` in root's crontab (`sudo crontab -e`).
+To get these alerts, pick one of these:
+
+- Forward `root@YOUR_DOMAIN` to your own inbox at your domain's email provider.
+- Change the root address on the server (next section).
+- Set your own address in each tool (the section after that).
+
+### Change the root address
+
+All mail for root then goes to your address.
+
+1. Back up the file:
+
+   ```bash
+   sudo cp -a /etc/ssmtp/ssmtp.conf /etc/ssmtp/ssmtp.conf.orig
+   ```
+
+2. Open the file:
+
+   ```bash
+   sudo nano /etc/ssmtp/ssmtp.conf
+   ```
+
+3. Change the `root=` line to your address, for example `root=you@example.com`. Replace `you@example.com` with your own address.
+4. Save the file and exit.
+5. Send a test to root:
+
+   ```bash
+   echo test | mail -s "root test" root
+   ```
+
+6. Check that the test arrives in your inbox.
+
+:::caution
+Running Mail Relay again writes a fresh `/etc/ssmtp/ssmtp.conf`. Your edit is lost from the live file. The edited copy is in the new `.bak` folder. Make the change again after each rerun.
+:::
+
+### Set your address in each tool
+
+Deployrr does not install smartd or fail2ban. The Scrutiny app shows disk health in a web page, but it does not install smartd on the host. If you want these tools, install them yourself. Use these settings once they are running.
+
+**Cron.** Root's cron jobs need their own line. Run `sudo crontab -e` to open root's crontab and put `MAILTO=you@example.com` at the top, as shown above. Cron only sends mail when a job prints output.
+
+**smartd.** Edit `/etc/smartd.conf`. Find the `DEVICESCAN` line, or each device line. If it already has `-m root`, change it to `-m you@example.com`. If it has no `-m`, add `-m you@example.com`. To get a test mail, also add `-M test`, restart the service, then remove `-M test`. The service is `smartmontools` on Debian and Ubuntu and `smartd` on Arch:
+
+```bash
+sudo systemctl restart smartmontools
+```
+
+Options can differ by version. Check `man smartd.conf`.
+
+**fail2ban.** Do not edit `jail.conf`. Create or edit `/etc/fail2ban/jail.local` and add:
+
+```ini
+[DEFAULT]
+destemail = you@example.com
+sender = YOUR_FROM_ADDRESS
+mta = sendmail
+action = %(action_mw)s
+```
+
+Replace `you@example.com` with your own address. Replace `YOUR_FROM_ADDRESS` with the From address from Mail Relay step 4. Many providers reject unverified senders. The default `destemail` is `root@localhost`, which ssmtp cannot deliver, so set it.
+
+`action_mw` bans and mails you a whois report. Use `action_mwl` to add log lines. Depending on your fail2ban version, it may also mail you when a jail starts and stops. Restart it to apply the change:
+
+```bash
+sudo systemctl restart fail2ban
+```
+
+Back up a config file with `cp -a` before you edit it. See each tool's man page for more options.
 
 ## If the test fails
 
