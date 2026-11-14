@@ -331,6 +331,27 @@ Don't do this on an **Unprivileged LXC**. Kasm can't run there.
 
 An LXC shares the Proxmox host's kernel. That makes it light, but you work around its limits by hand. Pick a virtual machine if you want to avoid that. A VM has its own kernel, so you don't pass devices by hand for VPN apps, and **SMB Mount** and **NFS Mount** work. Set **System Type** to **Virtual Machine**. For Kasm in a VM, see the workaround in [Kasm](#kasm). The cost is more memory and disk use than an LXC. For background, read [UDMS part 3: when to choose a VM instead](https://www.simplehomelab.com/udms-03-best-home-server-os/#When_to_Choose_VMs_Instead) (manual setup).
 
+### Move Deployrr from an LXC to a VM
+
+You can't convert a container into a VM. You move Deployrr with a Migration Package. It needs a Pro license on both servers. Without Pro, there is no Deployrr tool for this move. Ask in [Discord](/support/discord/).
+
+The package holds your Docker folder and Deployrr's settings. It holds nothing outside the Docker folder, so NAS folders you bind mounted into the LXC are not in it.
+
+1. In Proxmox, create the VM and give it a static IP. See [Proxmox LXC and VM](/host/fixed-ip/#proxmox-lxc-and-vm).
+2. Create the same Linux user name the LXC uses, then install Deployrr in the VM. See [Quick start](/getting-started/quick-start/).
+3. In the LXC, open **Tools** > **Backups** > **MP Create**. At the restart question, press any key other than `Y`. Both servers must not run the same apps.
+4. Copy the package to the VM, then run **MP Restore** there. The restore puts the Docker folder back at the same path it had in the LXC. At "Deployrr will now restart", press `Y`. For these steps, see [Move Deployrr to a new server](/using-deployrr/move-to-new-server/).
+5. In **Prerequisites**, choose **System Type** and select **Virtual Machine**. The restore brings back the old setting, so the VM still says an LXC type until you change it.
+6. Mount your NAS shares with **System** > **Mounts** > **SMB Mount** or **NFS Mount**. Use the same path the LXC used, such as `/mnt/media`, so your apps' folder paths still match. See [SMB and NFS mounts](/storage/smb-nfs-mounts/).
+7. Follow [Fix up the new server](/using-deployrr/move-to-new-server/#fix-up-the-new-server). Run **System Checks** and **Domain Checks** again. If the VM's IP differs from the LXC's, run **Tools** > **Change Server IP** and enter the VM's IP, then the LXC's old IP. If the hostname differs, run **Tools** > **Change Hostname**. Then start your apps with **Tools** > **Stack Manager** > **Up**.
+8. Shut down the LXC.
+
+In a VM, you don't need the `/dev/net/tun` lines or the LXC USB steps. To give a USB stick to a VM, open the VM in Proxmox, then **Hardware** > **Add** > **USB Device**. For a GPU, see [Prepare your server's GPU](/host/gpu-host-prep/).
+
+:::caution
+Shut the LXC down, but don't delete it until the VM works. It is your backup. Don't start both at once.
+:::
+
 ## Check it worked
 
 - **System Type** shows "<your OS> is on - <your type>" in **Prerequisites**.
