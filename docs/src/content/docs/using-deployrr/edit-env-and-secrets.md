@@ -158,7 +158,7 @@ How the question boxes treat your old answer:
 
 - A masked password box with the note "(An existing password was found. Enter a new password or leave blank to keep existing.)" keeps your old secret when you leave it empty.
 - A "Required Information" text box for a secret, such as the Nextcloud admin password, shows the value already saved. **OK** keeps it.
-- The port box suggests the first free port from the app's default, not the port you use now. Type your old port to keep it.
+- The port box treats the port you use now as taken and suggests the next free one. Typing your old port shows **Port In Use**, and the suggestion is saved. To go back to your old port, change it in `.env` after the reinstall and recreate the app. See [Change an answer later](/using-deployrr/manage-apps/#change-an-answer-later).
 - A text box with "Suggested:" and a new random password saves that new one, also when you leave it empty. Type your old password to keep it.
 
 ### Before you reinstall an app with generated secrets
