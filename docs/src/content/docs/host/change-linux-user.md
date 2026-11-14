@@ -46,29 +46,21 @@ These steps change who owns your Docker files and what your apps run as. A mista
 :::
 
 1. Back up the Docker folder. See [Backups](/using-deployrr/backups/#back-up-the-docker-folder).
-2. Check that the new user exists:
-
-   ```bash
-   id NEW_USER
-   ```
-
-   You should see a `uid` and a `gid`. If you see `no such user`, create it in the next step when Deployrr offers to.
-
-3. Go to **Prerequisites** > **Username** and enter the new name. Deployrr refuses `root`. If the user does not exist, it asks "Do you want to create this user and add it to sudoers?". You see "Username set to NEW_USER", or "User NEW_USER has been created" if Deployrr created it. From now on, start Deployrr as `NEW_USER`. To see how a user is created and added to sudo by hand, watch [Docker on Proxmox LXC: creating a non-root user at 10:20](https://youtu.be/-ZSQdJ62r-Q?t=620), or read [UDMS part 05: create a non-root Linux user](https://www.simplehomelab.com/udms-05-installing-ubuntu-on-proxmox/#1_Create_a_New_User) (manual setup).
-4. Get the user's numeric IDs:
+2. Go to **Prerequisites** > **Username** and enter the new name. Deployrr refuses `root`. If the user does not exist, it asks "Do you want to create this user and add it to sudoers?". You see "Username set to NEW_USER", or "User NEW_USER has been created" if Deployrr created it. From now on, start Deployrr as `NEW_USER`.
+3. Get the user's numeric IDs:
 
    ```bash
    id -u NEW_USER
    id -g NEW_USER
    ```
 
-5. Change four values in the `.env` file in your Docker folder: `PUID` (the first number), `PGID` (the second number), `PRIMARY_USERNAME` (the name) and `USERDIR` (`/home/NEW_USER`). Use **Tools** > **.env Editor** (Pro) or edit by hand. See [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/#edit-a-value-with-the-env-editor) and [Edit by hand without Pro](/using-deployrr/edit-env-and-secrets/#edit-by-hand-without-pro).
+4. Change four values in the `.env` file in your Docker folder: `PUID` (the first number), `PGID` (the second number), `PRIMARY_USERNAME` (the name) and `USERDIR` (`/home/NEW_USER`). Use **Tools** > **.env Editor** (Pro) or edit by hand. See [Edit .env values and secrets](/using-deployrr/edit-env-and-secrets/#edit-a-value-with-the-env-editor) and [Edit by hand without Pro](/using-deployrr/edit-env-and-secrets/#edit-by-hand-without-pro).
 
    :::note
    Don't run **Environment** again to do this. It warns "If you proceed, you may break previously installed apps", and both **Recreate** and **Reuse** delete files. **Reuse** also removes your apps' compose files.
    :::
 
-6. Give the new user the same folders the old user had. Don't run a recursive `chown` on `appdata` or the whole Docker folder. Some apps, such as pgAdmin, Mosquitto and n8n, own their folders with fixed IDs, and you would break them.
+5. Give the new user the same folders the old user had. Don't run a recursive `chown` on `appdata` or the whole Docker folder. Some apps, such as pgAdmin, Mosquitto and n8n, own their folders with fixed IDs, and you would break them.
 
    ```bash
    sudo chown NEW_USER:NEW_USER DOCKER_FOLDER DOCKER_FOLDER/appdata
@@ -83,9 +75,9 @@ These steps change who owns your Docker files and what your apps run as. A mista
 
    If your Docker folder is inside the old user's home, for example `/home/OLD_USER/docker`, the new user may not be allowed into that home folder. Check with `sudo -u NEW_USER ls DOCKER_FOLDER`.
 
-7. Run [System Checks again](/getting-started/system-checks-failed/#run-system-checks-again).
-8. Recreate your apps so they read the new `.env` values. Use **Tools** > **Stack Manager** > **Recreate** and choose `all` (Basic, Plus or Pro license). Without a license, use the Docker Compose command on that page. See [Which one after which change](/using-deployrr/restart-recreate-reinstall/#which-one-after-which-change). Restart does not pick up the change.
-9. Open each app and check that it works. Cloud Commander, Double Commander and VS Code show your files under `/data/NEW_USER` now.
+6. Run [System Checks again](/getting-started/system-checks-failed/#run-system-checks-again).
+7. Recreate your apps so they read the new `.env` values. Use **Tools** > **Stack Manager** > **Recreate** and choose `all` (Basic, Plus or Pro license). Without a license, use the Docker Compose command on that page. See [Which one after which change](/using-deployrr/restart-recreate-reinstall/#which-one-after-which-change). Restart does not pick up the change.
+8. Open each app and check that it works. Cloud Commander, Double Commander and VS Code show your files under `/data/NEW_USER` now.
 
 If one app can't write its files after this, give that app's folder to the new user. Replace `APP` with the app's name:
 
@@ -146,7 +138,7 @@ Do this only after everything works as the new user, including the [other steps]
 
    This also clears the old entry from `secrets` and `.env`. It had no effect there, because those stay readable only by root.
 
-3. Run `getfacl DOCKER_FOLDER` again. The `OLD_USER` lines are gone. If you ran step 6 of [After setup](#after-setup), the `NEW_USER` lines are still there.
+3. Run `getfacl DOCKER_FOLDER` again. The `OLD_USER` lines are gone. If you ran step 5 of [After setup](#after-setup), the `NEW_USER` lines are still there.
 4. Open a few apps and check that they still work. If one breaks, give the old user access to that app's folder again first. Replace `APP` with the app's folder in `appdata`:
 
    ```bash

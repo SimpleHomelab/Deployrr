@@ -124,4 +124,4 @@ In these steps, `APP` is the name in the app's compose file name, for example `n
 2. Open **Stack Manager** > **Services Status**. The app is no longer listed.
 3. Run **Up**. Your other apps start as before.
 
-Deployrr still counts an app you removed by hand as installed. **ReDash** adds it back to the dashboard, so delete its entries again after a ReDash. When you install the app again later, Deployrr shows a box titled with the app's name and **Already Installed**. Select **Yes** to go on. To install it again with the data you kept, see [Reinstall an app and keep its data](/using-deployrr/reinstall-app/).
+Deployrr still counts an app you removed by hand as installed. **ReDash** adds it back to the dashboard, so delete its entries again after a ReDash. When you install the app again later, Deployrr shows the **Already Installed** box. Select **Yes** to go on. To install it again with the data you kept, see [Reinstall an app and keep its data](/using-deployrr/reinstall-app/).
