@@ -138,7 +138,7 @@ Ask for a public IP, or to move you off CG-NAT. Some ISPs charge for this, or on
 Local mode serves your apps on your home network only. It needs no domain, no reverse proxy and no port forwarding. See [Setup Mode: Local or Hybrid](/getting-started/setup-mode/). Then add Tailscale to reach the apps from outside. You open them at `http://TAILSCALE-IP:PORT`, with plain `http` and no domain name. See [Set up Tailscale](/networking/tailscale/). To see why Tailscale needs no open ports, watch [Tailscale tutorial: remote access without opening ports at 0:38](https://youtu.be/M6GMp4FJrB8?t=38).
 
 **Option C: Run Deployrr on a VPS.**
-A VPS has its own public IP, so there is nothing to forward. See [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/) for firewall and Simple mode advice on a VPS. If you also have a server at home, you can run Hybrid mode with Traefik on the VPS and add the home apps with **Traefikify**. The VPS must be able to reach each home app's IP and port. Behind CG-NAT it can't do that over the internet, so connect the two servers with a VPN such as Tailscale. See [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/), including its limits.
+A VPS has its own public IP, so there is nothing to forward. See [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/) for firewall and Simple mode advice on a VPS. If you also have a server at home, you can run Hybrid mode with Traefik on the VPS and add the home apps with **Traefikify**. The VPS must be able to reach each home app's IP and port. Behind CG-NAT it can't do that over the internet, so connect the two servers with Tailscale. See [Traefik on a VPS with your apps at home](#traefik-on-a-vps-with-your-apps-at-home) below.
 
 **Option D: Use a tunnel service.**
 Services such as Cloudflare Tunnel connect your server to the internet without a forwarded port. This is outside Deployrr's setup, and this page has no steps for it.
@@ -150,6 +150,41 @@ A dynamic DNS updater can't help behind CG-NAT. It keeps your Cloudflare A recor
 ### A note on IPv6
 
 Some ISPs give you IPv6 even when IPv4 is behind CG-NAT. This page doesn't cover IPv6 setups. Deployrr's DDNS Updater updates IPv4 records only, and the Domain Checks steps here are written around a public IPv4. Don't count on IPv6 alone to get Hybrid mode working.
+
+## Traefik on a VPS with your apps at home
+
+This is Option C with your apps still at home. Traefik and your domain run on the VPS. Your home server stays behind CG-NAT with no open ports. Tailscale connects the two servers, and Traefik on the VPS sends each visitor to the home app over it.
+
+### Before you start
+
+- Deployrr runs on the VPS in Hybrid mode, and Traefik Production is done. Simple Traefik mode suits a VPS. See [Fix the UFW firewall on a VPS](/networking/ufw-firewall-vps/) and [Secure a VPS](/host/secure-a-vps/).
+- Your domain's DNS records point to the VPS's public IP, not your home IP. See [DNS records Deployrr expects](/getting-started/domain-checks-failed/#dns-records-deployrr-expects).
+- The VPS has a Plus or Pro license, which **Traefikify** needs. See [Licenses](/getting-started/licenses/).
+- The app runs on the home server, and you can open it at home at `http://HOME-IP:PORT`.
+
+### Steps
+
+1. Install Tailscale on the VPS from Deployrr. See [Set up Tailscale](/networking/tailscale/).
+2. Install Tailscale on the home server, and sign it in to the same Tailscale account. If the home server runs Deployrr, follow the same page. Otherwise, use Tailscale's own install steps for that system.
+3. Find the home server's Tailscale IP. It usually starts with `100.`. See [Find the server's Tailscale IP](/networking/tailscale/#5-find-the-servers-tailscale-ip).
+4. On the VPS, test that Traefik can reach the home app. Replace `TAILSCALE-IP` with the home server's Tailscale IP and `PORT` with the app's port:
+
+   ```bash
+   sudo docker exec traefik wget -q --spider http://TAILSCALE-IP:PORT/ && echo OK
+   ```
+
+   `OK`, or `server returned error` with an HTTP code such as `401`, means Traefik reached the app. For the other results, see [Use a hostname instead of an IP address](/reverse-proxy/traefikify/#use-a-hostname-instead-of-an-ip-address).
+5. On the VPS, run **Proxy** > **Traefik** > **Traefikify**. At **Host IP Address of the App**, type the home server's Tailscale IP. At **WebUI port number of the App**, type the app's port on the home server. See [Put an app behind Traefik](/reverse-proxy/traefikify/#put-an-app-behind-traefik).
+6. Repeat steps 4 and 5 for each home app.
+
+Use the Tailscale IP, not the home server's Tailscale machine name. [Set up Tailscale](/networking/tailscale/#2-turn-off-magicdns-in-tailscale) has you turn off MagicDNS, so Traefik can't look up Tailscale names.
+
+### Things to know
+
+- Every visit goes through the VPS. The VPS's bandwidth and your home upload speed limit how fast apps load, which matters most for video streaming.
+- The home server keeps the same Tailscale IP unless you remove it from your Tailscale account. If it gets a new one, run **Traefikify** again with the same name. You can also change the address on the `url:` line of the app's rules file on the VPS.
+- If you use access controls in the Tailscale admin console, allow the VPS to reach the home server on each app's port. Tailscale's default rules allow it.
+- Apps on the VPS itself are added as usual. For other ways to share one domain, see [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/).
 
 ## After you get a public IP
 
