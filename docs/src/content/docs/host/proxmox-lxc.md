@@ -3,7 +3,7 @@ title: Run Deployrr in a Proxmox LXC container
 sidebar:
   order: 1
   label: Run Deployrr in a Proxmox LXC
-description: Pick the right System Type, pass /dev/net/tun or a USB stick into your LXC, add NAS storage with bind mounts, and know what Kasm and a VM change.
+description: Create an LXC that suits Deployrr, pick the System Type, pass /dev/net/tun or a USB stick into it, add NAS storage, and know when a VM is better.
 type: guide
 tags:
   - host
@@ -33,13 +33,13 @@ videos:
     start: 209
     title: "Rclone SMB mount on Ubuntu/LXC: Proxmox LXC modifications"
     note: Manual Docker Compose setup. You turn on FUSE in Proxmox yourself; Deployrr does the steps inside the container.
-last_reviewed: 2026-11-13
+last_reviewed: 2026-11-14
 status: current
 old_paths: []
 sources: []
 ---
 
-This guide is for you if Deployrr runs in an LXC container on Proxmox and you hit a limit of the container. It covers the System Type choice, the network device VPN apps need, USB sticks, NAS storage, Kasm, and when a virtual machine is the better choice.
+This guide is for you if Deployrr runs, or will run, in an LXC container on Proxmox. It covers creating the container, the System Type choice, the network device VPN apps need, USB sticks, NAS storage, Kasm, and when a virtual machine is the better choice.
 
 ## Overview
 
@@ -47,10 +47,44 @@ Deployrr has no menu that changes Proxmox settings. Anything that happens on the
 
 You will:
 
-1. Set **System Type** to match your container.
-2. Pass `/dev/net/tun` into the container, if you use VPN apps, and a USB stick, if an app needs one.
-3. Give the container your NAS files with a bind mount or Rclone.
-4. Know the limits for Kasm, GPU and Docker.
+1. Create a container that suits Deployrr, if you don't have one yet.
+2. Set **System Type** to match your container.
+3. Pass `/dev/net/tun` into the container, if you use VPN apps, and a USB stick, if an app needs one.
+4. Give the container your NAS files with a bind mount or Rclone.
+5. Know the limits for Kasm, GPU and Docker.
+
+## Create a container that suits Deployrr
+
+Deployrr doesn't create the container and doesn't check its size. You make these choices in Proxmox's **Create CT** wizard. The Proxmox steps are general Proxmox knowledge, not a Deployrr feature.
+
+### Unprivileged or privileged
+
+Pick **Unprivileged** unless you need Kasm. It is the safer choice: a process that breaks out of an unprivileged container has much less power on the Proxmox host. The choice changes three things in Deployrr:
+
+| | Unprivileged LXC | Privileged LXC |
+| --- | --- | --- |
+| Socket Proxy | Runs without extra privileges | Gets extra privileges |
+| Kasm | Can't install | Needs the [workaround](#kasm) for now |
+| NAS files in a bind mount | Show as `nobody` until you [fix the owner](#files-show-as-nobody-in-an-unprivileged-lxc) | Keep their owner |
+
+You can't switch a container between the two in place. If you need the other type later, create a new container and move Deployrr to it. See [Move Deployrr to a new server](/using-deployrr/move-to-new-server/).
+
+### Settings in the Create CT wizard
+
+1. **General**: keep **Unprivileged container** ticked for an unprivileged container. Tick **Nesting**. Docker runs containers inside your container, and it needs nesting to do that.
+2. **Template**: pick Ubuntu 22.04 or newer, or Debian 11 or newer. Download the template in your storage's **CT Templates** first. See [Supported systems](/getting-started/quick-start/#supported-systems).
+3. **Disks**: Docker images, app data and logs live on this disk. If your media stays on a NAS, 64 GB is a good start. Make it larger if downloads or the metadata for a big media library stay in the container.
+4. **CPU** and **Memory**: Deployrr has no minimum. Size them for the apps you plan to run, and leave some for the Proxmox host. The video below uses 4 cores, 8 GB of memory and 4 GB of swap for a test container. A media server with many apps needs more. You can raise these later in the container's **Resources**.
+5. **Network**: set a static IP address here, not inside the container. See [Proxmox LXC and VM](/host/fixed-ip/#proxmox-lxc-and-vm).
+
+To watch an unprivileged container created for Docker, with nesting, disk, cores and memory, see [Docker on Proxmox LXC: creating the container at 4:10](https://youtu.be/-ZSQdJ62r-Q?t=250).
+
+After the container starts:
+
+1. Log in and create a regular Linux user that can run `sudo`. Deployrr doesn't run as root. See [Prerequisites](/getting-started/quick-start/#prerequisites).
+2. If you plan to use VPN apps, add `/dev/net/tun` now. See [Pass /dev/net/tun into the container](#pass-devnettun-into-the-container).
+3. If you plan to use Rclone for NAS shares, turn on FUSE now. See [Turn on FUSE for Rclone](#turn-on-fuse-for-rclone).
+4. Install Deployrr. See [Quick start](/getting-started/quick-start/).
 
 ## Choose your System Type
 
