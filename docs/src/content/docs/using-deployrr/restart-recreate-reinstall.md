@@ -91,7 +91,7 @@ Use this list to choose.
 
 | You did this | Use | Notes |
 | --- | --- | --- |
-| Changed a port in `.env` | **Recreate** | See [Port already in use](/docker/port-already-in-use/) if the new port is taken. If the app sits behind Traefik, also change the port in the `url:` line of its rules file. A reinstall keeps the old rules file with the old port. The port question on a reinstall suggests the first free port counting up from the app's default, not your custom port. Type your own. |
+| Changed a port in `.env` | **Recreate** | See [Port already in use](/docker/port-already-in-use/) if the new port is taken. If the app sits behind Traefik, also change the port in the `url:` line of its rules file. A reinstall keeps the old rules file with the old port, and it gives the app a new port. See [What Reinstall keeps and resets](#what-reinstall-keeps-and-resets). |
 | Changed a folder in **System** > **Folders** | **Recreate** | Needed for each app that uses the folder, when the app already had that folder. See [Set your media, downloads and other folders](/storage/folders/). |
 | Set Media Folder 2 or 3 (or any media folder) after installing an app that uses media folders | **Reinstall** | The app's compose file has the media folder lines switched off. Recreate does not switch them on. This only affects apps that use media folders. Those apps can't be installed with no media folder set. |
 | Edited the app's compose file, `compose/HOSTNAME/APP.yml` in your Docker folder | **Recreate** | Don't reinstall. A reinstall replaces that file with the default one and your edits are lost. |
@@ -111,6 +111,7 @@ Use this list to choose.
 - Some apps' generated secret files can get new values. Back up `appdata` and `secrets` first. See [Reinstall an app and keep its data](/using-deployrr/reinstall-app/) and [Back up and restore your Docker folder](/using-deployrr/backups/).
 - It replaces the app's compose file with the default one.
 - It asks the install questions again, such as the port, and writes your answers to `.env`.
+- It moves the app to a new port. The port question treats the app's current port as taken and suggests the next free one. Typing the current port shows **Port In Use**, and the suggestion is used. Afterwards, put the new port in the app's rules file if it is behind Traefik, or change the port back in `.env` and use **Recreate**.
 - It switches on the media folder lines for the media folders you have set at that time.
 
 The subdomain, login and exposure questions appear only when Traefik is running and the app supports it. The subdomain question is skipped if your `.env` already has a value like `NAME_SUBDOMAIN`. The exposure question appears only in Advanced Traefik mode.

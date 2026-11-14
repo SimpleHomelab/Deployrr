@@ -88,6 +88,25 @@ Which questions you see depends on the app. You may see some or all of these:
 - **Pick an Authentication Method.** The login for the app. **Skip** leaves the app with no Traefik login. See [Choose a login method for your apps](/reverse-proxy/choose-login-method/).
 - **Pick an Exposure Method.** **Both**, **Internal** or **External**. You see it only in Advanced mode. **Default (Internal)** keeps the app on your LAN. In Simple mode there is no prompt, and the app is exposed on both. See [Simple vs Advanced Traefik mode](/reverse-proxy/simple-vs-advanced-mode/).
 
+### Change an answer later
+
+You don't have to reinstall an app to change most answers. This table shows where each answer is saved and the page with the steps.
+
+| Question | Where your answer is saved | To change it later |
+| --- | --- | --- |
+| **Port Configuration** | A port setting in your `.env` file, such as `SONARR_PORT`. You open the app at `http://YOUR_SERVER_IP:PORT`. | Edit the setting and recreate the app. See [Change the port of an installed app](/docker/port-already-in-use/#fix-b-change-the-port-of-an-installed-app). If the app is behind Traefik, also change the port in its rules file. |
+| **Password Configuration** | A password setting in your `.env` file. | See [Edit .env and secrets](/using-deployrr/edit-env-and-secrets/). Some apps use this password only to create the first login. After that, change it inside the app. |
+| **GPU Selection** | GPU lines in the app's compose file. | Install the app again over the existing one and pick another GPU or the CPU. This replaces your edits to its compose file. See [If the app is already installed](/apps/gpu-transcoding/#3-if-the-app-is-already-installed). |
+| **Traefik Subdomain** | The app's Traefik rules file. A few apps use Docker labels instead. | Edit the file. See [Change the subdomain of an app you already installed](/reverse-proxy/change-app-subdomain/). |
+| **Pick an Authentication Method** | The same rules file or labels. | Use **Security** > **Manage Auth** (Pro license), or edit the file. See [Change the login method](/reverse-proxy/change-app-subdomain/#change-the-login-method). |
+| **Pick an Exposure Method** | The same rules file or labels. | Use **Proxy** > **Traefik** > **Manage Exposure** (Advanced mode, Plus or Pro license). See [Change the exposure](/reverse-proxy/change-app-subdomain/#change-the-exposure). |
+
+A reinstall asks every question again, but it doesn't always reuse your old answers:
+
+- The app gets a new port. The port box treats the app's current port as taken, so it suggests the next free one. If you type the current port, you see **Port In Use** and Deployrr uses the suggestion. After the reinstall, open the app at the new port. If the app is behind Traefik, put the new port in its rules file, as in [Change the port of an installed app](/docker/port-already-in-use/#fix-b-change-the-port-of-an-installed-app). To keep the old port instead, change it back in `.env` and recreate the app.
+- The password box suggests a new password. Choosing **OK** with the suggestion, or leaving the box empty, saves the new one. Type your old password to keep it.
+- An existing Traefik rules file stays as it is, so new subdomain, login and exposure answers don't reach Traefik. See [Change login or exposure](/using-deployrr/reinstall-app/#change-login-or-exposure).
+
 :::note
 If you see **License Required**, see [Licenses](/getting-started/licenses/). If you see a **Requirements Not Met** box, finish the items it lists first. See [Requirements Not Met](/getting-started/requirements-not-met/).
 :::
