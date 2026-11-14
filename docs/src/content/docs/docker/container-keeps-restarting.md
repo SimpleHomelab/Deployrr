@@ -35,7 +35,7 @@ videos:
     start: 171
     title: "DeUnhealth video: health check and automatic restart of an unhealthy container"
     note: Manual Docker Compose setup. In Deployrr v6, install DeUnhealth from the Apps menu; only qBittorrent VPN has the label already.
-last_reviewed: 2026-11-13
+last_reviewed: 2026-11-14
 status: current
 old_paths: []
 sources: []
@@ -171,6 +171,7 @@ Blank lines between them are normal. `exit 0` means the check passed. Any other 
 | `permission denied`, or a missing folder or file | Check the folder paths the app uses. See [Set your media, downloads and other folders](/storage/folders/). |
 | The app needs files from your NAS and they are missing | Check that the share is mounted. See [Mount a NAS share with Rclone](/storage/rclone-smb-setup/) and [Rclone mount fails because the folder is not empty](/storage/rclone-mount-not-empty/). |
 | A helper container, such as a database, is unhealthy or not running | Repeat steps 1 to 4 for the helper. Fix it first. The app depends on it. |
+| `password authentication failed for user` or `Access denied for user`, after you reinstalled the app | The app and its database no longer have the same password. See [After a reinstall, the app can't log in to its database](#after-a-reinstall-the-app-cant-log-in-to-its-database). |
 | The app talks to Docker and cannot reach it | Socket Proxy may be stopped. See [Socket Proxy](/docker/socket-proxy/). |
 | The page does not open and the app itself looks fine | Traefik may be the problem. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/) and [Traefik can't get a Let's Encrypt certificate](/reverse-proxy/certificate-errors/). |
 | You edited a compose file or `.env` and then it broke | Undo your edit. For the main compose file, see [Docker environment setup fails with: docker-compose file is malformed](/docker/compose-malformed/). |
@@ -220,6 +221,30 @@ Do not choose a **Full** delete unless you accept losing the app's data and sett
 
 2. The status still says `Up` after a few minutes. A crash loop can look fine for a few seconds.
 3. The app's web page opens.
+
+## After a reinstall, the app can't log in to its database
+
+n8n, Nextcloud, Langfuse and Supabase get new database passwords on every install, also on a reinstall. The database in `appdata` keeps the password it was first set up with. After a reinstall, the app and its database can stop matching. To avoid this next time, see [Before you reinstall an app with generated secrets](/using-deployrr/edit-env-and-secrets/#before-you-reinstall-an-app-with-generated-secrets).
+
+What you may see:
+
+- The app shows `Restarting` or `Exited`, or its web page does not open, while its database container shows `Up`.
+- The app's log from step 3 has a line such as `password authentication failed for user` (PostgreSQL) or `Access denied for user` (MariaDB). These come from the database, so the exact text depends on the app.
+
+Your data is still there. Don't delete the app. Pick the fix that fits:
+
+- **You have a copy of `secrets` from before the reinstall**: put the old files back and recreate, as in steps 3 and 4 of [Before you reinstall an app with generated secrets](/using-deployrr/edit-env-and-secrets/#before-you-reinstall-an-app-with-generated-secrets). For n8n, Langfuse or Supabase, you also need the old `compose` folder. A [backup of your Docker folder](/using-deployrr/backups/) has both.
+- **n8n, and you have no copy**: give the database the new password. The reinstall already wrote it to the secret file and to `n8n.yml`, so you only change it inside the database.
+  1. Show the new password. Replace `YOUR_DOCKER_FOLDER` with your Docker folder path:
+
+     ```bash
+     sudo cat YOUR_DOCKER_FOLDER/secrets/n8n_postgresql_password
+     ```
+
+  2. Run step 3 of [Change a database password safely](/apps/change-database-password/#steps) with that value as `NEW_PASSWORD`. Take the container, user and database for n8n from the PostgreSQL table on that page.
+  3. Recreate the app, as in [step 6](#6-start-or-recreate-the-app).
+- **Nextcloud**: after its first setup, Nextcloud reads the database password from its own `config.php`. A reinstall changes neither that file nor the database, so Nextcloud normally keeps working. The reinstall shows a new admin password. Your existing Nextcloud still uses the old one, so keep using that. If you deleted the database folder but kept Nextcloud's own folder, the two no longer match: restore your Docker folder backup, or ask on Discord.
+- **Langfuse or Supabase, and you have no copy**: their passwords are in many files and containers. A reinstall also changes other keys, such as Supabase's API keys, so apps that use the old keys stop working. Restore your Docker folder backup, or ask on Discord.
 
 ## Automatic restarts of unhealthy containers
 

@@ -11,6 +11,7 @@ tags:
   - firewall
   - logs
   - remote-access
+  - dns
 applies_to: v6.0+
 apps: [traefik, tailscale]
 symptoms:

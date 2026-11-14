@@ -6,6 +6,7 @@ sidebar:
 description: Point *.YOUR_DOMAIN at your server's LAN IP with Pi-hole or AdGuard Home so Internal apps open by name from devices on your home network.
 type: how-to
 tags:
+  - dns
   - domain
   - traefik
   - app-networking

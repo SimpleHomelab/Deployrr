@@ -7,6 +7,7 @@ tags:
   - auth
   - remote-access
   - firewall
+  - security
 apps: [traefik]
 applies_to: v6.0+
 related:

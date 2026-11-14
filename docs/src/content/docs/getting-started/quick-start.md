@@ -55,7 +55,7 @@ On Arch and Manjaro, some of that software is only in the AUR. Install `yay` or 
 
 On Fedora, RHEL, Rocky Linux and CentOS:
 
-- Install Docker yourself before **System Checks**, with the steps for your system from Docker's documentation. The fallback that **System Checks** uses to install Docker only works on Debian and Ubuntu.
+- Install Docker yourself before **System Checks**, with the steps for your system from Docker's documentation. **System Checks** first tries Docker's own install script, which may work on your system. If that fails, System Checks falls back to a method that only works on Debian and Ubuntu.
 - When Docker is installed, **System Checks** asks `Would you like to check and update your system? (Y/n)`. Press Enter or type `n` to skip it, and update with `sudo dnf upgrade` instead.
 - The **Username** step creates a user without a password or sudo rights. See [Create a regular user with sudo rights](/getting-started/install-errors/#create-a-regular-user-with-sudo-rights).
 - **System** > **Mounts** > **SMB Mount** and **NFS Mount** stop with `Failed to install required packages`, even when the client is already installed. **System** > **Mounts** > **Rclone** > **Install** stops with `Failed to install fuse3`. Mount network shares by hand.
