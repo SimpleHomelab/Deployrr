@@ -21,10 +21,6 @@ videos:
     start: 171
     title: "DeUnhealth video: health check and automatic restart of an unhealthy container"
     note: Manual Docker Compose setup. In Deployrr v6, install DeUnhealth from the Apps menu; only qBittorrent VPN has the label already.
-  - id: oY1U_Htes9A
-    start: 209
-    title: "DeUnhealth video: add a health check block to a compose file and recreate the app"
-    note: Manual Docker Compose setup. In Deployrr v6, install DeUnhealth from the Apps menu; only qBittorrent VPN has the label already.
 last_reviewed: 2026-11-14
 status: current
 old_paths: []
@@ -219,6 +215,8 @@ The test runs inside the container, so it can only use tools the image has. Repl
    ```
 
 3. Save the file.
+
+To see a health check block added to a compose file, watch [DeUnhealth video: add a health check at 3:29](https://youtu.be/oY1U_Htes9A?t=209) (manual Docker Compose setup; the video's file paths differ from Deployrr's).
 
 What the lines mean:
 

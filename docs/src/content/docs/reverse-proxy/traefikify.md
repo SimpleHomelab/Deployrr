@@ -114,6 +114,33 @@ Deployrr then says "Added NAME to Deployrr Dashboard". If it says "Could not add
 
 Some apps only answer on HTTPS with a self-signed certificate. Type `https` at the **WebUI protocol** prompt and use the app's HTTPS port. Deployrr then creates the file so that Traefik does not check the app's certificate. Your visitors still get your normal Traefik certificate. To understand why, watch [Traefik guide: Proxmox web UI behind Traefik at 5:21](https://youtu.be/ldytlKJmPX4?t=321) (manual Docker Compose setup).
 
+You can tell an app is HTTPS-only when its address starts with `https://` and your browser warns about the certificate. Common examples and their usual HTTPS ports:
+
+| Device or app | Usual HTTPS port |
+|---|---|
+| Proxmox VE web UI | `8006` |
+| Proxmox Backup Server | `8007` |
+| Synology DSM | `5001` |
+| UniFi Network Application (self-hosted) | `8443` |
+
+These are the defaults. If you changed the port on the device, use yours.
+
+#### Example: the Proxmox web UI
+
+Say Proxmox runs at `https://192.168.1.10:8006`. Answer the Traefikify prompts like this:
+
+1. Name: `proxmox`.
+2. Subdomain: keep `proxmox`.
+3. Host IP Address: `192.168.1.10`.
+4. WebUI protocol: `https`.
+5. WebUI port: `8006`.
+6. Login method: pick one of yours. Proxmox still asks for its own login after it.
+7. Exposure: in Advanced mode, pick **Internal** to keep the Proxmox web UI off the internet.
+
+Then open `https://proxmox.YOUR_DOMAIN`. You should see the Proxmox login with a valid certificate and no browser warning.
+
+Deployrr's connection test only checks that the port is open, so it passes even if you typed `http` for an app that only answers on HTTPS. The address then shows an error instead of the app. Run **Traefikify** again with the same name, overwrite the file, and type `https`.
+
 ### Remove an app with Un-Traefikify
 
 Un-Traefikify has the same requirements as Traefikify.
@@ -150,7 +177,7 @@ If the app is up and the address still does not work, check these:
 
 1. The IP address is the one of the machine that runs the app, not your Deployrr server (unless they are the same).
 2. The port is the WebUI port of the app.
-3. The app is running. Open `http://IP_ADDRESS:PORT` in a browser on your network.
+3. The app is running. Open `http://IP_ADDRESS:PORT` (or `https://` for an HTTPS-only app) in a browser on your network.
 4. No firewall on the app's machine blocks the port from your Deployrr server.
 
 To fix a wrong value, run **Traefikify** again with the same name and overwrite the file. You can also edit `appdata/traefik3/rules/HOSTNAME/app-NAME.yml` and change the address on the `url:` line. Traefik picks up the change on its own. To change the subdomain the same way, see [Change the subdomain of an app you already installed](/reverse-proxy/change-app-subdomain/).
