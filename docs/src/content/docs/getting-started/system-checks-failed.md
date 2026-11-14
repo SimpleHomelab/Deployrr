@@ -204,7 +204,7 @@ To see a user created by hand, watch [Docker on Proxmox LXC: creating a non-root
 
 The simplest choice is to keep the user you set up with. Change it only if you have to.
 
-In the commands below, `NEW_USER`, `OLD_USER` and `DOCKER_FOLDER` are values you fill in. `DOCKER_FOLDER` is the path to your Docker folder. All commands are general Linux advice.
+In the commands below, `NEW_USER`, `OLD_USER` and `DOCKER_FOLDER` are values you fill in. `DOCKER_FOLDER` is the path to your Docker folder.
 
 ### Before Environment
 
@@ -293,6 +293,32 @@ If your Docker folder is in the old user's home, don't rename the user. Keep the
 
 2. Open **Prerequisites**. The new username shows in green.
 3. System Checks shows `DONE`, and your apps start and write their files.
+
+### Remove the old user's access (optional)
+
+When Deployrr created your Docker folder, it gave the old user read and write access to it with ACLs (access control lists). New files and folders inside get the same access. The commands above add access for the new user but don't remove the old user's access. If you are retiring the old account, remove it too.
+
+Do this only after everything works as the new user, including the [other steps](#other-steps-that-keep-the-old-user) you use. Skip it if your Docker folder is in the old user's home and you keep that account.
+
+1. Check the current entries on the Docker folder:
+
+   ```bash
+   getfacl DOCKER_FOLDER
+   ```
+
+   Look for `user:OLD_USER:rw-` and `default:user:OLD_USER:rw-`.
+
+2. Remove the old user's entries from every file and folder, then the default entries from every folder:
+
+   ```bash
+   sudo setfacl -R -x u:OLD_USER DOCKER_FOLDER
+   sudo find DOCKER_FOLDER -type d -exec setfacl -x d:u:OLD_USER {} +
+   ```
+
+   This also clears the old entry from `secrets` and `.env`. It had no effect there, because those stay readable only by root.
+
+3. Run `getfacl DOCKER_FOLDER` again. The `OLD_USER` lines are gone. If you ran step 6 of [After setup](#after-setup), the `NEW_USER` lines are still there.
+4. Open a few apps and check that they still work. If one breaks, restore its folder from your backup.
 
 ## Fix Docker is missing or not running (steps 3 and 4)
 
