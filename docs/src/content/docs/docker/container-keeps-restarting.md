@@ -224,7 +224,7 @@ Do not choose a **Full** delete unless you accept losing the app's data and sett
 
 ## After a reinstall, the app can't log in to its database
 
-Authentik, n8n, Nextcloud, Langfuse and Supabase get new database passwords on every install, also on a reinstall. The database in `appdata` keeps the password it was first set up with. After a reinstall, the app and its database can stop matching. To avoid this next time, see [Before you reinstall an app with generated secrets](/using-deployrr/edit-env-and-secrets/#before-you-reinstall-an-app-with-generated-secrets).
+n8n, Nextcloud, Langfuse and Supabase get new database passwords on every install, also on a reinstall. The database in `appdata` keeps the password it was first set up with. After a reinstall, the app and its database can stop matching. To avoid this next time, see [Before you reinstall an app with generated secrets](/using-deployrr/edit-env-and-secrets/#before-you-reinstall-an-app-with-generated-secrets).
 
 What you may see:
 
@@ -234,17 +234,15 @@ What you may see:
 Your data is still there. Don't delete the app. Pick the fix that fits:
 
 - **You have a copy of `secrets` from before the reinstall**: put the old files back and recreate, as in steps 3 and 4 of [Before you reinstall an app with generated secrets](/using-deployrr/edit-env-and-secrets/#before-you-reinstall-an-app-with-generated-secrets). For n8n, Langfuse or Supabase, you also need the old `compose` folder. A [backup of your Docker folder](/using-deployrr/backups/) has both.
-- **n8n or Authentik, and you have no copy**: give the database the new password. The reinstall already wrote it to the secret file (and for n8n to `n8n.yml`), so you only change it inside the database.
-  1. Show the new password. Replace `YOUR_DOCKER_FOLDER` with your Docker folder path, and `NAME` with `n8n_postgresql_password` or `authentik_postgresql_password`:
+- **n8n, and you have no copy**: give the database the new password. The reinstall already wrote it to the secret file and to `n8n.yml`, so you only change it inside the database.
+  1. Show the new password. Replace `YOUR_DOCKER_FOLDER` with your Docker folder path:
 
      ```bash
-     sudo cat YOUR_DOCKER_FOLDER/secrets/NAME
+     sudo cat YOUR_DOCKER_FOLDER/secrets/n8n_postgresql_password
      ```
 
-  2. Run step 3 of [Change a database password safely](/apps/change-database-password/#steps) with that value as `NEW_PASSWORD`. Take the container, user and database for your app from the PostgreSQL table on that page.
-  3. Recreate the app, as in [step 6](#6-start-or-recreate-the-app). For Authentik, recreate both `authentik` and `authentik-worker`.
-
-  Authentik also gets a new secret key, which may sign you out.
+  2. Run step 3 of [Change a database password safely](/apps/change-database-password/#steps) with that value as `NEW_PASSWORD`. Take the container, user and database for n8n from the PostgreSQL table on that page.
+  3. Recreate the app, as in [step 6](#6-start-or-recreate-the-app).
 - **Nextcloud**: after its first setup, Nextcloud reads the database password from its own `config.php`. A reinstall changes neither that file nor the database, so Nextcloud normally keeps working. The reinstall shows a new admin password. Your existing Nextcloud still uses the old one, so keep using that. If you deleted the database folder but kept Nextcloud's own folder, the two no longer match: restore your Docker folder backup, or ask on Discord.
 - **Langfuse or Supabase, and you have no copy**: their passwords are in many files and containers. A reinstall also changes other keys, such as Supabase's API keys, so apps that use the old keys stop working. Restore your Docker folder backup, or ask on Discord.
 
