@@ -24,7 +24,7 @@ videos:
     start: 1296
     title: "Deployrr 5 walkthrough: Setup Folders"
     note: "Shows Deployrr v5. Menus and steps differ in v6."
-last_reviewed: 2026-11-12
+last_reviewed: 2026-11-14
 status: current
 old_paths: ["/host/move-data-to-another-disk"]
 sources: []
@@ -38,7 +38,7 @@ Three places can fill a disk. Each one moves in a different way.
 
 | Data | Where it is | How to move it |
 | --- | --- | --- |
-| Media and downloads (also books, photos, Immich and Nextcloud files) | The folders you set in **System** > **Folders** | [Move your media and downloads](#move-your-media-and-downloads). |
+| Media and downloads (also books, photos, Immich and Nextcloud files) | The folders you set in **System** > **Folders** | [Move your media and downloads](#move-your-media-and-downloads). For Immich and Nextcloud, also read [Move the Immich or Nextcloud folder](#move-the-immich-or-nextcloud-folder). |
 | Docker's images, containers and volumes | `/var/lib/docker` by default | [Move Docker's storage](#move-dockers-storage). This is a standard Docker setting, not a Deployrr menu. |
 | The Deployrr Docker folder (`appdata`, `.env`, compose files, secrets) | The path you chose in **Prerequisites** | Do not move it. See the note below. |
 
@@ -179,6 +179,32 @@ Recreate is enough when an app already had that folder. If you move to a folder 
 :::
 
 Check that it worked (see [Check it worked](#check-it-worked)). Keep the old copy until you are sure.
+
+### Move the Immich or Nextcloud folder
+
+The **Immich Folder** holds every photo and video uploaded to Immich. The **Nextcloud Folder** holds the files in Nextcloud. Move them with the steps above. Keep these points in mind:
+
+- Their databases stay in the Docker folder, in `appdata/immich-postgresql` and `appdata/nextcloud-mariadb`. The database lists every file by its place inside the folder. So the new folder must hold the whole old folder with the same layout. Copy the folder you set in **System** > **Folders**, not a folder inside it.
+- Copy with `sudo`, as in step 3. Nextcloud's files belong to the web server user inside the container (`www-data`), not to your Linux user. `rsync -a` keeps the owner. Do not run `chown` on the new Nextcloud folder. Copy into a folder on the new disk, such as `/mnt/data/nextcloud`, not into the mount folder itself.
+- At step 7, select **Immich Folder** or **Nextcloud Folder**. At step 11, recreate `immich` or `nextcloud`. Recreate is enough, because both apps always have their folder.
+
+Check that the app sees its files. For Immich, you see folders such as `library`, `thumbs` and `upload`:
+
+```bash
+sudo docker exec immich ls /usr/src/app/upload
+```
+
+For Nextcloud, you see a folder for each Nextcloud user:
+
+```bash
+sudo docker exec nextcloud ls /var/www/html/data
+```
+
+If the app shows an error or does not start, the new path does not hold the old files:
+
+- Nextcloud says the data directory is invalid and asks for a file called `.ocdata`. Immich does not start, and its log names a `.immich` file. These are hidden files the apps put in their folders. `rsync -a` copies them, so a missing file means the copy or the path is wrong.
+- If Nextcloud says the data directory is readable by other users, run `sudo chmod 0770 NEW_FOLDER`.
+- To go back, set the folder to the old path in **System** > **Folders** and recreate the app again. Your old copy is still there.
 
 Do not delete the old copy until your apps have run for a few days with the new folder. To make sure nothing still uses it, rename it first. Replace `OLD_FOLDER` with your old folder:
 
