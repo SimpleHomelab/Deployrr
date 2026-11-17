@@ -18,8 +18,8 @@ related:
 further_reading:
   - title: "UDMS part 10: pass the TUN network device into a Proxmox LXC"
     url: https://www.simplehomelab.com/udms-10-proxmox-lxc-network-device-passthrough/
-  - title: "UDMS part 9: bind mount remote storage into a Proxmox LXC"
-    url: https://www.simplehomelab.com/udms-part-9-bind-mount-remote-storage-in-proxmox-lxc-containers/
+  - title: "UDMS part 9: how bind mounting remote storage into a Proxmox LXC works"
+    url: https://www.simplehomelab.com/udms-part-9-bind-mount-remote-storage-in-proxmox-lxc-containers/#How_Proxmox_Bind_Mounting_Works
   - title: "UDMS part 3: when to choose a VM instead of an LXC"
     url: https://www.simplehomelab.com/udms-03-best-home-server-os/#When_to_Choose_VMs_Instead
 videos:
@@ -244,7 +244,7 @@ If **Automount** ends with "Mount verification failed", check that **FUSE** is t
 
 ### Bind mount a folder into the container
 
-To understand bind mounts and ID mapping, read [UDMS part 9](https://www.simplehomelab.com/udms-part-9-bind-mount-remote-storage-in-proxmox-lxc-containers/) (manual setup).
+To understand how bind mounts and ID mapping work, read [UDMS part 9: How Proxmox bind mounting works](https://www.simplehomelab.com/udms-part-9-bind-mount-remote-storage-in-proxmox-lxc-containers/#How_Proxmox_Bind_Mounting_Works) (manual setup).
 
 This works for a NAS share mounted on the Proxmox host, or for a local disk. Replace these values:
 

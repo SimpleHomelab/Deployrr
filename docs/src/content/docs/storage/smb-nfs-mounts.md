@@ -18,6 +18,8 @@ related:
 further_reading:
   - title: "UDMS part 08: Permission denied errors on NFS mounts"
     url: "https://www.simplehomelab.com/udms-08-mount-remote-folders-using-nfs/#Permission_Denied_Errors"
+  - title: "UDMS part 09: Why an unprivileged LXC cannot mount SMB or NFS directly"
+    url: "https://www.simplehomelab.com/udms-part-9-bind-mount-remote-storage-in-proxmox-lxc-containers/#Why_Unprivileged_LXC_Cannot_Mount_SMBNFS_Directly"
   - title: "UDMS part 07: Test the fstab entry for an SMB mount"
     url: "https://www.simplehomelab.com/udms-07-mount-remote-shares-smb/#Test_fstab_Configuration"
 last_reviewed: 2026-11-13
@@ -63,7 +65,7 @@ If your NAS is sometimes off or slow to start when the server boots, plan for it
 - You have an empty folder for the mount, or you are happy to let Deployrr create one.
 
 :::note
-In a Proxmox LXC container, after you choose **Yes** at the first prompt, Deployrr shows "Not Supported". The text says: "SMB mounting is only supported on VPS, Barebones, or Virtual Machine systems. If you are using a Proxmox LXC, then use Bind Mounts or Rclone." The NFS option shows the same text with "NFS". Use Proxmox bind mounts or [Rclone](/storage/rclone-smb-setup/) instead. If Docker itself fails in your LXC, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
+In a Proxmox LXC container, after you choose **Yes** at the first prompt, Deployrr shows "Not Supported". The text says: "SMB mounting is only supported on VPS, Barebones, or Virtual Machine systems. If you are using a Proxmox LXC, then use Bind Mounts or Rclone." The NFS option shows the same text with "NFS". Use a [Proxmox bind mount](/host/proxmox-lxc/#bind-mount-a-folder-into-the-container) or [Rclone](/storage/rclone-smb-setup/) instead. To understand why an unprivileged LXC can't mount a share itself, read [UDMS part 09: Why an unprivileged LXC cannot mount SMB or NFS directly](https://www.simplehomelab.com/udms-part-9-bind-mount-remote-storage-in-proxmox-lxc-containers/#Why_Unprivileged_LXC_Cannot_Mount_SMBNFS_Directly) (manual setup, background only). If Docker itself fails in your LXC, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
 :::
 
 ## Steps

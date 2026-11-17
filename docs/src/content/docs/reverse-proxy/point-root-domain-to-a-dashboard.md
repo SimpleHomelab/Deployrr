@@ -19,6 +19,8 @@ related:
 further_reading:
   - title: "UDMS part 18: Homepage behind Traefik (manual setup)"
     url: "https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Homepage"
+  - title: "UDMS part 26: multiple domains or domain passthrough (manual setup)"
+    url: "https://www.simplehomelab.com/udms-26-multiple-domains-on-traefik/#Multiple_Domains_vs_Domain_Passthrough"
 videos:
   - id: 6S9PwhAlZUs
     start: 437
@@ -198,6 +200,8 @@ Traefik then requests a separate certificate for the new name from its Host rule
 ### Domain Passthrough is not for this
 
 **Proxy** > **Traefik** > **Domain Passthrough** (**To Another Traefik Instance**) writes a `domain-DOMAIN.yml` file in the same rules folder. It sends every connection for that domain, untouched, to another server's Traefik on port 443. Use it only when that server runs its own Traefik for that domain. Like **Traefikify**, it needs a Plus or Pro license. See [Use one domain across several servers](/reverse-proxy/multi-server-same-domain/#if-the-other-server-runs-its-own-traefik).
+
+To compare a second domain with passthrough, read [UDMS part 26: Multiple Domains vs Domain Passthrough](https://www.simplehomelab.com/udms-26-multiple-domains-on-traefik/#Multiple_Domains_vs_Domain_Passthrough) (manual setup, background only; in Deployrr v6, follow the steps on this page instead).
 
 Passthrough rules are checked before app rules. An app rule on this server for a passed-through domain never answers.
 

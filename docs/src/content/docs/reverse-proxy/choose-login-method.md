@@ -37,8 +37,8 @@ further_reading:
     url: https://www.simplehomelab.com/udms-19-authelia-docker-compose/#Authelia_Alternatives
   - title: "Google OAuth with Traefik forward auth: creating the client ID and secret (manual setup)"
     url: https://www.simplehomelab.com/google-oauth-traefik-forward-auth-2024/
-  - title: "UDMS part 21: Authentik with Docker Compose (manual setup)"
-    url: https://www.simplehomelab.com/udms-21-authentik-docker-compose/
+  - title: "UDMS part 21: what Authentik is and what it does (manual setup)"
+    url: https://www.simplehomelab.com/udms-21-authentik-docker-compose/#What_is_Authentik
 last_reviewed: 2026-11-13
 status: current
 old_paths: []
@@ -121,6 +121,8 @@ To see the same install and device registration, watch [Deployrr 5 walkthrough: 
 4. Create your admin account.
 
 Authentik asks you for nothing during install. Its database password and secret key are created for you. To remove Authentik later, see [Remove Authentik](/reverse-proxy/authentik-removal/).
+
+To learn what Authentik is, read [UDMS part 21: what Authentik is](https://www.simplehomelab.com/udms-21-authentik-docker-compose/#What_is_Authentik) (manual setup, background only).
 
 ### Google OAuth
 

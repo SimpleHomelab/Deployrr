@@ -17,8 +17,8 @@ related:
 further_reading:
   - title: "UDMS part 18: adding non-Docker or external apps behind Traefik"
     url: https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Adding_non-Docker_or_External_Apps_Behind_Traefik
-  - title: "UDMS part 27: handling multiple domains on multiple Traefik hosts"
-    url: https://www.simplehomelab.com/udms-27-traefik-domain-passthrough/
+  - title: "UDMS part 27: how Traefik TCP passthrough works (manual setup)"
+    url: https://www.simplehomelab.com/udms-27-traefik-domain-passthrough/#The_Solution_Traefik_TCP_Passthrough
 videos:
   - id: rdqbAr0TFnQ
     start: 421
@@ -187,7 +187,7 @@ If it fails, [read the Traefik logs](/reverse-proxy/check-traefik-logs/) on both
 - The passthrough does not forward the visitor's address. This is how a plain TCP passthrough works. The other server's Traefik sees connections from the main server, so IP allowlists and CrowdSec there see the main server's address.
 - Port 80 is not passed through. The main server redirects `http` requests to `https`, and the browser then connects again on 443, which is passed through.
 
-To see it in use, watch [Deployrr 5 walkthrough: Domain Passthrough at 1:10:42](https://youtu.be/rdqbAr0TFnQ?t=4242) (shows Deployrr v5; menus differ in v6). For how it works with a manual setup, read [UDMS part 27](https://www.simplehomelab.com/udms-27-traefik-domain-passthrough/).
+To see it in use, watch [Deployrr 5 walkthrough: Domain Passthrough at 1:10:42](https://youtu.be/rdqbAr0TFnQ?t=4242) (shows Deployrr v5; menus differ in v6). To understand how the passthrough works underneath, read [UDMS part 27: the Traefik TCP passthrough solution](https://www.simplehomelab.com/udms-27-traefik-domain-passthrough/#The_Solution_Traefik_TCP_Passthrough) (manual setup, background only; follow the steps above in Deployrr v6).
 
 ## Next steps
 
