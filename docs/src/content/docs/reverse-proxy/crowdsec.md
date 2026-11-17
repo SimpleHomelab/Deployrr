@@ -20,8 +20,8 @@ related:
 further_reading:
   - title: "UDMS part 22: understanding CrowdSec (manual setup)"
     url: https://www.simplehomelab.com/udms-22-crowdsec-docker-compose/#Understanding_CrowdSec
-  - title: "UDMS part 25: the CrowdSec bouncer Traefik plugin (manual setup)"
-    url: https://www.simplehomelab.com/udms-25-traefik-plugins/
+  - title: "UDMS part 25: why the CrowdSec bouncer works better as a Traefik plugin (manual setup)"
+    url: https://www.simplehomelab.com/udms-25-traefik-plugins/#Why_the_Plugin_is_Better_Than_the_Container
 videos:
   - id: cUZ6kkum1pc
     start: 1100
@@ -141,7 +141,7 @@ Expect your apps to be unreachable for a short moment while Traefik restarts. De
 
 By default, `middlewares-crowdsec-bouncer.yml` trusts `10.0.0.0/8`, `172.16.0.0/12` and `192.168.0.0/16`. The plugin does not check visitors from trusted addresses, so your own network is not checked.
 
-To see how a middleware chain takes extra middlewares such as CrowdSec, watch [Traefik middlewares and chains at 18:20](https://youtu.be/cUZ6kkum1pc?t=1100) (manual setup). To understand how the Traefik plugin works, read [UDMS part 25: Traefik plugins](https://www.simplehomelab.com/udms-25-traefik-plugins/) (manual setup, background only).
+To see how a middleware chain takes extra middlewares such as CrowdSec, watch [Traefik middlewares and chains at 18:20](https://youtu.be/cUZ6kkum1pc?t=1100) (manual setup). To understand why the bouncer is a Traefik plugin and not a container, read [UDMS part 25: Why the plugin is better than the container](https://www.simplehomelab.com/udms-25-traefik-plugins/#Why_the_Plugin_is_Better_Than_the_Container) (manual setup, background only).
 
 For how the chain names relate to login methods, see [Choose a login method](/reverse-proxy/choose-login-method/). To allow only some addresses in the first place, see [Allow only some IP addresses to reach an app](/reverse-proxy/restrict-access-using-ip-allowlist/).
 

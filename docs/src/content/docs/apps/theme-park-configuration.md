@@ -13,8 +13,8 @@ related:
   - using-deployrr/bash-aliases
   - reverse-proxy/check-traefik-logs
 further_reading:
-  - title: "UDMS part 25: Traefik plugins, including Theme Park"
-    url: https://www.simplehomelab.com/udms-25-traefik-plugins/
+  - title: "UDMS part 25: Theme Park themes you can choose (manual setup)"
+    url: https://www.simplehomelab.com/udms-25-traefik-plugins/#Available_Themes
 last_reviewed: 2026-11-08
 status: current
 old_paths: ["/apps/theme-park-configuration"]
@@ -54,7 +54,7 @@ Do this part if you want to run your own Theme Park server.
 
 ### Part 2: Theme an app through Traefik
 
-Do this part if the app is behind Traefik and you want the theme added by Traefik. This method needs no Theme Park container. Replace `HOSTNAME` with your server's hostname everywhere below. For background on how Traefik plugins work, read [UDMS part 25: Traefik plugins, including Theme Park](https://www.simplehomelab.com/udms-25-traefik-plugins/) (manual setup, so file paths and settings differ from Deployrr).
+Do this part if the app is behind Traefik and you want the theme added by Traefik. This method needs no Theme Park container. Replace `HOSTNAME` with your server's hostname everywhere below. To see the themes you can pick and how the plugin works, read [UDMS part 25: Available themes](https://www.simplehomelab.com/udms-25-traefik-plugins/#Available_Themes) (manual setup, background only, so file paths and settings differ from Deployrr).
 
 1. Go to the Traefik rules folder for your server. It is inside your Docker folder:
 

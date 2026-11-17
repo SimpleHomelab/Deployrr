@@ -31,6 +31,8 @@ videos:
 further_reading:
   - title: "UDMS part 18: how middleware chains work (manual setup)"
     url: "https://www.simplehomelab.com/udms-18-traefik-docker-compose-guide/#Middleware_Chains"
+  - title: "UDMS part 25: why you need Geoblock (manual setup)"
+    url: "https://www.simplehomelab.com/udms-25-traefik-plugins/#Why_You_Need_Geoblock"
 last_reviewed: 2026-11-08
 status: current
 old_paths: ["/traefik/restrict-access-using-ip-allowlist"]
@@ -73,6 +75,8 @@ Use this when Internal exposure is too blunt. For example, you want to allow you
 :::note
 Manage Exposure only switches the internal and external lines in `app-NAME.yml` (and updates the app's links on the Deployrr Dashboard). It does not touch your allowlist or chain. The two can be used together.
 :::
+
+If you want to block whole countries instead of listing address ranges, read [UDMS part 25: Why you need Geoblock](https://www.simplehomelab.com/udms-25-traefik-plugins/#Why_You_Need_Geoblock) (manual setup, background only).
 
 ### Find your LAN range
 
