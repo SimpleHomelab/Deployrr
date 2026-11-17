@@ -15,7 +15,9 @@ related:
   - host/shim-task-debian
   - docker/waiting-for-container
   - using-deployrr/bash-aliases
-further_reading: []
+further_reading:
+  - title: "UDMS part 09: Your options for remote storage in an unprivileged LXC"
+    url: "https://www.simplehomelab.com/udms-part-9-bind-mount-remote-storage-in-proxmox-lxc-containers/#Your_Options_for_Remote_Storage_in_Unprivileged_LXC"
 videos:
   - id: rdqbAr0TFnQ
     start: 1059
@@ -51,7 +53,7 @@ Deployrr is tested with one SMB remote through Rclone. The menu says so. Set up 
 
 If your server is a Proxmox LXC container, Rclone works once FUSE is turned on for the container. You do that on the Proxmox host before part 1: see [Turn on FUSE for Rclone](/host/proxmox-lxc/#turn-on-fuse-for-rclone), or watch [Rclone SMB mount on Ubuntu/LXC: Proxmox LXC modifications at 3:29](https://youtu.be/D-XS0biLP14?t=209) (manual setup). If **Automount** ends with "Mount verification failed" in an LXC, check this setting first.
 
-Deployrr does not block the **Rclone** menu in an LXC. It does block the separate **SMB Mount** and **NFS Mount** options. After you choose **Yes** at their first prompt, they show this message: "SMB mounting is only supported on VPS, Barebones, or Virtual Machine systems. If you are using a Proxmox LXC, then use Bind Mounts or Rclone." If Docker itself fails in your LXC, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
+Deployrr does not block the **Rclone** menu in an LXC. It does block the separate **SMB Mount** and **NFS Mount** options. After you choose **Yes** at their first prompt, they show this message: "SMB mounting is only supported on VPS, Barebones, or Virtual Machine systems. If you are using a Proxmox LXC, then use Bind Mounts or Rclone." To choose between Rclone and a bind mount, see [Add NAS storage](/host/proxmox-lxc/#add-nas-storage), or read [UDMS part 09: Your options for remote storage in an unprivileged LXC](https://www.simplehomelab.com/udms-part-9-bind-mount-remote-storage-in-proxmox-lxc-containers/#Your_Options_for_Remote_Storage_in_Unprivileged_LXC) (manual setup, background only). If Docker itself fails in your LXC, see [Docker fails with "failed to create shim task"](/host/shim-task-debian/).
 
 ## Steps
 
