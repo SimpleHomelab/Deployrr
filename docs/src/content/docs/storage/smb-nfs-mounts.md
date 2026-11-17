@@ -16,11 +16,11 @@ related:
   - using-deployrr/move-to-new-server
   - using-deployrr/bash-aliases
 further_reading:
-  - title: "UDMS part 08: Permission denied errors on NFS mounts"
+  - title: "UDMS part 08: Permission denied errors on NFS mounts (manual setup)"
     url: "https://www.simplehomelab.com/udms-08-mount-remote-folders-using-nfs/#Permission_Denied_Errors"
-  - title: "UDMS part 09: Why an unprivileged LXC cannot mount SMB or NFS directly"
+  - title: "UDMS part 09: Why an unprivileged LXC cannot mount SMB or NFS directly (manual setup)"
     url: "https://www.simplehomelab.com/udms-part-9-bind-mount-remote-storage-in-proxmox-lxc-containers/#Why_Unprivileged_LXC_Cannot_Mount_SMBNFS_Directly"
-  - title: "UDMS part 07: Test the fstab entry for an SMB mount"
+  - title: "UDMS part 07: Test the fstab entry for an SMB mount (manual setup)"
     url: "https://www.simplehomelab.com/udms-07-mount-remote-shares-smb/#Test_fstab_Configuration"
 last_reviewed: 2026-11-13
 status: current

@@ -16,7 +16,7 @@ related:
   - docker/waiting-for-container
   - using-deployrr/bash-aliases
 further_reading:
-  - title: "UDMS part 09: Your options for remote storage in an unprivileged LXC"
+  - title: "UDMS part 09: Your options for remote storage in an unprivileged LXC (manual setup)"
     url: "https://www.simplehomelab.com/udms-part-9-bind-mount-remote-storage-in-proxmox-lxc-containers/#Your_Options_for_Remote_Storage_in_Unprivileged_LXC"
 videos:
   - id: rdqbAr0TFnQ
