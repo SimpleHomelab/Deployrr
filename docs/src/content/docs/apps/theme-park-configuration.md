@@ -54,7 +54,7 @@ Do this part if you want to run your own Theme Park server.
 
 ### Part 2: Theme an app through Traefik
 
-Do this part if the app is behind Traefik and you want the theme added by Traefik. This method needs no Theme Park container. Replace `HOSTNAME` with your server's hostname everywhere below. To see the themes you can pick and how the plugin works, read [UDMS part 25: Available themes](https://www.simplehomelab.com/udms-25-traefik-plugins/#Available_Themes) (manual setup, background only, so file paths and settings differ from Deployrr).
+Do this part if the app is behind Traefik and you want the theme added by Traefik. This method needs no Theme Park container. Replace `HOSTNAME` with your server's hostname everywhere below. To see the themes you can pick, read [UDMS part 25: Available themes](https://www.simplehomelab.com/udms-25-traefik-plugins/#Available_Themes) (manual setup, background only, so file paths and settings differ from Deployrr).
 
 1. Go to the Traefik rules folder for your server. It is inside your Docker folder:
 
