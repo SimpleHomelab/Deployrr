@@ -34,7 +34,7 @@ videos:
     start: 2755
     title: "Traefik 3 guide: Traefik waits for the DNS records to propagate during staging"
     note: "Manual Docker Compose setup. Deployrr does these steps for you; use it to understand what happens."
-last_reviewed: 2026-11-09
+last_reviewed: 2026-11-20
 status: current
 old_paths: ["/networking/opnsense-conflict"]
 sources:
@@ -62,37 +62,60 @@ People on OPNsense have seen this even when all of these are true:
 
 ## Cause
 
-Traefik gets certificates from Let's Encrypt with a DNS challenge. It adds a temporary TXT record in Cloudflare, then asks public DNS servers to confirm they can see it. In the Traefik compose file (`compose/HOSTNAME/traefik.yml` in your Docker folder), those servers are set to `1.1.1.1:53` and `1.0.0.1:53`. Traefik asks them directly, whatever DNS server your network normally hands out.
+Traefik gets certificates from Let's Encrypt with a DNS challenge. It adds a temporary TXT record in Cloudflare, then checks that the record can be seen before it asks Let's Encrypt to validate it. For this check, Traefik sends DNS queries on port 53 straight to servers outside your network. First it asks `1.1.1.1:53` and `1.0.0.1:53`, which are set in the Traefik compose file (`compose/HOSTNAME/traefik.yml` in your Docker folder), for your domain's Cloudflare nameservers. Then it asks those nameservers directly for the TXT record. It does this whatever DNS server your network normally hands out.
 
 To see this check happen in the Traefik log, watch [Traefik 3 guide: waiting for the DNS records to propagate at 45:55](https://youtu.be/KMZIyoZ3jWM?t=2755) (manual Docker Compose setup, Deployrr does these steps for you).
 
-On OPNsense, the cause is a DNS redirect rule. Many people set OPNsense to redirect (hijack) every DNS request on the LAN to its own resolver. Then Traefik's questions to `1.1.1.1` and `1.0.0.1` never leave your network. Your local resolver answers instead, and the check fails.
+On OPNsense, the cause is a DNS redirect rule. Many people set OPNsense to redirect (hijack) every DNS request on the LAN to its own resolver. Then Traefik's queries never leave your network. The rule rewrites them to your local resolver, for example Unbound. Your local resolver is not Cloudflare's nameserver. It usually refuses Traefik's direct question to the nameserver, or answers from its cache. Either way, Traefik never sees the new record, and the check times out.
+
+This is also why the `1.1.1.1` setting in Traefik does not help on its own. Those queries go to port 53 too, so the redirect catches them as well. The Docker host has to be left out of the redirect.
 
 On other advanced firewalls, ad blocking and "suspicious activity" blocking can do the same, as Deployrr's hint says.
 
 ## Fix on OPNsense: exempt the Docker host from the DNS redirect
 
-Keep the redirect for the rest of your network. Only the server that runs Traefik skips it.
+Keep the redirect for the rest of your network. Only the server that runs Traefik skips it. The screenshots below are from OPNsense 26.x.
 
 1. In OPNsense, go to **Firewall** > **Aliases** and add an alias:
    - **Type**: Host(s).
    - **Name**: any name you like, for example `dns_bypass_hosts`.
-   - **Content**: the IP address of your Docker host, the server that runs Deployrr and Traefik.
+   - **Content**: the IP address of your Docker host, the server that runs Deployrr and Traefik. Containers on normal Docker networks use the host's IP address, so this covers Traefik. If a container has its own IP address on your LAN (a macvlan or ipvlan network) and needs real outside DNS, add that IP too.
 
-   Save, then select **Apply**.
+   Give every IP in the alias a static address or a DHCP reservation, so the exemption does not move to another device. Save, then select **Apply**.
+
+   ![OPNsense Edit Alias dialog with Name dns_bypass_hosts, Type Host(s), two LAN IP addresses in Content and the description Traefik hosts](../../../assets/networking/opnsense-dns-bypass-alias.png)
+
+   This example alias holds two hosts. Yours may have only one.
 
 2. Go to **Firewall** > **NAT** > **Destination NAT** (on some versions **Port Forward**). Find the rule that redirects DNS requests (port 53) to your local resolver. It often has a description like "Redirect DNS requests to internal DNS resolver". It catches port 53 traffic on one of your LAN or VLAN interfaces and sends it to `127.0.0.1`, on the port your local resolver listens on.
 
    For example, on an interface named `CommonDNS`, the destination reads `! CommonDNS network` with port 53. That means "DNS going anywhere outside this network". `CommonDNS` is only an example name. Your rule's description, interface and redirect port depend on how you set it up.
 
-3. Open that rule. Set **Source** to the alias from step 1 and tick **Invert** for the source. The source then shows as `! dns_bypass_hosts` (with your alias name). This means "every device except the Docker host".
+   ![OPNsense Edit Rule dialog for a Destination NAT rule on the CommonDNS interface: TCP/UDP over IPv4, inverted destination CommonDNS network on port 53, redirected to 127.0.0.1 port 5353](../../../assets/networking/opnsense-dns-redirect-rule.png)
 
-   <!-- TODO: screenshot of the OPNsense DNS redirect rule with the inverted source alias (Anand to add). -->
+   In this example, the redirect target is Unbound on `127.0.0.1` port `5353`.
+
+3. Open that rule. The source settings are under **Source (advanced)**, which is closed by default (as in the screenshot). Open it, set **Source** to the alias from step 1 and tick **Invert** for the source. The source then shows as `! dns_bypass_hosts` (with your alias name). This means "every device except the Docker host". Leave the inverted destination as it is.
 
 4. Save the rule, then select **Apply**.
 5. Run the staging step again (see [Try staging again](#try-staging-again)).
 
 Menu names can differ a little between OPNsense versions.
+
+The redirect only catches IPv4 DNS. If your network also uses IPv6 and you have a matching IPv6 redirect rule, exempt the Docker host in that rule too.
+
+### Do you need a firewall rule for the redirect?
+
+Some guides add a firewall pass rule next to the NAT rule, for example one that allows `! dns_bypass_hosts` to `127.0.0.1` port `5353`. That rule is not part of this fix. The exemption that helps Traefik is the one in the NAT rule.
+
+OPNsense rewrites the address before its firewall rules check the traffic, so the rules see a query to `127.0.0.1`. The default "Default allow LAN to any" rule already allows that from your LAN. If your redirect only covers your LAN and that default rule is still there, the extra pass rule changes nothing. You can disable it instead of deleting it, in case you tighten your LAN rules later.
+
+Keep a pass rule if:
+
+- You removed or narrowed the default LAN allow rule.
+- The redirect also runs on a VLAN with no allow-all rule, such as an IoT or guest network.
+
+In those cases, you can also set **Firewall rule** to **Pass** in the NAT rule (on older versions, **Filter rule association**). Redirected traffic then skips the firewall rules, so you need no separate rule.
 
 :::caution
 Changing firewall and DNS rules can cut off DNS for other devices on your network. Write down the old setting first, change one rule at a time and test after each change.
@@ -116,23 +139,25 @@ If staging still fails, these checks show what is going on.
 
    Bash fills in `$HOSTNAME` for you. Staging clears this log each time it starts, so check it right after a failed attempt. Look for words such as `propagation`, `timeout`, `NXDOMAIN` or `authorization`. See [Read the Traefik logs](/reverse-proxy/check-traefik-logs/) if you need help finding the file.
 
-2. Check that your server can ask `1.1.1.1` directly. Replace `YOUR_DOMAIN` with your own domain:
+2. Check that your server can reach your domain's Cloudflare nameservers directly, the same way Traefik does. Replace `YOUR_DOMAIN` with your own domain. First, find the nameservers:
 
    ```bash
-   dig TXT _acme-challenge.YOUR_DOMAIN @1.1.1.1
+   dig +short NS YOUR_DOMAIN
    ```
 
-   If `dig` is not installed, install it with `sudo apt install dnsutils`. You should get a reply with a status such as `NOERROR` or `NXDOMAIN`, and the `SERVER:` line should show `1.1.1.1`. If it times out, the DNS traffic is being blocked. Run the same test with `@1.0.0.1`, the second server Traefik uses.
-
-3. Compare with a query to your normal DNS server:
+   If `dig` is not installed, install it with `sudo apt install dnsutils`. You get two names that end in `ns.cloudflare.com`. Ask one of them directly, with your own nameserver name in place of `NAME`:
 
    ```bash
-   dig TXT _acme-challenge.YOUR_DOMAIN
+   dig +norecurse TXT _acme-challenge.YOUR_DOMAIN @NAME.ns.cloudflare.com
    ```
 
-   If this works and the `@1.1.1.1` query fails, your router treats outbound DNS differently from normal lookups.
+   Look at the `flags:` line in the output. If it includes `aa` (authoritative answer), the query reached Cloudflare. If the status is `REFUSED`, or `aa` is missing, something on your network redirected the query. If it times out, the query is being blocked.
 
-4. In OPNsense, also check **Services** > **Unbound DNS** for blocklist settings, and your firewall rules for anything that blocks outbound port 53 for your server.
+   :::note
+   A plain `dig TXT _acme-challenge.YOUR_DOMAIN @1.1.1.1` is not a good test here. It still works while a DNS redirect is active, because your local resolver answers and `dig` still shows `1.1.1.1` as the server.
+   :::
+
+3. In OPNsense, also check **Services** > **Unbound DNS** for blocklist settings, and your firewall rules for anything that blocks outbound port 53 for your server.
 
 ### Try staging again
 
@@ -157,7 +182,7 @@ This avoids the problem. It does not fix it. You still do not get HTTPS addresse
 
 ## Check it worked
 
-1. `dig TXT _acme-challenge.YOUR_DOMAIN @1.1.1.1` gets a reply from `1.1.1.1` and does not time out.
+1. `dig +norecurse TXT _acme-challenge.YOUR_DOMAIN @NAME.ns.cloudflare.com` shows the `aa` flag and no `REFUSED` status.
 2. **Proxy** > **Traefik** > **Staging** finishes without the error.
 3. The Traefik log has no new `unable to obtain ACME certificate` lines.
 
