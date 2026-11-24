@@ -89,13 +89,17 @@ Keep the redirect for the rest of your network. Only the server that runs Traefi
 
 2. Go to **Firewall** > **NAT** > **Destination NAT** (on some versions **Port Forward**). Find the rule that redirects DNS requests (port 53) to your local resolver. It often has a description like "Redirect DNS requests to internal DNS resolver". It catches port 53 traffic on one of your LAN or VLAN interfaces and sends it to `127.0.0.1`, on the port your local resolver listens on.
 
-   For example, on an interface named `CommonDNS`, the destination reads `! CommonDNS network` with port 53. That means "DNS going anywhere outside this network". `CommonDNS` is only an example name. Your rule's description, interface and redirect port depend on how you set it up.
+   For example, on an interface named `CommonDNS` (here an interface group that holds the LAN interface), the destination reads `! CommonDNS network` with port 53. That means "DNS going anywhere outside this network". `CommonDNS` is only an example name. Your rule's description, interface and redirect port depend on how you set it up.
 
    ![OPNsense Edit Rule dialog for a Destination NAT rule on the CommonDNS interface: TCP/UDP over IPv4, inverted destination CommonDNS network on port 53, redirected to 127.0.0.1 port 5353](../../../assets/networking/opnsense-dns-redirect-rule.png)
 
    In this example, the redirect target is Unbound on `127.0.0.1` port `5353`.
 
-3. Open that rule. The source settings are under **Source (advanced)**, which is closed by default (as in the screenshot). Open it, set **Source** to the alias from step 1 and tick **Invert** for the source. The source then shows as `! dns_bypass_hosts` (with your alias name). This means "every device except the Docker host". Leave the inverted destination as it is.
+3. Open that rule. The source settings are under **Source (advanced)**, which is closed by default (as in the screenshot). Open it, tick **Invert Source** and set **Source Address** to the alias from step 1. Leave **Source Port** at `any`. The source then shows as `! dns_bypass_hosts` (with your alias name). This means "every device except the Docker host". Leave the inverted destination as it is.
+
+   ![OPNsense Edit Rule dialog for the same Destination NAT rule with Source (advanced) open: Invert Source ticked, Source Address dns_bypass_hosts, Source Port any, and the inverted CommonDNS network destination on port 53 unchanged](../../../assets/networking/opnsense-dns-redirect-rule-bypass.png)
+
+   This screenshot has **advanced mode** switched on, so it shows a few more fields (such as **Sequence** and **NAT Reflection**). You don't need to change them.
 
 4. Save the rule, then select **Apply**.
 5. Run the staging step again (see [Try staging again](#try-staging-again)).
